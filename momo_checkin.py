@@ -104,6 +104,11 @@ def run_daily_checkin(cookie: str, referral: str = "2b4b924f6cd7a33d8279a2b80172
     activity = get_user_activity(mission_id, cookie)
     if activity.get("message") == "Unauthorized":
         print("錯誤: 登入憑證無效或過期，請更新 Cookie。")
+        try:
+            from notifier import send_bark
+            send_bark("momo 天天簽到失敗", "⚠️ Cookie 登入憑證無效或過期，請重新登入更新。")
+        except Exception:
+            pass
         return False
 
     print(f"使用者狀態查詢成功: {activity.get('status', 'OK')}")
@@ -119,6 +124,11 @@ def run_daily_checkin(cookie: str, referral: str = "2b4b924f6cd7a33d8279a2b80172
             
     if not today_calendar:
         print(f"未在活動行事曆中找到今日 ({today_str}) 的簽到任務。")
+        try:
+            from notifier import send_bark
+            send_bark("momo 天天簽到提醒", f"未在活動行事曆中找到今日 ({today_str}) 的簽到任務。")
+        except Exception:
+            pass
         return False
 
     task_group_seq = today_calendar.get("task_calendar_seq")
@@ -126,7 +136,7 @@ def run_daily_checkin(cookie: str, referral: str = "2b4b924f6cd7a33d8279a2b80172
     print(f"今日任務組: task_calendar_seq={task_group_seq}，共 {len(tasks)} 個任務：")
 
     # 5. 執行各個任務
-    all_success = True
+    task_results = []
     for t in tasks:
         task_seq = t.get("task_seq")
         name = t.get("display_name", f"任務 {task_seq}")
@@ -138,9 +148,14 @@ def run_daily_checkin(cookie: str, referral: str = "2b4b924f6cd7a33d8279a2b80172
         res = play_task(mission_id, task_group_seq, task_seq, cookie)
         if res.get("success") or res.get("status") == "OK" or "data" in res:
             print(f"    ✅ 任務 [{task_seq}] 完成: {res}")
+            task_results.append(f"• {name}: 完成")
+        elif res.get("code") == "FULFILLED":
+            print(f"    ℹ️ 任務 [{task_seq}] 今日已完成")
+            task_results.append(f"• {name}: 今日已完成")
         else:
             msg = res.get("message", res)
             print(f"    ℹ️ 任務 [{task_seq}] 回應: {msg}")
+            task_results.append(f"• {name}: {msg}")
 
     # 6. 重新查詢最新進度
     time.sleep(1)
@@ -151,8 +166,19 @@ def run_daily_checkin(cookie: str, referral: str = "2b4b924f6cd7a33d8279a2b80172
     try:
         from notifier import send_bark
         claimed = final_act.get("reward_ledger", {}).get("claimed_amount", 0)
-        body = f"活動: {display_name}\n今日任務執行完畢\n目前已累計領取: {claimed} mo點"
-        send_bark("momo 天天簽到完成", body)
+        calendars = final_act.get("task_calendars", [])
+        done_days = sum(1 for c in calendars if c.get("status") == "COMPLETED")
+        total_days = len(calendars)
+        
+        body_lines = [
+            f"📅 活動: {display_name}",
+            f"🎯 今日簽到任務完成",
+            f"📈 檔期進度: 已簽到 {done_days}/{total_days} 天",
+            f"💰 累計領取: {claimed} mo點",
+            "\n【任務明細】",
+            *task_results
+        ]
+        send_bark("momo 天天簽到完成", "\n".join(body_lines))
     except Exception as e:
         print(f"發送推播通知異常: {e}")
 
