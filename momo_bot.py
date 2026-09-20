@@ -200,20 +200,54 @@ def send_request(action: str, cookie: str):
         return {"status": f"ERROR_{str(e)}"}
 
 
-def do_query(cookie: str):
+def get_collection_summary(cookie: str):
     res = send_request("qry", cookie)
-    status = res.get("status")
-    msg = RETURN_MESSAGES.get(status, status)
-    print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] 查詢結果: 狀態={status} ({msg})")
-    if status == "OK" and "data" in res:
-        data = res["data"]
-        insert_dates = data.get("insert_date", [])
-        gift_codes = data.get("gift_code", [])
-        print(f"中獎紀錄筆數: {len(insert_dates)}")
-        for date_str, code in zip(insert_dates, gift_codes):
-            name = GIFT_NAMES.get(code, code)
-            print(f"  - {date_str}: {name}")
-    return res
+    if res.get("status") != "OK" or "data" not in res:
+        return None
+    data = res["data"]
+    gift_codes = data.get("gift_code", [])
+    insert_dates = data.get("insert_date", [])
+
+    total_mo = 0
+    cards = {"peach": False, "gold": False, "day": False}
+    for code in gift_codes:
+        if code in cards:
+            cards[code] = True
+        elif code.startswith("mo_"):
+            try:
+                total_mo += int(code.split("_")[1])
+            except Exception:
+                pass
+
+    collected = [GIFT_NAMES[k] for k, v in cards.items() if v]
+    missing = [GIFT_NAMES[k] for k, v in cards.items() if not v]
+    return {
+        "total_draws": len(gift_codes),
+        "total_mo": total_mo,
+        "collected": collected,
+        "missing": missing,
+        "is_complete": len(missing) == 0,
+        "records": list(zip(insert_dates, gift_codes))
+    }
+
+
+def do_query(cookie: str):
+    summary = get_collection_summary(cookie)
+    now_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    if not summary:
+        print(f"[{now_str}] 查詢失敗或尚未有紀錄")
+        return None
+
+    collected_str = "".join(summary["collected"]) if summary["collected"] else "無"
+    missing_str = "".join(summary["missing"]) if summary["missing"] else "無"
+    print(f"[{now_str}] 檔期收集統計:")
+    print(f"  • 累計抽獎次數: {summary['total_draws']} 次")
+    print(f"  • 累計抽中 mo 點: {summary['total_mo']} 元")
+    print(f"  • 字卡進度: {len(summary['collected'])}/3 (已收集: {collected_str} | 缺: {missing_str})")
+    print("  • 詳細紀錄:")
+    for d, c in summary["records"]:
+        print(f"    - {d}: {GIFT_NAMES.get(c, c)}")
+    return summary
 
 
 def do_draw(cookie: str):
@@ -270,11 +304,26 @@ def run_session_draws(cookie: str, max_draws: int = 2):
         if i < max_draws - 1:
             time.sleep(3)
 
+    # 查詢檔期累積狀況
+    time.sleep(1)
+    summary = get_collection_summary(cookie)
+    summary_lines = []
+    if summary:
+        col_str = "".join(summary["collected"]) if summary["collected"] else "無"
+        mis_str = "".join(summary["missing"]) if summary["missing"] else "無"
+        summary_lines.append("\n【檔期累積進度】")
+        summary_lines.append(f"💰 累積 mo 點: {summary['total_mo']} 元")
+        summary_lines.append(f"🃏 字卡進度: {len(summary['collected'])}/3 ({col_str})")
+        if summary['is_complete']:
+            summary_lines.append("🎉 桃金日三字已集滿！")
+        else:
+            summary_lines.append(f"🔍 尚缺字卡: {mis_str}")
+
     # 發送 Bark 通知
     try:
         from notifier import send_bark
-        body_text = f"時段: {time_slot}\n" + "\n".join(draw_records)
-        send_bark(f"momo 抽抽樂結果 ({time_slot})", body_text)
+        body_text = f"【本時段 {time_slot}】\n" + "\n".join(draw_records) + ("\n" + "\n".join(summary_lines) if summary_lines else "")
+        send_bark(f"momo 抽抽樂結果 ({time_slot})", body_text.strip())
     except Exception as e:
         print(f"發送推播通知異常: {e}")
 
