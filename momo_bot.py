@@ -371,6 +371,11 @@ def run_scheduler(cookie: str, event_url: str):
             last_triggered_date_hour = current_dh
             sync_active_config(event_url)
             run_session_draws(cookie, max_draws=2)
+            try:
+                from momo_checkin import run_daily_checkin
+                run_daily_checkin(cookie)
+            except Exception as e:
+                print(f"執行天天簽到異常: {e}")
 
         time.sleep(20)
 
