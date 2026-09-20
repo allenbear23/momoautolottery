@@ -23,6 +23,7 @@ jobs:
         env:
           MOMO_COOKIE: ${{ secrets.MOMO_COOKIE }}
           MOMO_EVENT_URL: ${{ vars.MOMO_EVENT_URL }}
+          BARK_KEY: ${{ secrets.BARK_KEY }}
         run: |
           python3 momo_bot.py --now
           python3 momo_checkin.py

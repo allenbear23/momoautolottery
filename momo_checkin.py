@@ -146,6 +146,16 @@ def run_daily_checkin(cookie: str, referral: str = "2b4b924f6cd7a33d8279a2b80172
     time.sleep(1)
     final_act = get_user_activity(mission_id, cookie)
     print(f"[{datetime.now().strftime('%H:%M:%S')}] 簽到流程完成！最新狀態: {final_act}")
+
+    # 發送 Bark 通知
+    try:
+        from notifier import send_bark
+        claimed = final_act.get("reward_ledger", {}).get("claimed_amount", 0)
+        body = f"活動: {display_name}\n今日任務執行完畢\n目前已累計領取: {claimed} mo點"
+        send_bark("momo 天天簽到完成", body)
+    except Exception as e:
+        print(f"發送推播通知異常: {e}")
+
     return True
 
 
@@ -171,7 +181,11 @@ def main():
     parser = argparse.ArgumentParser(description="Momo 天天簽到自動化工具")
     parser.add_argument("--cookie", help="Momo 網站 Cookie 字串")
     parser.add_argument("--referral", default="2b4b924f6cd7a33d8279a2b80172d730", help="推薦/互助碼")
+    parser.add_argument("--bark", help="Bark 推播 Key 或 URL")
     args = parser.parse_args()
+
+    if args.bark:
+        os.environ["BARK_KEY"] = args.bark
 
     cookie = load_cookie(args.cookie)
     if not cookie:

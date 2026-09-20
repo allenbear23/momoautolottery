@@ -64,9 +64,9 @@
 
 1. **設定 Secret**：
    - 前往 GitHub 儲存庫的 **Settings** -> **Secrets and variables** -> **Actions**。
-   - 點擊 **New repository secret**。
-   - **Name**: `MOMO_COOKIE`
-   - **Value**: 貼上瀏覽器登入 momo 後的完整 Cookie 字串。
+   - 點擊 **New repository secret** 分別設定：
+     - `MOMO_COOKIE`: 貼上瀏覽器登入 momo 後的完整 Cookie 字串。
+     - `BARK_KEY`: (可選) 貼上 iOS Bark App 的 Device Key 或完整 URL，抽獎與簽到完成後將自動推播通知。
 2. **排程時段**：
    - 工作流程檔案位於 `.github/workflows/momo_lottery.yml`。
    - 設定為 Cron `0 1,5,8,11,13 * * *`（對應台灣時間 UTC+8 之 `09:00`, `13:00`, `16:00`, `19:00`, `21:00`）。

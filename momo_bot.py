@@ -235,21 +235,48 @@ def do_draw(cookie: str):
 
 
 def run_session_draws(cookie: str, max_draws: int = 2):
-    print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] 開始執行本時段抽獎...")
+    now_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    time_slot = datetime.now().strftime('%H:%M')
+    print(f"[{now_str}] 開始執行本時段抽獎...")
+    draw_records = []
+
     for i in range(max_draws):
         res = do_draw(cookie)
         status = res.get("status")
-        if status in ("A", "A_EX", "EA"):
+        if status == "OK":
+            prize = res.get("result", {}).get("prize", {})
+            gift_name = GIFT_NAMES.get(prize.get("giftCode"), prize.get("giftCode"))
+            draw_records.append(f"第 {i+1} 次：{gift_name}")
+            if res.get("prizeStatus") == "PRIZE":
+                total = res.get("total", "")
+                draw_records.append(f"🎉 集滿桃金日！獲得 {total} mo點")
+        elif status in ("A", "A_EX", "EA"):
             print("已達本時段上限，停止抽獎。")
+            if not draw_records:
+                draw_records.append("本時段次數已達上限")
             break
-        if status == "L":
+        elif status == "L":
             print("登入憑證失效，請更新 Cookie。")
+            draw_records.append("⚠️ Cookie 已失效，請重新登入更新")
             break
-        if status in ("D", "NOT_USED"):
+        elif status in ("D", "NOT_USED"):
             print("活動未開放或已結束。")
+            draw_records.append("活動未開放或已結束")
+            break
+        else:
+            msg = RETURN_MESSAGES.get(status, status)
+            draw_records.append(f"回應: {msg}")
             break
         if i < max_draws - 1:
             time.sleep(3)
+
+    # 發送 Bark 通知
+    try:
+        from notifier import send_bark
+        body_text = f"時段: {time_slot}\n" + "\n".join(draw_records)
+        send_bark(f"momo 抽抽樂結果 ({time_slot})", body_text)
+    except Exception as e:
+        print(f"發送推播通知異常: {e}")
 
 
 def sync_active_config(event_url: str = None, force_scan: bool = False):
@@ -325,7 +352,11 @@ def main():
     parser.add_argument("--now", action="store_true", help="立即執行一次抽獎流程 (最多抽 2 次)")
     parser.add_argument("--query", action="store_true", help="查詢當前抽獎與點數紀錄")
     parser.add_argument("--schedule", action="store_true", help="啟動定時輪詢 (09:00, 13:00, 16:00, 19:00, 21:00)")
+    parser.add_argument("--bark", help="Bark 推播 Key 或 URL")
     args = parser.parse_args()
+
+    if args.bark:
+        os.environ["BARK_KEY"] = args.bark
 
     cookie = load_cookie(args.cookie)
     if not cookie:
