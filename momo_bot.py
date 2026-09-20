@@ -268,7 +268,7 @@ def do_draw(cookie: str):
     return res
 
 
-def run_session_draws(cookie: str, max_draws: int = 2):
+def run_session_draws(cookie: str, max_draws: int = 2, silent_if_limit: bool = False):
     now_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     time_slot = datetime.now().strftime('%H:%M')
     print(f"[{now_str}] 開始執行本時段抽獎...")
@@ -303,6 +303,10 @@ def run_session_draws(cookie: str, max_draws: int = 2):
             break
         if i < max_draws - 1:
             time.sleep(3)
+
+    if silent_if_limit and draw_records == ["本時段次數已達上限"]:
+        print("本時段已於先前抽獎完畢，備援排程略過推播。")
+        return
 
     # 查詢檔期累積狀況
     time.sleep(1)
@@ -406,6 +410,7 @@ def main():
     parser.add_argument("--now", action="store_true", help="立即執行一次抽獎流程 (最多抽 2 次)")
     parser.add_argument("--query", action="store_true", help="查詢當前抽獎與點數紀錄")
     parser.add_argument("--schedule", action="store_true", help="啟動定時輪詢 (09:00, 13:00, 16:00, 19:00, 21:00)")
+    parser.add_argument("--silent-if-limit", action="store_true", help="若本時段已無抽獎額度則略過推播")
     parser.add_argument("--bark", help="Bark 推播 Key 或 URL")
     args = parser.parse_args()
 
@@ -422,7 +427,7 @@ def main():
     if args.query:
         do_query(cookie)
     elif args.now:
-        run_session_draws(cookie, max_draws=2)
+        run_session_draws(cookie, max_draws=2, silent_if_limit=args.silent_if_limit)
     else:
         run_scheduler(cookie, args.url)
 
