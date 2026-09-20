@@ -22,5 +22,6 @@ jobs:
       - name: Run Momo Draw
         env:
           MOMO_COOKIE: ${{ secrets.MOMO_COOKIE }}
+          MOMO_EVENT_URL: ${{ vars.MOMO_EVENT_URL }}
         run: |
           python3 momo_bot.py --now
