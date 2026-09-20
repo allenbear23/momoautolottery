@@ -268,7 +268,26 @@ def do_draw(cookie: str):
     return res
 
 
-def run_session_draws(cookie: str, max_draws: int = 2, silent_if_limit: bool = False):
+def wait_until_slot_start(max_wait_seconds: int = 150):
+    """
+    若目前時間接近目標時段整點（例如 58 或 59 分），自動倒數至整點 :00:01 再發送抽獎請求
+    """
+    now = datetime.now()
+    target_hours = [9, 13, 16, 19, 21]
+    for th in target_hours:
+        target_time = now.replace(hour=th, minute=0, second=1, microsecond=0)
+        diff = (target_time - now).total_seconds()
+        if 0 < diff <= max_wait_seconds:
+            print(f"[{datetime.now().strftime('%H:%M:%S')}] 提早啟動，等待 {th:02d}:00:01 整點開放，倒數 {diff:.1f} 秒...")
+            time.sleep(diff)
+            print(f"[{datetime.now().strftime('%H:%M:%S')}] 整點已到，立即開始抽獎！")
+            return
+
+
+def run_session_draws(cookie: str, max_draws: int = 2, silent_if_limit: bool = False, wait_slot: bool = True):
+    if wait_slot:
+        wait_until_slot_start()
+
     now_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     time_slot = datetime.now().strftime('%H:%M')
     print(f"[{now_str}] 開始執行本時段抽獎...")
