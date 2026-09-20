@@ -1,6 +1,17 @@
-# Momo 桃金日好運抽抽樂 自動定時抽獎
+# Momo 桃金日好運抽抽樂 & 天天簽到 自動化工具
 
-針對 momo 購物網「桃金日-好運抽抽樂」活動設計的自動抽獎工具，支援 **GitHub Actions 雲端定時執行**、**本地 Python 腳本** 與 **瀏覽器 Tampermonkey 腳本**。
+針對 momo 購物網「好運抽抽樂」與「天天簽到（dailycheckin）」設計之自動化工具，支援 **GitHub Actions 雲端定時執行**、**本地 Python 腳本** 與 **瀏覽器 Tampermonkey 腳本**。
+
+---
+
+## 簽到活動原理 (天天簽到)
+- 活動短網址：`https://momo.dm/UQUNaQ` (跳轉至 `https://ma.momoshop.com.tw/edm/dailycheckin?referral=2b4b924f6cd7a33d8279a2b80172d730`)
+- **API 端點**：
+  - 查詢當期簽到：`GET https://ma.momoshop.com.tw/api/campaign/game/latest`
+  - 查詢個人進度：`GET https://ma.momoshop.com.tw/api/campaign/game/{missionId}/activity`
+  - 執行簽到任務：`POST https://ma.momoshop.com.tw/api/campaign/game/{missionId}/play`
+    - Payload: `{"task_group_seq": <日序號>, "task_seq": <任務序號>}`
+- 腳本：[momo_checkin.py](file:///Users/allen/.gemini/antigravity-ide/scratch/momo_lottery/momo_checkin.py) 自動抓取當日任務清單並逐一模擬完成。
 
 ---
 

@@ -19,9 +19,10 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Run Momo Draw
+      - name: Run Momo Draw & Daily Check-in
         env:
           MOMO_COOKIE: ${{ secrets.MOMO_COOKIE }}
           MOMO_EVENT_URL: ${{ vars.MOMO_EVENT_URL }}
         run: |
           python3 momo_bot.py --now
+          python3 momo_checkin.py
