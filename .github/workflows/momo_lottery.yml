@@ -1,0 +1,26 @@
+name: Momo Lottery Auto Draw
+
+on:
+  schedule:
+    # 台灣時間 (UTC+8): 09:00, 13:00, 16:00, 19:00, 21:00
+    # 對應 UTC 時間: 01:00, 05:00, 08:00, 11:00, 13:00
+    - cron: '0 1,5,8,11,13 * * *'
+  workflow_dispatch:
+
+jobs:
+  draw:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Run Momo Draw
+        env:
+          MOMO_COOKIE: ${{ secrets.MOMO_COOKIE }}
+        run: |
+          python3 momo_bot.py --now
