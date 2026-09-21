@@ -35,6 +35,7 @@ jobs:
 
       - name: Run Momo Draw & Daily Check-in
         env:
+          TZ: 'Asia/Taipei'
           MOMO_COOKIE: ${{ secrets.MOMO_COOKIE }}
           MOMO_EVENT_URL: ${{ vars.MOMO_EVENT_URL }}
           BARK_KEY: ${{ secrets.BARK_KEY }}
