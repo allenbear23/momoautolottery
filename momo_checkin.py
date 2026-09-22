@@ -83,7 +83,7 @@ def process_referral(referral_code: str, cookie: str):
         print(f"[{datetime.now().strftime('%H:%M:%S')}] 處理推薦連結異常: {e}")
 
 
-def run_daily_checkin(cookie: str, referral: str = "2b4b924f6cd7a33d8279a2b80172d730"):
+def run_daily_checkin(cookie: str, referral: str = "2b4b924f6cd7a33d8279a2b80172d730", force: bool = False):
     print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] 開始執行 momo 天天簽到流程...")
     
     # 1. 取得最新簽到活動
@@ -133,6 +133,15 @@ def run_daily_checkin(cookie: str, referral: str = "2b4b924f6cd7a33d8279a2b80172
 
     task_group_seq = today_calendar.get("task_calendar_seq")
     tasks = today_calendar.get("tasks", [])
+
+    # 檢查今日是否已完成簽到任務，若已簽過則直接略過不重複執行
+    if not force:
+        user_calendars = activity.get("task_calendars", [])
+        today_user_cal = next((c for c in user_calendars if c.get("task_calendar_seq") == task_group_seq), None)
+        if today_user_cal and today_user_cal.get("status") == "COMPLETED":
+            print(f"[{datetime.now().strftime('%H:%M:%S')}] 今日 ({today_str}) 簽到任務已於稍早完成，無需重複簽到。")
+            return True
+
     print(f"今日任務組: task_calendar_seq={task_group_seq}，共 {len(tasks)} 個任務：")
 
     # 5. 執行各個任務
@@ -208,6 +217,7 @@ def main():
     parser.add_argument("--cookie", help="Momo 網站 Cookie 字串")
     parser.add_argument("--referral", default="2b4b924f6cd7a33d8279a2b80172d730", help="推薦/互助碼")
     parser.add_argument("--bark", help="Bark 推播 Key 或 URL")
+    parser.add_argument("--force", action="store_true", help="強制重新簽到即使今日已完成")
     args = parser.parse_args()
 
     if args.bark:
@@ -218,7 +228,7 @@ def main():
         print("錯誤: 未找到 Cookie。請透過 --cookie 指定，或將 Cookie 寫入 cookie.txt。")
         sys.exit(1)
 
-    run_daily_checkin(cookie, referral=args.referral)
+    run_daily_checkin(cookie, referral=args.referral, force=args.force)
 
 
 if __name__ == "__main__":

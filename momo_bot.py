@@ -208,26 +208,42 @@ def get_collection_summary(cookie: str):
     gift_codes = data.get("gift_code", [])
     insert_dates = data.get("insert_date", [])
 
-    total_mo = 0
-    cards = {"peach": False, "gold": False, "day": False}
-    for code in gift_codes:
-        if code in cards:
-            cards[code] = True
+    # 依時間由舊到新排序紀錄以計算輪次
+    records = list(zip(insert_dates, gift_codes))
+    records.sort(key=lambda x: x[0])
+
+    completed_rounds = 0
+    total_claimed_mo = 0
+    current_round_mo = 0
+    current_cards = {"peach": False, "gold": False, "day": False}
+
+    for d, code in records:
+        if code in current_cards:
+            current_cards[code] = True
+            # 當收集滿三個字（桃、金、日）時，該輪達成兌獎，金額與字卡歸零重新計算下一輪
+            if all(current_cards.values()):
+                completed_rounds += 1
+                total_claimed_mo += current_round_mo
+                current_round_mo = 0
+                current_cards = {"peach": False, "gold": False, "day": False}
         elif code.startswith("mo_"):
             try:
-                total_mo += int(code.split("_")[1])
+                current_round_mo += int(code.split("_")[1])
             except Exception:
                 pass
 
-    collected = [GIFT_NAMES[k] for k, v in cards.items() if v]
-    missing = [GIFT_NAMES[k] for k, v in cards.items() if not v]
+    collected = [GIFT_NAMES[k] for k, v in current_cards.items() if v]
+    missing = [GIFT_NAMES[k] for k, v in current_cards.items() if not v]
     return {
-        "total_draws": len(gift_codes),
-        "total_mo": total_mo,
+        "total_draws": len(records),
+        "total_mo": current_round_mo,
+        "current_round_mo": current_round_mo,
+        "completed_rounds": completed_rounds,
+        "total_claimed_mo": total_claimed_mo,
         "collected": collected,
         "missing": missing,
         "is_complete": len(missing) == 0,
-        "records": list(zip(insert_dates, gift_codes))
+        "records": records
     }
 
 
@@ -242,8 +258,10 @@ def do_query(cookie: str):
     missing_str = "".join(summary["missing"]) if summary["missing"] else "無"
     print(f"[{now_str}] 檔期收集統計:")
     print(f"  • 累計抽獎次數: {summary['total_draws']} 次")
-    print(f"  • 累計抽中 mo 點: {summary['total_mo']} 元")
-    print(f"  • 字卡進度: {len(summary['collected'])}/3 (已收集: {collected_str} | 缺: {missing_str})")
+    if summary["completed_rounds"] > 0:
+        print(f"  • 已集滿兌獎: {summary['completed_rounds']} 次 (累計已獲 {summary['total_claimed_mo']} 元)")
+    print(f"  • 本輪累積 mo 點: {summary['current_round_mo']} 元")
+    print(f"  • 本輪字卡進度: {len(summary['collected'])}/3 (已收集: {collected_str} | 缺: {missing_str})")
     print("  • 詳細紀錄:")
     for d, c in summary["records"]:
         print(f"    - {d}: {GIFT_NAMES.get(c, c)}")
@@ -334,9 +352,11 @@ def run_session_draws(cookie: str, max_draws: int = 2, silent_if_limit: bool = F
     if summary:
         col_str = "".join(summary["collected"]) if summary["collected"] else "無"
         mis_str = "".join(summary["missing"]) if summary["missing"] else "無"
-        summary_lines.append("\n【檔期累積進度】")
-        summary_lines.append(f"💰 累積 mo 點: {summary['total_mo']} 元")
-        summary_lines.append(f"🃏 字卡進度: {len(summary['collected'])}/3 ({col_str})")
+        summary_lines.append("\n【本輪累積進度】")
+        if summary.get("completed_rounds", 0) > 0:
+            summary_lines.append(f"🏆 已集滿兌獎: {summary['completed_rounds']} 次 (累計已獲 {summary['total_claimed_mo']} 元)")
+        summary_lines.append(f"💰 本輪累積 mo 點: {summary['current_round_mo']} 元")
+        summary_lines.append(f"🃏 本輪字卡進度: {len(summary['collected'])}/3 ({col_str})")
         if summary['is_complete']:
             summary_lines.append("🎉 桃金日三字已集滿！")
         else:

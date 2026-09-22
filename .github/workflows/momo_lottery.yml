@@ -42,3 +42,4 @@ jobs:
         run: |
           python3 momo_bot.py --now --silent-if-limit
           python3 momo_checkin.py
+          python3 momo_coin.py
