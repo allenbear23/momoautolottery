@@ -342,8 +342,8 @@ def run_session_draws(cookie: str, max_draws: int = 2, silent_if_limit: bool = F
         if i < max_draws - 1:
             time.sleep(3)
 
-    if silent_if_limit and draw_records == ["本時段次數已達上限"]:
-        print("本時段已於先前抽獎完畢，備援排程略過推播。")
+    if silent_if_limit and (draw_records == ["本時段次數已達上限"] or draw_records == ["活動未開放或已結束"]):
+        print(f"非活動時段或已抽過 ({draw_records[0]})，略過推播。")
         return
 
     # 查詢檔期累積狀況
