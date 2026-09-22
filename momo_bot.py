@@ -22,6 +22,7 @@ DEFAULT_M_PROMO_NO = "U96091900001"
 DEFAULT_DT_PROMO_NO = "D96091900001"
 
 PORTAL_URLS = [
+    "https://www.momoshop.com.tw/main/Main.jsp",
     "https://www.momoshop.com.tw/category/LgrpCategory.jsp?l_code=2000000000",
     "https://www.momoshop.com.tw/category/LgrpCategory.jsp?l_code=1000000000"
 ]
