@@ -237,19 +237,16 @@ def do_query(cookie: str):
     }
 
 
-def wait_until_slot_start(max_wait_seconds: int = 150):
-    """
-    若目前時間接近目標時段整點（例如 58 或 59 分），自動倒數至整點 :00:01 再發送抽獎請求
-    """
-    now = datetime.now()
-    for th in SLOT_HOURS:
-        target_time = now.replace(hour=th, minute=0, second=1, microsecond=0)
-        diff = (target_time - now).total_seconds()
-        if 0 < diff <= max_wait_seconds:
-            print(f"[{datetime.now().strftime('%H:%M:%S')}] 提早啟動，等待 {th:02d}:00:01 開放，倒數 {diff:.1f} 秒...")
-            time.sleep(diff)
-            print(f"[{datetime.now().strftime('%H:%M:%S')}] 整點已到，立即開始轉輪盤！")
-            return
+def prewarm_connection():
+    """在整點前 3 秒預先建立 TLS/SSL 連線與 DNS 快取，消除首發握手延遲"""
+    try:
+        req = urllib.request.Request(
+            f"{ACTIVE_CONFIG['domain']}/promoMechCnt.PROMO",
+            headers={"User-Agent": HEADERS["User-Agent"]}
+        )
+        urllib.request.urlopen(req, timeout=3)
+    except Exception:
+        pass
 
 
 def do_draw(cookie: str, dt_promo: str):
@@ -258,43 +255,94 @@ def do_draw(cookie: str, dt_promo: str):
         "dt_promo_no": dt_promo,
         "gift_code": ""
     }
-    res = send_api_request("promoMechReg.PROMO", payload, cookie)
-    return res
+    return send_api_request("promoMechReg.PROMO", payload, cookie)
 
 
-def run_session_draws(cookie: str, silent_if_limit: bool = False, wait_slot: bool = True):
-    if wait_slot:
-        wait_until_slot_start()
+def run_sniper_burst(cookie: str, dt_promo: str, max_burst: int = 8):
+    """
+    毫秒級極速連發搶抽：
+    - 發送間隔約 180~250ms
+    - 一旦回傳 INS (抽中)、A/A_EX (已參加過) 或 FULL (已額滿) 立即終止
+    """
+    last_res = {}
+    for shot in range(1, max_burst + 1):
+        shot_time = datetime.now().strftime('%H:%M:%S.%f')[:-3]
+        res = do_draw(cookie, dt_promo)
+        last_res = res
+        return_msg = res.get("returnMsg", "")
+        prize_code = res.get("prize", "")
+        msg_text = RETURN_MESSAGES.get(return_msg, return_msg)
+        print(f"[{shot_time}] 第 {shot} 發搶抽結果: {return_msg} ({msg_text})")
 
+        if return_msg == "INS":
+            gift_name = GIFT_NAMES.get(prize_code, prize_code)
+            print(f"🎉 搶抽成功！獲得: {gift_name}")
+            return res, f"🎉 抽中：{gift_name}"
+        elif return_msg in ("A", "A_EX"):
+            print("本時段已轉過輪盤。")
+            return res, "本時段已轉過輪盤"
+        elif return_msg == "FULL":
+            print("本時段名額已額滿 (5,000名)。")
+            return res, "本時段名額已額滿"
+        elif return_msg == "L":
+            print("⚠️ Cookie 已失效，請重新登入更新。")
+            return res, "⚠️ Cookie 已失效"
+        elif return_msg in ("D", "NOT_USED"):
+            # 伺服器尚未完全開放，稍候 0.15 秒重發
+            time.sleep(0.15)
+        else:
+            time.sleep(0.2)
+
+    return last_res, RETURN_MESSAGES.get(last_res.get("returnMsg", ""), last_res.get("returnMsg", ""))
+
+
+def wait_until_slot_snipe(slot_hour: int, max_wait_seconds: int = 3600):
+    """
+    精準倒數至指定時段整點前 0.2 秒 (59.800)，提前 3 秒連線預熱
+    """
+    now = datetime.now()
+    target_time = now.replace(hour=slot_hour, minute=0, second=0, microsecond=0)
+    diff = (target_time - now).total_seconds()
+
+    if diff <= 0:
+        return
+
+    if diff > max_wait_seconds:
+        return
+
+    print(f"[{datetime.now().strftime('%H:%M:%S')}] 鎖定時段 {slot_hour:02d}:00，距離整點剩 {diff:.1f} 秒，啟動狙擊倒數...")
+
+    # 等待至剩 3.5 秒時預熱 TLS
+    if diff > 3.5:
+        time.sleep(diff - 3.5)
+
+    print(f"[{datetime.now().strftime('%H:%M:%S.%f')[:-3]}] 剩餘 3 秒，預熱 TLS/SSL 連線...")
+    prewarm_connection()
+
+    # 倒數至整點前 0.2 秒 (59.800) 搶先扣扳機
+    target_snipe = target_time.timestamp() - 0.2
+    rem = target_snipe - time.time()
+    if rem > 0:
+        time.sleep(rem)
+
+    print(f"[{datetime.now().strftime('%H:%M:%S.%f')[:-3]}] 🚀 到達整點發射點 (T-0.2s)，啟動極速連發！")
+
+
+def run_session_draws(cookie: str, silent_if_limit: bool = False, wait_snipe: bool = True):
     slot_index, slot_time_str, dt_promo = get_current_slot_info()
+    target_hour = SLOT_HOURS[slot_index]
+
+    if wait_snipe:
+        wait_until_slot_snipe(target_hour)
+
     now_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    print(f"[{now_str}] 目標時段: {slot_time_str} (代碼: {dt_promo})，發送轉輪盤請求...")
+    print(f"[{now_str}] 目標時段: {slot_time_str} (代碼: {dt_promo})，發動搶抽...")
 
-    res = do_draw(cookie, dt_promo)
-    return_msg = res.get("returnMsg", "")
-    prize_code = res.get("prize", "")
-    msg_text = RETURN_MESSAGES.get(return_msg, return_msg)
+    res, result_desc = run_sniper_burst(cookie, dt_promo)
+    draw_records = [result_desc]
 
-    draw_records = []
-    print(f"[{now_str}] 回應狀態: {return_msg} ({msg_text})")
-
-    if return_msg == "INS":
-        gift_name = GIFT_NAMES.get(prize_code, prize_code)
-        draw_records.append(f"🎉 抽中：{gift_name}")
-        print(f"[{now_str}] 轉盤中獎: {gift_name}")
-    elif return_msg in ("A", "A_EX"):
-        draw_records.append("本時段已轉過輪盤")
-    elif return_msg == "FULL":
-        draw_records.append("本時段名額已額滿 (5,000名)")
-    elif return_msg == "L":
-        draw_records.append("⚠️ Cookie 已失效，請重新登入更新")
-    elif return_msg in ("D", "NOT_USED"):
-        draw_records.append("活動尚未開放或非開放時段")
-    else:
-        draw_records.append(f"回應: {msg_text}")
-
-    if silent_if_limit and (draw_records == ["本時段已轉過輪盤"] or draw_records == ["活動尚未開放或非開放時段"]):
-        print(f"非活動時段或已抽過 ({draw_records[0]})，略過推播。")
+    if silent_if_limit and (result_desc in ("本時段已轉過輪盤", "活動尚未開放或非開放時段")):
+        print(f"非活動時段或已抽過 ({result_desc})，略過推播。")
         return
 
     # 查詢今日統計
@@ -316,6 +364,36 @@ def run_session_draws(cookie: str, silent_if_limit: bool = False, wait_slot: boo
         print(f"發送推播通知異常: {e}")
 
 
+def run_sniper_mode(cookie: str):
+    """常駐狙擊模式：鎖定今日下一個即將到來的時段並精準搶抽"""
+    now = datetime.now()
+    next_hour = None
+    next_dt = None
+
+    for idx, h in enumerate(SLOT_HOURS):
+        target = now.replace(hour=h, minute=0, second=0, microsecond=0)
+        if (target - now).total_seconds() > 0:
+            next_hour = h
+            next_dt = ACTIVE_CONFIG["dt_promo_no_array"][idx]
+            break
+
+    if not next_hour:
+        print("今日所有時段已過，請於明日再啟動。")
+        return
+
+    diff_sec = (now.replace(hour=next_hour, minute=0, second=0, microsecond=0) - now).total_seconds()
+    mins = int(diff_sec // 60)
+    secs = int(diff_sec % 60)
+    print(f"==================================================")
+    print(f"🎯 啟動極速狙擊模式！")
+    print(f"目標時段: {next_hour:02d}:00 (代碼: {next_dt})")
+    print(f"倒數時間: 約 {mins} 分 {secs} 秒")
+    print(f"策略: 整點前 3 秒預熱連線 ➔ T-0.2 秒提前搶發 ➔ 200ms 高頻並行連發")
+    print(f"==================================================")
+
+    run_session_draws(cookie, wait_snipe=True)
+
+
 def run_scheduler(cookie: str, event_url: str):
     print(f"定時抽獎服務已啟動。每日開放時段: {', '.join(SCHEDULE_TIMES)}")
     last_triggered_date_hour = ""
@@ -327,7 +405,7 @@ def run_scheduler(cookie: str, event_url: str):
 
         if current_hm in SCHEDULE_TIMES and current_dh != last_triggered_date_hour:
             last_triggered_date_hour = current_dh
-            run_session_draws(cookie)
+            run_session_draws(cookie, wait_snipe=False)
             try:
                 from momo_checkin import run_daily_checkin
                 run_daily_checkin(cookie)
@@ -356,10 +434,11 @@ def load_cookie(cookie_arg: str = None) -> str:
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Momo 好運轉轉樂自動抽獎腳本")
+    parser = argparse.ArgumentParser(description="Momo 好運轉轉樂極速搶抽腳本")
     parser.add_argument("--cookie", help="Momo 網站 Cookie 字串")
     parser.add_argument("--url", help="活動 EDM 網址 (預設秋日購物節好運轉轉樂)")
-    parser.add_argument("--now", action="store_true", help="立即執行一次當前時段轉輪盤流程")
+    parser.add_argument("--now", action="store_true", help="立即發送一次搶抽連發流程")
+    parser.add_argument("--sniper", action="store_true", help="精準倒數鎖定下個開放時段，於整點前 0.2 秒搶先出擊")
     parser.add_argument("--query", action="store_true", help="查詢當前轉盤中獎紀錄與 mo 點")
     parser.add_argument("--schedule", action="store_true", help="啟動十個時段的定時輪詢")
     parser.add_argument("--silent-if-limit", action="store_true", help="若本時段已無額度或非開放時段則略過推播")
@@ -381,8 +460,10 @@ def main():
 
     if args.query:
         do_query(cookie)
+    elif args.sniper:
+        run_sniper_mode(cookie)
     elif args.now:
-        run_session_draws(cookie, silent_if_limit=args.silent_if_limit)
+        run_session_draws(cookie, silent_if_limit=args.silent_if_limit, wait_snipe=False)
     else:
         run_scheduler(cookie, edm_url)
 
