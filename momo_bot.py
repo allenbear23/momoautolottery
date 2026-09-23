@@ -328,9 +328,14 @@ def wait_until_slot_snipe(slot_hour: int, max_wait_seconds: int = 3600):
     print(f"[{datetime.now().strftime('%H:%M:%S.%f')[:-3]}] 🚀 到達整點發射點 (T-0.2s)，啟動極速連發！")
 
 
-def run_session_draws(cookie: str, silent_if_limit: bool = False, wait_snipe: bool = True):
-    slot_index, slot_time_str, dt_promo = get_current_slot_info()
-    target_hour = SLOT_HOURS[slot_index]
+def run_session_draws(cookie: str, slot_hour: int = None, dt_promo_arg: str = None, silent_if_limit: bool = False, wait_snipe: bool = True):
+    if slot_hour and dt_promo_arg:
+        target_hour = slot_hour
+        dt_promo = dt_promo_arg
+        slot_time_str = f"{target_hour:02d}:00"
+    else:
+        slot_index, slot_time_str, dt_promo = get_current_slot_info()
+        target_hour = SLOT_HOURS[slot_index]
 
     if wait_snipe:
         wait_until_slot_snipe(target_hour)
@@ -391,7 +396,7 @@ def run_sniper_mode(cookie: str):
     print(f"策略: 整點前 3 秒預熱連線 ➔ T-0.2 秒提前搶發 ➔ 200ms 高頻並行連發")
     print(f"==================================================")
 
-    run_session_draws(cookie, wait_snipe=True)
+    run_session_draws(cookie, slot_hour=next_hour, dt_promo_arg=next_dt, wait_snipe=True)
 
 
 def run_scheduler(cookie: str, event_url: str):
@@ -463,7 +468,10 @@ def main():
     elif args.sniper:
         run_sniper_mode(cookie)
     elif args.now:
-        run_session_draws(cookie, silent_if_limit=args.silent_if_limit, wait_snipe=False)
+        now = datetime.now()
+        # 若在時段前（>=57分），自動啟用狙擊等待至整點連發搶抽
+        wait_snipe = (now.minute >= 57)
+        run_session_draws(cookie, silent_if_limit=args.silent_if_limit, wait_snipe=wait_snipe)
     else:
         run_scheduler(cookie, edm_url)
 
