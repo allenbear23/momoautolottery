@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>Momo Cookie 快速提取工具</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0f172a; color: #f8fafc; padding: 2rem; margin: 0; }
+    .card { max-width: 680px; margin: 0 auto; background: #1e293b; border-radius: 12px; padding: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.4); border: 1px solid #334155; }
+    h1 { color: #f43f5e; margin-top: 0; font-size: 22px; }
+    h2 { font-size: 16px; color: #38bdf8; margin-top: 24px; border-bottom: 1px solid #334155; padding-bottom: 8px; }
+    p, li { font-size: 14px; line-height: 1.6; color: #cbd5e1; }
+    .btn-bookmarklet { display: inline-block; background: linear-gradient(135deg, #e11d48, #be123c); color: white; padding: 10px 18px; border-radius: 8px; font-weight: bold; text-decoration: none; cursor: move; margin: 10px 0; border: 1px solid #fda4af; }
+    .btn-copy { background: #0284c7; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 600; }
+    .btn-copy:hover { background: #0369a1; }
+    pre { background: #090d16; padding: 12px; border-radius: 6px; font-size: 12px; overflow-x: auto; color: #a5f3fc; border: 1px solid #1e293b; word-break: break-all; white-space: pre-wrap; }
+    .tip { background: #1e1b4b; border-left: 4px solid #6366f1; padding: 10px 14px; border-radius: 4px; font-size: 13px; margin: 14px 0; color: #c7d2fe; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🍪 Momo Cookie 快速提取工具</h1>
+    
+    <h2>方法 1：一鍵書籤 (最推薦，免安裝)</h2>
+    <p>將下方粉紅色按鈕<strong>直接拖曳至瀏覽器書籤列</strong>（或在書籤列按右鍵新增書籤，將代碼貼入網址）：</p>
+    <a class="btn-bookmarklet" href="javascript:(function(){var c=document.cookie;if(!c||(c.indexOf('LOGINSESSION')===-1&amp;&amp;c.indexOf('st=')===-1)){alert('⚠️ 未偵測到登入狀態，請先在 momo 登入會員！');return;}var m=c.match(/loginUser=([^;]+)/);var u=m?decodeURIComponent(m[1].replace(/\+/g,' ')).trim():'會員';navigator.clipboard.writeText(c).then(function(){alert('✅ 已複製 momo Cookie 到剪貼簿！\n\n👤 當前帳號：'+u+'\n📏 長度：'+c.length+' 字元\n\n可以直接貼上至 cookie.txt 或 GitHub Secrets');}).catch(function(){prompt('請手動反白複製 Cookie：',c);});})();" onclick="alert('請將此按鈕拖曳到瀏覽器「書籤列」使用！'); return false;">
+      👉 拖曳我到書籤列：提取 Momo Cookie
+    </a>
+    <p>使用方式：在已登入的 <a href="https://www.momoshop.com.tw" target="_blank" style="color:#f43f5e;">momo 購物網</a> 任何頁面，點擊此書籤，即可將整串有效 Cookie 複製到剪貼簿！</p>
+
+    <h2>方法 2：控制台 (Console) 一行指令</h2>
+    <p>在 momo 網頁按下 <code>F12</code> (Mac: <code>Cmd + Option + I</code>) 切換至 <strong>Console</strong>，貼上並執行：</p>
+    <pre id="code-console">copy(document.cookie); console.log("✅ Cookie 已複製到剪貼簿！長度：" + document.cookie.length);</pre>
+    <button class="btn-copy" onclick="navigator.clipboard.writeText(document.getElementById('code-console').innerText); alert('已複製指令！');">複製 Console 指令</button>
+
+    <h2>方法 3：油猴腳本 (自動懸浮按鈕)</h2>
+    <p>安裝專案目錄下的 <code>momo_tampermonkey.user.js</code>，進入 momo 網頁右下角會常駐「📋 一鍵複製 Cookie」按鈕。</p>
+
+    <h2>👥 多帳號設定說明</h2>
+    <p>取得多個帳號的 Cookie 後，有兩種填寫方式：</p>
+    <div class="tip">
+      <strong>方式 A (本機 cookie.txt)</strong>：每行貼上一個帳號的 Cookie：<br>
+      <code>
+        # 帳號 1<br>
+        _atrk_siteuid=...; LOGINSESSION=帳號1憑證...<br>
+        # 帳號 2<br>
+        _atrk_siteuid=...; LOGINSESSION=帳號2憑證...
+      </code>
+    </div>
+    <div class="tip">
+      <strong>方式 B (GitHub Actions MOMO_COOKIE Secret)</strong>：使用 <code>---</code> 分隔：<br>
+      <code>
+        帳號1的完整Cookie字串<br>
+        ---<br>
+        帳號2的完整Cookie字串
+      </code>
+    </div>
+  </div>
+</body>
+</html>

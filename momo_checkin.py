@@ -9,9 +9,11 @@ import sys
 import os
 import time
 import json
+import re
 import argparse
 import urllib.request
 import urllib.error
+import urllib.parse
 from datetime import datetime
 
 CHECKIN_BASE_URL = "https://ma.momoshop.com.tw/api/campaign/game"
@@ -194,27 +196,51 @@ def run_daily_checkin(cookie: str, referral: str = "2b4b924f6cd7a33d8279a2b80172
     return True
 
 
-def load_cookie(cookie_arg: str = None) -> str:
+def get_user_display_name(cookie: str, default_idx: int = 1) -> str:
+    m = re.search(r'loginUser=([^;]+)', cookie)
+    if m:
+        try:
+            val = m.group(1).replace('+', ' ')
+            name = urllib.parse.unquote(val).strip()
+            if name:
+                return f"帳號 {default_idx} ({name})"
+        except Exception:
+            pass
+    return f"帳號 {default_idx}"
+
+
+def load_all_cookies(cookie_arg: str = None) -> list:
+    cookies = []
+    raw = ""
+
     if cookie_arg:
-        return cookie_arg.strip()
+        raw = cookie_arg
+    else:
+        cookie_file = os.path.join(os.path.dirname(__file__), "cookie.txt")
+        if os.path.exists(cookie_file):
+            with open(cookie_file, "r", encoding="utf-8") as f:
+                raw = f.read()
+        else:
+            raw = os.getenv("MOMO_COOKIE", "")
 
-    cookie_file = os.path.join(os.path.dirname(__file__), "cookie.txt")
-    if os.path.exists(cookie_file):
-        with open(cookie_file, "r", encoding="utf-8") as f:
-            c = f.read().strip()
-            if c:
-                return c
+    if "---" in raw:
+        blocks = raw.split("---")
+    else:
+        blocks = raw.splitlines()
 
-    env_c = os.getenv("MOMO_COOKIE")
-    if env_c:
-        return env_c.strip()
+    for b in blocks:
+        clean = b.strip()
+        if not clean or clean.startswith("#"):
+            continue
+        if any(k in clean for k in ("LOGINSESSION", "st=", "_atrk", "isEN")):
+            cookies.append(clean)
 
-    return ""
+    return cookies
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Momo 天天簽到自動化工具")
-    parser.add_argument("--cookie", help="Momo 網站 Cookie 字串")
+    parser = argparse.ArgumentParser(description="Momo 天天簽到自動化工具 (支援多帳號)")
+    parser.add_argument("--cookie", help="Momo 網站 Cookie 字串 (多帳號可用換行或 --- 分隔)")
     parser.add_argument("--referral", default="2b4b924f6cd7a33d8279a2b80172d730", help="推薦/互助碼")
     parser.add_argument("--bark", help="Bark 推播 Key 或 URL")
     parser.add_argument("--force", action="store_true", help="強制重新簽到即使今日已完成")
@@ -223,12 +249,21 @@ def main():
     if args.bark:
         os.environ["BARK_KEY"] = args.bark
 
-    cookie = load_cookie(args.cookie)
-    if not cookie:
-        print("錯誤: 未找到 Cookie。請透過 --cookie 指定，或將 Cookie 寫入 cookie.txt。")
+    cookies = load_all_cookies(args.cookie)
+    if not cookies:
+        print("錯誤: 未找到有效 Cookie。請透過 --cookie 指定，或將 Cookie 寫入 cookie.txt。")
         sys.exit(1)
 
-    run_daily_checkin(cookie, referral=args.referral, force=args.force)
+    print(f"[{datetime.now().strftime('%H:%M:%S')}] 載入 {len(cookies)} 個會員帳號執行簽到：")
+    for idx, c in enumerate(cookies, 1):
+        name = get_user_display_name(c, idx)
+        print(f"\n==============================")
+        print(f"👤 開始執行 {name} 天天簽到...")
+        print(f"==============================")
+        try:
+            run_daily_checkin(c, referral=args.referral, force=args.force)
+        except Exception as e:
+            print(f"[{name}] 簽到異常: {e}")
 
 
 if __name__ == "__main__":

@@ -15,19 +15,49 @@ import urllib.error
 from datetime import datetime
 
 
-def get_cookie(cookie_arg: str = None) -> str:
-    if cookie_arg:
-        return cookie_arg.strip()
-    cookie_file = os.path.join(os.path.dirname(__file__), "cookie.txt")
-    if os.path.exists(cookie_file):
+import re
+
+
+def get_user_display_name(cookie: str, default_idx: int = 1) -> str:
+    m = re.search(r'loginUser=([^;]+)', cookie)
+    if m:
         try:
-            with open(cookie_file, "r", encoding="utf-8") as f:
-                c = f.read().strip()
-                if c:
-                    return c
+            val = m.group(1).replace('+', ' ')
+            name = urllib.parse.unquote(val).strip()
+            if name:
+                return f"帳號 {default_idx} ({name})"
         except Exception:
             pass
-    return os.getenv("MOMO_COOKIE", "").strip()
+    return f"帳號 {default_idx}"
+
+
+def load_all_cookies(cookie_arg: str = None) -> list:
+    cookies = []
+    raw = ""
+
+    if cookie_arg:
+        raw = cookie_arg
+    else:
+        cookie_file = os.path.join(os.path.dirname(__file__), "cookie.txt")
+        if os.path.exists(cookie_file):
+            with open(cookie_file, "r", encoding="utf-8") as f:
+                raw = f.read()
+        else:
+            raw = os.getenv("MOMO_COOKIE", "")
+
+    if "---" in raw:
+        blocks = raw.split("---")
+    else:
+        blocks = raw.splitlines()
+
+    for b in blocks:
+        clean = b.strip()
+        if not clean or clean.startswith("#"):
+            continue
+        if any(k in clean for k in ("LOGINSESSION", "st=", "_atrk", "isEN")):
+            cookies.append(clean)
+
+    return cookies
 
 
 def query_coin_info(cookie: str, currency_type: str = "1") -> dict:
@@ -125,8 +155,8 @@ def check_and_notify_expiring_coins(cookie: str = None, force_notify: bool = Fal
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Momo 幣到期檢查工具")
-    parser.add_argument("--cookie", help="Momo 網站 Cookie")
+    parser = argparse.ArgumentParser(description="Momo 幣到期檢查工具 (支援多帳號)")
+    parser.add_argument("--cookie", help="Momo 網站 Cookie (多帳號可用換行或 --- 分隔)")
     parser.add_argument("--force-notify", action="store_true", help="強制推播目前查詢結果 (用於測試)")
     parser.add_argument("--bark", help="Bark 推播 Key 或 URL")
     args = parser.parse_args()
@@ -134,7 +164,21 @@ def main():
     if args.bark:
         os.environ["BARK_KEY"] = args.bark
 
-    check_and_notify_expiring_coins(cookie=args.cookie, force_notify=args.force_notify)
+    cookies = load_all_cookies(args.cookie)
+    if not cookies:
+        print("錯誤: 未找到有效 Cookie。請透過 --cookie 指定，或將 Cookie 寫入 cookie.txt。")
+        sys.exit(1)
+
+    print(f"[{datetime.now().strftime('%H:%M:%S')}] 載入 {len(cookies)} 個會員帳號執行 mo 幣到期檢查：")
+    for idx, c in enumerate(cookies, 1):
+        name = get_user_display_name(c, idx)
+        print(f"\n==============================")
+        print(f"👤 開始檢查 {name} mo 幣...")
+        print(f"==============================")
+        try:
+            check_and_notify_expiring_coins(cookie=c, force_notify=args.force_notify)
+        except Exception as e:
+            print(f"[{name}] 檢查異常: {e}")
 
 
 if __name__ == "__main__":

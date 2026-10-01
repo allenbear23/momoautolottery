@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         Momo 桃金日好運抽抽樂自動定時抽 & mo幣到期提醒
+// @name         Momo 助手 (Cookie 快速提取 & 自動抽獎 & mo幣到期提醒)
 // @namespace    http://tampermonkey.net/
-// @version      1.1
-// @description  定時 (09:00, 13:00, 16:00, 19:00, 21:00) 自動點擊抽獎按鈕兩次，並於當日提醒即將到期之 mo 幣
+// @version      1.2
+// @description  在 momo 購物網提供一鍵提取 Cookie、定時抽獎與 mo 幣即將到期提醒
 // @author       Antigravity
 // @match        https://www.momoshop.com.tw/*
 // @grant        none
@@ -11,12 +11,63 @@
 (function() {
     'use strict';
 
-    // 1. 檢查今日是否有即將到期之 mo 幣 / mo 點
+    // 1. 浮動按鈕：一鍵快速提取 Cookie
+    function addCookieExtractorBtn() {
+        if (document.getElementById('momo_cookie_btn')) return;
+
+        const btn = document.createElement('div');
+        btn.id = 'momo_cookie_btn';
+        btn.innerHTML = '📋 複製 Cookie';
+        btn.title = '點擊一鍵複製當前 momo 帳號 Cookie 到剪貼簿';
+        btn.style.cssText = `
+            position: fixed;
+            bottom: 75px;
+            right: 20px;
+            z-index: 999999;
+            background: linear-gradient(135deg, #e11d48, #be123c);
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(225, 29, 72, 0.4);
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        `;
+
+        btn.onmouseover = () => { btn.style.transform = 'translateY(-2px) scale(1.05)'; };
+        btn.onmouseout = () => { btn.style.transform = 'translateY(0) scale(1)'; };
+
+        btn.onclick = () => {
+            const c = document.cookie;
+            if (!c || (c.indexOf('LOGINSESSION') === -1 && c.indexOf('st=') === -1)) {
+                showToast('⚠️ 未偵測到會員登入狀態，請先登入！', '#e11d48');
+                return;
+            }
+
+            const m = c.match(/loginUser=([^;]+)/);
+            const user = m ? decodeURIComponent(m[1].replace(/\+/g, ' ')).trim() : '會員';
+
+            navigator.clipboard.writeText(c).then(() => {
+                showToast(`✅ 已複製 Cookie (${user})！長度: ${c.length}`, '#059669');
+            }).catch(() => {
+                prompt('請手動複製以下 Cookie：', c);
+            });
+        };
+
+        document.body.appendChild(btn);
+    }
+
+    // 2. 檢查今日是否有即將到期之 mo 幣 / mo 點
     function checkExpiringCoins() {
         const todayStr = new Date().toISOString().slice(0, 10).replace(/-/g, '/');
         const lastChecked = localStorage.getItem('momo_coin_last_checked');
         if (lastChecked === todayStr) {
-            return; // 今日已檢查過
+            return;
         }
 
         const payload = { flag: 3156, data: { currencyType: "1" } };
@@ -34,7 +85,7 @@
                 const expAmount = parseFloat(String(data.expirationAmount).replace(/,/g, '')) || 0;
                 const expDate = data.expirationDate || '';
                 if (expAmount > 0 && expDate.includes(todayStr)) {
-                    showExpiringToast(`⚠️ 提醒：您有 ${data.expirationAmount} 元 momo 幣將於今日到期！請記得折抵消費。`);
+                    showToast(`⚠️ 提醒：您有 ${data.expirationAmount} 元 momo 幣將於今日到期！`, '#d97706', 10000);
                 }
             }
             localStorage.setItem('momo_coin_last_checked', todayStr);
@@ -42,72 +93,34 @@
         .catch(() => {});
     }
 
-    function showExpiringToast(msg) {
+    function showToast(msg, bg = '#e6007e', duration = 4000) {
         const toast = document.createElement('div');
         toast.innerText = msg;
-        toast.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:9999999;padding:14px 20px;background:#e6007e;color:#fff;border-radius:8px;font-size:15px;font-weight:bold;box-shadow:0 4px 12px rgba(0,0,0,0.3);';
+        toast.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000000;
+            padding: 12px 18px;
+            background: ${bg};
+            color: #fff;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+            animation: fadeIn 0.3s ease;
+        `;
         document.body.appendChild(toast);
-        setTimeout(() => toast.remove(), 12000);
+        setTimeout(() => toast.remove(), duration);
     }
 
     if (document.readyState === 'loading') {
-        window.addEventListener('DOMContentLoaded', checkExpiringCoins);
-    } else {
-        checkExpiringCoins();
-    }
-
-    // 2. 抽抽樂活動頁面定時抽獎 (僅在抽抽樂 EDM 頁面作用)
-    if (window.location.href.includes('lpn=O8dV4oaCUPZ') || window.location.href.includes('momoLottery')) {
-        const SCHEDULE_HOURS = [9, 13, 16, 19, 21];
-        let triggeredTodayHours = new Set();
-
-        function log(msg) {
-            console.log(`[MomoAutoDraw ${new Date().toLocaleTimeString()}] ${msg}`);
-        }
-
-        function executeDraws(count = 2) {
-            log(`開始執行抽獎，預計抽取 ${count} 次`);
-            let done = 0;
-
-            function drawOnce() {
-                if (done >= count) {
-                    log('抽獎流程結束');
-                    return;
-                }
-                if (typeof promoCloudConfig !== 'undefined' && promoCloudConfig.lotteryMahjong) {
-                    log(`觸發第 ${done + 1} 次抽獎`);
-                    promoCloudConfig.lotteryMahjong();
-                    done++;
-                    setTimeout(drawOnce, 4000);
-                } else {
-                    log('找不到 promoCloudConfig 物件');
-                }
-            }
-
-            drawOnce();
-        }
-
-        // 每 20 秒檢查一次是否到達指定整點
-        setInterval(() => {
-            const now = new Date();
-            const hour = now.getHours();
-            const minute = now.getMinutes();
-            const dateKey = `${now.toDateString()}_${hour}`;
-
-            if (SCHEDULE_HOURS.includes(hour) && minute < 5 && !triggeredTodayHours.has(dateKey)) {
-                triggeredTodayHours.add(dateKey);
-                log(`到達活動時段 ${hour}:00，觸發自動抽獎`);
-                executeDraws(2);
-            }
-        }, 20000);
-
-        // 新增手動按鈕在頁面右上角方便即時測試
-        window.addEventListener('load', () => {
-            const btn = document.createElement('button');
-            btn.innerText = '自動抽 2 次 (測試)';
-            btn.style.cssText = 'position:fixed;top:10px;right:10px;z-index:999999;padding:8px 12px;background:#ed1dca;color:#fff;border:none;border-radius:4px;cursor:pointer;font-weight:bold;';
-            btn.onclick = () => executeDraws(2);
-            document.body.appendChild(btn);
+        window.addEventListener('DOMContentLoaded', () => {
+            addCookieExtractorBtn();
+            checkExpiringCoins();
         });
+    } else {
+        addCookieExtractorBtn();
+        checkExpiringCoins();
     }
 })();
