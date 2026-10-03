@@ -131,11 +131,31 @@ def fetch_page(url: str, timeout: int = 8) -> str:
         return ""
 
 
+def resolve_momo_url(url: str) -> str:
+    """
+    若為 momo.dm 短網址或包含 appRedirect.jsp，自動解析還原為真實 cmmedm.jsp 網址
+    """
+    if "momo.dm" in url or "appRedirect.jsp" in url:
+        try:
+            req = urllib.request.Request(url, headers=HEADERS)
+            with urllib.request.urlopen(req, timeout=8) as resp:
+                final_url = resp.geturl()
+                if "goodsUrl=" in final_url:
+                    parsed = urllib.parse.parse_qs(urllib.parse.urlparse(final_url).query)
+                    if "goodsUrl" in parsed and parsed["goodsUrl"]:
+                        return parsed["goodsUrl"][0]
+                return final_url
+        except Exception:
+            pass
+    return url
+
+
 def fetch_promo_config(edm_url: str):
     """
     從 EDM 頁面解析活動參數，支援 ESM (it_constant.js) 與舊版 (spinRotateConfig.js)
     """
     try:
+        edm_url = resolve_momo_url(edm_url)
         html = fetch_page(edm_url, timeout=10)
         if not html:
             return None
