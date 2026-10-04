@@ -21,6 +21,11 @@
 - **換日時間**：**每日 08:00:00 重置**（名額有限，額滿截止）。
 - 自動獲取當期活動、計算待簽天數的 `gift_id` 並送出簽到領取 P 幣。
 
+### 4. PChome 24h【幸運抽籤】最高搶188P幣 (~10/31 檔期)
+- **活動代碼**：`AC78080335`
+- 自動取得檔期時段（如 `20:00 ~ 23:59`）與獎項清單（188P幣、88P幣、8P幣、1P幣）。
+- 自動檢查抽獎上限，未抽過自動執行開獎，抽中即時發送 Bark 通知。
+
 ---
 
 ## 📁 核心檔案結構
@@ -31,6 +36,7 @@
 | `momo_checkin.py` | Momo 天天簽到任務自動化腳本 |
 | `momo_coin.py` | Momo 幣與點數即將到期提醒模組 |
 | `pchome_checkin.py` | PChome 24h 天天簽到自動領取 P 幣腳本 |
+| `pchome_lottery.py` | PChome 24h 幸運抽籤最高搶 188P 幣腳本 (支援 AC78080335) |
 | `cookie_extractor.html` | Cookie 快速提取教學與一鍵書籤產生工具 |
 | `momo_tampermonkey.user.js` | Momo 瀏覽器油猴腳本 (右下角常駐一鍵複製 Cookie 懸浮按鈕) |
 | `.github/workflows/` | GitHub Actions 雲端定時工作流程 |
@@ -84,7 +90,17 @@ python3 momo_checkin.py
 python3 pchome_checkin.py
 ```
 
+### PChome 24h 幸運抽籤
+```bash
+# 1. 查詢活動檔期與個人中獎紀錄
+python3 pchome_lottery.py --query
+
+# 2. 執行抽籤（支援多帳號，若已達上限自動略過）
+python3 pchome_lottery.py
+```
+
 ---
+
 
 ## 🍪 提取 Cookie 方式
 
