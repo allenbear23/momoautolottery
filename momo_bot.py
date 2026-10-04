@@ -437,22 +437,41 @@ def run_session_draws(cookies: list, slot_hour: int = None, slot_minute: int = N
     else:
         target_hour, target_min, slot_time_str, dt_promo = get_current_slot_info()
 
+    now_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    today_str = datetime.now().strftime('%Y/%m/%d')
+    print(f"[{now_str}] 檢查今日 ({today_str}) 各帳號摸彩狀態 (每人每日限搶一次)...")
+
+    pending_cookies = []
+    results = {}
+
+    for idx, cookie in enumerate(cookies, 1):
+        name = get_user_display_name(cookie, idx)
+        summary = do_query(cookie, account_label=name)
+        has_drawn_today = any(d.startswith(today_str) for d, _ in summary['records']) if summary else False
+        if has_drawn_today:
+            print(f"  • {name}: 今日已完成摸彩，略過搶抽。")
+            results[idx] = (name, cookie, {}, "今日已完成摸彩")
+        else:
+            print(f"  • {name}: 今日尚未摸彩，列入本時段搶抽名單。")
+            pending_cookies.append((idx, cookie, name))
+
+    if not pending_cookies:
+        print(f"[{now_str}] ✅ 所有帳號今日已成功完成摸彩（每人每日限搶一次），略過本日後續搶抽。")
+        return
+
     if wait_snipe:
         wait_until_slot_snipe(target_hour, target_min)
 
-    now_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    print(f"[{now_str}] 目標時段: {slot_time_str}，共 {len(cookies)} 個帳號，發動搶抽...")
+    print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] 目標時段: {slot_time_str}，共 {len(pending_cookies)} 個帳號未完成，發動搶抽...")
 
-    # 多帳號並行發射
-    results = {}
-    with concurrent.futures.ThreadPoolExecutor(max_workers=max(1, len(cookies))) as executor:
+    # 針對尚未抽獎之帳號並行搶抽
+    with concurrent.futures.ThreadPoolExecutor(max_workers=max(1, len(pending_cookies))) as executor:
         future_to_info = {
-            executor.submit(run_sniper_burst, cookie, dt_promo, 8, get_user_display_name(cookie, idx)): (idx, cookie)
-            for idx, cookie in enumerate(cookies, 1)
+            executor.submit(run_sniper_burst, cookie, dt_promo, 8, name): (idx, name, cookie)
+            for idx, cookie, name in pending_cookies
         }
         for fut in concurrent.futures.as_completed(future_to_info):
-            idx, cookie = future_to_info[fut]
-            name = get_user_display_name(cookie, idx)
+            idx, name, cookie = future_to_info[fut]
             try:
                 res, desc = fut.result()
                 results[idx] = (name, cookie, res, desc)
