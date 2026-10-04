@@ -10,6 +10,7 @@ import sys
 import os
 import time
 import json
+import re
 import argparse
 import urllib.request
 import urllib.error
@@ -145,9 +146,12 @@ def query_winning_result(act_no: str, record_id: str, cookie: str, max_retries: 
         try:
             with urllib.request.urlopen(req, timeout=10) as resp:
                 text = resp.read().decode("utf-8")
-                if text.startswith("json_lottery_activity(") and text.endswith(")"):
-                    text = text[len("json_lottery_activity("):-1]
-                data = json.loads(text)
+                m = re.search(r'json_lottery_activity\((.*?)\)', text)
+                if m:
+                    data = json.loads(m.group(1))
+                else:
+                    data = json.loads(text)
+
                 if data.get("status") == "init":
                     time.sleep(2)
                     continue
@@ -177,7 +181,7 @@ def run_account_lottery(account_idx: int, cookie: str, act_cfg: dict, act_id: st
 
     code_map = {
         "400-001": "尚未登入或 Cookie 已失效",
-        "400-002": "設備不支援",
+        "400-002": "設備不支援（此活動限定於 PChome 24h App 內進行）",
         "400-003": "活動已結束或未開啟",
         "400-004": "無參加資格",
         "400-005": "今日已抽過 (isPlayed)",
@@ -204,9 +208,24 @@ def run_account_lottery(account_idx: int, cookie: str, act_cfg: dict, act_id: st
 
     # 3. 輪詢確認最終中獎獎項
     win_res = query_winning_result(act_no, record_id, cookie)
-    win_data = win_res.get("data", {})
+    win_status = win_res.get("status")
+
+    if win_status != "done":
+        w_code = win_res.get("code")
+        w_msg = win_res.get("msg", "")
+        desc = code_map.get(w_code, f"代碼: {w_code} / 訊息: {w_msg}")
+        print(f"{tag} ❌ 開獎未通過: {desc}")
+        if notifier:
+            notifier.send(
+                title=f"PChome 開獎失敗 ({tag})",
+                body=f"原因: {desc}\n時間: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
+                group="pchome_lottery"
+            )
+        return
+
+    win_data = win_res.get("data", win_res.get("result", {}))
     prize_name = win_data.get("pname", "未知名稱")
-    prize_val = win_data.get("value", "0")
+    prize_val = win_data.get("value", win_data.get("pvalue", "0"))
 
     if prize_val == "-1" or "銘謝" in prize_name:
         result_str = "銘謝惠顧，再接再厲！"
@@ -272,8 +291,8 @@ def main():
         for idx, ck in enumerate(cookies, 1):
             print(f"\n--- [帳號{idx}] 歷史中獎紀錄 ---")
             records = get_game_records(args.activity, ck)
-            if not records:
-                print("查無中獎紀錄或 Cookie 已失效。")
+            if records is None:
+                print("查詢失敗或 Cookie 已失效。")
             elif isinstance(records, list):
                 if len(records) == 0:
                     print("目前尚無中獎紀錄。")
