@@ -26,6 +26,10 @@
 - 自動取得檔期時段（如 `20:00 ~ 23:59`）與獎項清單（188P幣、88P幣、8P幣、1P幣）。
 - 自動檢查抽獎上限，未抽過自動執行開獎，抽中即時發送 Bark 通知。
 
+### 5. PChome 24h P 幣餘額與到期檢查
+- 自動查詢會員中心可用 P 幣、待生效 P 幣、待歸還款項與即將到期點數。
+- 每日早上 09:00 由 GitHub Actions 定時檢查，若有即將到期點數即時發送 Bark 警報。
+
 ---
 
 ## 📁 核心檔案結構
@@ -36,6 +40,7 @@
 | `momo_checkin.py` | Momo 天天簽到任務自動化腳本 |
 | `momo_coin.py` | Momo 幣與點數即將到期提醒模組 |
 | `pchome_checkin.py` | PChome 24h 天天簽到自動領取 P 幣腳本 |
+| `pchome_coin.py` | PChome 24h P 幣餘額查詢與到期通知模組 |
 | `pchome_lottery.py` | PChome 24h 幸運抽籤最高搶 188P 幣腳本 (支援 AC78080335) |
 | `cookie_extractor.html` | Cookie 快速提取教學與一鍵書籤產生工具 |
 | `momo_tampermonkey.user.js` | Momo 瀏覽器油猴腳本 (右下角常駐一鍵複製 Cookie 懸浮按鈕) |
@@ -99,7 +104,17 @@ python3 pchome_lottery.py --query
 python3 pchome_lottery.py
 ```
 
+### PChome 24h P 幣餘額與到期檢查
+```bash
+# 1. 本地查詢帳戶 P 幣餘額與到期狀態
+python3 pchome_coin.py
+
+# 2. 強制發送 Bark 每日餘額推播通知
+python3 pchome_coin.py --notify
+```
+
 ---
+
 
 
 ## 🍪 提取 Cookie 方式

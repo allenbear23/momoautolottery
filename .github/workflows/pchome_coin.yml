@@ -1,0 +1,27 @@
+name: PChome 24h Daily P-Coin Reminder
+
+on:
+  schedule:
+    # 台灣時間每日早上 09:00 (UTC 01:00) 自動檢查 P 幣餘額與到期警報
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+
+jobs:
+  check-coin:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Run PChome Coin Reminder
+        env:
+          TZ: 'Asia/Taipei'
+          PCHOME_COOKIE: ${{ secrets.PCHOME_COOKIE }}
+          BARK_KEY: ${{ secrets.BARK_KEY }}
+        run: |
+          python3 pchome_coin.py --notify

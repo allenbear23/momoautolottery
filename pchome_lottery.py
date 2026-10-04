@@ -196,7 +196,7 @@ def run_account_lottery(account_idx: int, cookie: str, act_cfg: dict, act_id: st
         desc = code_map.get(code, f"代碼: {code} / 訊息: {msg}")
         print(f"{tag} ❌ 抽籤失敗: {desc}")
         if notifier:
-            notifier.send(
+            notifier(
                 title=f"PChome 抽籤失敗 ({tag})",
                 body=f"原因: {desc}\n時間: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
                 group="pchome_lottery"
@@ -216,7 +216,7 @@ def run_account_lottery(account_idx: int, cookie: str, act_cfg: dict, act_id: st
         desc = code_map.get(w_code, f"代碼: {w_code} / 訊息: {w_msg}")
         print(f"{tag} ❌ 開獎未通過: {desc}")
         if notifier:
-            notifier.send(
+            notifier(
                 title=f"PChome 開獎失敗 ({tag})",
                 body=f"原因: {desc}\n時間: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
                 group="pchome_lottery"
@@ -235,7 +235,7 @@ def run_account_lottery(account_idx: int, cookie: str, act_cfg: dict, act_id: st
         print(f"{tag} {result_str}")
 
     if notifier:
-        notifier.send(
+        notifier(
             title=f"PChome 幸運抽籤結果 ({tag})",
             body=f"{result_str}\n檔期: {act_no}\n時間: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
             group="pchome_lottery"
@@ -251,8 +251,8 @@ def main():
 
     # 載入 notifier
     try:
-        from notifier import Notifier
-        notifier = Notifier()
+        from notifier import send_bark
+        notifier = send_bark
     except Exception:
         notifier = None
 

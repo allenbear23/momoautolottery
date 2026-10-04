@@ -1,5 +1,8 @@
 cookie.txt
+pchome_cookie.txt
+cookie*.txt
 bark_key.txt
 __pycache__/
 *.pyc
 .DS_Store
+
