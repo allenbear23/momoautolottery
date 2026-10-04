@@ -1,10 +1,10 @@
-name: Momo Lottery Auto Draw
+name: Momo & PChome Auto Task
 
 on:
   workflow_dispatch:
 
 jobs:
-  draw:
+  run-tasks:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -21,7 +21,11 @@ jobs:
           MOMO_COOKIE: ${{ secrets.MOMO_COOKIE }}
           MOMO_EVENT_URL: ${{ vars.MOMO_EVENT_URL }}
           BARK_KEY: ${{ secrets.BARK_KEY }}
+          PCHOME_COOKIE: ${{ secrets.PCHOME_COOKIE }}
         run: |
           python3 momo_bot.py --now --silent-if-limit
           python3 momo_checkin.py
           python3 momo_coin.py
+          if [ -n "$PCHOME_COOKIE" ]; then
+            python3 pchome_checkin.py
+          fi

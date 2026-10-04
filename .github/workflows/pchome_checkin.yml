@@ -1,0 +1,27 @@
+name: PChome 24h Daily Check-in
+
+on:
+  schedule:
+    # 台灣時間每日 08:00 (UTC 00:00) 換日名額重置開簽
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  checkin:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Run PChome Check-in
+        env:
+          TZ: 'Asia/Taipei'
+          PCHOME_COOKIE: ${{ secrets.PCHOME_COOKIE }}
+          BARK_KEY: ${{ secrets.BARK_KEY }}
+        run: |
+          python3 pchome_checkin.py
