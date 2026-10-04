@@ -18,8 +18,8 @@ from datetime import datetime
 import concurrent.futures
 
 DEFAULT_EVENT_URL = "https://www.momoshop.com.tw/edm/cmmedm.jsp?lpn=O7ylWmQ3frf&n=1"
-DEFAULT_M_PROMO_NO = "U96100100002"
-DEFAULT_DT_PROMO_NO = "D96100100001"
+DEFAULT_M_PROMO_NO = "U96100400001"
+DEFAULT_DT_PROMO_NO = "D96100400001"
 DEFAULT_TITLE = "週年摸彩賺$999"
 
 # 10/1-10/3 每日 12 個開放時段 (均為 10 分整)
