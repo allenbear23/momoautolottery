@@ -534,7 +534,7 @@ def run_session_draws(cookies: list, slot_hour: int = None, slot_minute: int = N
     try:
         from notifier import send_bark
         body_text = f"【時段 {slot_time_str} 摸彩報告】\n\n" + "\n\n".join(report_sections)
-        send_bark(f"momo 週年摸彩結果 ({slot_time_str})", body_text.strip())
+        send_bark(f"momo {ACTIVE_CONFIG['title']}結果 ({slot_time_str})", body_text.strip())
     except Exception as e:
         print(f"發送推播通知異常: {e}")
 
@@ -632,10 +632,15 @@ def main():
         run_sniper_mode(cookies)
     elif args.now:
         now = datetime.now()
-        sh, sm, _, dt_promo = get_current_slot_info(now)
-        diff = (now.replace(hour=sh, minute=sm, second=0, microsecond=0) - now).total_seconds()
-        wait_snipe = (0 < diff <= 240)
-        run_session_draws(cookies, slot_hour=sh, slot_minute=sm, dt_promo_arg=dt_promo, silent_if_limit=args.silent_if_limit, wait_snipe=wait_snipe)
+        sh, sm, slot_str, dt_promo = get_current_slot_info(now)
+        slot_dt = now.replace(hour=sh, minute=sm, second=0, microsecond=0)
+        diff = (slot_dt - now).total_seconds()
+        # 僅在時段前 4 分鐘到開抽後 5 分鐘窗口內才執行搶抽，避免非時段盲目送出無效請求
+        if -300 <= diff <= 240:
+            wait_snipe = (0 < diff <= 240)
+            run_session_draws(cookies, slot_hour=sh, slot_minute=sm, dt_promo_arg=dt_promo, silent_if_limit=args.silent_if_limit, wait_snipe=wait_snipe)
+        else:
+            print(f"[{now.strftime('%H:%M:%S')}] 目前非活動時段窗口（距離最近時段 {slot_str} 尚有 {diff/60:.1f} 分鐘），略過搶抽。")
     else:
         run_scheduler(cookies, edm_url)
 
