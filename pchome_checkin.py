@@ -123,7 +123,9 @@ def execute_signin(activity_id: str, gift_id: str, cookie: str):
         elif e.code == 403:
             if status_code == "403-001":
                 return {"status": "NEED_PHONE", "code": 403, "message": "帳號需綁定手機門號方可簽到！"}
-            return {"status": "FORBIDDEN", "code": 403, "message": "存取被拒 (403)"}
+            elif status_code == "403-002":
+                return {"status": "NOT_ELIGIBLE", "code": 403, "message": "簽到失敗 (403-002: 官方資格限制或帳號風控)"}
+            return {"status": "FORBIDDEN", "code": 403, "message": f"存取被拒 (403: {status_code})"}
         return {"status": "HTTP_ERROR", "code": e.code, "message": err_body}
     except Exception as e:
         return {"status": "EXCEPTION", "code": 0, "message": str(e)}

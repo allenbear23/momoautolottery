@@ -1,7 +1,10 @@
 cookie.txt
 pchome_cookie.txt
+feebee_cookie.txt
 cookie*.txt
 bark_key.txt
+cronjob_key.txt
+*key*.txt
 __pycache__/
 *.pyc
 .DS_Store

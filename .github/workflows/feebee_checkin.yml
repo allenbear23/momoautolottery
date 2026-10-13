@@ -1,0 +1,27 @@
+name: Feebee Daily Check-in
+
+on:
+  schedule:
+    # 台灣時間每日 08:05 (UTC 00:05) 執行每日簽到與廣告抽獎
+    - cron: '5 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  checkin:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Run Feebee Check-in
+        env:
+          TZ: 'Asia/Taipei'
+          FEEBEE_COOKIE: ${{ secrets.FEEBEE_COOKIE }}
+          BARK_KEY: ${{ secrets.BARK_KEY }}
+        run: |
+          python3 feebee_checkin.py

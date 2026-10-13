@@ -17,16 +17,17 @@ import urllib.parse
 from datetime import datetime
 import concurrent.futures
 
-DEFAULT_EVENT_URL = "https://www.momoshop.com.tw/edm/cmmedm.jsp?lpn=O7ylWmQ3frf&n=1"
-DEFAULT_M_PROMO_NO = "U96100400001"
-DEFAULT_DT_PROMO_NO = "D96100400001"
-DEFAULT_TITLE = "週年摸彩賺$999"
+DEFAULT_EVENT_URL = "https://momo.dm/ummeQA"
+DEFAULT_M_PROMO_NO = "U96101300001"
+DEFAULT_DT_PROMO_NO = "D96101300001"
+DEFAULT_TITLE = "好運轉轉樂"
 
-# 10/1-10/3 每日 12 個開放時段 (均為 10 分整)
+# 10/13-10/18 每日 10 個開放時段 (均為 00 分整)
 SLOTS = [
-    (9, 10), (10, 10), (11, 10), (13, 10),
-    (15, 10), (16, 10), (17, 10), (18, 10),
-    (19, 10), (20, 10), (21, 10), (22, 10)
+    (10, 0), (11, 0), (12, 0),
+    (14, 0), (15, 0), (16, 0),
+    (17, 0), (18, 0), (20, 0),
+    (21, 0)
 ]
 SCHEDULE_TIMES = [f"{h:02d}:{m:02d}" for h, m in SLOTS]
 
@@ -53,14 +54,23 @@ RETURN_MESSAGES = {
 
 GIFT_NAMES = {
     "mo_1": "$1 mo點",
+    "mo_3": "$3 mo點",
     "mo_5": "$5 mo點",
     "mo_10": "$10 mo點",
     "mo_100": "$100 mo點",
+    "mo_388": "$388 mo點",
     "mo_999": "$999 mo點",
     "coupon_100": "$100折價券",
     "coupon_300": "$300折價券",
     "coupon_400": "$400折價券",
-    "coupon00": "$200折價券"
+    "coupon00": "$200折價券",
+    "coupon_1": "3C商品$1000券",
+    "coupon_2": "家居$500折價券",
+    "coupon_3": "運動商品88折折價券",
+    "coupon_4": "專櫃商品81折折價券",
+    "coupon_5": "貓狗飼料8折折價券",
+    "coupon_6": "保健商品82折折價券",
+    "coupon_7": "紙書72折折價券"
 }
 
 ACTIVE_CONFIG = {
@@ -254,8 +264,12 @@ def get_current_slot_info(now: datetime = None):
 
     slot_hour, slot_min = best_slot
     slot_time_str = f"{slot_hour:02d}:{slot_min:02d}"
-    dt_list = ACTIVE_CONFIG["dt_promo_no_array"]
-    dt_promo = dt_list[0] if dt_list else DEFAULT_DT_PROMO_NO
+    dt_list = ACTIVE_CONFIG.get("dt_promo_no_array", [])
+    slot_idx = SLOTS.index(best_slot) if best_slot in SLOTS else 0
+    if dt_list and slot_idx < len(dt_list):
+        dt_promo = dt_list[slot_idx]
+    else:
+        dt_promo = dt_list[0] if dt_list else DEFAULT_DT_PROMO_NO
 
     return slot_hour, slot_min, slot_time_str, dt_promo
 
@@ -375,6 +389,9 @@ def run_sniper_burst(cookie: str, dt_promo: str, max_burst: int = 8, account_lab
         last_res = res
         return_msg = res.get("returnMsg", "")
         prize_code = res.get("prize", "")
+        now_stage = res.get("nowStage", "")
+        if now_stage and now_stage.startswith("D") and now_stage != dt_promo:
+            dt_promo = now_stage
         msg_text = RETURN_MESSAGES.get(return_msg, return_msg)
         print(f"[{shot_time}] {prefix}第 {shot} 發搶抽結果: {return_msg} ({msg_text})")
 
@@ -439,7 +456,12 @@ def run_session_draws(cookies: list, slot_hour: int = None, slot_minute: int = N
 
     now_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     today_str = datetime.now().strftime('%Y/%m/%d')
-    print(f"[{now_str}] 檢查今日 ({today_str}) 各帳號摸彩狀態 (每人每日限搶一次)...")
+    is_per_slot = len(ACTIVE_CONFIG.get("dt_promo_no_array", [])) > 1
+
+    if is_per_slot:
+        print(f"[{now_str}] 檢查今日 ({today_str} {slot_time_str}) 各帳號摸彩狀態 (每人每時段限搶一次)...")
+    else:
+        print(f"[{now_str}] 檢查今日 ({today_str}) 各帳號摸彩狀態 (每人每日限搶一次)...")
 
     pending_cookies = []
     results = {}
@@ -447,16 +469,24 @@ def run_session_draws(cookies: list, slot_hour: int = None, slot_minute: int = N
     for idx, cookie in enumerate(cookies, 1):
         name = get_user_display_name(cookie, idx)
         summary = do_query(cookie, account_label=name)
-        has_drawn_today = any(d.startswith(today_str) for d, _ in summary['records']) if summary else False
-        if has_drawn_today:
-            print(f"  • {name}: 今日已完成摸彩，略過搶抽。")
-            results[idx] = (name, cookie, {}, "今日已完成摸彩")
+        if is_per_slot:
+            # 判斷今日此時段 (例如 10:xx) 是否已有成功紀錄
+            slot_prefix = f"{today_str} {target_hour:02d}:"
+            has_drawn = any(d.startswith(slot_prefix) for d, _ in summary['records']) if summary else False
         else:
-            print(f"  • {name}: 今日尚未摸彩，列入本時段搶抽名單。")
+            has_drawn = any(d.startswith(today_str) for d, _ in summary['records']) if summary else False
+
+        if has_drawn:
+            desc = f"本時段 ({slot_time_str}) 已完成摸彩" if is_per_slot else "今日已完成摸彩"
+            print(f"  • {name}: {desc}，略過搶抽。")
+            results[idx] = (name, cookie, {}, desc)
+        else:
+            print(f"  • {name}: 尚未摸彩，列入本時段搶抽名單。")
             pending_cookies.append((idx, cookie, name))
 
     if not pending_cookies:
-        print(f"[{now_str}] ✅ 所有帳號今日已成功完成摸彩（每人每日限搶一次），略過本日後續搶抽。")
+        msg = f"所有帳號於時段 {slot_time_str} 已完成摸彩（每時段限一次），略過本時段搶抽。" if is_per_slot else "所有帳號今日已成功完成摸彩（每人每日限搶一次），略過本日後續搶抽。"
+        print(f"[{now_str}] ✅ {msg}")
         return
 
     if wait_snipe:
@@ -521,7 +551,9 @@ def run_sniper_mode(cookies: list):
         if (target - now).total_seconds() > 0:
             next_hour = sh
             next_min = sm
-            next_dt = ACTIVE_CONFIG["dt_promo_no_array"][0]
+            slot_idx = SLOTS.index((sh, sm)) if (sh, sm) in SLOTS else 0
+            dt_list = ACTIVE_CONFIG.get("dt_promo_no_array", [])
+            next_dt = dt_list[slot_idx] if dt_list and slot_idx < len(dt_list) else (dt_list[0] if dt_list else DEFAULT_DT_PROMO_NO)
             break
 
     if next_hour is None:
@@ -600,10 +632,10 @@ def main():
         run_sniper_mode(cookies)
     elif args.now:
         now = datetime.now()
-        sh, sm, _, _ = get_current_slot_info(now)
+        sh, sm, _, dt_promo = get_current_slot_info(now)
         diff = (now.replace(hour=sh, minute=sm, second=0, microsecond=0) - now).total_seconds()
         wait_snipe = (0 < diff <= 240)
-        run_session_draws(cookies, slot_hour=sh, slot_minute=sm, silent_if_limit=args.silent_if_limit, wait_snipe=wait_snipe)
+        run_session_draws(cookies, slot_hour=sh, slot_minute=sm, dt_promo_arg=dt_promo, silent_if_limit=args.silent_if_limit, wait_snipe=wait_snipe)
     else:
         run_scheduler(cookies, edm_url)
 
