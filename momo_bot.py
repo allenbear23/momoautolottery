@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Momo 週年慶-週年摸彩賺$999 (10/1 - 10/3) 極速定時搶抽腳本
-支援多帳號並行搶抽、ESM/Legacy配置解析、12個時段智能對齊與 Bark 推播
+Momo 好運抽抽樂 (10/19 - 10/22) 極速定時搶抽腳本
+支援多帳號並行搶抽、game/momoLottery.PROMO & ESM/Legacy 配置解析、5個時段智能對齊、每時段抽2次與 Bark 推播
 """
 
 import sys
@@ -17,19 +17,21 @@ import urllib.parse
 from datetime import datetime
 import concurrent.futures
 
-DEFAULT_EVENT_URL = "https://momo.dm/ummeQA"
-DEFAULT_M_PROMO_NO = "U96101300001"
-DEFAULT_DT_PROMO_NO = "D96101300001"
-DEFAULT_TITLE = "好運轉轉樂"
+DEFAULT_EVENT_URL = "https://momo.dm/VfmevV"
+DEFAULT_M_PROMO_NO = "U96101900001"
+DEFAULT_DT_PROMO_NO = "D96101900001"
+DEFAULT_TITLE = "好運抽抽樂"
 
-# 10/13-10/18 每日 10 個開放時段 (均為 00 分整)
+# 10/19-10/22 每日 5 個開放時段 (每時段限1小時，每人每時段限玩2次)
 SLOTS = [
-    (10, 0), (11, 0), (12, 0),
-    (14, 0), (15, 0), (16, 0),
-    (17, 0), (18, 0), (20, 0),
+    (9, 0),
+    (13, 0),
+    (16, 0),
+    (19, 0),
     (21, 0)
 ]
 SCHEDULE_TIMES = [f"{h:02d}:{m:02d}" for h, m in SLOTS]
+MAX_DRAWS_PER_SLOT = 2
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 momoShop"
@@ -38,26 +40,40 @@ HEADERS = {
 RETURN_MESSAGES = {
     'OK': '成功',
     'INS': '恭喜獲得獎項！',
-    'A': '您已經參加過本時段了！',
-    'A_EX': '本時段或本活動參加次數已達上限！',
+    'A': '已超過本時段抽獎次數上限！',
+    'A_EX': '已超過本時段抽獎次數上限！',
+    'EA': '已超過本時段抽獎次數上限！',
     'FULL': '名額已經額滿！',
     'E_CN': '名額已經額滿！',
     'L': '請重新登入會員 (Cookie 已過期或無效)',
     'D': '請於活動時間內參加活動 (時段尚未開放)',
-    'NOT_USED': '尚未符合活動參加資格或時段尚未開放',
+    'W': '請於指定星期參加活動',
+    'WP': '競標金額錯誤',
+    'NOT_USED': '很抱歉，活動暫不開放',
     'NOT_APP': '請在 momo APP 參加活動',
     'NOT_WEB': '請於 momo 網站指定入口參加活動',
+    'NOT_NC': '您非活動期間新客',
+    'NOT_WFB': '您非活動期間首購',
+    'NOT_APPFB': '您非活動期間APP首購',
+    'NO_PT': '點數不足',
+    'exchanged': '今日已兌獎，恕無法再參加',
     'ERR': '系統繁忙，請稍後再試',
     'ERROR': '系統繁忙，請稍後再試',
     'E_RATELIMIT': '系統忙線中，請稍後再試'
 }
 
 GIFT_NAMES = {
+    "peach": "🍑 桃",
+    "gold": "🪙 金",
+    "day": "☀️ 日",
     "mo_1": "$1 mo點",
+    "mo_2": "$2 mo點",
     "mo_3": "$3 mo點",
     "mo_5": "$5 mo點",
     "mo_10": "$10 mo點",
+    "mo_12": "$12 mo點",
     "mo_100": "$100 mo點",
+    "mo_222": "$222 mo點",
     "mo_388": "$388 mo點",
     "mo_999": "$999 mo點",
     "coupon_100": "$100折價券",
@@ -78,7 +94,9 @@ ACTIVE_CONFIG = {
     "url": DEFAULT_EVENT_URL,
     "m_promo_no": DEFAULT_M_PROMO_NO,
     "dt_promo_no_array": [DEFAULT_DT_PROMO_NO],
-    "title": DEFAULT_TITLE
+    "title": DEFAULT_TITLE,
+    "api_type": "game",
+    "max_draws_per_slot": MAX_DRAWS_PER_SLOT
 }
 
 
@@ -125,7 +143,6 @@ def load_all_cookies(cookie_arg: str = None) -> list:
         clean = b.strip()
         if not clean or clean.startswith("#"):
             continue
-        # 簡易驗證是否包含 momo 憑證關鍵欄位
         if any(k in clean for k in ("LOGINSESSION", "st=", "_atrk", "isEN")):
             cookies.append(clean)
 
@@ -162,7 +179,10 @@ def resolve_momo_url(url: str) -> str:
 
 def fetch_promo_config(edm_url: str):
     """
-    從 EDM 頁面解析活動參數，支援 ESM (it_constant.js) 與舊版 (spinRotateConfig.js)
+    從 EDM 頁面解析活動參數，支援：
+    1. 抽抽樂 gameConfig.js / playLottery.js (game/momoLottery.PROMO)
+    2. 轉轉樂 ESM (it_constant.js)
+    3. 舊版轉盤 (spinRotateConfig.js)
     """
     try:
         edm_url = resolve_momo_url(edm_url)
@@ -170,7 +190,48 @@ def fetch_promo_config(edm_url: str):
         if not html:
             return None
 
-        # 優先檢測 ESM 架構 (it_init.js -> it_constant.js)
+        # 1. 檢測抽抽樂 gameConfig.js
+        m_game = re.search(r'src=[\"\']([^\"\']*gameConfig\.js[^\"\']*)[\"\']', html)
+        if m_game:
+            game_url = m_game.group(1)
+            if game_url.startswith("//"):
+                game_url = "https:" + game_url
+            game_js = fetch_page(game_url, timeout=10)
+            if game_js:
+                m_no_m = re.search(r'mPromoNo\s*=\s*[\"\']([^\"\']+)[\"\']', game_js)
+                dt_no_m = re.search(r'dtPromoNo\s*=\s*[\"\']([^\"\']+)[\"\']', game_js)
+                title_m = re.search(r'subtitle\s*=\s*[\"\']([^\"\']+)[\"\']', game_js) or re.search(r'title\s*=\s*[\"\']([^\"\']+)[\"\']', game_js)
+
+                m_no = m_no_m.group(1) if m_no_m else DEFAULT_M_PROMO_NO
+                dt_no = dt_no_m.group(1) if dt_no_m else DEFAULT_DT_PROMO_NO
+                title = title_m.group(1).replace("【", "").replace("】", "").strip() if title_m else DEFAULT_TITLE
+
+                # 解析禮物名稱對應
+                gifts = re.findall(r'[\"\'](\w+)[\"\']\s*:\s*[\"\']([^\"\']+)[\"\']', game_js)
+                for code, name in gifts:
+                    if code not in ("peach", "gold", "day") and not code.startswith("mo_"):
+                        continue
+                    if code == "peach":
+                        GIFT_NAMES[code] = f"🍑 {name}"
+                    elif code == "gold":
+                        GIFT_NAMES[code] = f"🪙 {name}"
+                    elif code == "day":
+                        GIFT_NAMES[code] = f"☀️ {name}"
+                    elif code.startswith("mo_"):
+                        GIFT_NAMES[code] = f"${name} mo點" if "元" not in name else f"${name.replace('元', '')} mo點"
+
+                print(f"[{datetime.now().strftime('%H:%M:%S')}] 解析抽抽樂配置成功: 活動='{title}', mPromoNo={m_no}, dtPromoNo={dt_no}")
+                return {
+                    "domain": "https://event.momoshop.com.tw",
+                    "url": edm_url,
+                    "m_promo_no": m_no,
+                    "dt_promo_no_array": [dt_no],
+                    "title": title,
+                    "api_type": "game",
+                    "max_draws_per_slot": 2
+                }
+
+        # 2. 檢測 ESM 架構 (it_init.js -> it_constant.js)
         m_it = re.search(r'src=[\"\']([^\"\']*it_init\.js[^\"\']*)[\"\']', html)
         if m_it:
             it_url = m_it.group(1)
@@ -188,7 +249,6 @@ def fetch_promo_config(edm_url: str):
                 dt_no = dt_no_m.group(1) if dt_no_m else DEFAULT_DT_PROMO_NO
                 domain = api_m.group(1) if api_m else "https://event.momoshop.com.tw"
 
-                # 解析獎項定義
                 gifts = re.findall(r'(\w+)\s*:\s*\{[^}]*message\s*:\s*[\"\']([^\"\']+)[\"\']', const_js)
                 for code, name in gifts:
                     GIFT_NAMES[code] = name
@@ -202,10 +262,12 @@ def fetch_promo_config(edm_url: str):
                     "url": edm_url,
                     "m_promo_no": m_no,
                     "dt_promo_no_array": [dt_no],
-                    "title": title
+                    "title": title,
+                    "api_type": "spin",
+                    "max_draws_per_slot": 1
                 }
 
-        # 備用檢測舊版 spinRotateConfig.js
+        # 3. 備用檢測舊版 spinRotateConfig.js
         js_match = re.search(r'src=[\"\']([^\"\']*spinRotateConfig\.js[^\"\']*)[\"\']', html)
         if js_match:
             js_url = js_match.group(1)
@@ -232,7 +294,9 @@ def fetch_promo_config(edm_url: str):
                 "url": edm_url,
                 "m_promo_no": m_no,
                 "dt_promo_no_array": dt_list,
-                "title": title
+                "title": title,
+                "api_type": "spin",
+                "max_draws_per_slot": 1
             }
     except Exception as e:
         print(f"[{datetime.now().strftime('%H:%M:%S')}] 解析配置異常: {e}")
@@ -250,8 +314,8 @@ def get_current_slot_info(now: datetime = None):
     for sh, sm in SLOTS:
         slot_dt = now.replace(hour=sh, minute=sm, second=0, microsecond=0)
         diff = (slot_dt - now).total_seconds()
-        # 若在時段前 4 分鐘內或剛開搶 2 分鐘內，視為鎖定該時段
-        if -120 <= diff <= 240:
+        # 若在開抽前 4 分鐘內或開抽後 1 小時 (3600秒) 內，鎖定該時段
+        if -3600 <= diff <= 240:
             best_slot = (sh, sm)
             break
         # 尋找未來最近的時段
@@ -294,69 +358,28 @@ def send_api_request(endpoint: str, payload: dict, cookie: str):
             body = resp.read().decode("utf-8")
             return json.loads(body)
     except urllib.error.HTTPError as e:
-        return {"returnMsg": f"HTTP_ERROR_{e.code}"}
+        return {"returnMsg": f"HTTP_ERROR_{e.code}", "status": f"HTTP_ERROR_{e.code}"}
     except Exception as e:
-        return {"returnMsg": f"ERROR_{str(e)}"}
-
-
-def do_query(cookie: str, account_label: str = ""):
-    now_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    payload = {
-        "m_promo_no": ACTIVE_CONFIG["m_promo_no"],
-        "qry_type": "1003"
-    }
-
-    res = send_api_request("promoMechQry.PROMO", payload, cookie)
-    label = f"【{account_label}】" if account_label else ""
-    if res.get("returnMsg") == "L":
-        print(f"[{now_str}] {label} 查詢失敗: 會員登入憑證失效 (Cookie 已逾期)")
-        return None
-
-    if res.get("returnMsg") != "OK":
-        print(f"[{now_str}] {label} 查詢回應: {res}")
-        return None
-
-    gift_codes = res.get("gift_code", [])
-    insert_dates = res.get("insert_date", [])
-    records = list(zip(insert_dates, gift_codes))
-
-    total_mo = 0
-    coupons = []
-    for _, code in records:
-        if code.startswith("mo_"):
-            try:
-                total_mo += int(code.split("_")[1])
-            except Exception:
-                pass
-        else:
-            coupons.append(GIFT_NAMES.get(code, code))
-
-    print(f"[{now_str}] {label} 【{ACTIVE_CONFIG['title']}】活動紀錄:")
-    print(f"  • 今日累計摸彩次數: {len(records)} 次")
-    print(f"  • 累計獲得 mo 點: {total_mo} 元")
-    if coupons:
-        print(f"  • 獲得折價券: {', '.join(coupons)}")
-    print("  • 詳細紀錄:")
-    if not records:
-        print("    (今日尚無摸彩紀錄)")
-    for d, c in records:
-        print(f"    - {d}: {GIFT_NAMES.get(c, c)}")
-
-    return {
-        "account_label": account_label,
-        "total_draws": len(records),
-        "total_mo": total_mo,
-        "coupons": coupons,
-        "records": records
-    }
+        return {"returnMsg": f"ERROR_{str(e)}", "status": f"ERROR_{str(e)}"}
 
 
 def prewarm_connection():
     """在時段前預先建立 TLS/SSL 連線與 DNS 快取，消除首發握手延遲"""
     try:
-        payload = json.dumps({"m_promo_no": ACTIVE_CONFIG["m_promo_no"], "cnt_type": "1004"}).encode("utf-8")
+        if ACTIVE_CONFIG.get("api_type") == "game":
+            url = f"{ACTIVE_CONFIG['domain']}/game/momoLottery.PROMO"
+            dt_promo = ACTIVE_CONFIG.get("dt_promo_no_array", [DEFAULT_DT_PROMO_NO])[0]
+            payload = json.dumps({
+                "doAction": "qry",
+                "m_promo_no": ACTIVE_CONFIG["m_promo_no"],
+                "dt_promo_no": dt_promo
+            }).encode("utf-8")
+        else:
+            url = f"{ACTIVE_CONFIG['domain']}/promoMechCnt.PROMO"
+            payload = json.dumps({"m_promo_no": ACTIVE_CONFIG["m_promo_no"], "cnt_type": "1004"}).encode("utf-8")
+
         req = urllib.request.Request(
-            f"{ACTIVE_CONFIG['domain']}/promoMechCnt.PROMO",
+            url,
             data=payload,
             headers={
                 "User-Agent": HEADERS["User-Agent"],
@@ -370,19 +393,144 @@ def prewarm_connection():
 
 
 def do_draw(cookie: str, dt_promo: str):
-    payload = {
-        "m_promo_no": ACTIVE_CONFIG["m_promo_no"],
-        "dt_promo_no": dt_promo
-    }
-    return send_api_request("promoMechReg.PROMO", payload, cookie)
+    if ACTIVE_CONFIG.get("api_type") == "game":
+        payload = {
+            "doAction": "lottery",
+            "m_promo_no": ACTIVE_CONFIG["m_promo_no"],
+            "dt_promo_no": dt_promo
+        }
+        res = send_api_request("game/momoLottery.PROMO", payload, cookie)
+        status = res.get("status", "")
+        prize_code = ""
+        if status == "OK":
+            prize_obj = res.get("result", {}).get("prize", {})
+            prize_code = prize_obj.get("giftCode", "") if isinstance(prize_obj, dict) else ""
+            if res.get("prizeStatus") == "PRIZE":
+                prize_code += f" (集滿桃金日: +{res.get('total', 0)}元)"
+        return {
+            "returnMsg": status,
+            "prize": prize_code,
+            "raw": res
+        }
+    else:
+        payload = {
+            "m_promo_no": ACTIVE_CONFIG["m_promo_no"],
+            "dt_promo_no": dt_promo
+        }
+        return send_api_request("promoMechReg.PROMO", payload, cookie)
 
 
-def run_sniper_burst(cookie: str, dt_promo: str, max_burst: int = 8, account_label: str = ""):
+def do_query(cookie: str, account_label: str = ""):
+    now_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    label = f"【{account_label}】" if account_label else ""
+
+    if ACTIVE_CONFIG.get("api_type") == "game":
+        dt_promo = ACTIVE_CONFIG.get("dt_promo_no_array", [DEFAULT_DT_PROMO_NO])[0]
+        payload = {
+            "doAction": "qry",
+            "m_promo_no": ACTIVE_CONFIG["m_promo_no"],
+            "dt_promo_no": dt_promo
+        }
+        res = send_api_request("game/momoLottery.PROMO", payload, cookie)
+        status = res.get("status")
+        if status == "L":
+            print(f"[{now_str}] {label} 查詢失敗: 會員登入憑證失效 (Cookie 已逾期)")
+            return None
+        if status != "OK":
+            print(f"[{now_str}] {label} 查詢回應: {res}")
+            return None
+
+        data = res.get("data", {})
+        insert_dates = data.get("insert_date", [])
+        gift_codes = data.get("gift_code", [])
+        records = list(zip(insert_dates, gift_codes))
+
+        total_mo = 0
+        special_gifts = []
+        for _, code in records:
+            if code.startswith("mo_"):
+                try:
+                    total_mo += int(code.split("_")[1])
+                except Exception:
+                    pass
+            else:
+                special_gifts.append(GIFT_NAMES.get(code, code))
+
+        print(f"[{now_str}] {label} 【{ACTIVE_CONFIG['title']}】活動紀錄:")
+        print(f"  • 累計摸彩次數: {len(records)} 次")
+        print(f"  • 累計獲得 mo 點: {total_mo} 元")
+        if special_gifts:
+            print(f"  • 收集字卡/特別獎: {', '.join(special_gifts)}")
+        print("  • 詳細紀錄:")
+        if not records:
+            print("    (今日尚無摸彩紀錄)")
+        for d, c in records:
+            print(f"    - {d}: {GIFT_NAMES.get(c, c)}")
+
+        return {
+            "account_label": account_label,
+            "total_draws": len(records),
+            "total_mo": total_mo,
+            "coupons": special_gifts,
+            "records": records
+        }
+    else:
+        payload = {
+            "m_promo_no": ACTIVE_CONFIG["m_promo_no"],
+            "qry_type": "1003"
+        }
+        res = send_api_request("promoMechQry.PROMO", payload, cookie)
+        if res.get("returnMsg") == "L":
+            print(f"[{now_str}] {label} 查詢失敗: 會員登入憑證失效 (Cookie 已逾期)")
+            return None
+        if res.get("returnMsg") != "OK":
+            print(f"[{now_str}] {label} 查詢回應: {res}")
+            return None
+
+        gift_codes = res.get("gift_code", [])
+        insert_dates = res.get("insert_date", [])
+        records = list(zip(insert_dates, gift_codes))
+
+        total_mo = 0
+        coupons = []
+        for _, code in records:
+            if code.startswith("mo_"):
+                try:
+                    total_mo += int(code.split("_")[1])
+                except Exception:
+                    pass
+            else:
+                coupons.append(GIFT_NAMES.get(code, code))
+
+        print(f"[{now_str}] {label} 【{ACTIVE_CONFIG['title']}】活動紀錄:")
+        print(f"  • 今日累計摸彩次數: {len(records)} 次")
+        print(f"  • 累計獲得 mo 點: {total_mo} 元")
+        if coupons:
+            print(f"  • 獲得折價券: {', '.join(coupons)}")
+        print("  • 詳細紀錄:")
+        if not records:
+            print("    (今日尚無摸彩紀錄)")
+        for d, c in records:
+            print(f"    - {d}: {GIFT_NAMES.get(c, c)}")
+
+        return {
+            "account_label": account_label,
+            "total_draws": len(records),
+            "total_mo": total_mo,
+            "coupons": coupons,
+            "records": records
+        }
+
+
+def run_sniper_burst(cookie: str, dt_promo: str, max_burst: int = 10, account_label: str = "", target_draws: int = 1):
     """
-    毫秒級極速連發搶抽
+    毫秒級極速連發搶抽，支援每時段連續抽 target_draws 次
     """
     prefix = f"[{account_label}] " if account_label else ""
+    successful_draws = 0
+    prizes = []
     last_res = {}
+
     for shot in range(1, max_burst + 1):
         shot_time = datetime.now().strftime('%H:%M:%S.%f')[:-3]
         res = do_draw(cookie, dt_promo)
@@ -392,19 +540,27 @@ def run_sniper_burst(cookie: str, dt_promo: str, max_burst: int = 8, account_lab
         now_stage = res.get("nowStage", "")
         if now_stage and now_stage.startswith("D") and now_stage != dt_promo:
             dt_promo = now_stage
+
         msg_text = RETURN_MESSAGES.get(return_msg, return_msg)
         print(f"[{shot_time}] {prefix}第 {shot} 發搶抽結果: {return_msg} ({msg_text})")
 
-        if return_msg == "INS":
+        if return_msg in ("OK", "INS"):
+            successful_draws += 1
             gift_name = GIFT_NAMES.get(prize_code, prize_code)
-            print(f"🎉 {prefix}搶抽成功！獲得: {gift_name}")
-            return res, f"🎉 抽中：{gift_name}"
-        elif return_msg in ("A", "A_EX"):
-            print(f"{prefix}本時段已摸彩過。")
-            return res, "本時段已摸彩過"
+            prizes.append(gift_name)
+            print(f"🎉 {prefix}第 {successful_draws} 次抽中: {gift_name}！")
+            if successful_draws >= target_draws:
+                return res, f"🎉 抽中：{', '.join(prizes)}"
+            time.sleep(0.1)
+            continue
+        elif return_msg in ("A", "A_EX", "EA"):
+            print(f"{prefix}本時段抽獎次數已達上限。")
+            desc = f"🎉 抽中：{', '.join(prizes)}" if prizes else "本時段抽獎次數已達上限"
+            return res, desc
         elif return_msg in ("FULL", "E_CN"):
             print(f"{prefix}本時段名額已額滿。")
-            return res, "本時段名額已額滿"
+            desc = f"🎉 抽中：{', '.join(prizes)} (名額已額滿)" if prizes else "本時段名額已額滿"
+            return res, desc
         elif return_msg == "L":
             print(f"⚠️ {prefix}Cookie 已失效，請重新登入更新。")
             return res, "⚠️ Cookie 已失效"
@@ -413,6 +569,8 @@ def run_sniper_burst(cookie: str, dt_promo: str, max_burst: int = 8, account_lab
         else:
             time.sleep(0.2)
 
+    if prizes:
+        return last_res, f"🎉 抽中：{', '.join(prizes)}"
     return last_res, RETURN_MESSAGES.get(last_res.get("returnMsg", ""), last_res.get("returnMsg", ""))
 
 
@@ -455,13 +613,11 @@ def run_session_draws(cookies: list, slot_hour: int = None, slot_minute: int = N
         target_hour, target_min, slot_time_str, dt_promo = get_current_slot_info()
 
     now_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    today_str = datetime.now().strftime('%Y/%m/%d')
-    is_per_slot = len(ACTIVE_CONFIG.get("dt_promo_no_array", [])) > 1
+    today_slash = datetime.now().strftime('%Y/%m/%d')
+    today_dash = datetime.now().strftime('%Y-%m-%d')
+    max_draws = ACTIVE_CONFIG.get("max_draws_per_slot", MAX_DRAWS_PER_SLOT)
 
-    if is_per_slot:
-        print(f"[{now_str}] 檢查今日 ({today_str} {slot_time_str}) 各帳號摸彩狀態 (每人每時段限搶一次)...")
-    else:
-        print(f"[{now_str}] 檢查今日 ({today_str}) 各帳號摸彩狀態 (每人每日限搶一次)...")
+    print(f"[{now_str}] 檢查今日 ({today_slash} {slot_time_str}) 各帳號抽獎狀態 (每人每時段限玩 {max_draws} 次)...")
 
     pending_cookies = []
     results = {}
@@ -469,36 +625,41 @@ def run_session_draws(cookies: list, slot_hour: int = None, slot_minute: int = N
     for idx, cookie in enumerate(cookies, 1):
         name = get_user_display_name(cookie, idx)
         summary = do_query(cookie, account_label=name)
-        if is_per_slot:
-            # 判斷今日此時段 (例如 10:xx) 是否已有成功紀錄
-            slot_prefix = f"{today_str} {target_hour:02d}:"
-            has_drawn = any(d.startswith(slot_prefix) for d, _ in summary['records']) if summary else False
-        else:
-            has_drawn = any(d.startswith(today_str) for d, _ in summary['records']) if summary else False
+        count_in_slot = 0
+        if summary and summary.get('records'):
+            slot_prefixes = (
+                f"{today_slash} {target_hour:02d}:",
+                f"{today_dash} {target_hour:02d}:",
+                f"{today_slash} {target_hour}:",
+                f"{today_dash} {target_hour}:"
+            )
+            for d, _ in summary['records']:
+                d_str = str(d)
+                if any(d_str.startswith(p) for p in slot_prefixes):
+                    count_in_slot += 1
 
-        if has_drawn:
-            desc = f"本時段 ({slot_time_str}) 已完成摸彩" if is_per_slot else "今日已完成摸彩"
+        rem_draws = max(0, max_draws - count_in_slot)
+        if rem_draws == 0:
+            desc = f"本時段 ({slot_time_str}) 已抽滿 {max_draws} 次"
             print(f"  • {name}: {desc}，略過搶抽。")
             results[idx] = (name, cookie, {}, desc)
         else:
-            print(f"  • {name}: 尚未摸彩，列入本時段搶抽名單。")
-            pending_cookies.append((idx, cookie, name))
+            print(f"  • {name}: 已抽 {count_in_slot}/{max_draws} 次，尚需抽 {rem_draws} 次，列入搶抽名單。")
+            pending_cookies.append((idx, cookie, name, rem_draws))
 
     if not pending_cookies:
-        msg = f"所有帳號於時段 {slot_time_str} 已完成摸彩（每時段限一次），略過本時段搶抽。" if is_per_slot else "所有帳號今日已成功完成摸彩（每人每日限搶一次），略過本日後續搶抽。"
-        print(f"[{now_str}] ✅ {msg}")
+        print(f"[{now_str}] ✅ 所有帳號於時段 {slot_time_str} 已抽滿 {max_draws} 次，略過本時段搶抽。")
         return
 
     if wait_snipe:
         wait_until_slot_snipe(target_hour, target_min)
 
-    print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] 目標時段: {slot_time_str}，共 {len(pending_cookies)} 個帳號未完成，發動搶抽...")
+    print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] 目標時段: {slot_time_str}，共 {len(pending_cookies)} 個帳號出擊...")
 
-    # 針對尚未抽獎之帳號並行搶抽
     with concurrent.futures.ThreadPoolExecutor(max_workers=max(1, len(pending_cookies))) as executor:
         future_to_info = {
-            executor.submit(run_sniper_burst, cookie, dt_promo, 8, name): (idx, name, cookie)
-            for idx, cookie, name in pending_cookies
+            executor.submit(run_sniper_burst, cookie, dt_promo, 10, name, rem): (idx, name, cookie)
+            for idx, cookie, name, rem in pending_cookies
         }
         for fut in concurrent.futures.as_completed(future_to_info):
             idx, name, cookie = future_to_info[fut]
@@ -508,7 +669,7 @@ def run_session_draws(cookies: list, slot_hour: int = None, slot_minute: int = N
             except Exception as e:
                 results[idx] = (name, cookie, {}, f"異常: {e}")
 
-    # 彙整中獎與統計資訊
+    # 彙整與推播
     time.sleep(1)
     report_sections = []
     has_meaningful_result = False
@@ -518,22 +679,21 @@ def run_session_draws(cookies: list, slot_hour: int = None, slot_minute: int = N
         summary = do_query(cookie, account_label=name)
         sec = [f"👤 {name}：{desc}"]
         if summary:
-            sec.append(f"  • 累計 mo 點: {summary['total_mo']} 元 (摸彩 {summary['total_draws']} 次)")
+            sec.append(f"  • 累計 mo 點: {summary['total_mo']} 元 (抽獎 {summary['total_draws']} 次)")
             if summary["coupons"]:
-                sec.append(f"  • 折價券: {len(summary['coupons'])} 張")
+                sec.append(f"  • 收集字卡/特別獎: {', '.join(summary['coupons'])}")
         report_sections.append("\n".join(sec))
 
-        if desc not in ("本時段已摸彩過", "活動尚未開放或非開放時段"):
+        if not ("已抽滿" in desc or "活動尚未開放" in desc or "請於活動時間" in desc):
             has_meaningful_result = True
 
     if silent_if_limit and not has_meaningful_result:
-        print("所有帳號均已摸彩過或非開放時段，略過推播。")
+        print("所有帳號均已抽滿或非開放時段，略過推播。")
         return
 
-    # 發送 Bark 通知
     try:
         from notifier import send_bark
-        body_text = f"【時段 {slot_time_str} 摸彩報告】\n\n" + "\n\n".join(report_sections)
+        body_text = f"【時段 {slot_time_str} 抽獎報告】\n\n" + "\n\n".join(report_sections)
         send_bark(f"momo {ACTIVE_CONFIG['title']}結果 ({slot_time_str})", body_text.strip())
     except Exception as e:
         print(f"發送推播通知異常: {e}")
@@ -567,7 +727,7 @@ def run_sniper_mode(cookies: list):
     print(f"🎯 啟動極速狙擊模式！(支援 {len(cookies)} 個帳號並行)")
     print(f"目標時段: {next_hour:02d}:{next_min:02d} (代碼: {next_dt})")
     print(f"倒數時間: 約 {mins} 分 {secs} 秒")
-    print(f"策略: 時段前 3.5 秒預熱連線 ➔ T-0.2 秒多帳號並行出擊 ➔ 200ms 高頻連發")
+    print(f"策略: 時段前 3.5 秒預熱連線 ➔ T-0.2 秒多帳號並行出擊 ➔ 200ms 高頻連發 (每帳號抽 {ACTIVE_CONFIG.get('max_draws_per_slot', 2)} 次)")
     print(f"==================================================")
 
     wait_until_slot_snipe(next_hour, next_min, max_wait_seconds=86400)
@@ -575,7 +735,7 @@ def run_sniper_mode(cookies: list):
 
 
 def run_scheduler(cookies: list, event_url: str):
-    print(f"定時摸彩服務已啟動 (帳號數: {len(cookies)})。每日開放時段: {', '.join(SCHEDULE_TIMES)}")
+    print(f"定時抽獎服務已啟動 (帳號數: {len(cookies)})。每日開放時段: {', '.join(SCHEDULE_TIMES)}")
     last_triggered_key = ""
 
     while True:
@@ -597,13 +757,13 @@ def run_scheduler(cookies: list, event_url: str):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Momo 週年摸彩賺$999極速多帳號搶抽腳本")
+    parser = argparse.ArgumentParser(description="Momo 好運抽抽樂極速多帳號搶抽腳本")
     parser.add_argument("--cookie", help="Momo 網站 Cookie 字串 (多帳號可用換行或 --- 分隔)")
-    parser.add_argument("--url", help="活動 EDM 網址 (預設週年慶週年摸彩賺$999)")
+    parser.add_argument("--url", help="活動 EDM 網址 (預設好運抽抽樂)")
     parser.add_argument("--now", action="store_true", help="立即發送一次搶抽連發流程")
     parser.add_argument("--sniper", action="store_true", help="精準倒數鎖定下個開放時段，於前 0.2 秒搶先出擊")
-    parser.add_argument("--query", action="store_true", help="查詢當前摸彩中獎紀錄與 mo 點")
-    parser.add_argument("--schedule", action="store_true", help="啟動 12 個時段的本機定時輪詢")
+    parser.add_argument("--query", action="store_true", help="查詢當前抽獎紀錄與 mo 點")
+    parser.add_argument("--schedule", action="store_true", help="啟動 5 個時段的本機定時輪詢")
     parser.add_argument("--silent-if-limit", action="store_true", help="若所有帳號均已無額度或非開放時段則略過推播")
     parser.add_argument("--bark", help="Bark 推播 Key 或 URL")
     args = parser.parse_args()
@@ -635,8 +795,8 @@ def main():
         sh, sm, slot_str, dt_promo = get_current_slot_info(now)
         slot_dt = now.replace(hour=sh, minute=sm, second=0, microsecond=0)
         diff = (slot_dt - now).total_seconds()
-        # 僅在時段前 4 分鐘到開抽後 5 分鐘窗口內才執行搶抽，避免非時段盲目送出無效請求
-        if -300 <= diff <= 240:
+        # 僅在時段前 4 分鐘到開抽後 1 小時窗口內才執行搶抽
+        if -3600 <= diff <= 240:
             wait_snipe = (0 < diff <= 240)
             run_session_draws(cookies, slot_hour=sh, slot_minute=sm, dt_promo_arg=dt_promo, silent_if_limit=args.silent_if_limit, wait_snipe=wait_snipe)
         else:
