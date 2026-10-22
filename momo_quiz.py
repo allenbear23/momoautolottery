@@ -21,6 +21,12 @@ DEFAULT_EVENT_URL = "https://momo.dm/BreIZI"
 QUIZ_ACTIVITY_ID = "3008445a-40b4-4227-a9cc-db0bdae289a5"
 API_BASE = "https://event.momoshop.com.tw"
 
+try:
+    from momo_knowledge_base import MOMO_KNOWLEDGE_CONTEXT, MOMO_COMPACT_CONTEXT
+except Exception:
+    MOMO_KNOWLEDGE_CONTEXT = ""
+    MOMO_COMPACT_CONTEXT = ""
+
 # 10/23-10/31 每日 6 個時段 (均為 11 分)
 SLOTS = [
     (10, 11),
@@ -305,8 +311,11 @@ def get_groq_api_key(api_key: str = None) -> str:
 
 
 def query_groq(question_text: str, choices: list, api_key: str = None, question_image: str = None) -> str:
-    """利用 Groq 進行極速 AI 解題 (支援 Llama 3.2 視覺與 Llama 3.3 推理，每日 14,400 次免費)"""
-    import base64
+    """利用 Groq 進行極速 AI 解題 (文字/常識題每日 14,400 次免費，0.3s 極速回傳)"""
+    # 圖文題由支援多模態的 Gemini 處理
+    if question_image:
+        return None
+
     key = get_groq_api_key(api_key)
     if not key:
         return None
@@ -316,49 +325,23 @@ def query_groq(question_text: str, choices: list, api_key: str = None, question_
 
     prompt = f"""請以 momo 雙11官方背景與常識知識庫為準，判斷這道題目的正確答案。
 
-{MOMO_KNOWLEDGE_CONTEXT}
+{MOMO_COMPACT_CONTEXT}
 
 【題目】：{question_text}
 【選項清單】：
 {options_str}
 
 【重要規則】：
-1. 若題目有附圖，請詳細觀察圖片中之核心商品外觀特徵、品項或品牌文字。
-2. 答案必須是選項清單中的其中一個。
-3. 請直接輸出正確選項的數字編號（例如只輸出 1 或 2 或 3 或 4），不要輸出多餘的問候語或思考過程。"""
+1. 答案必須是選項清單中的其中一個。
+2. 請直接輸出正確選項的數字編號（例如只輸出 1 或 2 或 3 或 4），不要輸出多餘的問候語或思考過程。"""
 
-    img_b64 = None
-    if question_image:
-        try:
-            if question_image.startswith("http"):
-                req_img = urllib.request.Request(question_image, headers=HEADERS)
-                with urllib.request.urlopen(req_img, timeout=6) as resp:
-                    img_b64 = base64.b64encode(resp.read()).decode("utf-8")
-            elif os.path.exists(question_image):
-                with open(question_image, "rb") as f:
-                    img_b64 = base64.b64encode(f.read()).decode("utf-8")
-        except Exception:
-            pass
-
-    content = []
-    if img_b64:
-        content.append({
-            "type": "image_url",
-            "image_url": {
-                "url": f"data:image/jpeg;base64,{img_b64}"
-            }
-        })
-        models = ["llama-3.2-11b-vision-preview", "llama-3.2-90b-vision-preview"]
-    else:
-        models = ["llama-3.3-70b-versatile", "llama-3.1-8b-instant"]
-
-    content.append({"type": "text", "text": prompt})
-
+    models = ["qwen/qwen3.8-27b", "openai/gpt-oss-120b", "openai/gpt-oss-20b"]
     url = "https://api.groq.com/openai/v1/chat/completions"
+
     for model in models:
         payload = {
             "model": model,
-            "messages": [{"role": "user", "content": content}],
+            "messages": [{"role": "user", "content": prompt}],
             "temperature": 0.0,
             "max_tokens": 50
         }
@@ -368,12 +351,13 @@ def query_groq(question_text: str, choices: list, api_key: str = None, question_
             data=data,
             headers={
                 "Authorization": f"Bearer {key}",
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko)"
             },
             method="POST"
         )
         try:
-            with urllib.request.urlopen(req, timeout=8) as resp:
+            with urllib.request.urlopen(req, timeout=5) as resp:
                 res = json.loads(resp.read().decode("utf-8"))
                 text_out = res["choices"][0]["message"]["content"].strip()
                 m = re.search(r'\b([1-9])\b', text_out)
@@ -429,9 +413,9 @@ def search_best_choice(question_text: str, choices: list, known_wrong: list) -> 
 
 def get_question_key(question: dict) -> str:
     """產生題目唯一鍵值，若有圖片則結合圖片檔名以防同名題目覆蓋"""
-    q_text = question.get("text", "").strip()
-    q_img = question.get("image", "").strip()
-    q_uuid = question.get("uuid", "").strip()
+    q_text = (question.get("text") or "").strip()
+    q_img = (question.get("image") or "").strip()
+    q_uuid = (question.get("uuid") or "").strip()
     if q_img:
         img_name = os.path.basename(urllib.parse.urlsplit(q_img).path)
         return f"{q_text}::img_{img_name}" if q_text else f"img_{img_name}"
