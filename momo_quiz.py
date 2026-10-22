@@ -131,10 +131,26 @@ def prewarm_connection(cookie: str):
         pass
 
 
+def get_gemini_api_key(api_key: str = None) -> str:
+    if api_key:
+        return api_key.strip()
+    env_key = os.getenv("GEMINI_API_KEY", "").strip()
+    if env_key:
+        return env_key
+    key_file = os.path.join(os.path.dirname(__file__), "gemini_key.txt")
+    if os.path.exists(key_file):
+        try:
+            with open(key_file, "r", encoding="utf-8") as f:
+                return f.read().strip()
+        except Exception:
+            pass
+    return ""
+
+
 def query_gemini(question_text: str, choices: list, api_key: str = None, question_image: str = None) -> str:
     """利用 Google Gemini API 進行即時智能判題 (支援圖文多模態)"""
     import base64
-    key = api_key or os.getenv("GEMINI_API_KEY", "").strip()
+    key = get_gemini_api_key(api_key)
     if not key:
         return None
 
@@ -219,33 +235,36 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
 
     parts.append({"text": prompt})
 
-    models = ["gemini-3-flash-preview", "gemini-3.6-flash", "gemini-3.5-flash", "gemini-flash-latest"]
+    models = ["gemini-3.6-flash", "gemini-3.7-flash", "gemini-3.5-flash", "gemini-3-flash-preview"]
     for model in models:
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={key}"
         payload = {
             "contents": [{"parts": parts}],
             "generationConfig": {
                 "temperature": 0.0,
-                "maxOutputTokens": 200
+                "maxOutputTokens": 600
             }
         }
         data = json.dumps(payload).encode("utf-8")
         req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"}, method="POST")
         try:
-            with urllib.request.urlopen(req, timeout=6) as resp:
+            with urllib.request.urlopen(req, timeout=10) as resp:
                 result = json.loads(resp.read().decode("utf-8"))
                 candidates = result.get("candidates", [])
                 if candidates:
-                    text_out = candidates[0].get("content", {}).get("parts", [{}])[0].get("text", "").strip()
+                    parts_list = candidates[0].get("content", {}).get("parts", [])
+                    non_thought = [p.get("text", "") for p in parts_list if not p.get("thought", False)]
+                    text_out = " ".join(non_thought).strip() if non_thought else " ".join(p.get("text", "") for p in parts_list).strip()
+
                     m = re.search(r'\b([1-9])\b', text_out)
                     if m:
                         idx = int(m.group(1)) - 1
                         if 0 <= idx < len(choices):
-                            print(f"[Gemini AI] 解析選項為: {idx+1}. {choices[idx].get('text')}")
+                            print(f"[{model}] 解析選項為: {idx+1}. {choices[idx].get('text')}")
                             return choices[idx]["uuid"]
                     for idx, c in enumerate(choices):
                         if c.get("text") and c.get("text") in text_out:
-                            print(f"[Gemini AI] 命中關鍵字: {c.get('text')}")
+                            print(f"[{model}] 命中關鍵字: {c.get('text')}")
                             return c["uuid"]
         except Exception:
             continue
@@ -618,16 +637,65 @@ def main():
     parser.add_argument("--gemini-key", help="Google Gemini API Key")
     parser.add_argument("--now", action="store_true", help="立即執行搶答流程")
     parser.add_argument("--force", action="store_true", help="強制立即執行（無視時段窗口與開搶倒數）")
+    parser.add_argument("--test-demo", action="store_true", help="執行示範題 AI 讀題測試")
     parser.add_argument("--query", action="store_true", help="查詢今日積分與兌換狀態")
     parser.add_argument("--silent-if-limit", action="store_true", help="略過重複推播")
     args = parser.parse_args()
+
+    gemini_key = get_gemini_api_key(args.gemini_key)
+
+    if args.test_demo:
+        demo_img = "/Users/allen/.gemini/antigravity-ide/brain/3b9f5804-fd76-44a9-bd44-dbde2ae057ec/.tempmediaStorage/media_1792682302310.png"
+        if not os.path.exists(demo_img):
+            demo_img = "https://img1.momoshop.com.tw/ecm/img/online/10/007/04/648/images/game_start.gif?t=1792670445872"
+
+        demo_questions = [
+            {
+                "title": "示範題 1（圖文題：書桌與電腦椅）",
+                "text": "圖中商品屬於哪一個館別？",
+                "image": demo_img,
+                "choices": [
+                    {"uuid": "choice_1", "text": "3C家電館"},
+                    {"uuid": "choice_2", "text": "日用清潔館"},
+                    {"uuid": "choice_3", "text": "流行時尚館"},
+                    {"uuid": "choice_4", "text": "家具寢飾/居家生活館"}
+                ]
+            },
+            {
+                "title": "示範題 2（活動常識題：代言人）",
+                "text": "下列何者是本次活動的主視覺代言人？",
+                "image": None,
+                "choices": [
+                    {"uuid": "c1", "text": "SUPER JUNIOR-83z"},
+                    {"uuid": "c2", "text": "五月天"},
+                    {"uuid": "c3", "text": "告五人"},
+                    {"uuid": "c4", "text": "蔡依林"}
+                ]
+            }
+        ]
+
+        for dq in demo_questions:
+            print(f"\n=== 【{dq['title']}】 ===")
+            print(f"題目：{dq['text']}")
+            if dq['image']:
+                print(f"附圖：{dq['image']}")
+            print("選項：")
+            for i, c in enumerate(dq['choices'], 1):
+                print(f"  {i}. {c['text']}")
+
+            ans_id = query_gemini(dq['text'], dq['choices'], api_key=gemini_key, question_image=dq['image'])
+            ans_obj = next((c for c in dq['choices'] if c['uuid'] == ans_id), None)
+            if ans_obj:
+                print(f"🎯 AI 判定答案：{ans_obj['text']} (UUID: {ans_id})")
+            else:
+                print("❌ AI 未能成功解析答案。")
+            time.sleep(1.0)
+        return
 
     cookies = load_all_cookies(args.cookie)
     if not cookies:
         print("錯誤: 未找到有效 Cookie。")
         sys.exit(1)
-
-    gemini_key = args.gemini_key or os.getenv("GEMINI_API_KEY", "").strip()
 
     print(f"[{datetime.now().strftime('%H:%M:%S')}] 成功載入 {len(cookies)} 個會員帳號憑證：")
     for i, c in enumerate(cookies, 1):
