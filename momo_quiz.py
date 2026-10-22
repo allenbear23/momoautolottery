@@ -138,31 +138,51 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
     if not key:
         return None
 
-    momo_context = (
-        "【momo購物網背景與活動規則背景知識】：\n"
-        "1. 基本資訊：富邦媒體科技旗下 momo購物網，吉祥物為粉紅色 momo co，代幣為 mo幣 (1 mo幣 = 1元新台幣)。\n"
-        "2. 雙11知識王規則：\n"
-        "   - 活動期間：2026/10/23(五)-10/31(六)。\n"
-        "   - 每日六時段：10:11、12:11、14:11、18:11、20:11、22:11，每人每日限玩6次。\n"
-        "   - 每場答題限時 60 秒，答對一題獲得 +10 分，答錯遊戲即結束。\n"
-        "   - 獎勵門檻：10分送$111折價券、20分送$222折價券、30分送mo點5點、40分送mo點11點、60分送mo點50點。\n"
-        "   - 單日最高可獲$50 mo點，每人每日限領取獎勵乙次，領取後隔日歸零。獎項使用期限至 11/1 23:59。\n"
-        "   - 客服專線：市話直撥 4128-200，行動電話撥 02-4128-200。\n"
-        "3. 常見商品館別定義：\n"
-        "   - 3C家電館：手機、筆電、電視、冰箱、洗衣機、吹風機、小家電、相機。\n"
-        "   - 美妝保養館：臉部保養、化妝品、彩妝、香水、醫美、洗面乳。\n"
-        "   - 家具寢飾 / 居家生活館：桌椅、書桌、電腦椅、床墊、沙發、衣櫃收納、寢具、廚具、餐具。\n"
-        "   - 生鮮食品 / 美食休閒館：生鮮蔬果肉品、海鮮、熟食、零食、飲料、咖啡、保健品。\n"
-        "   - 服飾鞋包 / 流行時尚館：流行服裝、男女裝、鞋靴、包包、手錶飾品。\n"
-        "   - 運動戶外館：健身器材、自行車、露營用品、戶外服飾裝備。\n"
-        "   - 日用清潔館：衛生紙、衛生棉、洗衣精、洗碗精、清潔劑。\n"
-        "   - 母嬰童裝館：奶粉、尿布、童裝、玩具、嬰幼兒推車。\n"
-    )
+    options_list = []
+    choice_image_parts = []
+    for i, c in enumerate(choices):
+        t = c.get('text', '').strip()
+        img_url = c.get('image', '').strip()
+        if not t and img_url:
+            filename = os.path.basename(urllib.parse.urlparse(img_url).path)
+            t = f"圖片選項 ({filename})"
+        options_list.append(f"{i+1}. {t}")
+
+        if img_url:
+            try:
+                c_img_data = None
+                c_mime = "image/jpeg"
+                if img_url.startswith("http"):
+                    req_img = urllib.request.Request(img_url, headers=HEADERS)
+                    with urllib.request.urlopen(req_img, timeout=3) as img_resp:
+                        c_img_data = img_resp.read()
+                        c_mime = img_resp.headers.get("Content-Type", "image/jpeg").split(";")[0]
+                elif os.path.exists(img_url):
+                    with open(img_url, "rb") as f:
+                        c_img_data = f.read()
+                if c_img_data:
+                    choice_image_parts.append({"text": f"【選項 {i+1} 圖片】："})
+                    choice_image_parts.append({
+                        "inlineData": {
+                            "mimeType": c_mime,
+                            "data": base64.b64encode(c_img_data).decode("utf-8")
+                        }
+                    })
+            except Exception:
+                pass
+
+    options_str = "\n".join(options_list)
+
+    try:
+        from momo_knowledge_base import MOMO_KNOWLEDGE_CONTEXT
+        momo_context = MOMO_KNOWLEDGE_CONTEXT
+    except Exception:
+        momo_context = ""
 
     prompt = (
         f"你是一個精通台灣 momo 購物網活動與商品通識的解題專家。\n\n"
         f"{momo_context}\n"
-        f"請閱讀問題、參考附帶圖片 (若有)，並比對選項，選出最可能正確的選項：\n\n"
+        f"請閱讀問題、參考附帶圖片 (含題目圖片與各選項圖片)，並比對選項，選出最可能正確的選項：\n\n"
         f"【問題】：{question_text}\n"
         f"【選項】：\n{options_str}\n\n"
         f"請只回答最正確選項的編號數字 (例如 1, 2, 3 或 4)，絕對不要輸出任何其他多餘文字。"
@@ -171,11 +191,20 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
     parts = []
     if question_image:
         try:
-            req_img = urllib.request.Request(question_image, headers=HEADERS)
-            with urllib.request.urlopen(req_img, timeout=3) as img_resp:
-                img_data = img_resp.read()
-                mime = img_resp.headers.get("Content-Type", "image/jpeg").split(";")[0]
+            img_data = None
+            mime = "image/jpeg"
+            if question_image.startswith("http"):
+                req_img = urllib.request.Request(question_image, headers=HEADERS)
+                with urllib.request.urlopen(req_img, timeout=4) as img_resp:
+                    img_data = img_resp.read()
+                    mime = img_resp.headers.get("Content-Type", "image/jpeg").split(";")[0]
+            elif os.path.exists(question_image):
+                with open(question_image, "rb") as f:
+                    img_data = f.read()
+
+            if img_data:
                 b64_data = base64.b64encode(img_data).decode("utf-8")
+                parts.append({"text": "【題目附圖】："})
                 parts.append({
                     "inlineData": {
                         "mimeType": mime,
@@ -185,16 +214,19 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
         except Exception:
             pass
 
+    if choice_image_parts:
+        parts.extend(choice_image_parts)
+
     parts.append({"text": prompt})
 
-    models = ["gemini-flash-latest", "gemini-flash-lite-latest", "gemini-pro-latest", "gemini-2.5-flash", "gemini-1.5-flash"]
+    models = ["gemini-3-flash-preview", "gemini-3.6-flash", "gemini-3.5-flash", "gemini-flash-latest"]
     for model in models:
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={key}"
         payload = {
             "contents": [{"parts": parts}],
             "generationConfig": {
                 "temperature": 0.0,
-                "maxOutputTokens": 10
+                "maxOutputTokens": 200
             }
         }
         data = json.dumps(payload).encode("utf-8")
