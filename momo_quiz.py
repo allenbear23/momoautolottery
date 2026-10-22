@@ -373,6 +373,129 @@ def query_groq(question_text: str, choices: list, api_key: str = None, question_
         except Exception:
             continue
 
+def get_openrouter_api_key(api_key: str = None) -> str:
+    if api_key:
+        return api_key.strip()
+    env_key = os.getenv("OPENROUTER_API_KEY", "").strip()
+    if env_key:
+        return env_key
+    key_file = os.path.join(os.path.dirname(__file__), "openrouter_key.txt")
+    if os.path.exists(key_file):
+        try:
+            with open(key_file, "r", encoding="utf-8") as f:
+                return f.read().strip()
+        except Exception:
+            pass
+    return ""
+
+
+def query_openrouter(question_text: str, choices: list, api_key: str = None, question_image: str = None) -> str:
+    """利用 OpenRouter 免費多模態模型進行智能解題 (支援視覺圖片題)"""
+    key = get_openrouter_api_key(api_key)
+    if not key:
+        return None
+
+    options_list = [f"{i+1}. {c.get('text', '') or c.get('uuid', '')}" for i, c in enumerate(choices)]
+    options_str = "\n".join(options_list)
+
+    prompt = (
+        f"你是一個精通台灣 momo 購物網活動與商品通識的解題專家。\n"
+        f"請仔細觀看題目附帶之商品圖片與文字，選出最可能正確的選項：\n\n"
+        f"【問題】：{question_text}\n"
+        f"【選項】：\n{options_str}\n\n"
+        f"請只回答最正確選項的編號數字 (例如只輸出 1 或 2 或 3 或 4)："
+    )
+
+    content_items = [{"type": "text", "text": prompt}]
+
+    if question_image:
+        try:
+            img_data = None
+            mime = "image/jpeg"
+            if question_image.startswith("http"):
+                req_img = urllib.request.Request(question_image, headers=HEADERS)
+                with urllib.request.urlopen(req_img, timeout=4) as img_resp:
+                    img_data = img_resp.read()
+                    mime = img_resp.headers.get("Content-Type", "image/jpeg").split(";")[0]
+            elif os.path.exists(question_image):
+                with open(question_image, "rb") as f:
+                    img_data = f.read()
+                    if question_image.lower().endswith(".png"):
+                        mime = "image/png"
+            if img_data:
+                b64_data = base64.b64encode(img_data).decode("utf-8")
+                content_items.append({
+                    "type": "image_url",
+                    "image_url": {"url": f"data:{mime};base64,{b64_data}"}
+                })
+        except Exception:
+            pass
+
+    if question_image:
+        models = [
+            "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+            "nvidia/nemotron-3.5-super-vl:free",
+            "google/gemma-4-31b-it:free",
+            "google/gemma-4-26b-a4b-it:free"
+        ]
+        max_tokens = 300
+    else:
+        models = [
+            "nvidia/nemotron-3.5-super-vl:free",
+            "google/gemma-4-31b-it:free"
+        ]
+        max_tokens = 200
+
+    url = "https://openrouter.ai/api/v1/chat/completions"
+
+    for model in models:
+        payload = {
+            "model": model,
+            "messages": [{"role": "user", "content": content_items}],
+            "temperature": 0.0,
+            "max_tokens": max_tokens
+        }
+        data = json.dumps(payload).encode("utf-8")
+        req = urllib.request.Request(
+            url,
+            data=data,
+            headers={
+                "Authorization": f"Bearer {key}",
+                "Content-Type": "application/json",
+                "HTTP-Referer": "https://github.com/allenbear23/momoautolottery",
+                "X-Title": "momo quiz bot"
+            },
+            method="POST"
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=12) as resp:
+                res = json.loads(resp.read().decode("utf-8"))
+                choice = res.get("choices", [{}])[0]
+                msg = choice.get("message", {})
+                text_out = (msg.get("content") or "").strip()
+                reasoning = (msg.get("reasoning") or "").strip()
+
+                m = re.search(r'\b([1-9])\b', text_out)
+                if not m:
+                    tail = reasoning[-300:] if len(reasoning) > 300 else reasoning
+                    m = re.search(r'(?:選項|Option|號|答案|category is Option)\s*([1-9])', tail, re.IGNORECASE)
+                    if not m:
+                        m = re.search(r'\b([1-9])\b', tail)
+
+                if m:
+                    idx = int(m.group(1)) - 1
+                    if 0 <= idx < len(choices):
+                        print(f"[OpenRouter AI ({model})] 解析選項為: {idx+1}. {choices[idx].get('text')}")
+                        return choices[idx]["uuid"]
+
+                for idx, c in enumerate(choices):
+                    c_text = c.get("text", "")
+                    if c_text and (c_text in text_out or c_text in reasoning[-200:]):
+                        print(f"[OpenRouter AI ({model})] 命中關鍵字: {c_text}")
+                        return c["uuid"]
+        except Exception:
+            continue
+
     return None
 
 
@@ -422,7 +545,7 @@ def get_question_key(question: dict) -> str:
     return q_text or q_uuid
 
 
-def select_answer(question: dict, choices: list, db: dict, gemini_key: str = None, groq_key: str = None) -> str:
+def select_answer(question: dict, choices: list, db: dict, gemini_key: str = None, groq_key: str = None, openrouter_key: str = None) -> str:
     q_text = question.get("text", "").strip()
     key = get_question_key(question)
 
@@ -471,21 +594,33 @@ def select_answer(question: dict, choices: list, db: dict, gemini_key: str = Non
         print(f"[排除法] 已排除其他錯誤選項，選取唯一剩餘選項: {candidate_choices[0].get('text') or candidate_choices[0]['uuid']}")
         return candidate_choices[0]["uuid"]
 
-    # 3. 優先呼叫 Groq AI 解題 (每日 14,400 次免費額度，反應極速)
-    groq_choice_id = query_groq(q_text, candidate_choices, groq_key, question.get("image"))
-    if groq_choice_id:
-        return groq_choice_id
+    # 3. 優先呼叫 Groq AI 解題 (文字/常識題每日 14,400 次免費額度，反應極速)
+    if not question.get("image"):
+        groq_choice_id = query_groq(q_text, candidate_choices, groq_key, question.get("image"))
+        if groq_choice_id:
+            return groq_choice_id
 
-    # 4. 次之呼叫 Gemini AI 解題 (支援圖文多模態)
+    # 4. 優先呼叫 OpenRouter AI (支援免費多模態視覺模型 Nemotron 3.5 VL / Gemma 4)
+    openrouter_choice_id = query_openrouter(q_text, candidate_choices, openrouter_key, question.get("image"))
+    if openrouter_choice_id:
+        return openrouter_choice_id
+
+    # 5. 次之呼叫 Gemini AI 解題 (支援圖文多模態，備用)
     gemini_choice_id = query_gemini(q_text, candidate_choices, gemini_key, question.get("image"))
     if gemini_choice_id:
         return gemini_choice_id
 
-    # 5. 搜尋比對或排除法回退
+    # 6. 若為純文字且 Groq 尚未嘗試過，再嘗試 Groq
+    if question.get("image"):
+        groq_choice_id = query_groq(q_text, candidate_choices, groq_key)
+        if groq_choice_id:
+            return groq_choice_id
+
+    # 7. 搜尋比對或排除法回退
     return search_best_choice(q_text, candidate_choices, wrong_vals)
 
 
-def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = True, gemini_key: str = None, groq_key: str = None):
+def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = True, gemini_key: str = None, groq_key: str = None, openrouter_key: str = None):
     prefix = f"[{account_label}] " if account_label else ""
     now_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
@@ -556,7 +691,7 @@ def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = Tr
         if not choices:
             break
 
-        selected_choice_id = select_answer(question, choices, db, gemini_key=gemini_key, groq_key=groq_key)
+        selected_choice_id = select_answer(question, choices, db, gemini_key=gemini_key, groq_key=groq_key, openrouter_key=openrouter_key)
         selected_choice_obj = next((c for c in choices if c["uuid"] == selected_choice_id), choices[0])
         choice_text = selected_choice_obj.get("text", "") or selected_choice_obj.get("uuid", "")
         choice_obj = {
@@ -688,7 +823,7 @@ def wait_until_slot_snipe(slot_hour: int, slot_minute: int, cookies: list, max_w
     print(f"[{datetime.now().strftime('%H:%M:%S.%f')[:-3]}] 🚀 到達開搶點 (T-0.2s)，啟動答題流程！")
 
 
-def run_session(cookies: list, slot_hour: int = None, slot_minute: int = None, silent_if_limit: bool = False, wait_snipe: bool = True, gemini_key: str = None, groq_key: str = None):
+def run_session(cookies: list, slot_hour: int = None, slot_minute: int = None, silent_if_limit: bool = False, wait_snipe: bool = True, gemini_key: str = None, groq_key: str = None, openrouter_key: str = None):
     if slot_hour is not None and slot_minute is not None:
         target_hour = slot_hour
         target_min = slot_minute
@@ -704,7 +839,7 @@ def run_session(cookies: list, slot_hour: int = None, slot_minute: int = None, s
     results = []
     with concurrent.futures.ThreadPoolExecutor(max_workers=max(1, len(cookies))) as executor:
         future_to_idx = {
-            executor.submit(run_quiz_session, c, get_user_display_name(c, idx), True, gemini_key, groq_key): idx
+            executor.submit(run_quiz_session, c, get_user_display_name(c, idx), True, gemini_key, groq_key, openrouter_key): idx
             for idx, c in enumerate(cookies, 1)
         }
         for fut in concurrent.futures.as_completed(future_to_idx):
@@ -745,6 +880,7 @@ def main():
     parser.add_argument("--cookie", help="Cookie 字串")
     parser.add_argument("--gemini-key", help="Google Gemini API Key")
     parser.add_argument("--groq-key", help="Groq API Key (gsk_...)")
+    parser.add_argument("--openrouter-key", help="OpenRouter API Key (sk-or-v1-...)")
     parser.add_argument("--now", action="store_true", help="立即執行搶答流程")
     parser.add_argument("--force", action="store_true", help="強制立即執行（無視時段窗口與開搶倒數）")
     parser.add_argument("--test-demo", action="store_true", help="執行示範題 AI 讀題測試")
@@ -755,6 +891,7 @@ def main():
     gemini_keys = get_gemini_api_keys(args.gemini_key)
     gemini_key = gemini_keys[0] if gemini_keys else ""
     groq_key = get_groq_api_key(args.groq_key)
+    openrouter_key = get_openrouter_api_key(args.openrouter_key)
 
     if args.test_demo:
         demo_img = "/Users/allen/.gemini/antigravity-ide/brain/3b9f5804-fd76-44a9-bd44-dbde2ae057ec/.tempmediaStorage/media_1792682302310.png"
@@ -795,7 +932,7 @@ def main():
             for i, c in enumerate(dq['choices'], 1):
                 print(f"  {i}. {c['text']}")
 
-            ans_id = select_answer(dq, dq['choices'], {"questions": {}}, gemini_key=gemini_key, groq_key=groq_key)
+            ans_id = select_answer(dq, dq['choices'], {"questions": {}}, gemini_key=gemini_key, groq_key=groq_key, openrouter_key=openrouter_key)
             ans_obj = next((c for c in dq['choices'] if c['uuid'] == ans_id), None)
             if ans_obj:
                 print(f"🎯 判定答案：{ans_obj['text']} (UUID: {ans_id})")
@@ -814,6 +951,8 @@ def main():
         print(f"  • {get_user_display_name(c, i)}")
     if groq_key:
         print(f"[{datetime.now().strftime('%H:%M:%S')}] ⚡ 已啟用 Groq 高速 AI 解題引擎 (每日 14,400 次免費額度)")
+    if openrouter_key:
+        print(f"[{datetime.now().strftime('%H:%M:%S')}] 👁️ 已啟用 OpenRouter 免費多模態視覺解題引擎 (Nemotron VL / Gemma 4)")
     if gemini_keys:
         print(f"[{datetime.now().strftime('%H:%M:%S')}] 🤖 已啟用 Google Gemini AI 解題引擎 (載入 {len(gemini_keys)} 組 Key)")
 
@@ -832,7 +971,7 @@ def main():
         diff = (slot_dt - now).total_seconds()
         if args.force or (-3600 <= diff <= 240):
             wait_snipe = (not args.force) and (0 < diff <= 240)
-            run_session(cookies, slot_hour=sh, slot_minute=sm, silent_if_limit=args.silent_if_limit, wait_snipe=wait_snipe, gemini_key=gemini_key, groq_key=groq_key)
+            run_session(cookies, slot_hour=sh, slot_minute=sm, silent_if_limit=args.silent_if_limit, wait_snipe=wait_snipe, gemini_key=gemini_key, groq_key=groq_key, openrouter_key=openrouter_key)
         else:
             print(f"[{now.strftime('%H:%M:%S')}] 目前非活動時段窗口（距離最近時段 {slot_str} 尚有 {diff/60:.1f} 分鐘），略過執行。")
 
