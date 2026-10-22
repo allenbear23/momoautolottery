@@ -46,5 +46,7 @@ jobs:
           if [ -f quiz_db.json ] && [ -n "$(git status --porcelain quiz_db.json)" ]; then
             git add quiz_db.json
             git commit -m "chore: auto update quiz_db [skip ci]" || true
-            git push || true
+            git pull --rebase origin main || true
+            git push origin main || true
           fi
+

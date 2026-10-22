@@ -288,29 +288,64 @@ def search_best_choice(question_text: str, choices: list, known_wrong: list) -> 
     return filtered_choices[0]["uuid"]
 
 
+def get_question_key(question: dict) -> str:
+    """產生題目唯一鍵值，若有圖片則結合圖片檔名以防同名題目覆蓋"""
+    q_text = question.get("text", "").strip()
+    q_img = question.get("image", "").strip()
+    q_uuid = question.get("uuid", "").strip()
+    if q_img:
+        img_name = os.path.basename(urllib.parse.urlsplit(q_img).path)
+        return f"{q_text}::img_{img_name}" if q_text else f"img_{img_name}"
+    return q_text or q_uuid
+
+
 def select_answer(question: dict, choices: list, db: dict, gemini_key: str = None) -> str:
     q_text = question.get("text", "").strip()
-    q_uuid = question.get("uuid", "")
-    key = q_text or q_uuid
+    key = get_question_key(question)
 
     record = db["questions"].get(key, {})
+    # 兼顧舊格式 (若 key 為題目純文字)
+    if not record and q_text:
+        record = db["questions"].get(q_text, {})
+
     correct_val = record.get("correct")
     wrong_vals = record.get("wrong", [])
 
     # 1. 命中題庫已知正確答案
     if correct_val:
+        target_uuid = correct_val.get("uuid") if isinstance(correct_val, dict) else correct_val
+        target_text = correct_val.get("text") if isinstance(correct_val, dict) else correct_val
+        target_img = correct_val.get("image", "") if isinstance(correct_val, dict) else ""
         for c in choices:
-            if c["uuid"] == correct_val or c.get("text") == correct_val:
-                print(f"[題庫命中] 選擇已確認之正確答案: {c.get('text')}")
-                return c["uuid"]
+            c_uuid = c.get("uuid")
+            c_text = c.get("text")
+            c_img = c.get("image", "")
+            if (c_uuid and c_uuid == target_uuid) or \
+               (c_text and c_text == target_text) or \
+               (c_img and target_img and os.path.basename(c_img) == os.path.basename(target_img)):
+                print(f"[題庫命中] 選擇已確認之正確答案: {c_text or c_uuid}")
+                return c_uuid
 
     # 2. 排除已知錯誤選項
-    candidate_choices = [c for c in choices if c["uuid"] not in wrong_vals and c.get("text") not in wrong_vals]
+    def is_wrong(c):
+        for w in wrong_vals:
+            w_uuid = w.get("uuid") if isinstance(w, dict) else w
+            w_text = w.get("text") if isinstance(w, dict) else w
+            w_img = w.get("image", "") if isinstance(w, dict) else ""
+            if c.get("uuid") and c.get("uuid") == w_uuid:
+                return True
+            if c.get("text") and c.get("text") == w_text:
+                return True
+            if c.get("image") and w_img and os.path.basename(c.get("image")) == os.path.basename(w_img):
+                return True
+        return False
+
+    candidate_choices = [c for c in choices if not is_wrong(c)]
     if not candidate_choices:
         candidate_choices = choices
 
     if len(candidate_choices) == 1:
-        print(f"[排除法] 已排除其他錯誤選項，選取唯一剩餘選項: {candidate_choices[0].get('text')}")
+        print(f"[排除法] 已排除其他錯誤選項，選取唯一剩餘選項: {candidate_choices[0].get('text') or candidate_choices[0]['uuid']}")
         return candidate_choices[0]["uuid"]
 
     # 3. 呼叫 Gemini AI 解題 (支援圖文多模態)
@@ -388,14 +423,19 @@ def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = Tr
         choices = q_data.get("choices", [])
         q_text = question.get("text", "")
         q_uuid = question.get("uuid", "")
-        db_key = q_text or q_uuid
+        db_key = get_question_key(question)
 
         if not choices:
             break
 
         selected_choice_id = select_answer(question, choices, db, gemini_key=gemini_key)
         selected_choice_obj = next((c for c in choices if c["uuid"] == selected_choice_id), choices[0])
-        choice_text = selected_choice_obj.get("text", selected_choice_id)
+        choice_text = selected_choice_obj.get("text", "") or selected_choice_obj.get("uuid", "")
+        choice_obj = {
+            "uuid": selected_choice_obj.get("uuid", ""),
+            "text": selected_choice_obj.get("text", ""),
+            "image": selected_choice_obj.get("image", "")
+        }
 
         print(f"[{datetime.now().strftime('%H:%M:%S')}] {prefix}第 {correct_count+1} 題: {q_text} ➔ 選擇: {choice_text}")
 
@@ -411,22 +451,33 @@ def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = Tr
             break
 
         is_correct = ans_res.get("isCorrect", False)
+        if db_key not in db["questions"]:
+            db["questions"][db_key] = {}
+
+        q_record = db["questions"][db_key]
+        q_record.update({
+            "text": q_text,
+            "image": question.get("image", ""),
+            "uuid": q_uuid,
+            "choices": choices,
+            "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        })
+
         if is_correct:
             correct_count += 1
             print(f"🎉 {prefix}第 {correct_count} 題答對！(+10 分)")
-            # 學習紀錄
-            if db_key not in db["questions"]:
-                db["questions"][db_key] = {}
-            db["questions"][db_key]["correct"] = choice_text
+            q_record["correct"] = choice_obj
             save_quiz_db(db)
             time.sleep(0.3)
         else:
             print(f"❌ {prefix}回答錯誤，本場時段結束。")
-            if db_key not in db["questions"]:
-                db["questions"][db_key] = {}
-            wrongs = db["questions"][db_key].setdefault("wrong", [])
-            if choice_text not in wrongs:
-                wrongs.append(choice_text)
+            wrongs = q_record.setdefault("wrong", [])
+            if not any(
+                (w.get("uuid") == choice_obj["uuid"] or (w.get("text") and w.get("text") == choice_obj["text"]))
+                if isinstance(w, dict) else w == (choice_obj["text"] or choice_obj["uuid"])
+                for w in wrongs
+            ):
+                wrongs.append(choice_obj)
             save_quiz_db(db)
             break
 
