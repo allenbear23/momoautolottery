@@ -3,6 +3,9 @@ name: Momo & PChome Auto Task
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   run-tasks:
     runs-on: ubuntu-latest
@@ -15,7 +18,7 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Run Momo Draw & Daily Check-in
+      - name: Run Momo Draw, Quiz & Daily Check-in
         env:
           TZ: 'Asia/Taipei'
           MOMO_COOKIE: ${{ secrets.MOMO_COOKIE }}
@@ -24,6 +27,7 @@ jobs:
           PCHOME_COOKIE: ${{ secrets.PCHOME_COOKIE }}
           FEEBEE_COOKIE: ${{ secrets.FEEBEE_COOKIE }}
         run: |
+          python3 momo_quiz.py --now --silent-if-limit
           python3 momo_bot.py --now --silent-if-limit
           python3 momo_checkin.py
           python3 momo_coin.py
@@ -32,4 +36,14 @@ jobs:
           fi
           if [ -n "$FEEBEE_COOKIE" ]; then
             python3 feebee_checkin.py
+          fi
+
+      - name: Commit Quiz DB if updated
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          if [ -f quiz_db.json ] && [ -n "$(git status --porcelain quiz_db.json)" ]; then
+            git add quiz_db.json
+            git commit -m "chore: auto update quiz_db [skip ci]" || true
+            git push || true
           fi
