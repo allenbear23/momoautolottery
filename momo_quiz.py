@@ -398,8 +398,15 @@ def query_openrouter(question_text: str, choices: list, api_key: str = None, que
     options_list = [f"{i+1}. {c.get('text', '') or c.get('uuid', '')}" for i, c in enumerate(choices)]
     options_str = "\n".join(options_list)
 
+    try:
+        from momo_knowledge_base import MOMO_COMPACT_CONTEXT
+        context_str = f"\n{MOMO_COMPACT_CONTEXT}\n"
+    except Exception:
+        context_str = ""
+
     prompt = (
         f"你是一個精通台灣 momo 購物網活動與商品通識的解題專家。\n"
+        f"{context_str}\n"
         f"請仔細觀看題目附帶之商品圖片與文字，選出最可能正確的選項：\n\n"
         f"【問題】：{question_text}\n"
         f"【選項】：\n{options_str}\n\n"
@@ -475,24 +482,30 @@ def query_openrouter(question_text: str, choices: list, api_key: str = None, que
                 text_out = (msg.get("content") or "").strip()
                 reasoning = (msg.get("reasoning") or "").strip()
 
+                idx = -1
                 m = re.search(r'\b([1-9])\b', text_out)
-                if not m:
-                    tail = reasoning[-300:] if len(reasoning) > 300 else reasoning
-                    m = re.search(r'(?:選項|Option|號|答案|category is Option)\s*([1-9])', tail, re.IGNORECASE)
-                    if not m:
-                        m = re.search(r'\b([1-9])\b', tail)
-
                 if m:
                     idx = int(m.group(1)) - 1
-                    if 0 <= idx < len(choices):
-                        print(f"[OpenRouter AI ({model})] 解析選項為: {idx+1}. {choices[idx].get('text')}")
-                        return choices[idx]["uuid"]
+                elif reasoning:
+                    tail = reasoning[-300:] if len(reasoning) > 300 else reasoning
+                    matches = re.findall(r'(?:Option|選項|答案|answer is|correct option is|選)\s*([1-9])\b', tail, re.IGNORECASE)
+                    if matches:
+                        idx = int(matches[-1]) - 1
+                    else:
+                        m_num = re.findall(r'\b([1-9])\b', tail)
+                        if m_num:
+                            idx = int(m_num[-1]) - 1
 
-                for idx, c in enumerate(choices):
-                    c_text = c.get("text", "")
-                    if c_text and (c_text in text_out or c_text in reasoning[-200:]):
-                        print(f"[OpenRouter AI ({model})] 命中關鍵字: {c_text}")
-                        return c["uuid"]
+                if 0 <= idx < len(choices):
+                    print(f"[OpenRouter AI ({model})] 解析選項為: {idx+1}. {choices[idx].get('text')}")
+                    return choices[idx]["uuid"]
+
+                # 僅在 content 有文字時比對選項文字
+                if text_out:
+                    for c in choices:
+                        if c.get("text") and c.get("text") in text_out:
+                            print(f"[OpenRouter AI ({model})] 命中關鍵字: {c.get('text')}")
+                            return c["uuid"]
         except Exception:
             continue
 
