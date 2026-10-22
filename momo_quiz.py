@@ -131,27 +131,45 @@ def prewarm_connection(cookie: str):
         pass
 
 
-def query_gemini(question_text: str, choices: list, api_key: str = None) -> str:
-    """利用 Google Gemini API 進行即時智能判題"""
+def query_gemini(question_text: str, choices: list, api_key: str = None, question_image: str = None) -> str:
+    """利用 Google Gemini API 進行即時智能判題 (支援圖文多模態)"""
+    import base64
     key = api_key or os.getenv("GEMINI_API_KEY", "").strip()
     if not key:
         return None
 
     options_str = "\n".join([f"{i+1}. {c.get('text', '')}" for i, c in enumerate(choices)])
     prompt = (
-        f"你是一個台灣網購與通識問答專家。請閱讀以下題目與選項，判斷哪一個選項最可能是正確答案：\n\n"
+        f"你是一個台灣網購與商品通識專家。請閱讀問題、參考附帶圖片 (若有) 並比對選項，判斷哪一個選項最可能是正確答案：\n\n"
         f"【問題】：{question_text}\n"
         f"【選項】：\n{options_str}\n\n"
-        f"請只回答正確選項的編號數字 (例如 1, 2, 3 或 4)，絕對不要輸出任何其他多餘說明或文字。"
+        f"請只回答最正確選項的編號數字 (例如 1, 2, 3 或 4)，絕對不要輸出任何其他多餘說明或文字。"
     )
+
+    parts = []
+    if question_image:
+        try:
+            req_img = urllib.request.Request(question_image, headers=HEADERS)
+            with urllib.request.urlopen(req_img, timeout=3) as img_resp:
+                img_data = img_resp.read()
+                mime = img_resp.headers.get("Content-Type", "image/jpeg").split(";")[0]
+                b64_data = base64.b64encode(img_data).decode("utf-8")
+                parts.append({
+                    "inlineData": {
+                        "mimeType": mime,
+                        "data": b64_data
+                    }
+                })
+        except Exception:
+            pass
+
+    parts.append({"text": prompt})
 
     models = ["gemini-2.5-flash", "gemini-1.5-flash"]
     for model in models:
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={key}"
         payload = {
-            "contents": [{
-                "parts": [{"text": prompt}]
-            }],
+            "contents": [{"parts": parts}],
             "generationConfig": {
                 "temperature": 0.0,
                 "maxOutputTokens": 10
@@ -160,7 +178,7 @@ def query_gemini(question_text: str, choices: list, api_key: str = None) -> str:
         data = json.dumps(payload).encode("utf-8")
         req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"}, method="POST")
         try:
-            with urllib.request.urlopen(req, timeout=3.5) as resp:
+            with urllib.request.urlopen(req, timeout=4) as resp:
                 result = json.loads(resp.read().decode("utf-8"))
                 candidates = result.get("candidates", [])
                 if candidates:
@@ -241,8 +259,8 @@ def select_answer(question: dict, choices: list, db: dict, gemini_key: str = Non
         print(f"[排除法] 已排除其他錯誤選項，選取唯一剩餘選項: {candidate_choices[0].get('text')}")
         return candidate_choices[0]["uuid"]
 
-    # 3. 呼叫 Gemini AI 解題
-    gemini_choice_id = query_gemini(q_text, candidate_choices, gemini_key)
+    # 3. 呼叫 Gemini AI 解題 (支援圖文多模態)
+    gemini_choice_id = query_gemini(q_text, candidate_choices, gemini_key, question.get("image"))
     if gemini_choice_id:
         return gemini_choice_id
 
