@@ -187,7 +187,7 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
 
     parts.append({"text": prompt})
 
-    models = ["gemini-2.5-flash", "gemini-1.5-flash"]
+    models = ["gemini-flash-latest", "gemini-flash-lite-latest", "gemini-pro-latest", "gemini-2.5-flash", "gemini-1.5-flash"]
     for model in models:
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={key}"
         payload = {
@@ -200,7 +200,7 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
         data = json.dumps(payload).encode("utf-8")
         req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"}, method="POST")
         try:
-            with urllib.request.urlopen(req, timeout=4) as resp:
+            with urllib.request.urlopen(req, timeout=6) as resp:
                 result = json.loads(resp.read().decode("utf-8"))
                 candidates = result.get("candidates", [])
                 if candidates:
