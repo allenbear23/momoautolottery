@@ -131,6 +131,56 @@ def prewarm_connection(cookie: str):
         pass
 
 
+def query_gemini(question_text: str, choices: list, api_key: str = None) -> str:
+    """利用 Google Gemini API 進行即時智能判題"""
+    key = api_key or os.getenv("GEMINI_API_KEY", "").strip()
+    if not key:
+        return None
+
+    options_str = "\n".join([f"{i+1}. {c.get('text', '')}" for i, c in enumerate(choices)])
+    prompt = (
+        f"你是一個台灣網購與通識問答專家。請閱讀以下題目與選項，判斷哪一個選項最可能是正確答案：\n\n"
+        f"【問題】：{question_text}\n"
+        f"【選項】：\n{options_str}\n\n"
+        f"請只回答正確選項的編號數字 (例如 1, 2, 3 或 4)，絕對不要輸出任何其他多餘說明或文字。"
+    )
+
+    models = ["gemini-2.5-flash", "gemini-1.5-flash"]
+    for model in models:
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={key}"
+        payload = {
+            "contents": [{
+                "parts": [{"text": prompt}]
+            }],
+            "generationConfig": {
+                "temperature": 0.0,
+                "maxOutputTokens": 10
+            }
+        }
+        data = json.dumps(payload).encode("utf-8")
+        req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"}, method="POST")
+        try:
+            with urllib.request.urlopen(req, timeout=3.5) as resp:
+                result = json.loads(resp.read().decode("utf-8"))
+                candidates = result.get("candidates", [])
+                if candidates:
+                    text_out = candidates[0].get("content", {}).get("parts", [{}])[0].get("text", "").strip()
+                    m = re.search(r'\b([1-9])\b', text_out)
+                    if m:
+                        idx = int(m.group(1)) - 1
+                        if 0 <= idx < len(choices):
+                            print(f"[Gemini AI] 解析選項為: {idx+1}. {choices[idx].get('text')}")
+                            return choices[idx]["uuid"]
+                    for idx, c in enumerate(choices):
+                        if c.get("text") and c.get("text") in text_out:
+                            print(f"[Gemini AI] 命中關鍵字: {c.get('text')}")
+                            return c["uuid"]
+        except Exception:
+            continue
+
+    return None
+
+
 def search_best_choice(question_text: str, choices: list, known_wrong: list) -> str:
     """利用關鍵字搜尋比對最佳選項"""
     filtered_choices = [c for c in choices if c["uuid"] not in known_wrong and c.get("text") not in known_wrong]
@@ -166,7 +216,7 @@ def search_best_choice(question_text: str, choices: list, known_wrong: list) -> 
     return filtered_choices[0]["uuid"]
 
 
-def select_answer(question: dict, choices: list, db: dict) -> str:
+def select_answer(question: dict, choices: list, db: dict, gemini_key: str = None) -> str:
     q_text = question.get("text", "").strip()
     q_uuid = question.get("uuid", "")
     key = q_text or q_uuid
@@ -175,17 +225,32 @@ def select_answer(question: dict, choices: list, db: dict) -> str:
     correct_val = record.get("correct")
     wrong_vals = record.get("wrong", [])
 
-    # 1. 命中題庫正確答案
+    # 1. 命中題庫已知正確答案
     if correct_val:
         for c in choices:
             if c["uuid"] == correct_val or c.get("text") == correct_val:
+                print(f"[題庫命中] 選擇已確認之正確答案: {c.get('text')}")
                 return c["uuid"]
 
-    # 2. 搜尋比對或排除已知錯誤選項
-    return search_best_choice(q_text, choices, wrong_vals)
+    # 2. 排除已知錯誤選項
+    candidate_choices = [c for c in choices if c["uuid"] not in wrong_vals and c.get("text") not in wrong_vals]
+    if not candidate_choices:
+        candidate_choices = choices
+
+    if len(candidate_choices) == 1:
+        print(f"[排除法] 已排除其他錯誤選項，選取唯一剩餘選項: {candidate_choices[0].get('text')}")
+        return candidate_choices[0]["uuid"]
+
+    # 3. 呼叫 Gemini AI 解題
+    gemini_choice_id = query_gemini(q_text, candidate_choices, gemini_key)
+    if gemini_choice_id:
+        return gemini_choice_id
+
+    # 4. 搜尋比對或排除法回退
+    return search_best_choice(q_text, candidate_choices, wrong_vals)
 
 
-def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = True):
+def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = True, gemini_key: str = None):
     prefix = f"[{account_label}] " if account_label else ""
     now_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
@@ -256,7 +321,7 @@ def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = Tr
         if not choices:
             break
 
-        selected_choice_id = select_answer(question, choices, db)
+        selected_choice_id = select_answer(question, choices, db, gemini_key=gemini_key)
         selected_choice_obj = next((c for c in choices if c["uuid"] == selected_choice_id), choices[0])
         choice_text = selected_choice_obj.get("text", selected_choice_id)
 
@@ -372,7 +437,7 @@ def wait_until_slot_snipe(slot_hour: int, slot_minute: int, cookies: list, max_w
     print(f"[{datetime.now().strftime('%H:%M:%S.%f')[:-3]}] 🚀 到達開搶點 (T-0.2s)，啟動答題流程！")
 
 
-def run_session(cookies: list, slot_hour: int = None, slot_minute: int = None, silent_if_limit: bool = False, wait_snipe: bool = True):
+def run_session(cookies: list, slot_hour: int = None, slot_minute: int = None, silent_if_limit: bool = False, wait_snipe: bool = True, gemini_key: str = None):
     if slot_hour is not None and slot_minute is not None:
         target_hour = slot_hour
         target_min = slot_minute
@@ -388,7 +453,7 @@ def run_session(cookies: list, slot_hour: int = None, slot_minute: int = None, s
     results = []
     with concurrent.futures.ThreadPoolExecutor(max_workers=max(1, len(cookies))) as executor:
         future_to_idx = {
-            executor.submit(run_quiz_session, c, get_user_display_name(c, idx)): idx
+            executor.submit(run_quiz_session, c, get_user_display_name(c, idx), True, gemini_key): idx
             for idx, c in enumerate(cookies, 1)
         }
         for fut in concurrent.futures.as_completed(future_to_idx):
@@ -427,6 +492,7 @@ def run_session(cookies: list, slot_hour: int = None, slot_minute: int = None, s
 def main():
     parser = argparse.ArgumentParser(description="Momo 雙11知識王自動答題搶 mo 幣")
     parser.add_argument("--cookie", help="Cookie 字串")
+    parser.add_argument("--gemini-key", help="Google Gemini API Key")
     parser.add_argument("--now", action="store_true", help="立即執行搶答流程")
     parser.add_argument("--query", action="store_true", help="查詢今日積分與兌換狀態")
     parser.add_argument("--silent-if-limit", action="store_true", help="略過重複推播")
@@ -437,9 +503,13 @@ def main():
         print("錯誤: 未找到有效 Cookie。")
         sys.exit(1)
 
+    gemini_key = args.gemini_key or os.getenv("GEMINI_API_KEY", "").strip()
+
     print(f"[{datetime.now().strftime('%H:%M:%S')}] 成功載入 {len(cookies)} 個會員帳號憑證：")
     for i, c in enumerate(cookies, 1):
         print(f"  • {get_user_display_name(c, i)}")
+    if gemini_key:
+        print(f"[{datetime.now().strftime('%H:%M:%S')}] 🤖 已啟用 Google Gemini AI 解題引擎")
 
     if args.query:
         for i, c in enumerate(cookies, 1):
@@ -456,7 +526,7 @@ def main():
         diff = (slot_dt - now).total_seconds()
         if -3600 <= diff <= 240:
             wait_snipe = (0 < diff <= 240)
-            run_session(cookies, slot_hour=sh, slot_minute=sm, silent_if_limit=args.silent_if_limit, wait_snipe=wait_snipe)
+            run_session(cookies, slot_hour=sh, slot_minute=sm, silent_if_limit=args.silent_if_limit, wait_snipe=wait_snipe, gemini_key=gemini_key)
         else:
             print(f"[{now.strftime('%H:%M:%S')}] 目前非活動時段窗口（距離最近時段 {slot_str} 尚有 {diff/60:.1f} 分鐘），略過執行。")
 
