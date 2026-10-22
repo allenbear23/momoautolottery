@@ -131,27 +131,33 @@ def prewarm_connection(cookie: str):
         pass
 
 
-def get_gemini_api_key(api_key: str = None) -> str:
+def get_gemini_api_keys(api_key: str = None) -> list:
+    keys = []
+    raw = ""
     if api_key:
-        return api_key.strip()
-    env_key = os.getenv("GEMINI_API_KEY", "").strip()
-    if env_key:
-        return env_key
-    key_file = os.path.join(os.path.dirname(__file__), "gemini_key.txt")
-    if os.path.exists(key_file):
-        try:
-            with open(key_file, "r", encoding="utf-8") as f:
-                return f.read().strip()
-        except Exception:
-            pass
-    return ""
+        raw = api_key
+    elif os.getenv("GEMINI_API_KEY"):
+        raw = os.getenv("GEMINI_API_KEY", "")
+    else:
+        key_file = os.path.join(os.path.dirname(__file__), "gemini_key.txt")
+        if os.path.exists(key_file):
+            try:
+                with open(key_file, "r", encoding="utf-8") as f:
+                    raw = f.read()
+            except Exception:
+                pass
+
+    for line in raw.replace(",", "\n").splitlines():
+        k = line.strip()
+        if k and not k.startswith("#") and k not in keys:
+            keys.append(k)
+    return keys
 
 
 def query_gemini(question_text: str, choices: list, api_key: str = None, question_image: str = None) -> str:
     """利用 Google Gemini API 進行即時智能判題 (支援圖文多模態)"""
-    import base64
-    key = get_gemini_api_key(api_key)
-    if not key:
+    keys = get_gemini_api_keys(api_key)
+    if not keys:
         return None
 
     options_list = []
@@ -235,39 +241,49 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
 
     parts.append({"text": prompt})
 
-    models = ["gemini-3.6-flash", "gemini-3.7-flash", "gemini-3.5-flash", "gemini-3-flash-preview"]
-    for model in models:
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={key}"
-        payload = {
-            "contents": [{"parts": parts}],
-            "generationConfig": {
-                "temperature": 0.0,
-                "maxOutputTokens": 600
-            }
-        }
-        data = json.dumps(payload).encode("utf-8")
-        req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"}, method="POST")
-        try:
-            with urllib.request.urlopen(req, timeout=10) as resp:
-                result = json.loads(resp.read().decode("utf-8"))
-                candidates = result.get("candidates", [])
-                if candidates:
-                    parts_list = candidates[0].get("content", {}).get("parts", [])
-                    non_thought = [p.get("text", "") for p in parts_list if not p.get("thought", False)]
-                    text_out = " ".join(non_thought).strip() if non_thought else " ".join(p.get("text", "") for p in parts_list).strip()
+    models = [
+        "gemini-3-flash-preview",
+        "gemini-3.5-flash",
+        "gemini-3.6-flash",
+        "gemini-3.7-flash",
+        "gemini-3.8-flash",
+        "gemini-3.1-pro-preview",
+        "gemini-pro-latest"
+    ]
 
-                    m = re.search(r'\b([1-9])\b', text_out)
-                    if m:
-                        idx = int(m.group(1)) - 1
-                        if 0 <= idx < len(choices):
-                            print(f"[{model}] 解析選項為: {idx+1}. {choices[idx].get('text')}")
-                            return choices[idx]["uuid"]
-                    for idx, c in enumerate(choices):
-                        if c.get("text") and c.get("text") in text_out:
-                            print(f"[{model}] 命中關鍵字: {c.get('text')}")
-                            return c["uuid"]
-        except Exception:
-            continue
+    for key in keys:
+        for model in models:
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={key}"
+            payload = {
+                "contents": [{"parts": parts}],
+                "generationConfig": {
+                    "temperature": 0.0,
+                    "maxOutputTokens": 600
+                }
+            }
+            data = json.dumps(payload).encode("utf-8")
+            req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"}, method="POST")
+            try:
+                with urllib.request.urlopen(req, timeout=10) as resp:
+                    result = json.loads(resp.read().decode("utf-8"))
+                    candidates = result.get("candidates", [])
+                    if candidates:
+                        parts_list = candidates[0].get("content", {}).get("parts", [])
+                        non_thought = [p.get("text", "") for p in parts_list if not p.get("thought", False)]
+                        text_out = " ".join(non_thought).strip() if non_thought else " ".join(p.get("text", "") for p in parts_list).strip()
+
+                        m = re.search(r'\b([1-9])\b', text_out)
+                        if m:
+                            idx = int(m.group(1)) - 1
+                            if 0 <= idx < len(choices):
+                                print(f"[{model}] 解析選項為: {idx+1}. {choices[idx].get('text')}")
+                                return choices[idx]["uuid"]
+                        for idx, c in enumerate(choices):
+                            if c.get("text") and c.get("text") in text_out:
+                                print(f"[{model}] 命中關鍵字: {c.get('text')}")
+                                return c["uuid"]
+            except Exception:
+                continue
 
     return None
 
@@ -642,7 +658,8 @@ def main():
     parser.add_argument("--silent-if-limit", action="store_true", help="略過重複推播")
     args = parser.parse_args()
 
-    gemini_key = get_gemini_api_key(args.gemini_key)
+    gemini_keys = get_gemini_api_keys(args.gemini_key)
+    gemini_key = gemini_keys[0] if gemini_keys else ""
 
     if args.test_demo:
         demo_img = "/Users/allen/.gemini/antigravity-ide/brain/3b9f5804-fd76-44a9-bd44-dbde2ae057ec/.tempmediaStorage/media_1792682302310.png"
@@ -700,8 +717,8 @@ def main():
     print(f"[{datetime.now().strftime('%H:%M:%S')}] 成功載入 {len(cookies)} 個會員帳號憑證：")
     for i, c in enumerate(cookies, 1):
         print(f"  • {get_user_display_name(c, i)}")
-    if gemini_key:
-        print(f"[{datetime.now().strftime('%H:%M:%S')}] 🤖 已啟用 Google Gemini AI 解題引擎")
+    if gemini_keys:
+        print(f"[{datetime.now().strftime('%H:%M:%S')}] 🤖 已啟用 Google Gemini AI 解題引擎 (載入 {len(gemini_keys)} 組 Key)")
 
     if args.query:
         for i, c in enumerate(cookies, 1):
