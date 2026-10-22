@@ -25,6 +25,7 @@ jobs:
           MOMO_EVENT_URL: ${{ vars.MOMO_EVENT_URL }}
           BARK_KEY: ${{ secrets.BARK_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           PCHOME_COOKIE: ${{ secrets.PCHOME_COOKIE }}
           FEEBEE_COOKIE: ${{ secrets.FEEBEE_COOKIE }}
         run: |

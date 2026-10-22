@@ -288,6 +288,110 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
     return None
 
 
+def get_groq_api_key(api_key: str = None) -> str:
+    if api_key:
+        return api_key.strip()
+    env_key = os.getenv("GROQ_API_KEY", "").strip()
+    if env_key:
+        return env_key
+    key_file = os.path.join(os.path.dirname(__file__), "groq_key.txt")
+    if os.path.exists(key_file):
+        try:
+            with open(key_file, "r", encoding="utf-8") as f:
+                return f.read().strip()
+        except Exception:
+            pass
+    return ""
+
+
+def query_groq(question_text: str, choices: list, api_key: str = None, question_image: str = None) -> str:
+    """利用 Groq 進行極速 AI 解題 (支援 Llama 3.2 視覺與 Llama 3.3 推理，每日 14,400 次免費)"""
+    import base64
+    key = get_groq_api_key(api_key)
+    if not key:
+        return None
+
+    options_list = [f"{i+1}. {c.get('text', '') or c.get('uuid', '')}" for i, c in enumerate(choices)]
+    options_str = "\n".join(options_list)
+
+    prompt = f"""請以 momo 雙11官方背景與常識知識庫為準，判斷這道題目的正確答案。
+
+{MOMO_KNOWLEDGE_CONTEXT}
+
+【題目】：{question_text}
+【選項清單】：
+{options_str}
+
+【重要規則】：
+1. 若題目有附圖，請詳細觀察圖片中之核心商品外觀特徵、品項或品牌文字。
+2. 答案必須是選項清單中的其中一個。
+3. 請直接輸出正確選項的數字編號（例如只輸出 1 或 2 或 3 或 4），不要輸出多餘的問候語或思考過程。"""
+
+    img_b64 = None
+    if question_image:
+        try:
+            if question_image.startswith("http"):
+                req_img = urllib.request.Request(question_image, headers=HEADERS)
+                with urllib.request.urlopen(req_img, timeout=6) as resp:
+                    img_b64 = base64.b64encode(resp.read()).decode("utf-8")
+            elif os.path.exists(question_image):
+                with open(question_image, "rb") as f:
+                    img_b64 = base64.b64encode(f.read()).decode("utf-8")
+        except Exception:
+            pass
+
+    content = []
+    if img_b64:
+        content.append({
+            "type": "image_url",
+            "image_url": {
+                "url": f"data:image/jpeg;base64,{img_b64}"
+            }
+        })
+        models = ["llama-3.2-11b-vision-preview", "llama-3.2-90b-vision-preview"]
+    else:
+        models = ["llama-3.3-70b-versatile", "llama-3.1-8b-instant"]
+
+    content.append({"type": "text", "text": prompt})
+
+    url = "https://api.groq.com/openai/v1/chat/completions"
+    for model in models:
+        payload = {
+            "model": model,
+            "messages": [{"role": "user", "content": content}],
+            "temperature": 0.0,
+            "max_tokens": 50
+        }
+        data = json.dumps(payload).encode("utf-8")
+        req = urllib.request.Request(
+            url,
+            data=data,
+            headers={
+                "Authorization": f"Bearer {key}",
+                "Content-Type": "application/json"
+            },
+            method="POST"
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=8) as resp:
+                res = json.loads(resp.read().decode("utf-8"))
+                text_out = res["choices"][0]["message"]["content"].strip()
+                m = re.search(r'\b([1-9])\b', text_out)
+                if m:
+                    idx = int(m.group(1)) - 1
+                    if 0 <= idx < len(choices):
+                        print(f"[Groq AI ({model})] 解析選項為: {idx+1}. {choices[idx].get('text')}")
+                        return choices[idx]["uuid"]
+                for idx, c in enumerate(choices):
+                    if c.get("text") and c.get("text") in text_out:
+                        print(f"[Groq AI ({model})] 命中關鍵字: {c.get('text')}")
+                        return c["uuid"]
+        except Exception:
+            continue
+
+    return None
+
+
 def search_best_choice(question_text: str, choices: list, known_wrong: list) -> str:
     """利用關鍵字搜尋比對最佳選項"""
     filtered_choices = [c for c in choices if c["uuid"] not in known_wrong and c.get("text") not in known_wrong]
@@ -334,7 +438,7 @@ def get_question_key(question: dict) -> str:
     return q_text or q_uuid
 
 
-def select_answer(question: dict, choices: list, db: dict, gemini_key: str = None) -> str:
+def select_answer(question: dict, choices: list, db: dict, gemini_key: str = None, groq_key: str = None) -> str:
     q_text = question.get("text", "").strip()
     key = get_question_key(question)
 
@@ -383,16 +487,21 @@ def select_answer(question: dict, choices: list, db: dict, gemini_key: str = Non
         print(f"[排除法] 已排除其他錯誤選項，選取唯一剩餘選項: {candidate_choices[0].get('text') or candidate_choices[0]['uuid']}")
         return candidate_choices[0]["uuid"]
 
-    # 3. 呼叫 Gemini AI 解題 (支援圖文多模態)
+    # 3. 優先呼叫 Groq AI 解題 (每日 14,400 次免費額度，反應極速)
+    groq_choice_id = query_groq(q_text, candidate_choices, groq_key, question.get("image"))
+    if groq_choice_id:
+        return groq_choice_id
+
+    # 4. 次之呼叫 Gemini AI 解題 (支援圖文多模態)
     gemini_choice_id = query_gemini(q_text, candidate_choices, gemini_key, question.get("image"))
     if gemini_choice_id:
         return gemini_choice_id
 
-    # 4. 搜尋比對或排除法回退
+    # 5. 搜尋比對或排除法回退
     return search_best_choice(q_text, candidate_choices, wrong_vals)
 
 
-def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = True, gemini_key: str = None):
+def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = True, gemini_key: str = None, groq_key: str = None):
     prefix = f"[{account_label}] " if account_label else ""
     now_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
@@ -463,7 +572,7 @@ def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = Tr
         if not choices:
             break
 
-        selected_choice_id = select_answer(question, choices, db, gemini_key=gemini_key)
+        selected_choice_id = select_answer(question, choices, db, gemini_key=gemini_key, groq_key=groq_key)
         selected_choice_obj = next((c for c in choices if c["uuid"] == selected_choice_id), choices[0])
         choice_text = selected_choice_obj.get("text", "") or selected_choice_obj.get("uuid", "")
         choice_obj = {
@@ -595,7 +704,7 @@ def wait_until_slot_snipe(slot_hour: int, slot_minute: int, cookies: list, max_w
     print(f"[{datetime.now().strftime('%H:%M:%S.%f')[:-3]}] 🚀 到達開搶點 (T-0.2s)，啟動答題流程！")
 
 
-def run_session(cookies: list, slot_hour: int = None, slot_minute: int = None, silent_if_limit: bool = False, wait_snipe: bool = True, gemini_key: str = None):
+def run_session(cookies: list, slot_hour: int = None, slot_minute: int = None, silent_if_limit: bool = False, wait_snipe: bool = True, gemini_key: str = None, groq_key: str = None):
     if slot_hour is not None and slot_minute is not None:
         target_hour = slot_hour
         target_min = slot_minute
@@ -611,7 +720,7 @@ def run_session(cookies: list, slot_hour: int = None, slot_minute: int = None, s
     results = []
     with concurrent.futures.ThreadPoolExecutor(max_workers=max(1, len(cookies))) as executor:
         future_to_idx = {
-            executor.submit(run_quiz_session, c, get_user_display_name(c, idx), True, gemini_key): idx
+            executor.submit(run_quiz_session, c, get_user_display_name(c, idx), True, gemini_key, groq_key): idx
             for idx, c in enumerate(cookies, 1)
         }
         for fut in concurrent.futures.as_completed(future_to_idx):
@@ -651,6 +760,7 @@ def main():
     parser = argparse.ArgumentParser(description="Momo 雙11知識王自動答題搶 mo 幣")
     parser.add_argument("--cookie", help="Cookie 字串")
     parser.add_argument("--gemini-key", help="Google Gemini API Key")
+    parser.add_argument("--groq-key", help="Groq API Key (gsk_...)")
     parser.add_argument("--now", action="store_true", help="立即執行搶答流程")
     parser.add_argument("--force", action="store_true", help="強制立即執行（無視時段窗口與開搶倒數）")
     parser.add_argument("--test-demo", action="store_true", help="執行示範題 AI 讀題測試")
@@ -660,6 +770,7 @@ def main():
 
     gemini_keys = get_gemini_api_keys(args.gemini_key)
     gemini_key = gemini_keys[0] if gemini_keys else ""
+    groq_key = get_groq_api_key(args.groq_key)
 
     if args.test_demo:
         demo_img = "/Users/allen/.gemini/antigravity-ide/brain/3b9f5804-fd76-44a9-bd44-dbde2ae057ec/.tempmediaStorage/media_1792682302310.png"
@@ -700,12 +811,12 @@ def main():
             for i, c in enumerate(dq['choices'], 1):
                 print(f"  {i}. {c['text']}")
 
-            ans_id = query_gemini(dq['text'], dq['choices'], api_key=gemini_key, question_image=dq['image'])
+            ans_id = select_answer(dq, dq['choices'], {"questions": {}}, gemini_key=gemini_key, groq_key=groq_key)
             ans_obj = next((c for c in dq['choices'] if c['uuid'] == ans_id), None)
             if ans_obj:
-                print(f"🎯 AI 判定答案：{ans_obj['text']} (UUID: {ans_id})")
+                print(f"🎯 判定答案：{ans_obj['text']} (UUID: {ans_id})")
             else:
-                print("❌ AI 未能成功解析答案。")
+                print("❌ 未能成功解析答案。")
             time.sleep(1.0)
         return
 
@@ -717,6 +828,8 @@ def main():
     print(f"[{datetime.now().strftime('%H:%M:%S')}] 成功載入 {len(cookies)} 個會員帳號憑證：")
     for i, c in enumerate(cookies, 1):
         print(f"  • {get_user_display_name(c, i)}")
+    if groq_key:
+        print(f"[{datetime.now().strftime('%H:%M:%S')}] ⚡ 已啟用 Groq 高速 AI 解題引擎 (每日 14,400 次免費額度)")
     if gemini_keys:
         print(f"[{datetime.now().strftime('%H:%M:%S')}] 🤖 已啟用 Google Gemini AI 解題引擎 (載入 {len(gemini_keys)} 組 Key)")
 
@@ -735,7 +848,7 @@ def main():
         diff = (slot_dt - now).total_seconds()
         if args.force or (-3600 <= diff <= 240):
             wait_snipe = (not args.force) and (0 < diff <= 240)
-            run_session(cookies, slot_hour=sh, slot_minute=sm, silent_if_limit=args.silent_if_limit, wait_snipe=wait_snipe, gemini_key=gemini_key)
+            run_session(cookies, slot_hour=sh, slot_minute=sm, silent_if_limit=args.silent_if_limit, wait_snipe=wait_snipe, gemini_key=gemini_key, groq_key=groq_key)
         else:
             print(f"[{now.strftime('%H:%M:%S')}] 目前非活動時段窗口（距離最近時段 {slot_str} 尚有 {diff/60:.1f} 分鐘），略過執行。")
 
