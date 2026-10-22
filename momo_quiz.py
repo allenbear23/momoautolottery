@@ -617,6 +617,7 @@ def main():
     parser.add_argument("--cookie", help="Cookie 字串")
     parser.add_argument("--gemini-key", help="Google Gemini API Key")
     parser.add_argument("--now", action="store_true", help="立即執行搶答流程")
+    parser.add_argument("--force", action="store_true", help="強制立即執行（無視時段窗口與開搶倒數）")
     parser.add_argument("--query", action="store_true", help="查詢今日積分與兌換狀態")
     parser.add_argument("--silent-if-limit", action="store_true", help="略過重複推播")
     args = parser.parse_args()
@@ -647,8 +648,8 @@ def main():
         sh, sm, slot_str = get_current_slot_info(now)
         slot_dt = now.replace(hour=sh, minute=sm, second=0, microsecond=0)
         diff = (slot_dt - now).total_seconds()
-        if -3600 <= diff <= 240:
-            wait_snipe = (0 < diff <= 240)
+        if args.force or (-3600 <= diff <= 240):
+            wait_snipe = (not args.force) and (0 < diff <= 240)
             run_session(cookies, slot_hour=sh, slot_minute=sm, silent_if_limit=args.silent_if_limit, wait_snipe=wait_snipe, gemini_key=gemini_key)
         else:
             print(f"[{now.strftime('%H:%M:%S')}] 目前非活動時段窗口（距離最近時段 {slot_str} 尚有 {diff/60:.1f} 分鐘），略過執行。")
