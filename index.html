@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>momo 雙11 知識王 - 題庫瀏覽器</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: rgba(22, 28, 45, 0.75);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --primary: #ec4899;
+      --primary-glow: rgba(236, 72, 153, 0.25);
+      --success: #10b981;
+      --success-bg: rgba(16, 185, 129, 0.15);
+      --success-border: rgba(16, 185, 129, 0.35);
+      --warning: #f59e0b;
+      --warning-bg: rgba(245, 158, 11, 0.15);
+      --danger: #ef4444;
+      --danger-bg: rgba(239, 68, 68, 0.15);
+      --danger-border: rgba(239, 68, 68, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(236, 72, 153, 0.12) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(59, 130, 246, 0.1) 0px, transparent 50%);
+      background-attachment: fixed;
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", sans-serif;
+      min-height: 100vh;
+      padding: 32px 20px 60px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header {
+      margin-bottom: 28px;
+    }
+    
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .title-group h1 {
+      font-size: 28px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #fff 40%, #ec4899 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+
+    .title-group p {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 16px 20px;
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .stat-label {
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .stat-value {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    /* Search & Filter Bar */
+    .toolbar {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 16px 20px;
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      position: sticky;
+      top: 16px;
+      z-index: 100;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 260px;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      padding: 10px 14px 10px 36px;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-glow);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+      background: rgba(15, 23, 42, 0.6);
+      padding: 4px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .tab-btn:hover {
+      color: #fff;
+    }
+
+    .tab-btn.active {
+      background: var(--primary);
+      color: #fff;
+      font-weight: 600;
+      box-shadow: 0 2px 8px var(--primary-glow);
+    }
+
+    /* Cards Grid */
+    .cards-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .quiz-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 22px;
+      backdrop-filter: blur(12px);
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+      position: relative;
+    }
+
+    .quiz-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.16);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .question-title {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.45;
+      color: #fff;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .question-index {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--primary);
+      background: rgba(236, 72, 153, 0.15);
+      padding: 2px 8px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    .status-badge {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .badge-verified {
+      background: var(--success-bg);
+      color: #34d399;
+      border: 1px solid var(--success-border);
+    }
+
+    .badge-pending {
+      background: var(--warning-bg);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+
+    /* Options grid */
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .option-item {
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-muted);
+      transition: all 0.15s;
+    }
+
+    .option-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      flex-shrink: 0;
+    }
+
+    /* Correct highlight */
+    .option-item.correct {
+      background: var(--success-bg);
+      border-color: var(--success-border);
+      color: #a7f3d0;
+      font-weight: 600;
+    }
+
+    .option-item.correct .option-dot {
+      background: var(--success);
+      box-shadow: 0 0 8px var(--success);
+    }
+
+    /* Wrong highlight */
+    .option-item.wrong {
+      background: var(--danger-bg);
+      border-color: var(--danger-border);
+      color: #fca5a5;
+      text-decoration: line-through;
+    }
+
+    .option-item.wrong .option-dot {
+      background: var(--danger);
+    }
+
+    /* Notes section */
+    .notes-box {
+      background: rgba(245, 158, 11, 0.08);
+      border-left: 3px solid var(--warning);
+      border-radius: 0 8px 8px 0;
+      padding: 8px 12px;
+      font-size: 13px;
+      color: #fde68a;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Footer in card */
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .copy-btn {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text-muted);
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.15s;
+    }
+
+    .copy-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-muted);
+    }
+
+    .empty-state h3 {
+      font-size: 18px;
+      margin-bottom: 6px;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="header-top">
+        <div class="title-group">
+          <h1>momo 雙11 知識王 題庫資料庫</h1>
+          <p>即時題庫索引與解答比對檢視器</p>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-label">總題目數</span>
+          <span class="stat-value" id="stat-total">0</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">已確認解答</span>
+          <span class="stat-value" style="color: #34d399;" id="stat-verified">0</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">題庫解答率</span>
+          <span class="stat-value" style="color: #ec4899;" id="stat-rate">0%</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">待判定 / 排除題</span>
+          <span class="stat-value" style="color: #fbbf24;" id="stat-pending">0</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="toolbar">
+      <div class="search-box">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="searchInput" class="search-input" placeholder="搜尋題目關鍵字、選項或答案...">
+      </div>
+
+      <div class="filter-tabs">
+        <button class="tab-btn active" data-filter="all" id="tab-all">全部 (0)</button>
+        <button class="tab-btn" data-filter="verified" id="tab-verified">已確認 (0)</button>
+        <button class="tab-btn" data-filter="pending" id="tab-pending">待確認 (0)</button>
+      </div>
+    </div>
+
+    <main class="cards-list" id="cardsList">
+      <!-- Cards rendered here by JS -->
+    </main>
+  </div>
+
+  <script src="quiz_data.js"></script>
+  <script>
+    let currentFilter = 'all';
+    let searchQuery = '';
+    let quizQuestions = [];
+
+    async function loadData() {
+      // 1. 優先嘗試從本機 fetch quiz_db.json
+      try {
+        const resp = await fetch('quiz_db.json?t=' + Date.now());
+        if (resp.ok) {
+          const db = await resp.json();
+          quizQuestions = Object.values(db.questions || {});
+        }
+      } catch (e) {
+        console.warn('Fetch quiz_db.json failed, fallback to window.QUIZ_DATA');
+      }
+
+      // 2. Fallback 到 window.QUIZ_DATA
+      if ((!quizQuestions || quizQuestions.length === 0) && window.QUIZ_DATA) {
+        quizQuestions = Object.values(window.QUIZ_DATA.questions || {});
+      }
+
+      updateStats();
+      renderCards();
+    }
+
+    function updateStats() {
+      const total = quizQuestions.length;
+      const verified = quizQuestions.filter(q => q.correct && q.correct.text).length;
+      const pending = total - verified;
+      const rate = total > 0 ? Math.round((verified / total) * 100) : 0;
+
+      document.getElementById('stat-total').textContent = total;
+      document.getElementById('stat-verified').textContent = verified;
+      document.getElementById('stat-pending').textContent = pending;
+      document.getElementById('stat-rate').textContent = rate + '%';
+
+      document.getElementById('tab-all').textContent = `全部 (${total})`;
+      document.getElementById('tab-verified').textContent = `已確認 (${verified})`;
+      document.getElementById('tab-pending').textContent = `待確認 (${pending})`;
+    }
+
+    function renderCards() {
+      const container = document.getElementById('cardsList');
+      const qLower = searchQuery.toLowerCase().trim();
+
+      const filtered = quizQuestions.filter(item => {
+        const hasCorrect = item.correct && item.correct.text && item.correct.text.trim().length > 0;
+        
+        if (currentFilter === 'verified' && !hasCorrect) return false;
+        if (currentFilter === 'pending' && hasCorrect) return false;
+
+        if (qLower) {
+          const inTitle = (item.text || '').toLowerCase().includes(qLower);
+          const inCorrect = (item.correct?.text || '').toLowerCase().includes(qLower);
+          const inChoices = (item.choices || []).some(c => (c.text || '').toLowerCase().includes(qLower));
+          const inNote = (item.unverified_choice?.note || '').toLowerCase().includes(qLower);
+          return inTitle || inCorrect || inChoices || inNote;
+        }
+
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <h3>查無符合的題目</h3>
+            <p>請嘗試其他搜尋關鍵字或切換篩選條件</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map((item, idx) => {
+        const isVerified = item.correct && item.correct.text;
+        const correctText = isVerified ? item.correct.text.trim() : null;
+        const unverified = item.unverified_choice;
+        const wrongText = unverified?.note?.includes('排除') ? unverified.text : (unverified?.text || null);
+
+        // Choices rendering
+        let choicesHtml = '';
+        if (item.choices && item.choices.length > 0) {
+          choicesHtml = `
+            <div class="options-grid">
+              ${item.choices.map((c, cIdx) => {
+                const text = c.text || `[圖片選項 ${cIdx + 1}]`;
+                const isThisCorrect = correctText && (text === correctText || correctText.includes(text) || text.includes(correctText));
+                const isThisWrong = !isThisCorrect && wrongText && (text === wrongText || wrongText.includes(text));
+
+                let cls = 'option-item';
+                if (isThisCorrect) cls += ' correct';
+                else if (isThisWrong) cls += ' wrong';
+
+                return `
+                  <div class="${cls}">
+                    <span class="option-dot"></span>
+                    <span>${escapeHtml(text)}</span>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          `;
+        } else if (correctText) {
+          choicesHtml = `
+            <div class="options-grid">
+              <div class="option-item correct">
+                <span class="option-dot"></span>
+                <span>正確解答：${escapeHtml(correctText)}</span>
+              </div>
+            </div>
+          `;
+        }
+
+        let noteHtml = '';
+        if (unverified && unverified.note) {
+          noteHtml = `
+            <div class="notes-box">
+              <span>⚠️</span>
+              <span>${escapeHtml(unverified.note)}</span>
+            </div>
+          `;
+        }
+
+        return `
+          <article class="quiz-card">
+            <div class="card-header">
+              <h2 class="question-title">
+                <span class="question-index">#${idx + 1}</span>
+                <span>${escapeHtml(item.text)}</span>
+              </h2>
+              <span class="status-badge ${isVerified ? 'badge-verified' : 'badge-pending'}">
+                ${isVerified ? '✓ 已確認' : '⏳ 待確認'}
+              </span>
+            </div>
+
+            ${choicesHtml}
+            ${noteHtml}
+
+            <div class="card-footer">
+              <span>更新時間：${escapeHtml(item.updated_at || '無')}</span>
+              <button class="copy-btn" onclick="copyCardText('${escapeHtml(item.text)}', '${escapeHtml(correctText || '未確認')}')">
+                複製題答
+              </button>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function copyCardText(q, a) {
+      const text = `題目：${q}\n答案：${a}`;
+      navigator.clipboard.writeText(text).then(() => {
+        alert('已複製題目與答案！');
+      });
+    }
+
+    // Event Listeners
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      searchQuery = e.target.value;
+      renderCards();
+    });
+
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.dataset.filter;
+        renderCards();
+      });
+    });
+
+    loadData();
+  </script>
+</body>
+</html>
