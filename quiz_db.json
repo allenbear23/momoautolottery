@@ -921,6 +921,97 @@
         "text": "en-suey"
       },
       "updated_at": "2026-10-23 12:40:00"
+    },
+    "ROSE IS A ROSE是哪一個啦啦隊女神代言": {
+      "text": "ROSE IS A ROSE是哪一個啦啦隊女神代言",
+      "image": "",
+      "choices": [
+        {
+          "text": "李珠珢"
+        },
+        {
+          "text": "李多慧"
+        },
+        {
+          "text": "林襄"
+        },
+        {
+          "text": "李雅英"
+        }
+      ],
+      "correct": {
+        "text": "李多慧"
+      },
+      "updated_at": "2026-10-23 12:45:00"
+    },
+    "請選出哪一個是可口可樂的LOGO？": {
+      "text": "請選出哪一個是可口可樂的LOGO？",
+      "image": "",
+      "choices": [
+        {
+          "text": "Coca-Cola (CocaCola ORIGINAL TASTE)"
+        }
+      ],
+      "correct": {
+        "text": "Coca-Cola (CocaCola ORIGINAL TASTE)"
+      },
+      "updated_at": "2026-10-23 12:45:00"
+    },
+    "閱讀器最大優點之一？": {
+      "text": "閱讀器最大優點之一？",
+      "image": "",
+      "choices": [
+        {
+          "text": "無法攜帶"
+        },
+        {
+          "text": "只能放一本到書"
+        },
+        {
+          "text": "很難使用"
+        },
+        {
+          "text": "可儲存大量書籍"
+        }
+      ],
+      "correct": {
+        "text": "可儲存大量書籍"
+      },
+      "updated_at": "2026-10-23 12:45:00"
+    },
+    "OPPO Reno的代言人是誰？": {
+      "text": "OPPO Reno的代言人是誰？",
+      "image": "",
+      "choices": [
+        {
+          "text": "BSS (夫碩順)"
+        },
+        {
+          "text": "BABYMONSTER"
+        }
+      ],
+      "correct": {
+        "text": "BSS (夫碩順)"
+      },
+      "wrong": [
+        {
+          "text": "BABYMONSTER"
+        }
+      ],
+      "updated_at": "2026-10-23 12:45:00"
+    },
+    "下列何者為一品夫人的logo？": {
+      "text": "下列何者為一品夫人的logo？",
+      "image": "",
+      "choices": [
+        {
+          "text": "efinlady"
+        }
+      ],
+      "correct": {
+        "text": "efinlady"
+      },
+      "updated_at": "2026-10-23 12:45:00"
     }
   }
 }
