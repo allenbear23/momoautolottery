@@ -818,18 +818,7 @@ def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = Tr
 
         print(f"[{datetime.now().strftime('%H:%M:%S')}] {prefix}第 {correct_count+1} 題: {q_text} ➔ 選擇: {choice_text}")
 
-        # 送出答案
-        ans_body = {
-            "activityId": QUIZ_ACTIVITY_ID,
-            "questionId": q_uuid,
-            "answerId": selected_choice_id
-        }
-        ans_status, ans_res = send_quiz_request("POST", "/quiz/answer.PROMO", cookie, ans_body)
-        if ans_status != 200:
-            print(f"{prefix}提交答案異常: {ans_res}")
-            break
-
-        is_correct = ans_res.get("isCorrect", False)
+        # 只要取題成功，即刻持久化至題庫 (即使後續超時未判定，也能手動確認)
         if db_key not in db["questions"]:
             db["questions"][db_key] = {}
 
@@ -841,6 +830,22 @@ def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = Tr
             "choices": choices,
             "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         })
+        save_quiz_db(db)
+
+        # 送出答案
+        ans_body = {
+            "activityId": QUIZ_ACTIVITY_ID,
+            "questionId": q_uuid,
+            "answerId": selected_choice_id
+        }
+        ans_status, ans_res = send_quiz_request("POST", "/quiz/answer.PROMO", cookie, ans_body)
+        if ans_status != 200:
+            print(f"{prefix}提交答案異常 ({ans_res.get('code', ans_status)})，題目已存入題庫供手動判定。")
+            q_record["unverified_choice"] = choice_obj
+            save_quiz_db(db)
+            break
+
+        is_correct = ans_res.get("isCorrect", False)
 
         if is_correct:
             correct_count += 1
