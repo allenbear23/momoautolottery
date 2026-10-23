@@ -172,8 +172,7 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
         t = c.get('text', '').strip()
         img_url = c.get('image', '').strip()
         if not t and img_url:
-            filename = os.path.basename(urllib.parse.urlparse(img_url).path)
-            t = f"圖片選項 ({filename})"
+            t = f"選項 {i+1} 圖片"
         options_list.append(f"{i+1}. {t}")
 
         if img_url:
@@ -188,6 +187,8 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
                 elif os.path.exists(img_url):
                     with open(img_url, "rb") as f:
                         c_img_data = f.read()
+                        if img_url.lower().endswith(".png"):
+                            c_mime = "image/png"
                 if c_img_data:
                     choice_image_parts.append({"text": f"【選項 {i+1} 圖片】："})
                     choice_image_parts.append({
@@ -202,15 +203,23 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
     options_str = "\n".join(options_list)
 
     try:
-        from momo_knowledge_base import MOMO_KNOWLEDGE_CONTEXT
-        momo_context = MOMO_KNOWLEDGE_CONTEXT
+        from momo_knowledge_base import MOMO_COMPACT_CONTEXT
+        momo_context = MOMO_COMPACT_CONTEXT
     except Exception:
         momo_context = ""
+
+    neg_warn = ""
+    if any(neg in question_text for neg in ("沒有", "不是", "非", "何者不", "不包含", "未包含", "無")):
+        neg_warn = "⚠️【重要警告：本題為反向/否定題，請選出『不包含 / 沒有』的選項！】\n\n"
 
     prompt = (
         f"你是一個精通台灣 momo 購物網活動與商品通識的解題專家。\n\n"
         f"{momo_context}\n"
-        f"請閱讀問題、參考附帶圖片 (含題目圖片與各選項圖片)，並比對選項，選出最可能正確的選項：\n\n"
+        f"{neg_warn}"
+        f"【解題原則】：\n"
+        f"- 若問大小/規格：直立式桌機(Tower) > 薄型小型(SFF) > 超微型(Tiny)；Pro Max/Ultra > 標準款。\n"
+        f"- 若為商品附圖：請仔細辨識圖片上的商標文字、包裝印字與Logo。\n"
+        f"- 若為純圖片選項：請仔細比對各選項圖片中的實體規格與特徵。\n\n"
         f"【問題】：{question_text}\n"
         f"【選項】：\n{options_str}\n\n"
         f"請只回答最正確選項的編號數字 (例如 1, 2, 3 或 4)，絕對不要輸出任何其他多餘文字。"
@@ -229,6 +238,8 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
             elif os.path.exists(question_image):
                 with open(question_image, "rb") as f:
                     img_data = f.read()
+                    if question_image.lower().endswith(".png"):
+                        mime = "image/png"
 
             if img_data:
                 b64_data = base64.b64encode(img_data).decode("utf-8")
@@ -248,8 +259,8 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
     parts.append({"text": prompt})
 
     models = [
-        "gemini-3.5-flash-lite",
         "gemini-3.5-flash",
+        "gemini-3.5-flash-lite",
         "gemini-3-flash-preview"
     ]
 
@@ -266,13 +277,14 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
             data = json.dumps(payload).encode("utf-8")
             req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"}, method="POST")
             try:
-                with urllib.request.urlopen(req, timeout=3) as resp:
+                with urllib.request.urlopen(req, timeout=6.5) as resp:
                     result = json.loads(resp.read().decode("utf-8"))
                     candidates = result.get("candidates", [])
                     if candidates:
                         parts_list = candidates[0].get("content", {}).get("parts", [])
                         non_thought = [p.get("text", "") for p in parts_list if not p.get("thought", False)]
                         text_out = " ".join(non_thought).strip() if non_thought else " ".join(p.get("text", "") for p in parts_list).strip()
+                        print(f"[{model}] 原始回傳內容: '{text_out}'")
 
                         m = re.search(r'\b([1-9])\b', text_out)
                         if m:
@@ -326,11 +338,15 @@ def query_groq(question_text: str, choices: list, api_key: str = None, question_
     options_list = [f"{i+1}. {c.get('text', '') or c.get('uuid', '')}" for i, c in enumerate(choices)]
     options_str = "\n".join(options_list)
 
+    neg_warn = ""
+    if any(neg in question_text for neg in ("沒有", "不是", "非", "何者不", "不包含", "未包含", "無")):
+        neg_warn = "⚠️【重要警告：本題為反向/否定題，請選出『不包含 / 沒有』的選項！】\n\n"
+
     prompt = f"""請以 momo 雙11官方背景與常識知識庫為準，判斷這道題目的正確答案。
 
 {MOMO_COMPACT_CONTEXT}
 
-【題目】：{question_text}
+{neg_warn}【題目】：{question_text}
 【選項清單】：
 {options_str}
 
@@ -400,8 +416,15 @@ def get_openrouter_api_key(api_key: str = None) -> str:
     return ""
 
 
+OPENROUTER_DISABLED = False
+
+
 def query_openrouter(question_text: str, choices: list, api_key: str = None, question_image: str = None) -> str:
     """利用 OpenRouter 免費多模態模型進行智能解題 (支援題目附圖與型C純圖片選項)"""
+    global OPENROUTER_DISABLED
+    if OPENROUTER_DISABLED:
+        return None
+
     key = get_openrouter_api_key(api_key)
     if not key:
         return None
@@ -613,6 +636,11 @@ def query_openrouter(question_text: str, choices: list, api_key: str = None, que
                         if 0 <= idx < len(choices):
                             print(f"[OpenRouter AI ({model})] reasoning 尾端數字命中: {idx+1}. {choices[idx].get('text') or choices[idx].get('uuid')}")
                             return choices[idx]["uuid"]
+        except urllib.error.HTTPError as e:
+            if e.code in (401, 402, 429):
+                OPENROUTER_DISABLED = True
+                break
+            continue
         except Exception:
             continue
 
@@ -722,15 +750,15 @@ def select_answer(question: dict, choices: list, db: dict, gemini_key: str = Non
         if groq_choice_id:
             return groq_choice_id
 
-    # 4. 優先呼叫 OpenRouter AI (支援題目圖文與型C純圖片選項)
-    openrouter_choice_id = query_openrouter(q_text, candidate_choices, openrouter_key, question.get("image"))
-    if openrouter_choice_id:
-        return openrouter_choice_id
-
-    # 5. 次之呼叫 Gemini AI (支援圖文多模態，反應極速 1-2s)
+    # 4. 多模態題優先呼叫 Google Gemini AI (圖文解析極速 1.2s，辨識精確)
     gemini_choice_id = query_gemini(q_text, candidate_choices, gemini_key, question.get("image"))
     if gemini_choice_id:
         return gemini_choice_id
+
+    # 5. 次之呼叫 OpenRouter AI 備援 (支援題目圖文與型C純圖片選項)
+    openrouter_choice_id = query_openrouter(q_text, candidate_choices, openrouter_key, question.get("image"))
+    if openrouter_choice_id:
+        return openrouter_choice_id
 
     # 6. 搜尋比對或排除法回退
     return search_best_choice(q_text, candidate_choices, wrong_vals)
