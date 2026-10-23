@@ -1165,6 +1165,37 @@
         "note": "10:11 場次超時 (409) 未判定，待確認"
       },
       "updated_at": "2026-10-23 10:12:13"
+    },
+    "請選出以下哪個是國外氣泡水品牌?": {
+      "text": "請選出以下哪個是國外氣泡水品牌?",
+      "image": "",
+      "uuid": "7ffce559-56ad-47d6-a3c6-8db716ff6a35",
+      "choices": [
+        {
+          "uuid": "46cd8213-1aa9-4560-880a-0845360e2d78",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/c375117a-02ba-45b3-9863-2fbdb8a7d1fd.png"
+        },
+        {
+          "uuid": "4b202957-870e-4d40-b44a-9b8ab64c3d7a",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/719d37f3-8523-4a63-a524-e3c5d908d321.png"
+        },
+        {
+          "uuid": "5e7094f2-8066-4619-938f-3b649c45cc8b",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/cd31b1cb-6459-4a11-b5d4-a5066dd4ecd5.png"
+        },
+        {
+          "uuid": "732f02b8-26f4-4083-8549-23227fa92fc1",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/bbc53f99-80b3-45a9-933b-ee0185f18d31.png"
+        }
+      ],
+      "updated_at": "2026-10-23 14:11:01",
+      "wrong": [
+        {
+          "uuid": "4b202957-870e-4d40-b44a-9b8ab64c3d7a",
+          "text": "",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/719d37f3-8523-4a63-a524-e3c5d908d321.png"
+        }
+      ]
     }
   }
 }
