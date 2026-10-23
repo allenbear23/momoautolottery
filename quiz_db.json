@@ -1,3 +1,62 @@
 {
-  "questions": {}
+  "questions": {
+    "以下哪一個是可以輕鬆調整高的桌子": {
+      "text": "以下哪一個是可以輕鬆調整高的桌子",
+      "image": "",
+      "uuid": "d7401b42-5002-44eb-aa7e-38773acac0f8",
+      "choices": [
+        {
+          "uuid": "2764a8c8-bb27-4aa8-bebd-f16911768481",
+          "text": "茶几"
+        },
+        {
+          "uuid": "2f254ecf-f142-4b72-8f6c-cd79812a523e",
+          "text": "邊桌"
+        },
+        {
+          "uuid": "a5dd10e8-5345-447e-90aa-7a0940f3895f",
+          "text": "電動升降桌"
+        },
+        {
+          "uuid": "d1a9dc72-1276-4652-827b-1593b754b5e4",
+          "text": "餐桌"
+        }
+      ],
+      "updated_at": "2026-10-23 10:11:48",
+      "correct": {
+        "uuid": "a5dd10e8-5345-447e-90aa-7a0940f3895f",
+        "text": "電動升降桌",
+        "image": ""
+      }
+    },
+    "請問此商品是哪個品牌?::img_11544f47-d23d-4ebf-92ac-7281cfdbf952.png": {
+      "text": "請問此商品是哪個品牌?",
+      "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/11544f47-d23d-4ebf-92ac-7281cfdbf952.png",
+      "uuid": "179adaaf-a796-4211-b44b-19ba49862f0e",
+      "choices": [
+        {
+          "uuid": "7f27f111-6a1a-4592-8a2e-1161e2c9a6d1",
+          "text": "皇室羽毛工房"
+        },
+        {
+          "uuid": "9ba26283-2c2c-44e6-855a-867def44f5d7",
+          "text": "仙台牛舌工房"
+        },
+        {
+          "uuid": "d789c6eb-9789-4c09-a18a-fd537504c4a3",
+          "text": "京都抹茶工房"
+        },
+        {
+          "uuid": "fec315a5-decc-4c49-b8ab-b48261041aa9",
+          "text": "東京牛奶工房"
+        }
+      ],
+      "updated_at": "2026-10-23 10:11:56",
+      "correct": {
+        "uuid": "7f27f111-6a1a-4592-8a2e-1161e2c9a6d1",
+        "text": "皇室羽毛工房",
+        "image": ""
+      }
+    }
+  }
 }
