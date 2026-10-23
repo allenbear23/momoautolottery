@@ -1196,6 +1196,95 @@
           "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/719d37f3-8523-4a63-a524-e3c5d908d321.png"
         }
       ]
+    },
+    "《哈利波特》作者是誰?": {
+      "text": "《哈利波特》作者是誰?",
+      "image": "",
+      "uuid": "5f26facb-d13a-4261-85b1-3c0c676b17cb",
+      "choices": [
+        {
+          "uuid": "44146356-5b94-4db5-8049-7b28046cedad",
+          "text": "金庸"
+        },
+        {
+          "uuid": "8472ec8c-1cab-4aee-a3d8-de04aa4e5a88",
+          "text": "東野圭吾"
+        },
+        {
+          "uuid": "a378490a-7c65-437d-af79-3100b3bc0c4a",
+          "text": "J.K.羅琳"
+        },
+        {
+          "uuid": "f466ea78-8326-46d6-aa1b-eaa83939c5fb",
+          "text": "村上春樹"
+        }
+      ],
+      "updated_at": "2026-10-23 18:11:01",
+      "correct": {
+        "uuid": "a378490a-7c65-437d-af79-3100b3bc0c4a",
+        "text": "J.K.羅琳",
+        "image": ""
+      }
+    },
+    "哪一張圖是OPPO Reno16超值泡泡鏡超值組?": {
+      "text": "哪一張圖是OPPO Reno16超值泡泡鏡超值組?",
+      "image": "",
+      "uuid": "14025f3e-33f1-43f0-a78f-be42b0f3eb53",
+      "choices": [
+        {
+          "uuid": "126c4755-5246-4e27-aea1-4181747fbc33",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/17385923-fb4e-4821-9a4b-d95f4f312134.png"
+        },
+        {
+          "uuid": "7f67813e-f376-46b2-8b55-e3ddbe8ed54e",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/ce415a2e-f153-4efb-b943-4329b432d938.png"
+        },
+        {
+          "uuid": "c98fedff-757f-4679-a026-fd79971ad033",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/3078ed47-81a2-48a7-8db9-8a3ee8a0156c.png"
+        },
+        {
+          "uuid": "fa21be2b-379f-490f-ad74-1e94a9b24203",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/85e34cd1-785e-4d60-b7c2-417127361343.png"
+        }
+      ],
+      "updated_at": "2026-10-23 18:11:02",
+      "correct": {
+        "uuid": "126c4755-5246-4e27-aea1-4181747fbc33",
+        "text": "",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/17385923-fb4e-4821-9a4b-d95f4f312134.png"
+      }
+    },
+    "台灣哪間飯店無溫泉設施?": {
+      "text": "台灣哪間飯店無溫泉設施?",
+      "image": "",
+      "uuid": "8f3e5fd8-c1ab-40b6-b1c1-86ee2a3a1dbb",
+      "choices": [
+        {
+          "uuid": "22f87272-cf60-42e8-824e-97d53146b8f2",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/95c3482a-7eb4-4b51-ab72-1c78af93c927.jpg"
+        },
+        {
+          "uuid": "379781f5-5620-4cee-acef-e733854cad8e",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/1df1ec29-c871-46dc-aaf2-8e0ba588328a.jpg"
+        },
+        {
+          "uuid": "d174fee4-8612-4e93-87fe-89cd4aa2ef6b",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/98789299-5d52-4990-83ac-38840fc93380.jpg"
+        },
+        {
+          "uuid": "fefb2603-5352-41f8-87c2-951959343bb3",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/b82b576b-5f19-4c92-b81d-a1af33883a64.jpg"
+        }
+      ],
+      "updated_at": "2026-10-23 18:11:14",
+      "wrong": [
+        {
+          "uuid": "fefb2603-5352-41f8-87c2-951959343bb3",
+          "text": "",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/b82b576b-5f19-4c92-b81d-a1af33883a64.jpg"
+        }
+      ]
     }
   }
 }
