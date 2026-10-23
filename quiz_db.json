@@ -191,6 +191,736 @@
           "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/776367b0-f26d-4de8-a299-ec0e6431ae70.png"
         }
       ]
+    },
+    "請問圖片中商品是哪個品牌？": {
+      "text": "請問圖片中商品是哪個品牌？",
+      "image": "",
+      "choices": [
+        {
+          "text": "Dior 迪奥"
+        },
+        {
+          "text": "CHANEL香奈兒"
+        },
+        {
+          "text": "Louis Vuitton路易威登"
+        },
+        {
+          "text": "Hermes 愛馬仕"
+        }
+      ],
+      "updated_at": "2026-10-23 12:35:00"
+    },
+    "下列何者非日本服飾飾品品牌？": {
+      "text": "下列何者非日本服飾飾品品牌？",
+      "image": "",
+      "choices": [
+        {
+          "text": "FREAK'S STORE"
+        },
+        {
+          "text": "NET"
+        },
+        {
+          "text": "3COINS"
+        },
+        {
+          "text": "SEKIMIKI"
+        }
+      ],
+      "updated_at": "2026-10-23 12:35:00",
+      "correct": {
+        "text": "SEKIMIKI"
+      }
+    },
+    "CAT LITTER": {
+      "text": "CAT LITTER",
+      "image": "",
+      "choices": [
+        {
+          "text": "貓咪外出"
+        },
+        {
+          "text": "貓咪洗澡"
+        },
+        {
+          "text": "當飼料食用"
+        },
+        {
+          "text": "凝結結團清理"
+        }
+      ],
+      "updated_at": "2026-10-23 12:35:00",
+      "correct": {
+        "text": "凝結結團清理"
+      }
+    },
+    "方軟膠囊的正確顏色？": {
+      "text": "方軟膠囊的正確顏色？",
+      "image": "",
+      "choices": [
+        {
+          "text": "1"
+        },
+        {
+          "text": "2"
+        }
+      ],
+      "updated_at": "2026-10-23 12:35:00",
+      "correct": {
+        "text": "2"
+      }
+    },
+    "雙管櫃浹日": {
+      "text": "雙管櫃浹日",
+      "image": "",
+      "choices": [
+        {
+          "text": "1人延謝日"
+        },
+        {
+          "text": "抗敏感"
+        },
+        {
+          "text": "牙齦護理"
+        },
+        {
+          "text": "美白"
+        }
+      ],
+      "updated_at": "2026-10-23 12:35:00"
+    },
+    "銀穗的英文是什麼？": {
+      "text": "銀穗的英文是什麼？",
+      "image": "",
+      "choices": [
+        {
+          "text": "en-suey"
+        },
+        {
+          "text": "en-glish"
+        },
+        {
+          "text": "en-joy"
+        },
+        {
+          "text": "En-ergy"
+        }
+      ],
+      "updated_at": "2026-10-23 12:35:00",
+      "correct": {
+        "text": "en-suey"
+      }
+    },
+    "請問圖中a la sha品牌IP叫什麼？": {
+      "text": "請問圖中a la sha品牌IP叫什麼？",
+      "image": "",
+      "choices": [
+        {
+          "text": "阿寶"
+        },
+        {
+          "text": "阿旺"
+        },
+        {
+          "text": "阿金"
+        },
+        {
+          "text": "阿財"
+        }
+      ],
+      "updated_at": "2026-10-23 12:35:00",
+      "correct": {
+        "text": "阿旺"
+      },
+      "wrong": [
+        {
+          "text": "阿寶"
+        }
+      ]
+    },
+    "以下哪個品牌為plain-me的包款？": {
+      "text": "以下哪個品牌為plain-me的包款？",
+      "image": "",
+      "choices": [
+        {
+          "text": "1"
+        },
+        {
+          "text": "2"
+        },
+        {
+          "text": "★"
+        }
+      ],
+      "updated_at": "2026-10-23 12:35:00",
+      "wrong": [
+        {
+          "text": "★"
+        }
+      ]
+    },
+    "年度mo店+熱銷衛生紙品牌？": {
+      "text": "年度mo店+熱銷衛生紙品牌？",
+      "image": "",
+      "choices": [
+        {
+          "text": "科克蘭"
+        },
+        {
+          "text": "春風"
+        },
+        {
+          "text": "得意"
+        },
+        {
+          "text": "五月花"
+        }
+      ],
+      "updated_at": "2026-10-23 12:35:00",
+      "correct": {
+        "text": "科克蘭"
+      },
+      "wrong": [
+        {
+          "text": "春風"
+        }
+      ]
+    },
+    "2025年第一名的F1車隊是哪一台車": {
+      "text": "2025年第一名的F1車隊是哪一台車",
+      "image": "",
+      "choices": [
+        {
+          "text": "紅牛"
+        },
+        {
+          "text": "麥拉倫"
+        },
+        {
+          "text": "法拉利"
+        },
+        {
+          "text": "賓士"
+        }
+      ],
+      "updated_at": "2026-10-23 12:35:00",
+      "correct": {
+        "text": "麥拉倫"
+      }
+    },
+    "用來讓植物澆水的工具是？": {
+      "text": "用來讓植物澆水的工具是？",
+      "image": "",
+      "choices": [
+        {
+          "text": "花盆"
+        },
+        {
+          "text": "水管"
+        },
+        {
+          "text": "花架"
+        },
+        {
+          "text": "剪刀"
+        }
+      ],
+      "updated_at": "2026-10-23 12:35:00",
+      "correct": {
+        "text": "水管"
+      },
+      "wrong": [
+        {
+          "text": "花盆"
+        }
+      ]
+    },
+    "於2026/9/4正式上市的S系列手機是哪個型號？": {
+      "text": "於2026/9/4正式上市的S系列手機是哪個型號？",
+      "image": "",
+      "choices": [
+        {
+          "text": "Galaxy S26 FE"
+        }
+      ],
+      "updated_at": "2026-10-23 12:35:00",
+      "correct": {
+        "text": "Galaxy S26 FE"
+      }
+    },
+    "外接式SSD目前最高容量是幾TB？": {
+      "text": "外接式SSD目前最高容量是幾TB？",
+      "image": "",
+      "choices": [
+        {
+          "text": "6TB"
+        },
+        {
+          "text": "4TB"
+        },
+        {
+          "text": "8TB"
+        },
+        {
+          "text": "2TB"
+        }
+      ],
+      "updated_at": "2026-10-23 12:35:00",
+      "correct": {
+        "text": "8TB"
+      }
+    },
+    "請問此商品是什麼東西？": {
+      "text": "請問此商品是什麼東西？",
+      "image": "",
+      "choices": [
+        {
+          "text": "沙發"
+        },
+        {
+          "text": "坐墊"
+        },
+        {
+          "text": "收納袋"
+        },
+        {
+          "text": "鍋子"
+        }
+      ],
+      "updated_at": "2026-10-23 12:35:00",
+      "correct": {
+        "text": "坐墊"
+      }
+    },
+    "下列何者非日本UHA味覺糖？": {
+      "text": "下列何者非日本UHA味覺糖？",
+      "image": "",
+      "choices": [
+        {
+          "text": "20日分 グミサプリ 亜鉛"
+        },
+        {
+          "text": "20日分 グミサプリ 鉄＆葉酸"
+        },
+        {
+          "text": "20日分 グミサプリ マルチビタミン"
+        },
+        {
+          "text": "20日分 グミサプリ マルチビタミン"
+        }
+      ],
+      "updated_at": "2026-10-23 12:35:00",
+      "correct": {
+        "text": "20日分 グミサプリ 鉄＆葉酸"
+      },
+      "wrong": [
+        {
+          "text": "20日分 グミサプリ マルチビタミン"
+        }
+      ]
+    },
+    "請問24HRS內衣的熱銷第一色為？": {
+      "text": "請問24HRS內衣的熱銷第一色為？",
+      "image": "",
+      "choices": [
+        {
+          "text": "勃根地紅"
+        },
+        {
+          "text": "寶寶藍"
+        },
+        {
+          "text": "杏花橙"
+        }
+      ],
+      "updated_at": "2026-10-23 12:35:00",
+      "correct": {
+        "text": "勃根地紅"
+      },
+      "wrong": [
+        {
+          "text": "寶寶藍"
+        }
+      ]
+    },
+    "請問此商品是甚麼功能？": {
+      "text": "請問此商品是甚麼功能？",
+      "image": "",
+      "choices": [
+        {
+          "text": "洗臉機"
+        },
+        {
+          "text": "除毛儀"
+        },
+        {
+          "text": "牙刷"
+        }
+      ],
+      "updated_at": "2026-10-23 12:35:00",
+      "correct": {
+        "text": "洗臉機"
+      },
+      "wrong": [
+        {
+          "text": "除毛儀"
+        }
+      ]
+    },
+    "請選出不是寶可夢書籍": {
+      "text": "請選出不是寶可夢書籍",
+      "image": "",
+      "choices": [
+        {
+          "text": "皮卡丘"
+        },
+        {
+          "text": "洋尋費誤"
+        },
+        {
+          "text": "貼紙168張（"
+        },
+        {
+          "text": "度卡丘的"
+        },
+        {
+          "text": "夜晚大冒啊"
+        },
+        {
+          "text": "卡片貼紙"
+        },
+        {
+          "text": "經典珍藏"
+        }
+      ],
+      "updated_at": "2026-10-23 12:35:00",
+      "correct": {
+        "text": "洋尋費誤"
+      }
+    },
+    "請問圖中是甚麼商品": {
+      "text": "請問圖中是甚麼商品",
+      "image": "",
+      "choices": [
+        {
+          "text": "Dior巨星唇膏"
+        },
+        {
+          "text": "RMK 柔霧口紅"
+        },
+        {
+          "text": "YSL全新持色唇萃"
+        }
+      ],
+      "updated_at": "2026-10-23 12:35:00",
+      "correct": {
+        "text": "YSL全新持色唇萃"
+      },
+      "wrong": [
+        {
+          "text": "Dior巨星唇膏"
+        }
+      ]
+    },
+    "請問以下蕎麥麵主打特色為何": {
+      "text": "請問以下蕎麥麵主打特色為何",
+      "image": "",
+      "choices": [
+        {
+          "text": "低卡高纖"
+        },
+        {
+          "text": "低脂高飽足感"
+        },
+        {
+          "text": "以上皆是"
+        }
+      ],
+      "updated_at": "2026-10-23 12:35:00",
+      "correct": {
+        "text": "以上皆是"
+      }
+    },
+    "請選出唯一一本理財投資書": {
+      "text": "請選出唯一一本理財投資書",
+      "image": "",
+      "choices": [
+        {
+          "text": "哈莉波特"
+        },
+        {
+          "text": "麵包小偷"
+        },
+        {
+          "text": "原子習慣"
+        },
+        {
+          "text": "妖怪托顧所"
+        }
+      ],
+      "updated_at": "2026-10-23 12:35:00",
+      "correct": {
+        "text": "原子習慣"
+      }
+    },
+    "請問Mammut長毛象起源地在哪？": {
+      "text": "請問Mammut長毛象起源地在哪？",
+      "image": "",
+      "choices": [
+        {
+          "text": "瑞士"
+        },
+        {
+          "text": "德國"
+        },
+        {
+          "text": "美國"
+        },
+        {
+          "text": "法國"
+        }
+      ],
+      "correct": {
+        "text": "瑞士"
+      },
+      "updated_at": "2026-10-23 12:40:00"
+    },
+    "英國× 寢具× 兔子 猜一品牌？": {
+      "text": "英國× 寢具× 兔子 猜一品牌？",
+      "image": "",
+      "choices": [
+        {
+          "text": "吉伊卡哇"
+        },
+        {
+          "text": "美樂蒂"
+        },
+        {
+          "text": "布丁狗"
+        },
+        {
+          "text": "PETER RABBIT比得兔"
+        }
+      ],
+      "updated_at": "2026-10-23 12:35:00",
+      "correct": {
+        "text": "PETER RABBIT比得兔"
+      }
+    },
+    "請問此商品為哪個品牌？": {
+      "text": "請問此商品為哪個品牌？",
+      "image": "",
+      "choices": [
+        {
+          "text": "齒妍堂"
+        },
+        {
+          "text": "刷樂"
+        },
+        {
+          "text": "李施德霖"
+        }
+      ],
+      "updated_at": "2026-10-23 12:35:00",
+      "correct": {
+        "text": "齒妍堂"
+      }
+    },
+    "活力、精神、日常補給": {
+      "text": "活力、精神、日常補給",
+      "image": "",
+      "choices": [
+        {
+          "text": "Richyig."
+        },
+        {
+          "text": "Richyitaa"
+        },
+        {
+          "text": "hVitG."
+        },
+        {
+          "text": "EZING EIZINC"
+        }
+      ],
+      "updated_at": "2026-10-23 12:35:00",
+      "correct": {
+        "text": "EZING EIZINC"
+      }
+    },
+    "哪一個是多芬小金碗髮膜？": {
+      "text": "哪一個是多芬小金碗髮膜？",
+      "image": "",
+      "choices": [
+        {
+          "text": "川法果料液へフマズク"
+        },
+        {
+          "text": "hino"
+        },
+        {
+          "text": "PANTENE"
+        },
+        {
+          "text": "SMINUTE"
+        },
+        {
+          "text": "+Dove"
+        }
+      ],
+      "updated_at": "2026-10-23 12:35:00",
+      "correct": {
+        "text": "+Dove"
+      }
+    },
+    "請問圖片中哪個不是STANLEY商品？": {
+      "text": "請問圖片中哪個不是STANLEY商品？",
+      "image": "",
+      "choices": [],
+      "updated_at": "2026-10-23 12:35:00"
+    },
+    "哪一項商品選購時通常需要依「空間坪數」評估冷房能力？": {
+      "text": "哪一項商品選購時通常需要依「空間坪數」評估冷房能力？",
+      "image": "",
+      "choices": [
+        {
+          "text": "1"
+        },
+        {
+          "text": "2"
+        },
+        {
+          "text": "3"
+        }
+      ],
+      "updated_at": "2026-10-23 12:35:00",
+      "correct": {
+        "text": "3"
+      }
+    },
+    "momo有哪些冷凍水餃品牌？": {
+      "text": "momo有哪些冷凍水餃品牌？",
+      "image": "",
+      "choices": [
+        {
+          "text": "果貿吳媽家"
+        },
+        {
+          "text": "阿琴水餃"
+        },
+        {
+          "text": "東門興記"
+        },
+        {
+          "text": "以上皆是"
+        }
+      ],
+      "updated_at": "2026-10-23 12:35:00",
+      "correct": {
+        "text": "以上皆是"
+      }
+    },
+    "下列哪個是NAS硬碟？": {
+      "text": "下列哪個是NAS硬碟？",
+      "image": "",
+      "choices": [
+        {
+          "text": "SEAGATE BARRACUDA 20TB"
+        },
+        {
+          "text": "SEAGATE EXOS X24"
+        },
+        {
+          "text": "SEAGATE IRONWOLF PRO 30TB"
+        },
+        {
+          "text": "SEAGATE SKYHAWK AI SURVEILLANCE 8TB"
+        }
+      ],
+      "updated_at": "2026-10-23 12:35:00",
+      "correct": {
+        "text": "SEAGATE IRONWOLF PRO 30TB"
+      }
+    },
+    "下列何者非李寧 Lining的球鞋？": {
+      "text": "下列何者非李寧 Lining的球鞋？",
+      "image": "",
+      "choices": [],
+      "updated_at": "2026-10-23 12:35:00"
+    },
+    "請問此品牌LOGO為何？": {
+      "text": "請問此品牌LOGO為何？",
+      "image": "",
+      "choices": [
+        {
+          "text": "妮維雅"
+        },
+        {
+          "text": "露得清"
+        },
+        {
+          "text": "霓淨思"
+        },
+        {
+          "text": "達爾膚"
+        }
+      ],
+      "correct": {
+        "text": "露得清"
+      },
+      "updated_at": "2026-10-23 12:40:00"
+    },
+    "請選出哪一個不是Dior的香水？": {
+      "text": "請選出哪一個不是Dior的香水？",
+      "image": "",
+      "choices": [
+        {
+          "text": "CHANEL"
+        },
+        {
+          "text": "SAUVAGE"
+        }
+      ],
+      "correct": {
+        "text": "CHANEL"
+      },
+      "updated_at": "2026-10-23 12:40:00"
+    },
+    "請問以下哪款是明治-巧克力效果巧克力": {
+      "text": "請問以下哪款是明治-巧克力效果巧克力",
+      "image": "",
+      "choices": [
+        {
+          "text": "チョコレート効果"
+        }
+      ],
+      "correct": {
+        "text": "チョコレート効果"
+      },
+      "updated_at": "2026-10-23 12:40:00"
+    },
+    "銀穗英文是什麼？": {
+      "text": "銀穗英文是什麼？",
+      "image": "",
+      "choices": [
+        {
+          "text": "en-suey"
+        },
+        {
+          "text": "en-glish"
+        },
+        {
+          "text": "en-joy"
+        },
+        {
+          "text": "En-ergy"
+        }
+      ],
+      "correct": {
+        "text": "en-suey"
+      },
+      "updated_at": "2026-10-23 12:40:00"
     }
   }
 }
