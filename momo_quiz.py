@@ -248,13 +248,9 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
     parts.append({"text": prompt})
 
     models = [
-        "gemini-3-flash-preview",
+        "gemini-3.5-flash-lite",
         "gemini-3.5-flash",
-        "gemini-3.6-flash",
-        "gemini-3.7-flash",
-        "gemini-3.8-flash",
-        "gemini-3.1-pro-preview",
-        "gemini-pro-latest"
+        "gemini-3-flash-preview"
     ]
 
     for key in keys:
@@ -270,7 +266,7 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
             data = json.dumps(payload).encode("utf-8")
             req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"}, method="POST")
             try:
-                with urllib.request.urlopen(req, timeout=10) as resp:
+                with urllib.request.urlopen(req, timeout=3) as resp:
                     result = json.loads(resp.read().decode("utf-8"))
                     candidates = result.get("candidates", [])
                     if candidates:
@@ -378,11 +374,12 @@ def query_groq(question_text: str, choices: list, api_key: str = None, question_
                         print(f"[Groq AI ({model})] 命中關鍵字: {c.get('text')}")
                         return c["uuid"]
         except urllib.error.HTTPError as e:
-            if e.code in (401, 403):
+            if e.code in (400, 401, 403):
                 GROQ_DISABLED = True
                 break
             continue
         except Exception:
+            continue
             continue
 
     return None
@@ -454,12 +451,10 @@ def query_openrouter(question_text: str, choices: list, api_key: str = None, que
         context_str = ""
 
     prompt = (
-        f"你是一個精通台灣 momo 購物網活動與商品通識的解題專家。\n"
-        f"{context_str}\n"
-        f"請仔細觀看題目與附帶之圖片 (含題目圖片與各選項圖片)，選出最可能正確的選項：\n\n"
-        f"【問題】：{question_text}\n"
-        f"【選項】：\n{options_str}\n\n"
-        f"請只回答最正確選項的編號數字 (例如只輸出 1 或 2 或 3 或 4)："
+        f"題目：{question_text}\n"
+        f"選項：\n{options_str}\n\n"
+        f"參考提示：\n- momo雙11活動代言人為 SUPER JUNIOR-83z。\n- 若為商品分類，書桌/椅子/床屬於家具寢飾居家生活館。\n"
+        f"請直接輸出唯一正確的選項編號數字 (例如只輸出 1 或 2 或 3 或 4)："
     )
 
     content_items = []
@@ -492,21 +487,12 @@ def query_openrouter(question_text: str, choices: list, api_key: str = None, que
 
     content_items.append({"type": "text", "text": prompt})
 
-    if has_image:
-        models = [
-            "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
-            "google/gemma-4-31b-it:free",
-            "nvidia/nemotron-3.5-super-vl:free"
-        ]
-        max_tokens = 300
-        req_timeout = 7
-    else:
-        models = [
-            "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
-            "google/gemma-4-31b-it:free"
-        ]
-        max_tokens = 150
-        req_timeout = 5
+    models = [
+        "dots-studio/dots-3-note-preview:free",
+        "nvidia/nemotron-3.5-super-vl:free"
+    ]
+    max_tokens = 120
+    req_timeout = 3.2
 
     url = "https://openrouter.ai/api/v1/chat/completions"
 
@@ -537,30 +523,96 @@ def query_openrouter(question_text: str, choices: list, api_key: str = None, que
                 text_out = (msg.get("content") or "").strip()
                 reasoning = (msg.get("reasoning") or "").strip()
 
-                idx = -1
-                m = re.search(r'\b([1-9])\b', text_out)
-                if m:
-                    idx = int(m.group(1)) - 1
-                elif reasoning:
-                    tail = reasoning[-300:] if len(reasoning) > 300 else reasoning
-                    matches = re.findall(r'(?:Option|選項|答案|answer is|correct option is|選)\s*([1-9])\b', tail, re.IGNORECASE)
-                    if matches:
-                        idx = int(matches[-1]) - 1
-                    else:
-                        m_num = re.findall(r'\b([1-9])\b', tail)
-                        if m_num:
-                            idx = int(m_num[-1]) - 1
-
-                if 0 <= idx < len(choices):
-                    print(f"[OpenRouter AI ({model})] 解析選項為: {idx+1}. {choices[idx].get('text') or choices[idx].get('uuid')}")
-                    return choices[idx]["uuid"]
-
-                # 僅在 content 有文字時比對選項文字
+                # 1. 優先由 content 提取明確數字
                 if text_out:
+                    m = re.search(r'\b([1-9])\b', text_out)
+                    if m:
+                        idx = int(m.group(1)) - 1
+                        if 0 <= idx < len(choices):
+                            print(f"[OpenRouter AI ({model})] content 解析選項為: {idx+1}. {choices[idx].get('text') or choices[idx].get('uuid')}")
+                            return choices[idx]["uuid"]
+
                     for c in choices:
                         if c.get("text") and c.get("text") in text_out:
-                            print(f"[OpenRouter AI ({model})] 命中關鍵字: {c.get('text')}")
+                            print(f"[OpenRouter AI ({model})] content 命中關鍵字: {c.get('text')}")
                             return c["uuid"]
+
+                # 2. 由 reasoning 深入分析提取
+                if reasoning:
+                    tail = reasoning[-300:] if len(reasoning) > 300 else reasoning
+                    matches = re.findall(r'(?:答案(?:是|為|應為)?|正確答案(?:是|為)?|故選|因此選|應選|選擇|correct option is|answer is|the answer is|choice is)\s*([1-9])\b', tail, re.IGNORECASE)
+                    if matches:
+                        idx = int(matches[-1]) - 1
+                        if 0 <= idx < len(choices):
+                            print(f"[OpenRouter AI ({model})] reasoning 結論命中選項: {idx+1}. {choices[idx].get('text') or choices[idx].get('uuid')}")
+                            return choices[idx]["uuid"]
+
+                    # 針對純圖片選項：比對各 Image i 分析區塊與題幹關鍵詞
+                    if has_choice_images:
+                        q_keywords = [w for w in re.split(r'[^\w]+', question_text) if len(w) >= 2 and w not in ('下列', '哪一個', '哪項', '何者', '圖片', '商品', '屬於', '這是')]
+                        best_img_idx = -1
+                        max_img_score = 0
+                        for i in range(len(choices)):
+                            num = i + 1
+                            pattern = rf'(?:Image|Option|選項|圖片)\s*{num}\b(.*?)(?=(?:Image|Option|選項|圖片)\s*\d\b|$)'
+                            match = re.search(pattern, reasoning, re.DOTALL | re.IGNORECASE)
+                            if match:
+                                block = match.group(1).lower()
+                                score = 0
+                                for kw in q_keywords:
+                                    if kw.lower() in block:
+                                        score += 3
+                                if 'desk' in block and '書桌' in question_text:
+                                    score += 3
+                                if 'pillow' in block and '枕頭' in question_text:
+                                    score += 3
+                                if score > max_img_score:
+                                    max_img_score = score
+                                    best_img_idx = i
+                        if best_img_idx >= 0 and max_img_score >= 3:
+                            print(f"[OpenRouter AI ({model})] 圖片區塊關鍵詞命中: {choices[best_img_idx].get('uuid')}")
+                            return choices[best_img_idx]["uuid"]
+
+                    best_c = None
+                    best_score = 0
+                    synonyms = {
+                        "家具": ["furniture", "desk", "chair", "table", "bed", "書桌", "椅子", "桌子"],
+                        "3C": ["computer", "laptop", "electronic", "phone", "電腦", "手機"],
+                        "清潔": ["cleaning", "detergent", "tissue", "衛生紙", "洗衣"],
+                        "時尚": ["fashion", "clothes", "clothing", "apparel", "衣服", "洋裝"],
+                        "食品": ["food", "snack", "drink", "零食", "飲料"],
+                        "美妝": ["beauty", "cosmetic", "skincare", "保養", "彩妝"]
+                    }
+                    for c in choices:
+                        t = (c.get("text") or "").strip()
+                        if not t:
+                            continue
+                        score = 0
+                        if t in reasoning:
+                            score += len(t) * 2
+                        words = [w for w in re.split(r'[/、\s]', t) if len(w) >= 2]
+                        for w in words:
+                            if w in reasoning:
+                                score += len(w)
+                        for k, syns in synonyms.items():
+                            if k in t:
+                                for syn in syns:
+                                    if syn in reasoning.lower():
+                                        score += 2
+                        if score > best_score:
+                            best_score = score
+                            best_c = c
+
+                    if best_c and best_score >= 2:
+                        print(f"[OpenRouter AI ({model})] reasoning 語意比對命中: {best_c.get('text')}")
+                        return best_c["uuid"]
+
+                    m_num = re.findall(r'\b([1-9])\b', tail)
+                    if m_num:
+                        idx = int(m_num[-1]) - 1
+                        if 0 <= idx < len(choices):
+                            print(f"[OpenRouter AI ({model})] reasoning 尾端數字命中: {idx+1}. {choices[idx].get('text') or choices[idx].get('uuid')}")
+                            return choices[idx]["uuid"]
         except Exception:
             continue
 
@@ -792,10 +844,14 @@ def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = Tr
 
         if is_correct:
             correct_count += 1
-            print(f"🎉 {prefix}第 {correct_count} 題答對！(+10 分)")
+            elapsed = time.time() - start_time
+            print(f"🎉 {prefix}第 {correct_count} 題答對！(+10 分，已用時 {elapsed:.1f}s)")
             q_record["correct"] = choice_obj
             save_quiz_db(db)
-            time.sleep(0.3)
+            if correct_count >= 10:
+                print(f"{prefix}🌟 已達成單場 10 題答對目標！")
+                break
+            time.sleep(0.05)
         else:
             print(f"❌ {prefix}回答錯誤，本場時段結束。")
             wrongs = q_record.setdefault("wrong", [])
