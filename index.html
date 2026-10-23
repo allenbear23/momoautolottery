@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>momo 雙11 知識王 - 題庫瀏覽器</title>
+  <title>momo 雙11 知識王 - 題庫與截圖瀏覽器</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #090d16;
-      --card-bg: rgba(22, 28, 45, 0.75);
+      --card-bg: rgba(22, 28, 45, 0.85);
       --card-border: rgba(255, 255, 255, 0.08);
       --text-main: #f1f5f9;
       --text-muted: #94a3b8;
@@ -41,7 +41,7 @@
       color: var(--text-main);
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", sans-serif;
       min-height: 100vh;
-      padding: 32px 20px 60px;
+      padding: 32px 20px 80px;
     }
 
     .container {
@@ -162,11 +162,12 @@
 
     .filter-tabs {
       display: flex;
-      gap: 8px;
+      gap: 6px;
       background: rgba(15, 23, 42, 0.6);
       padding: 4px;
       border-radius: 10px;
       border: 1px solid rgba(255, 255, 255, 0.08);
+      flex-wrap: wrap;
     }
 
     .tab-btn {
@@ -179,6 +180,7 @@
       border-radius: 7px;
       cursor: pointer;
       transition: all 0.15s ease;
+      white-space: nowrap;
     }
 
     .tab-btn:hover {
@@ -196,23 +198,85 @@
     .cards-list {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 20px;
     }
 
     .quiz-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 22px;
+      border-radius: 18px;
+      padding: 24px;
       backdrop-filter: blur(12px);
       transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
-      position: relative;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media (min-width: 768px) {
+      .quiz-card.has-media {
+        grid-template-columns: 240px 1fr;
+        align-items: start;
+      }
     }
 
     .quiz-card:hover {
       transform: translateY(-2px);
-      border-color: rgba(255, 255, 255, 0.16);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+      border-color: rgba(255, 255, 255, 0.18);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Image Box */
+    .media-box {
+      width: 100%;
+      background: rgba(10, 15, 29, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: zoom-in;
+      position: relative;
+      transition: border-color 0.2s;
+      max-height: 280px;
+    }
+
+    .media-box:hover {
+      border-color: var(--primary);
+    }
+
+    .media-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .media-box:hover img {
+      transform: scale(1.03);
+    }
+
+    .media-badge {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      color: #fff;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      pointer-events: none;
+    }
+
+    /* Content Area */
+    .card-content {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      min-width: 0;
     }
 
     .card-header {
@@ -220,7 +284,6 @@
       justify-content: space-between;
       align-items: flex-start;
       gap: 12px;
-      margin-bottom: 16px;
     }
 
     .question-title {
@@ -231,6 +294,7 @@
       display: flex;
       align-items: baseline;
       gap: 10px;
+      flex-wrap: wrap;
     }
 
     .question-index {
@@ -243,13 +307,19 @@
       flex-shrink: 0;
     }
 
+    .badge-group {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
     .status-badge {
       font-size: 12px;
       font-weight: 600;
       padding: 4px 10px;
       border-radius: 9999px;
       white-space: nowrap;
-      flex-shrink: 0;
     }
 
     .badge-verified {
@@ -264,12 +334,20 @@
       border: 1px solid rgba(245, 158, 11, 0.35);
     }
 
+    .badge-img {
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.35);
+      font-size: 12px;
+      padding: 4px 8px;
+      border-radius: 9999px;
+    }
+
     /* Options grid */
     .options-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       gap: 10px;
-      margin-bottom: 14px;
     }
 
     .option-item {
@@ -286,8 +364,8 @@
     }
 
     .option-dot {
-      width: 7px;
-      height: 7px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.2);
       flex-shrink: 0;
@@ -326,7 +404,6 @@
       padding: 8px 12px;
       font-size: 13px;
       color: #fde68a;
-      margin-top: 10px;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -337,8 +414,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 14px;
-      padding-top: 12px;
+      padding-top: 10px;
       border-top: 1px solid rgba(255, 255, 255, 0.05);
       font-size: 12px;
       color: var(--text-muted);
@@ -360,6 +436,36 @@
       color: #fff;
     }
 
+    /* Image Modal (Lightbox) */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      cursor: zoom-out;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-image {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
     /* Empty state */
     .empty-state {
       text-align: center;
@@ -379,8 +485,8 @@
     <header>
       <div class="header-top">
         <div class="title-group">
-          <h1>momo 雙11 知識王 題庫資料庫</h1>
-          <p>即時題庫索引與解答比對檢視器</p>
+          <h1>momo 雙11 知識王 題庫與截圖瀏覽器</h1>
+          <p>附完整實體截圖、即時索引與正確解答對照</p>
         </div>
       </div>
 
@@ -394,12 +500,12 @@
           <span class="stat-value" style="color: #34d399;" id="stat-verified">0</span>
         </div>
         <div class="stat-card">
-          <span class="stat-label">題庫解答率</span>
-          <span class="stat-value" style="color: #ec4899;" id="stat-rate">0%</span>
+          <span class="stat-label">附實測截圖</span>
+          <span class="stat-value" style="color: #60a5fa;" id="stat-image">0</span>
         </div>
         <div class="stat-card">
-          <span class="stat-label">待判定 / 排除題</span>
-          <span class="stat-value" style="color: #fbbf24;" id="stat-pending">0</span>
+          <span class="stat-label">題庫解答率</span>
+          <span class="stat-value" style="color: #ec4899;" id="stat-rate">0%</span>
         </div>
       </div>
     </header>
@@ -417,12 +523,18 @@
         <button class="tab-btn active" data-filter="all" id="tab-all">全部 (0)</button>
         <button class="tab-btn" data-filter="verified" id="tab-verified">已確認 (0)</button>
         <button class="tab-btn" data-filter="pending" id="tab-pending">待確認 (0)</button>
+        <button class="tab-btn" data-filter="with-img" id="tab-image">含截圖 (0)</button>
       </div>
     </div>
 
     <main class="cards-list" id="cardsList">
       <!-- Cards rendered here by JS -->
     </main>
+  </div>
+
+  <!-- Image Modal -->
+  <div class="modal-overlay" id="imageModal" onclick="closeImageModal()">
+    <img src="" alt="放大預覽" class="modal-image" id="modalImg" onclick="event.stopPropagation()">
   </div>
 
   <script src="quiz_data.js"></script>
@@ -432,7 +544,6 @@
     let quizQuestions = [];
 
     async function loadData() {
-      // 1. 優先嘗試從本機 fetch quiz_db.json
       try {
         const resp = await fetch('quiz_db.json?t=' + Date.now());
         if (resp.ok) {
@@ -443,7 +554,6 @@
         console.warn('Fetch quiz_db.json failed, fallback to window.QUIZ_DATA');
       }
 
-      // 2. Fallback 到 window.QUIZ_DATA
       if ((!quizQuestions || quizQuestions.length === 0) && window.QUIZ_DATA) {
         quizQuestions = Object.values(window.QUIZ_DATA.questions || {});
       }
@@ -452,20 +562,35 @@
       renderCards();
     }
 
+    function getImageSrc(item) {
+      if (item.screenshot) {
+        return encodeURI(item.screenshot);
+      }
+      if (item.image) {
+        if (item.image.startsWith('data:') || item.image.startsWith('http')) {
+          return item.image;
+        }
+        return 'data:image/jpeg;base64,' + item.image;
+      }
+      return null;
+    }
+
     function updateStats() {
       const total = quizQuestions.length;
       const verified = quizQuestions.filter(q => q.correct && q.correct.text).length;
+      const withImg = quizQuestions.filter(q => getImageSrc(q) !== null).length;
       const pending = total - verified;
       const rate = total > 0 ? Math.round((verified / total) * 100) : 0;
 
       document.getElementById('stat-total').textContent = total;
       document.getElementById('stat-verified').textContent = verified;
-      document.getElementById('stat-pending').textContent = pending;
+      document.getElementById('stat-image').textContent = withImg;
       document.getElementById('stat-rate').textContent = rate + '%';
 
       document.getElementById('tab-all').textContent = `全部 (${total})`;
       document.getElementById('tab-verified').textContent = `已確認 (${verified})`;
       document.getElementById('tab-pending').textContent = `待確認 (${pending})`;
+      document.getElementById('tab-image').textContent = `含截圖 (${withImg})`;
     }
 
     function renderCards() {
@@ -474,9 +599,11 @@
 
       const filtered = quizQuestions.filter(item => {
         const hasCorrect = item.correct && item.correct.text && item.correct.text.trim().length > 0;
-        
+        const hasImg = getImageSrc(item) !== null;
+
         if (currentFilter === 'verified' && !hasCorrect) return false;
         if (currentFilter === 'pending' && hasCorrect) return false;
+        if (currentFilter === 'with-img' && !hasImg) return false;
 
         if (qLower) {
           const inTitle = (item.text || '').toLowerCase().includes(qLower);
@@ -504,6 +631,18 @@
         const correctText = isVerified ? item.correct.text.trim() : null;
         const unverified = item.unverified_choice;
         const wrongText = unverified?.note?.includes('排除') ? unverified.text : (unverified?.text || null);
+        const imgSrc = getImageSrc(item);
+
+        // Media column html
+        let mediaHtml = '';
+        if (imgSrc) {
+          mediaHtml = `
+            <div class="media-box" onclick="openImageModal('${imgSrc}')">
+              <img src="${imgSrc}" loading="lazy" alt="截圖預覽">
+              <span class="media-badge">點擊放大 🔍</span>
+            </div>
+          `;
+        }
 
         // Choices rendering
         let choicesHtml = '';
@@ -550,25 +689,32 @@
         }
 
         return `
-          <article class="quiz-card">
-            <div class="card-header">
-              <h2 class="question-title">
-                <span class="question-index">#${idx + 1}</span>
-                <span>${escapeHtml(item.text)}</span>
-              </h2>
-              <span class="status-badge ${isVerified ? 'badge-verified' : 'badge-pending'}">
-                ${isVerified ? '✓ 已確認' : '⏳ 待確認'}
-              </span>
-            </div>
+          <article class="quiz-card ${imgSrc ? 'has-media' : ''}">
+            ${mediaHtml}
 
-            ${choicesHtml}
-            ${noteHtml}
+            <div class="card-content">
+              <div class="card-header">
+                <h2 class="question-title">
+                  <span class="question-index">#${idx + 1}</span>
+                  <span>${escapeHtml(item.text)}</span>
+                </h2>
+                <div class="badge-group">
+                  ${imgSrc ? '<span class="badge-img">📷 截圖</span>' : ''}
+                  <span class="status-badge ${isVerified ? 'badge-verified' : 'badge-pending'}">
+                    ${isVerified ? '✓ 已確認' : '⏳ 待確認'}
+                  </span>
+                </div>
+              </div>
 
-            <div class="card-footer">
-              <span>更新時間：${escapeHtml(item.updated_at || '無')}</span>
-              <button class="copy-btn" onclick="copyCardText('${escapeHtml(item.text)}', '${escapeHtml(correctText || '未確認')}')">
-                複製題答
-              </button>
+              ${choicesHtml}
+              ${noteHtml}
+
+              <div class="card-footer">
+                <span>更新時間：${escapeHtml(item.updated_at || '無')}</span>
+                <button class="copy-btn" onclick="copyCardText('${escapeHtml(item.text)}', '${escapeHtml(correctText || '未確認')}')">
+                  複製題答
+                </button>
+              </div>
             </div>
           </article>
         `;
@@ -592,7 +738,19 @@
       });
     }
 
-    // Event Listeners
+    function openImageModal(src) {
+      document.getElementById('modalImg').src = src;
+      document.getElementById('imageModal').classList.add('open');
+    }
+
+    function closeImageModal() {
+      document.getElementById('imageModal').classList.remove('open');
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeImageModal();
+    });
+
     document.getElementById('searchInput').addEventListener('input', (e) => {
       searchQuery = e.target.value;
       renderCards();

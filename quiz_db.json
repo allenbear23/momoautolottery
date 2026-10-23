@@ -125,7 +125,8 @@
         "uuid": "4956f096-744a-4853-8272-5f93db1ac5e1",
         "text": "",
         "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/b790a3a4-c9e8-445b-95d6-32f6bfcb0bc7.png"
-      }
+      },
+      "screenshot": "momo answer/S__184852539.jpg"
     },
     "MO店+可以找到下列何種商品?": {
       "text": "MO店+可以找到下列何種商品?",
@@ -209,7 +210,8 @@
           "text": "Hermes 愛馬仕"
         }
       ],
-      "updated_at": "2026-10-23 12:35:00"
+      "updated_at": "2026-10-23 12:35:00",
+      "screenshot": "momo answer/12325150_0.jpg"
     },
     "下列何者非日本服飾飾品品牌？": {
       "text": "下列何者非日本服飾飾品品牌？",
@@ -233,7 +235,8 @@
         "uuid": "",
         "text": "SEKIMIKI",
         "image": ""
-      }
+      },
+      "screenshot": "momo answer/1928513_0.jpg"
     },
     "CAT LITTER": {
       "text": "CAT LITTER",
@@ -255,7 +258,8 @@
       "updated_at": "2026-10-23 12:35:00",
       "correct": {
         "text": "凝結結團清理"
-      }
+      },
+      "screenshot": "momo answer/348653.jpg"
     },
     "方軟膠囊的正確顏色？": {
       "text": "方軟膠囊的正確顏色？",
@@ -271,7 +275,8 @@
       "updated_at": "2026-10-23 12:35:00",
       "correct": {
         "text": "2"
-      }
+      },
+      "screenshot": "momo answer/348654.jpg"
     },
     "雙管櫃浹日": {
       "text": "雙管櫃浹日",
@@ -290,7 +295,8 @@
           "text": "美白"
         }
       ],
-      "updated_at": "2026-10-23 12:35:00"
+      "updated_at": "2026-10-23 12:35:00",
+      "screenshot": "momo answer/348655.jpg"
     },
     "銀穗的英文是什麼？": {
       "text": "銀穗的英文是什麼？",
@@ -314,7 +320,8 @@
         "uuid": "",
         "text": "en-suey",
         "image": ""
-      }
+      },
+      "screenshot": "momo answer/348690.jpg"
     },
     "請問圖中a la sha品牌IP叫什麼？": {
       "text": "請問圖中a la sha品牌IP叫什麼？",
@@ -343,7 +350,8 @@
         {
           "text": "阿寶"
         }
-      ]
+      ],
+      "screenshot": "momo answer/384969_0.jpg"
     },
     "以下哪個品牌為plain-me的包款？": {
       "text": "以下哪個品牌為plain-me的包款？",
@@ -368,7 +376,8 @@
       "unverified_choice": {
         "text": "1",
         "note": "已知錯誤選項: 1"
-      }
+      },
+      "screenshot": "momo answer/384970_0.jpg"
     },
     "年度mo店+熱銷衛生紙品牌？": {
       "text": "年度mo店+熱銷衛生紙品牌？",
@@ -397,7 +406,8 @@
         {
           "text": "春風"
         }
-      ]
+      ],
+      "screenshot": "momo answer/385070_0.jpg"
     },
     "2025年第一名的F1車隊是哪一台車": {
       "text": "2025年第一名的F1車隊是哪一台車",
@@ -421,7 +431,8 @@
         "uuid": "",
         "text": "麥拉倫",
         "image": ""
-      }
+      },
+      "screenshot": "momo answer/3859472_0.jpg"
     },
     "用來讓植物澆水的工具是？": {
       "text": "用來讓植物澆水的工具是？",
@@ -448,7 +459,8 @@
         {
           "text": "花盆"
         }
-      ]
+      ],
+      "screenshot": "momo answer/38648_0.jpg"
     },
     "於2026/9/4正式上市的S系列手機是哪個型號？": {
       "text": "於2026/9/4正式上市的S系列手機是哪個型號？",
@@ -463,7 +475,8 @@
         "uuid": "",
         "text": "Galaxy S26 FE",
         "image": ""
-      }
+      },
+      "screenshot": "momo answer/572698_0.jpg"
     },
     "外接式SSD目前最高容量是幾TB？": {
       "text": "外接式SSD目前最高容量是幾TB？",
@@ -485,7 +498,8 @@
       "updated_at": "2026-10-23 12:35:00",
       "correct": {
         "text": "8TB"
-      }
+      },
+      "screenshot": "momo answer/572745_0.jpg"
     },
     "請問此商品是什麼東西？": {
       "text": "請問此商品是什麼東西？",
@@ -507,7 +521,8 @@
       "updated_at": "2026-10-23 12:35:00",
       "correct": {
         "text": "坐墊"
-      }
+      },
+      "screenshot": "momo answer/577055_0.jpg"
     },
     "下列何者非日本UHA味覺糖？": {
       "text": "下列何者非日本UHA味覺糖？",
@@ -534,7 +549,8 @@
         {
           "text": "20日分 グミサプリ マルチビタミン"
         }
-      ]
+      ],
+      "screenshot": "momo answer/7758832_0.jpg"
     },
     "請問24HRS內衣的熱銷第一色為？": {
       "text": "請問24HRS內衣的熱銷第一色為？",
@@ -560,7 +576,8 @@
         {
           "text": "寶寶藍"
         }
-      ]
+      ],
+      "screenshot": "momo answer/91315_0.jpg"
     },
     "請問此商品是甚麼功能？": {
       "text": "請問此商品是甚麼功能？",
@@ -586,7 +603,8 @@
         {
           "text": "除毛儀"
         }
-      ]
+      ],
+      "screenshot": "momo answer/92117_0.jpg"
     },
     "請選出不是寶可夢書籍": {
       "text": "請選出不是寶可夢書籍",
@@ -617,7 +635,8 @@
       "updated_at": "2026-10-23 12:35:00",
       "correct": {
         "text": "洋尋費誤"
-      }
+      },
+      "screenshot": "momo answer/S__102359162_0.jpg"
     },
     "請問圖中是甚麼商品": {
       "text": "請問圖中是甚麼商品",
@@ -641,7 +660,8 @@
         {
           "text": "Dior巨星唇膏"
         }
-      ]
+      ],
+      "screenshot": "momo answer/S__102350931_0.jpg"
     },
     "請問以下蕎麥麵主打特色為何": {
       "text": "請問以下蕎麥麵主打特色為何",
@@ -660,7 +680,8 @@
       "updated_at": "2026-10-23 12:35:00",
       "correct": {
         "text": "以上皆是"
-      }
+      },
+      "screenshot": "momo answer/S__102359161_0.jpg"
     },
     "請選出唯一一本理財投資書": {
       "text": "請選出唯一一本理財投資書",
@@ -684,7 +705,8 @@
         "uuid": "",
         "text": "原子習慣",
         "image": ""
-      }
+      },
+      "screenshot": "momo answer/S__102359164_0.jpg"
     },
     "請問Mammut長毛象起源地在哪？": {
       "text": "請問Mammut長毛象起源地在哪？",
@@ -708,7 +730,8 @@
         "text": "瑞士",
         "image": ""
       },
-      "updated_at": "2026-10-23 12:40:00"
+      "updated_at": "2026-10-23 12:40:00",
+      "screenshot": "momo answer/S__102359165_0.jpg"
     },
     "英國× 寢具× 兔子 猜一品牌？": {
       "text": "英國× 寢具× 兔子 猜一品牌？",
@@ -732,7 +755,8 @@
         "uuid": "",
         "text": "PETER RABBIT比得兔",
         "image": ""
-      }
+      },
+      "screenshot": "momo answer/S__102359166_0.jpg"
     },
     "請問此商品為哪個品牌？": {
       "text": "請問此商品為哪個品牌？",
@@ -751,7 +775,8 @@
       "updated_at": "2026-10-23 12:35:00",
       "correct": {
         "text": "齒妍堂"
-      }
+      },
+      "screenshot": "momo answer/S__184852516_0.jpg"
     },
     "活力、精神、日常補給": {
       "text": "活力、精神、日常補給",
@@ -773,7 +798,8 @@
       "updated_at": "2026-10-23 12:35:00",
       "correct": {
         "text": "EZING EIZINC"
-      }
+      },
+      "screenshot": "momo answer/S__184852517_0.jpg"
     },
     "哪一個是多芬小金碗髮膜？": {
       "text": "哪一個是多芬小金碗髮膜？",
@@ -798,7 +824,8 @@
       "updated_at": "2026-10-23 12:35:00",
       "correct": {
         "text": "+Dove"
-      }
+      },
+      "screenshot": "momo answer/S__184852518_0.jpg"
     },
     "請問圖片中哪個不是STANLEY商品？": {
       "text": "請問圖片中哪個不是STANLEY商品？",
@@ -809,7 +836,8 @@
         "uuid": "",
         "text": "未知",
         "image": ""
-      }
+      },
+      "screenshot": "momo answer/S__184852521_0.jpg"
     },
     "哪一項商品選購時通常需要依「空間坪數」評估冷房能力？": {
       "text": "哪一項商品選購時通常需要依「空間坪數」評估冷房能力？",
@@ -830,7 +858,8 @@
         "uuid": "",
         "text": "3",
         "image": ""
-      }
+      },
+      "screenshot": "momo answer/S__184852522_0.jpg"
     },
     "momo有哪些冷凍水餃品牌？": {
       "text": "momo有哪些冷凍水餃品牌？",
@@ -852,7 +881,8 @@
       "updated_at": "2026-10-23 12:35:00",
       "correct": {
         "text": "以上皆是"
-      }
+      },
+      "screenshot": "momo answer/S__184852523_0.jpg"
     },
     "下列哪個是NAS硬碟？": {
       "text": "下列哪個是NAS硬碟？",
@@ -876,13 +906,15 @@
         "uuid": "",
         "text": "IronWolf",
         "image": ""
-      }
+      },
+      "screenshot": "momo answer/S__191070218.jpg"
     },
     "下列何者非李寧 Lining的球鞋？": {
       "text": "下列何者非李寧 Lining的球鞋？",
       "image": "",
       "choices": [],
-      "updated_at": "2026-10-23 12:35:00"
+      "updated_at": "2026-10-23 12:35:00",
+      "screenshot": "momo answer/S__761774084_0.jpg"
     },
     "請問此品牌LOGO為何？": {
       "text": "請問此品牌LOGO為何？",
@@ -906,7 +938,8 @@
         "text": "ROOTS",
         "image": ""
       },
-      "updated_at": "2026-10-23 12:40:00"
+      "updated_at": "2026-10-23 12:40:00",
+      "screenshot": "momo answer/S__102359163_0.jpg"
     },
     "請選出哪一個不是Dior的香水？": {
       "text": "請選出哪一個不是Dior的香水？",
@@ -924,7 +957,8 @@
         "text": "CHANEL",
         "image": ""
       },
-      "updated_at": "2026-10-23 12:40:00"
+      "updated_at": "2026-10-23 12:40:00",
+      "screenshot": "momo answer/S__184852519_0.jpg"
     },
     "請問以下哪款是明治-巧克力效果巧克力": {
       "text": "請問以下哪款是明治-巧克力效果巧克力",
@@ -939,7 +973,8 @@
         "text": "A",
         "image": ""
       },
-      "updated_at": "2026-10-23 12:40:00"
+      "updated_at": "2026-10-23 12:40:00",
+      "screenshot": "momo answer/S__184852520_0.jpg"
     },
     "銀穗英文是什麼？": {
       "text": "銀穗英文是什麼？",
@@ -963,7 +998,8 @@
         "text": "en-suey",
         "image": ""
       },
-      "updated_at": "2026-10-23 12:40:00"
+      "updated_at": "2026-10-23 12:40:00",
+      "screenshot": "momo answer/S__36143107_0.jpg"
     },
     "ROSE IS A ROSE是哪一個啦啦隊女神代言": {
       "text": "ROSE IS A ROSE是哪一個啦啦隊女神代言",
@@ -987,7 +1023,8 @@
         "text": "李多慧",
         "image": ""
       },
-      "updated_at": "2026-10-23 12:45:00"
+      "updated_at": "2026-10-23 12:45:00",
+      "screenshot": "momo answer/IMG_0956.PNG"
     },
     "請選出哪一個是可口可樂的LOGO？": {
       "text": "請選出哪一個是可口可樂的LOGO？",
@@ -1002,7 +1039,8 @@
         "text": "Coca-Cola ORIGINAL TASTE",
         "image": ""
       },
-      "updated_at": "2026-10-23 12:45:00"
+      "updated_at": "2026-10-23 12:45:00",
+      "screenshot": "momo answer/IMG_0955.PNG"
     },
     "閱讀器最大優點之一？": {
       "text": "閱讀器最大優點之一？",
@@ -1026,7 +1064,8 @@
         "text": "可儲存大量書籍",
         "image": ""
       },
-      "updated_at": "2026-10-23 12:45:00"
+      "updated_at": "2026-10-23 12:45:00",
+      "screenshot": "momo answer/IMG_0952.PNG"
     },
     "OPPO Reno的代言人是誰？": {
       "text": "OPPO Reno的代言人是誰？",
@@ -1047,7 +1086,8 @@
           "text": "BABYMONSTER"
         }
       ],
-      "updated_at": "2026-10-23 12:45:00"
+      "updated_at": "2026-10-23 12:45:00",
+      "screenshot": "momo answer/348689.jpg"
     },
     "下列何者為一品夫人的logo？": {
       "text": "下列何者為一品夫人的logo？",
@@ -1062,7 +1102,8 @@
         "text": "efinlady",
         "image": ""
       },
-      "updated_at": "2026-10-23 12:45:00"
+      "updated_at": "2026-10-23 12:45:00",
+      "screenshot": "momo answer/2300778.jpg"
     },
     "樂高怎麼玩？": {
       "text": "樂高怎麼玩？",
@@ -1091,7 +1132,8 @@
         "text": "用併",
         "note": "12:31 截圖實測選「用併」判定答錯，已排除"
       },
-      "correct": null
+      "correct": null,
+      "screenshot": "momo answer/880448.jpg"
     },
     "請問圖中哪雙是adidas穆勒鞋？": {
       "text": "請問圖中哪雙是adidas穆勒鞋？",
@@ -1099,7 +1141,8 @@
       "correct": {
         "text": "選項 3 圖片 (穆勒鞋)"
       },
-      "updated_at": "2026-10-23 12:46:00"
+      "updated_at": "2026-10-23 12:46:00",
+      "screenshot": "momo answer/IMG_0953.PNG"
     },
     "Kosmiya最受歡迎的商品類別是？": {
       "text": "Kosmiya最受歡迎的商品類別是？",
@@ -1128,7 +1171,8 @@
         "uuid": "",
         "text": "睡衣/居家套裝",
         "image": ""
-      }
+      },
+      "screenshot": "momo answer/38726.jpg"
     },
     "請選出唯一一本心理勵志書": {
       "text": "請選出唯一一本心理勵志書",
@@ -1144,7 +1188,8 @@
       "unverified_choice": {
         "text": "原子習慣",
         "note": "已知錯誤選項: 原子習慣"
-      }
+      },
+      "screenshot": "momo answer/38727.jpg"
     },
     "ROYALCANIN": {
       "text": "ROYALCANIN",
@@ -1160,7 +1205,8 @@
       "unverified_choice": {
         "text": "狗狗",
         "note": "已知錯誤選項: 狗狗"
-      }
+      },
+      "screenshot": "momo answer/S__184852539.jpg"
     },
     "該商品最適合以下哪項需求？": {
       "text": "該商品最適合以下哪項需求？",
@@ -1172,7 +1218,8 @@
         "uuid": "",
         "text": "凝結結團清理",
         "image": ""
-      }
+      },
+      "screenshot": "momo answer/348653.jpg"
     },
     "OPPO Reno16的代言人是誰？": {
       "text": "OPPO Reno16的代言人是誰？",
@@ -1188,7 +1235,8 @@
       "unverified_choice": {
         "text": "BABYMONSTER",
         "note": "已知錯誤選項: BABYMONSTER"
-      }
+      },
+      "screenshot": "momo answer/1026422.jpg"
     },
     "此冏丽土委切肥翁啊：": {
       "text": "此冏丽土委切肥翁啊：",
@@ -1212,14 +1260,16 @@
       "unverified_choice": {
         "text": "防方っk",
         "note": "已知錯誤選項: 防方っk"
-      }
+      },
+      "screenshot": "momo answer/38693.jpg"
     },
     "直播間小編留言前面的標誌為？": {
       "text": "直播間小編留言前面的標誌為？",
       "image": "",
       "uuid": "",
       "choices": [],
-      "updated_at": "2026-10-23 12:56:00"
+      "updated_at": "2026-10-23 12:56:00",
+      "screenshot": "momo answer/38692.jpg"
     },
     "請問這個商品是什麼？": {
       "text": "請問這個商品是什麼？",
@@ -1243,7 +1293,8 @@
           "text": "沙拉油"
         }
       ],
-      "updated_at": "2026-10-23 12:56:00"
+      "updated_at": "2026-10-23 12:56:00",
+      "screenshot": "momo answer/S__70598660_0.jpg"
     },
     "請問此商品是哪個國家品牌？": {
       "text": "請問此商品是哪個國家品牌？",
@@ -1268,7 +1319,8 @@
         "uuid": "",
         "text": "美國",
         "image": ""
-      }
+      },
+      "screenshot": "momo answer/S__102359167_0.jpg"
     },
     "雙管櫃浹日 1人延謝日 抗敏感 牙齦護理 美白": {
       "text": "雙管櫃浹日 1人延謝日 抗敏感 牙齦護理 美白",
@@ -1288,14 +1340,16 @@
           "text": "美白"
         }
       ],
-      "updated_at": "2026-10-23 12:56:00"
+      "updated_at": "2026-10-23 12:56:00",
+      "screenshot": "momo answer/348655.jpg"
     },
     "台灣哪間飯店無溫泉設施？": {
       "text": "台灣哪間飯店無溫泉設施？",
       "image": "",
       "uuid": "",
       "choices": [],
-      "updated_at": "2026-10-23 12:56:00"
+      "updated_at": "2026-10-23 12:56:00",
+      "screenshot": "momo answer/S__164995087_0.jpg"
     }
   }
 }
