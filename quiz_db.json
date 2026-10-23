@@ -179,6 +179,11 @@
         }
       ],
       "updated_at": "2026-10-23 12:11:11",
+      "correct": {
+        "uuid": "25dd263b-2d54-461b-a646-1a668f6a448f",
+        "text": "ThinkCentre Tower",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/ab05a802-8d66-4019-89b6-e2e55eab50fc.png"
+      },
       "wrong": [
         {
           "uuid": "024ad9bc-3cff-42b4-abd6-ff19472a86d8",
