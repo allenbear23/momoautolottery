@@ -8,4 +8,5 @@ cronjob_key.txt
 __pycache__/
 *.pyc
 .DS_Store
+momo answer/
 

@@ -230,7 +230,9 @@
       ],
       "updated_at": "2026-10-23 12:35:00",
       "correct": {
-        "text": "SEKIMIKI"
+        "uuid": "",
+        "text": "SEKIMIKI",
+        "image": ""
       }
     },
     "CAT LITTER": {
@@ -309,7 +311,9 @@
       ],
       "updated_at": "2026-10-23 12:35:00",
       "correct": {
-        "text": "en-suey"
+        "uuid": "",
+        "text": "en-suey",
+        "image": ""
       }
     },
     "請問圖中a la sha品牌IP叫什麼？": {
@@ -331,7 +335,9 @@
       ],
       "updated_at": "2026-10-23 12:35:00",
       "correct": {
-        "text": "阿旺"
+        "uuid": "",
+        "text": "阿旺",
+        "image": ""
       },
       "wrong": [
         {
@@ -358,7 +364,11 @@
         {
           "text": "★"
         }
-      ]
+      ],
+      "unverified_choice": {
+        "text": "1",
+        "note": "已知錯誤選項: 1"
+      }
     },
     "年度mo店+熱銷衛生紙品牌？": {
       "text": "年度mo店+熱銷衛生紙品牌？",
@@ -379,7 +389,9 @@
       ],
       "updated_at": "2026-10-23 12:35:00",
       "correct": {
-        "text": "科克蘭"
+        "uuid": "",
+        "text": "科克蘭",
+        "image": ""
       },
       "wrong": [
         {
@@ -406,7 +418,9 @@
       ],
       "updated_at": "2026-10-23 12:35:00",
       "correct": {
-        "text": "麥拉倫"
+        "uuid": "",
+        "text": "麥拉倫",
+        "image": ""
       }
     },
     "用來讓植物澆水的工具是？": {
@@ -446,7 +460,9 @@
       ],
       "updated_at": "2026-10-23 12:35:00",
       "correct": {
-        "text": "Galaxy S26 FE"
+        "uuid": "",
+        "text": "Galaxy S26 FE",
+        "image": ""
       }
     },
     "外接式SSD目前最高容量是幾TB？": {
@@ -536,7 +552,9 @@
       ],
       "updated_at": "2026-10-23 12:35:00",
       "correct": {
-        "text": "勃根地紅"
+        "uuid": "",
+        "text": "勃根地紅",
+        "image": ""
       },
       "wrong": [
         {
@@ -560,7 +578,9 @@
       ],
       "updated_at": "2026-10-23 12:35:00",
       "correct": {
-        "text": "洗臉機"
+        "uuid": "",
+        "text": "洗臉機",
+        "image": ""
       },
       "wrong": [
         {
@@ -661,7 +681,9 @@
       ],
       "updated_at": "2026-10-23 12:35:00",
       "correct": {
-        "text": "原子習慣"
+        "uuid": "",
+        "text": "原子習慣",
+        "image": ""
       }
     },
     "請問Mammut長毛象起源地在哪？": {
@@ -682,7 +704,9 @@
         }
       ],
       "correct": {
-        "text": "瑞士"
+        "uuid": "",
+        "text": "瑞士",
+        "image": ""
       },
       "updated_at": "2026-10-23 12:40:00"
     },
@@ -705,7 +729,9 @@
       ],
       "updated_at": "2026-10-23 12:35:00",
       "correct": {
-        "text": "PETER RABBIT比得兔"
+        "uuid": "",
+        "text": "PETER RABBIT比得兔",
+        "image": ""
       }
     },
     "請問此商品為哪個品牌？": {
@@ -778,7 +804,12 @@
       "text": "請問圖片中哪個不是STANLEY商品？",
       "image": "",
       "choices": [],
-      "updated_at": "2026-10-23 12:35:00"
+      "updated_at": "2026-10-23 12:35:00",
+      "correct": {
+        "uuid": "",
+        "text": "未知",
+        "image": ""
+      }
     },
     "哪一項商品選購時通常需要依「空間坪數」評估冷房能力？": {
       "text": "哪一項商品選購時通常需要依「空間坪數」評估冷房能力？",
@@ -796,7 +827,9 @@
       ],
       "updated_at": "2026-10-23 12:35:00",
       "correct": {
-        "text": "3"
+        "uuid": "",
+        "text": "3",
+        "image": ""
       }
     },
     "momo有哪些冷凍水餃品牌？": {
@@ -840,7 +873,9 @@
       ],
       "updated_at": "2026-10-23 12:35:00",
       "correct": {
-        "text": "SEAGATE IRONWOLF PRO 30TB"
+        "uuid": "",
+        "text": "IronWolf",
+        "image": ""
       }
     },
     "下列何者非李寧 Lining的球鞋？": {
@@ -867,7 +902,9 @@
         }
       ],
       "correct": {
-        "text": "露得清"
+        "uuid": "",
+        "text": "ROOTS",
+        "image": ""
       },
       "updated_at": "2026-10-23 12:40:00"
     },
@@ -883,7 +920,9 @@
         }
       ],
       "correct": {
-        "text": "CHANEL"
+        "uuid": "",
+        "text": "CHANEL",
+        "image": ""
       },
       "updated_at": "2026-10-23 12:40:00"
     },
@@ -896,7 +935,9 @@
         }
       ],
       "correct": {
-        "text": "チョコレート効果"
+        "uuid": "",
+        "text": "A",
+        "image": ""
       },
       "updated_at": "2026-10-23 12:40:00"
     },
@@ -918,7 +959,9 @@
         }
       ],
       "correct": {
-        "text": "en-suey"
+        "uuid": "",
+        "text": "en-suey",
+        "image": ""
       },
       "updated_at": "2026-10-23 12:40:00"
     },
@@ -940,7 +983,9 @@
         }
       ],
       "correct": {
-        "text": "李多慧"
+        "uuid": "",
+        "text": "李多慧",
+        "image": ""
       },
       "updated_at": "2026-10-23 12:45:00"
     },
@@ -953,7 +998,9 @@
         }
       ],
       "correct": {
-        "text": "Coca-Cola (CocaCola ORIGINAL TASTE)"
+        "uuid": "",
+        "text": "Coca-Cola ORIGINAL TASTE",
+        "image": ""
       },
       "updated_at": "2026-10-23 12:45:00"
     },
@@ -975,7 +1022,9 @@
         }
       ],
       "correct": {
-        "text": "可儲存大量書籍"
+        "uuid": "",
+        "text": "可儲存大量書籍",
+        "image": ""
       },
       "updated_at": "2026-10-23 12:45:00"
     },
@@ -1009,7 +1058,9 @@
         }
       ],
       "correct": {
-        "text": "efinlady"
+        "uuid": "",
+        "text": "efinlady",
+        "image": ""
       },
       "updated_at": "2026-10-23 12:45:00"
     },
@@ -1035,7 +1086,12 @@
           "text": "用併的"
         }
       ],
-      "updated_at": "2026-10-23 12:46:00"
+      "updated_at": "2026-10-23 12:46:00",
+      "unverified_choice": {
+        "text": "用併",
+        "note": "12:31 截圖實測選「用併」判定答錯，已排除"
+      },
+      "correct": null
     },
     "請問圖中哪雙是adidas穆勒鞋？": {
       "text": "請問圖中哪雙是adidas穆勒鞋？",
@@ -1044,6 +1100,202 @@
         "text": "選項 3 圖片 (穆勒鞋)"
       },
       "updated_at": "2026-10-23 12:46:00"
+    },
+    "Kosmiya最受歡迎的商品類別是？": {
+      "text": "Kosmiya最受歡迎的商品類別是？",
+      "image": "",
+      "uuid": "",
+      "choices": [
+        {
+          "uuid": "",
+          "text": "睡衣/居家套装"
+        },
+        {
+          "uuid": "",
+          "text": "皮鞋"
+        },
+        {
+          "uuid": "",
+          "text": "牛仔外套"
+        },
+        {
+          "uuid": "",
+          "text": "車車力スE"
+        }
+      ],
+      "updated_at": "2026-10-23 12:56:00",
+      "correct": {
+        "uuid": "",
+        "text": "睡衣/居家套裝",
+        "image": ""
+      }
+    },
+    "請選出唯一一本心理勵志書": {
+      "text": "請選出唯一一本心理勵志書",
+      "image": "",
+      "uuid": "",
+      "choices": [],
+      "updated_at": "2026-10-23 12:56:00",
+      "correct": {
+        "uuid": "",
+        "text": "隨他們去",
+        "image": ""
+      },
+      "unverified_choice": {
+        "text": "原子習慣",
+        "note": "已知錯誤選項: 原子習慣"
+      }
+    },
+    "ROYALCANIN": {
+      "text": "ROYALCANIN",
+      "image": "",
+      "uuid": "",
+      "choices": [],
+      "updated_at": "2026-10-23 12:56:00",
+      "correct": {
+        "uuid": "",
+        "text": "貓咪",
+        "image": ""
+      },
+      "unverified_choice": {
+        "text": "狗狗",
+        "note": "已知錯誤選項: 狗狗"
+      }
+    },
+    "該商品最適合以下哪項需求？": {
+      "text": "該商品最適合以下哪項需求？",
+      "image": "",
+      "uuid": "",
+      "choices": [],
+      "updated_at": "2026-10-23 12:56:00",
+      "correct": {
+        "uuid": "",
+        "text": "凝結結團清理",
+        "image": ""
+      }
+    },
+    "OPPO Reno16的代言人是誰？": {
+      "text": "OPPO Reno16的代言人是誰？",
+      "image": "",
+      "uuid": "",
+      "choices": [
+        {
+          "uuid": "",
+          "text": "BABYMONSTER"
+        }
+      ],
+      "updated_at": "2026-10-23 12:56:00",
+      "unverified_choice": {
+        "text": "BABYMONSTER",
+        "note": "已知錯誤選項: BABYMONSTER"
+      }
+    },
+    "此冏丽土委切肥翁啊：": {
+      "text": "此冏丽土委切肥翁啊：",
+      "image": "",
+      "uuid": "",
+      "choices": [
+        {
+          "uuid": "",
+          "text": "收納"
+        },
+        {
+          "uuid": "",
+          "text": "燒菜"
+        },
+        {
+          "uuid": "",
+          "text": "溫暖身體"
+        }
+      ],
+      "updated_at": "2026-10-23 12:56:00",
+      "unverified_choice": {
+        "text": "防方っk",
+        "note": "已知錯誤選項: 防方っk"
+      }
+    },
+    "直播間小編留言前面的標誌為？": {
+      "text": "直播間小編留言前面的標誌為？",
+      "image": "",
+      "uuid": "",
+      "choices": [],
+      "updated_at": "2026-10-23 12:56:00"
+    },
+    "請問這個商品是什麼？": {
+      "text": "請問這個商品是什麼？",
+      "image": "",
+      "uuid": "",
+      "choices": [
+        {
+          "uuid": "",
+          "text": "洗碗精"
+        },
+        {
+          "uuid": "",
+          "text": "飲料"
+        },
+        {
+          "uuid": "",
+          "text": "洗衣精"
+        },
+        {
+          "uuid": "",
+          "text": "沙拉油"
+        }
+      ],
+      "updated_at": "2026-10-23 12:56:00"
+    },
+    "請問此商品是哪個國家品牌？": {
+      "text": "請問此商品是哪個國家品牌？",
+      "image": "",
+      "uuid": "",
+      "choices": [
+        {
+          "uuid": "",
+          "text": "日本"
+        },
+        {
+          "uuid": "",
+          "text": "美國"
+        },
+        {
+          "uuid": "",
+          "text": "韓國"
+        }
+      ],
+      "updated_at": "2026-10-23 12:56:00",
+      "correct": {
+        "uuid": "",
+        "text": "美國",
+        "image": ""
+      }
+    },
+    "雙管櫃浹日 1人延謝日 抗敏感 牙齦護理 美白": {
+      "text": "雙管櫃浹日 1人延謝日 抗敏感 牙齦護理 美白",
+      "image": "",
+      "uuid": "",
+      "choices": [
+        {
+          "uuid": "",
+          "text": "抗敏感"
+        },
+        {
+          "uuid": "",
+          "text": "牙齦護理"
+        },
+        {
+          "uuid": "",
+          "text": "美白"
+        }
+      ],
+      "updated_at": "2026-10-23 12:56:00"
+    },
+    "台灣哪間飯店無溫泉設施？": {
+      "text": "台灣哪間飯店無溫泉設施？",
+      "image": "",
+      "uuid": "",
+      "choices": [],
+      "updated_at": "2026-10-23 12:56:00"
     }
   }
 }
