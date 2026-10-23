@@ -807,18 +807,7 @@ def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = Tr
         if not choices:
             break
 
-        selected_choice_id = select_answer(question, choices, db, gemini_key=gemini_key, groq_key=groq_key, openrouter_key=openrouter_key)
-        selected_choice_obj = next((c for c in choices if c["uuid"] == selected_choice_id), choices[0])
-        choice_text = selected_choice_obj.get("text", "") or selected_choice_obj.get("uuid", "")
-        choice_obj = {
-            "uuid": selected_choice_obj.get("uuid", ""),
-            "text": selected_choice_obj.get("text", ""),
-            "image": selected_choice_obj.get("image", "")
-        }
-
-        print(f"[{datetime.now().strftime('%H:%M:%S')}] {prefix}第 {correct_count+1} 題: {q_text} ➔ 選擇: {choice_text}")
-
-        # 只要取題成功，即刻持久化至題庫 (即使後續超時未判定，也能手動確認)
+        # 只要取題成功，在 AI 思考前即刻持久化至題庫 (確保圖片與選項完整不丟失)
         if db_key not in db["questions"]:
             db["questions"][db_key] = {}
 
@@ -831,6 +820,18 @@ def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = Tr
             "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         })
         save_quiz_db(db)
+
+        selected_choice_id = select_answer(question, choices, db, gemini_key=gemini_key, groq_key=groq_key, openrouter_key=openrouter_key)
+        selected_choice_obj = next((c for c in choices if c["uuid"] == selected_choice_id), choices[0])
+        choice_text = selected_choice_obj.get("text", "") or selected_choice_obj.get("uuid", "")
+        choice_obj = {
+            "uuid": selected_choice_obj.get("uuid", ""),
+            "text": selected_choice_obj.get("text", ""),
+            "image": selected_choice_obj.get("image", "")
+        }
+
+        img_log = f" [附圖: {question.get('image')}]" if question.get("image") else ""
+        print(f"[{datetime.now().strftime('%H:%M:%S')}] {prefix}第 {correct_count+1} 題: {q_text}{img_log} ➔ 選擇: {choice_text}")
 
         # 送出答案
         ans_body = {
