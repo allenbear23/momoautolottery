@@ -68,6 +68,124 @@
         "text": "潤髮",
         "note": "10:11 場次超時 (409) 未判定，待手動確認"
       }
+    },
+    "拍攝運動會賽跑時,下列哪項因素最容易影響照片是否清晰?": {
+      "text": "拍攝運動會賽跑時,下列哪項因素最容易影響照片是否清晰?",
+      "image": "",
+      "uuid": "266fd7b2-9f32-47fa-afbb-8e034c5f7ed4",
+      "choices": [
+        {
+          "uuid": "a4e0e59a-7a63-40c5-aba3-0e6bb73f0a24",
+          "text": "記憶卡廠牌"
+        },
+        {
+          "uuid": "e7e2d787-6b24-4d7a-a934-343fe405cb9b",
+          "text": "快門速度"
+        },
+        {
+          "uuid": "f469c7b0-205d-43ab-81e4-3a1588f0054a",
+          "text": "相機品牌"
+        },
+        {
+          "uuid": "fbaa55f5-5576-4e07-8e75-1430fdec2a33",
+          "text": "機身顏色"
+        }
+      ],
+      "updated_at": "2026-10-23 12:11:01",
+      "correct": {
+        "uuid": "e7e2d787-6b24-4d7a-a934-343fe405cb9b",
+        "text": "快門速度",
+        "image": ""
+      }
+    },
+    "以下哪個最適合「需要特殊營養照顧」的毛孩?": {
+      "text": "以下哪個最適合「需要特殊營養照顧」的毛孩?",
+      "image": "",
+      "uuid": "06367850-1540-4cfe-8bb8-f508e36ff05b",
+      "choices": [
+        {
+          "uuid": "1278a1e5-63b4-4e4b-a0b6-2d6d59d349bc",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/3acf1050-d601-4e4b-9657-9ce96e220763.png"
+        },
+        {
+          "uuid": "4956f096-744a-4853-8272-5f93db1ac5e1",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/b790a3a4-c9e8-445b-95d6-32f6bfcb0bc7.png"
+        },
+        {
+          "uuid": "bccb9a0b-4d00-4e83-b6be-f859c18aa4fa",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/a13f02c3-581f-4f96-b2ac-f34f4d571208.png"
+        },
+        {
+          "uuid": "d9c343e0-aeb0-4a80-bdbe-3265ee57b348",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/95a8b43a-8c4f-40d6-b48b-06e36f760e34.png"
+        }
+      ],
+      "updated_at": "2026-10-23 12:11:02",
+      "correct": {
+        "uuid": "4956f096-744a-4853-8272-5f93db1ac5e1",
+        "text": "",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/b790a3a4-c9e8-445b-95d6-32f6bfcb0bc7.png"
+      }
+    },
+    "MO店+可以找到下列何種商品?": {
+      "text": "MO店+可以找到下列何種商品?",
+      "image": "",
+      "uuid": "889d5bb8-9be6-4652-835c-3d28e365901f",
+      "choices": [
+        {
+          "uuid": "4aacf603-c84a-49d4-8edc-f80970cd27ce",
+          "text": "以上皆是"
+        },
+        {
+          "uuid": "89c7dc21-f877-4755-94f9-2e703ab4a0c1",
+          "text": "籃球鞋"
+        },
+        {
+          "uuid": "b4e77f93-818f-40cc-8469-9464246b830f",
+          "text": "行李箱"
+        },
+        {
+          "uuid": "ff89da57-8f2d-4d61-b88c-b7e2e37e49cf",
+          "text": "後背包"
+        }
+      ],
+      "updated_at": "2026-10-23 12:11:09",
+      "correct": {
+        "uuid": "4aacf603-c84a-49d4-8edc-f80970cd27ce",
+        "text": "以上皆是",
+        "image": ""
+      }
+    },
+    "哪一款Lenovo商用桌機最大台?": {
+      "text": "哪一款Lenovo商用桌機最大台?",
+      "image": "",
+      "uuid": "31c88676-94c2-4926-b74b-c0aa4ea5ad46",
+      "choices": [
+        {
+          "uuid": "024ad9bc-3cff-42b4-abd6-ff19472a86d8",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/776367b0-f26d-4de8-a299-ec0e6431ae70.png"
+        },
+        {
+          "uuid": "1b1de42e-5cc3-49c7-aa70-78fc4cbee187",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/0f7c1e1e-e9bb-4f11-b2bf-df8d92648dcb.png"
+        },
+        {
+          "uuid": "25dd263b-2d54-461b-a646-1a668f6a448f",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/ab05a802-8d66-4019-89b6-e2e55eab50fc.png"
+        },
+        {
+          "uuid": "5eccca88-eca0-454c-9b11-1f98893919b5",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/154ba897-7a3d-45a8-8648-5b26a00eadd8.png"
+        }
+      ],
+      "updated_at": "2026-10-23 12:11:11",
+      "wrong": [
+        {
+          "uuid": "024ad9bc-3cff-42b4-abd6-ff19472a86d8",
+          "text": "",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/776367b0-f26d-4de8-a299-ec0e6431ae70.png"
+        }
+      ]
     }
   }
 }
