@@ -310,10 +310,17 @@ def get_groq_api_key(api_key: str = None) -> str:
     return ""
 
 
+GROQ_DISABLED = False
+
+
 def query_groq(question_text: str, choices: list, api_key: str = None, question_image: str = None) -> str:
     """利用 Groq 進行極速 AI 解題 (文字/常識題每日 14,400 次免費，0.3s 極速回傳)"""
-    # 圖文題由支援多模態的 Gemini 處理
-    if question_image:
+    global GROQ_DISABLED
+    if GROQ_DISABLED:
+        return None
+
+    # 圖文題由支援多模態的 AI 處理
+    if question_image or any(c.get("image") for c in choices):
         return None
 
     key = get_groq_api_key(api_key)
@@ -335,7 +342,7 @@ def query_groq(question_text: str, choices: list, api_key: str = None, question_
 1. 答案必須是選項清單中的其中一個。
 2. 請直接輸出正確選項的數字編號（例如只輸出 1 或 2 或 3 或 4），不要輸出多餘的問候語或思考過程。"""
 
-    models = ["qwen/qwen3.8-27b", "openai/gpt-oss-120b", "openai/gpt-oss-20b"]
+    models = ["qwen/qwen3.8-27b", "openai/gpt-oss-120b"]
     url = "https://api.groq.com/openai/v1/chat/completions"
 
     for model in models:
@@ -357,7 +364,7 @@ def query_groq(question_text: str, choices: list, api_key: str = None, question_
             method="POST"
         )
         try:
-            with urllib.request.urlopen(req, timeout=5) as resp:
+            with urllib.request.urlopen(req, timeout=2.5) as resp:
                 res = json.loads(resp.read().decode("utf-8"))
                 text_out = res["choices"][0]["message"]["content"].strip()
                 m = re.search(r'\b([1-9])\b', text_out)
@@ -370,8 +377,15 @@ def query_groq(question_text: str, choices: list, api_key: str = None, question_
                     if c.get("text") and c.get("text") in text_out:
                         print(f"[Groq AI ({model})] 命中關鍵字: {c.get('text')}")
                         return c["uuid"]
+        except urllib.error.HTTPError as e:
+            if e.code in (401, 403):
+                GROQ_DISABLED = True
+                break
+            continue
         except Exception:
             continue
+
+    return None
 
 def get_openrouter_api_key(api_key: str = None) -> str:
     if api_key:
@@ -390,12 +404,47 @@ def get_openrouter_api_key(api_key: str = None) -> str:
 
 
 def query_openrouter(question_text: str, choices: list, api_key: str = None, question_image: str = None) -> str:
-    """利用 OpenRouter 免費多模態模型進行智能解題 (支援視覺圖片題)"""
+    """利用 OpenRouter 免費多模態模型進行智能解題 (支援題目附圖與型C純圖片選項)"""
     key = get_openrouter_api_key(api_key)
     if not key:
         return None
 
-    options_list = [f"{i+1}. {c.get('text', '') or c.get('uuid', '')}" for i, c in enumerate(choices)]
+    has_choice_images = any(bool(c.get("image")) for c in choices)
+    has_image = bool(question_image or has_choice_images)
+
+    options_list = []
+    choice_image_items = []
+    for i, c in enumerate(choices):
+        t = (c.get('text') or '').strip()
+        img_url = (c.get('image') or '').strip()
+        if not t and img_url:
+            t = f"圖片選項 {i+1}"
+        options_list.append(f"{i+1}. {t or c.get('uuid', '')}")
+
+        if img_url:
+            try:
+                c_img_data = None
+                c_mime = "image/jpeg"
+                if img_url.startswith("http"):
+                    req_img = urllib.request.Request(img_url, headers=HEADERS)
+                    with urllib.request.urlopen(req_img, timeout=3) as img_resp:
+                        c_img_data = img_resp.read()
+                        c_mime = img_resp.headers.get("Content-Type", "image/jpeg").split(";")[0]
+                elif os.path.exists(img_url):
+                    with open(img_url, "rb") as f:
+                        c_img_data = f.read()
+                        if img_url.lower().endswith(".png"):
+                            c_mime = "image/png"
+                if c_img_data:
+                    c_b64 = base64.b64encode(c_img_data).decode("utf-8")
+                    choice_image_items.append({"type": "text", "text": f"【選項 {i+1} 圖片】："})
+                    choice_image_items.append({
+                        "type": "image_url",
+                        "image_url": {"url": f"data:{c_mime};base64,{c_b64}"}
+                    })
+            except Exception:
+                pass
+
     options_str = "\n".join(options_list)
 
     try:
@@ -407,14 +456,13 @@ def query_openrouter(question_text: str, choices: list, api_key: str = None, que
     prompt = (
         f"你是一個精通台灣 momo 購物網活動與商品通識的解題專家。\n"
         f"{context_str}\n"
-        f"請仔細觀看題目附帶之商品圖片與文字，選出最可能正確的選項：\n\n"
+        f"請仔細觀看題目與附帶之圖片 (含題目圖片與各選項圖片)，選出最可能正確的選項：\n\n"
         f"【問題】：{question_text}\n"
         f"【選項】：\n{options_str}\n\n"
         f"請只回答最正確選項的編號數字 (例如只輸出 1 或 2 或 3 或 4)："
     )
 
-    content_items = [{"type": "text", "text": prompt}]
-
+    content_items = []
     if question_image:
         try:
             img_data = None
@@ -431,6 +479,7 @@ def query_openrouter(question_text: str, choices: list, api_key: str = None, que
                         mime = "image/png"
             if img_data:
                 b64_data = base64.b64encode(img_data).decode("utf-8")
+                content_items.append({"type": "text", "text": "【題目附圖】："})
                 content_items.append({
                     "type": "image_url",
                     "image_url": {"url": f"data:{mime};base64,{b64_data}"}
@@ -438,20 +487,26 @@ def query_openrouter(question_text: str, choices: list, api_key: str = None, que
         except Exception:
             pass
 
-    if question_image:
+    if choice_image_items:
+        content_items.extend(choice_image_items)
+
+    content_items.append({"type": "text", "text": prompt})
+
+    if has_image:
         models = [
             "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
-            "nvidia/nemotron-3.5-super-vl:free",
             "google/gemma-4-31b-it:free",
-            "google/gemma-4-26b-a4b-it:free"
+            "nvidia/nemotron-3.5-super-vl:free"
         ]
         max_tokens = 300
+        req_timeout = 7
     else:
         models = [
-            "nvidia/nemotron-3.5-super-vl:free",
+            "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
             "google/gemma-4-31b-it:free"
         ]
-        max_tokens = 200
+        max_tokens = 150
+        req_timeout = 5
 
     url = "https://openrouter.ai/api/v1/chat/completions"
 
@@ -475,7 +530,7 @@ def query_openrouter(question_text: str, choices: list, api_key: str = None, que
             method="POST"
         )
         try:
-            with urllib.request.urlopen(req, timeout=12) as resp:
+            with urllib.request.urlopen(req, timeout=req_timeout) as resp:
                 res = json.loads(resp.read().decode("utf-8"))
                 choice = res.get("choices", [{}])[0]
                 msg = choice.get("message", {})
@@ -497,7 +552,7 @@ def query_openrouter(question_text: str, choices: list, api_key: str = None, que
                             idx = int(m_num[-1]) - 1
 
                 if 0 <= idx < len(choices):
-                    print(f"[OpenRouter AI ({model})] 解析選項為: {idx+1}. {choices[idx].get('text')}")
+                    print(f"[OpenRouter AI ({model})] 解析選項為: {idx+1}. {choices[idx].get('text') or choices[idx].get('uuid')}")
                     return choices[idx]["uuid"]
 
                 # 僅在 content 有文字時比對選項文字
@@ -607,29 +662,25 @@ def select_answer(question: dict, choices: list, db: dict, gemini_key: str = Non
         print(f"[排除法] 已排除其他錯誤選項，選取唯一剩餘選項: {candidate_choices[0].get('text') or candidate_choices[0]['uuid']}")
         return candidate_choices[0]["uuid"]
 
-    # 3. 優先呼叫 Groq AI 解題 (文字/常識題每日 14,400 次免費額度，反應極速)
-    if not question.get("image"):
-        groq_choice_id = query_groq(q_text, candidate_choices, groq_key, question.get("image"))
-        if groq_choice_id:
-            return groq_choice_id
+    has_img = bool(question.get("image") or any(c.get("image") for c in candidate_choices))
 
-    # 4. 優先呼叫 OpenRouter AI (支援免費多模態視覺模型 Nemotron 3.5 VL / Gemma 4)
-    openrouter_choice_id = query_openrouter(q_text, candidate_choices, openrouter_key, question.get("image"))
-    if openrouter_choice_id:
-        return openrouter_choice_id
-
-    # 5. 次之呼叫 Gemini AI 解題 (支援圖文多模態，備用)
-    gemini_choice_id = query_gemini(q_text, candidate_choices, gemini_key, question.get("image"))
-    if gemini_choice_id:
-        return gemini_choice_id
-
-    # 6. 若為純文字且 Groq 尚未嘗試過，再嘗試 Groq
-    if question.get("image"):
+    # 3. 若為純文字題，優先嘗試極速文字 AI
+    if not has_img:
         groq_choice_id = query_groq(q_text, candidate_choices, groq_key)
         if groq_choice_id:
             return groq_choice_id
 
-    # 7. 搜尋比對或排除法回退
+    # 4. 優先呼叫 OpenRouter AI (支援題目圖文與型C純圖片選項)
+    openrouter_choice_id = query_openrouter(q_text, candidate_choices, openrouter_key, question.get("image"))
+    if openrouter_choice_id:
+        return openrouter_choice_id
+
+    # 5. 次之呼叫 Gemini AI (支援圖文多模態，反應極速 1-2s)
+    gemini_choice_id = query_gemini(q_text, candidate_choices, gemini_key, question.get("image"))
+    if gemini_choice_id:
+        return gemini_choice_id
+
+    # 6. 搜尋比對或排除法回退
     return search_best_choice(q_text, candidate_choices, wrong_vals)
 
 
@@ -932,6 +983,15 @@ def main():
                     {"uuid": "c2", "text": "五月天"},
                     {"uuid": "c3", "text": "告五人"},
                     {"uuid": "c4", "text": "蔡依林"}
+                ]
+            },
+            {
+                "title": "示範題 3（型 C 純圖片選項題：四選一找書桌）",
+                "text": "下列哪一個商品是書桌？",
+                "image": None,
+                "choices": [
+                    {"uuid": "img_c1", "text": "", "image": demo_img},
+                    {"uuid": "img_c2", "text": "", "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/11544f47-d23d-4ebf-92ac-7281cfdbf952.png"}
                 ]
             }
         ]
