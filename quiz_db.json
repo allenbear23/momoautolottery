@@ -1285,6 +1285,124 @@
           "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/b82b576b-5f19-4c92-b81d-a1af33883a64.jpg"
         }
       ]
+    },
+    "哪一個是LACOSTE的LOGO::img_1cfcbb12-01d8-4756-9e38-85cd1b2fdff3.png": {
+      "text": "哪一個是LACOSTE的LOGO",
+      "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/1cfcbb12-01d8-4756-9e38-85cd1b2fdff3.png",
+      "uuid": "28bc6b2b-d6c2-499b-9572-b1b38ef8f249",
+      "choices": [
+        {
+          "uuid": "e87f4e81-3fd1-4413-af0e-16965d9134c1",
+          "text": "香蕉"
+        },
+        {
+          "uuid": "ef39fbec-17ba-41cc-9b9b-a389460f4746",
+          "text": "蘋果"
+        },
+        {
+          "uuid": "f22bcf21-6ef6-4be3-935c-ba54a9caf1fd",
+          "text": "茄子"
+        },
+        {
+          "uuid": "ff72ade5-58ef-4969-992d-9cd513167048",
+          "text": "綠色鱷魚"
+        }
+      ],
+      "updated_at": "2026-10-23 20:11:01",
+      "correct": {
+        "uuid": "ff72ade5-58ef-4969-992d-9cd513167048",
+        "text": "綠色鱷魚",
+        "image": ""
+      }
+    },
+    "此商品沒有具備什麼功能?::img_862c4db8-c4bf-47e9-804f-70eed504c62f.png": {
+      "text": "此商品沒有具備什麼功能?",
+      "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/862c4db8-c4bf-47e9-804f-70eed504c62f.png",
+      "uuid": "5dbe554a-6233-46a9-9a70-d72324c56d7b",
+      "choices": [
+        {
+          "uuid": "2572be05-8f0e-413d-8f22-2aaf4976ca13",
+          "text": "淡斑美白"
+        },
+        {
+          "uuid": "47f15817-e944-49ea-b9e4-c723e5414338",
+          "text": "保濕亮白"
+        },
+        {
+          "uuid": "64a6baf0-b7f1-4c46-9b96-344fe3ad300b",
+          "text": "緊緻抗老"
+        },
+        {
+          "uuid": "d944f0c4-658b-4cb3-82d2-3b6c985f7db7",
+          "text": "舒緩發癢"
+        }
+      ],
+      "updated_at": "2026-10-23 20:11:11",
+      "correct": {
+        "uuid": "d944f0c4-658b-4cb3-82d2-3b6c985f7db7",
+        "text": "舒緩發癢",
+        "image": ""
+      }
+    },
+    "流行精品區可以找到哪種商品?": {
+      "text": "流行精品區可以找到哪種商品?",
+      "image": "",
+      "uuid": "7001c313-8d68-4724-9060-4ec7d571a806",
+      "choices": [
+        {
+          "uuid": "272e14e6-27ed-4c6d-8fb7-954576cc6da1",
+          "text": "洗衣機"
+        },
+        {
+          "uuid": "35799bc5-48b6-4371-ab7b-21929b545374",
+          "text": "電風扇"
+        },
+        {
+          "uuid": "4c1417e1-3e80-4cc9-884f-f71b3c84e8f3",
+          "text": "行李箱"
+        },
+        {
+          "uuid": "77c6a996-3d72-48d0-ba89-85ff59b78b47",
+          "text": "電冰箱"
+        }
+      ],
+      "updated_at": "2026-10-23 20:11:21",
+      "correct": {
+        "uuid": "4c1417e1-3e80-4cc9-884f-f71b3c84e8f3",
+        "text": "行李箱",
+        "image": ""
+      }
+    },
+    "請問此商品是哪個品牌?::img_62b6c4c7-596d-4ba0-9aad-866285e9c916.png": {
+      "text": "請問此商品是哪個品牌?",
+      "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/62b6c4c7-596d-4ba0-9aad-866285e9c916.png",
+      "uuid": "ba0e5ad3-f375-47a6-9d99-580f06f5b688",
+      "choices": [
+        {
+          "uuid": "84001e77-ddd8-47b2-b5a3-5a6ec0068990",
+          "text": "Relove"
+        },
+        {
+          "uuid": "90490eee-cea2-41e6-9fd0-4727d605fbf8",
+          "text": "霓淨思"
+        },
+        {
+          "uuid": "edc0fcf2-c6dc-4c19-8949-514757d238ba",
+          "text": "雅漾"
+        },
+        {
+          "uuid": "f755d5dc-fea1-4d6e-b28a-8aa124b74bbe",
+          "text": "露得清"
+        }
+      ],
+      "updated_at": "2026-10-23 20:11:22",
+      "wrong": [
+        {
+          "uuid": "edc0fcf2-c6dc-4c19-8949-514757d238ba",
+          "text": "雅漾",
+          "image": ""
+        }
+      ]
     }
   }
 }
