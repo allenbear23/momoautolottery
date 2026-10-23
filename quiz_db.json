@@ -1403,6 +1403,124 @@
           "image": ""
         }
       ]
+    },
+    "請問圖片中與商品聯名的角色名稱?::img_ac53d398-cbf0-4cd9-af72-7c9b9facda6f.png": {
+      "text": "請問圖片中與商品聯名的角色名稱?",
+      "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/ac53d398-cbf0-4cd9-af72-7c9b9facda6f.png",
+      "uuid": "0b3a207f-922e-4f85-bdd8-0b7f3a135685",
+      "choices": [
+        {
+          "uuid": "2eaa14a1-12e1-418c-92aa-2fd1986dafad",
+          "text": "土地公"
+        },
+        {
+          "uuid": "8d85917c-1837-47b3-afa4-3ba73662869a",
+          "text": "關公"
+        },
+        {
+          "uuid": "9ee1f0fb-30cf-4dc0-b44c-f72179ea5371",
+          "text": "白沙屯媽祖"
+        },
+        {
+          "uuid": "c04bafcf-77cc-4a96-abfb-08af395eb130",
+          "text": "虎爺"
+        }
+      ],
+      "updated_at": "2026-10-23 22:11:01",
+      "correct": {
+        "uuid": "9ee1f0fb-30cf-4dc0-b44c-f72179ea5371",
+        "text": "白沙屯媽祖",
+        "image": ""
+      }
+    },
+    "電視標示「4K」,主要指的是什麼?": {
+      "text": "電視標示「4K」,主要指的是什麼?",
+      "image": "",
+      "uuid": "c9c2a581-2648-488b-97a8-b01dff59ba55",
+      "choices": [
+        {
+          "uuid": "0a5a7946-5205-4e42-8a0a-7c604020868f",
+          "text": "更新率"
+        },
+        {
+          "uuid": "959e0312-bd58-4465-94d1-fd9258928105",
+          "text": "解析度"
+        },
+        {
+          "uuid": "bafc1f87-694a-4a21-bb55-5df2ac6beb13",
+          "text": "音效規格"
+        },
+        {
+          "uuid": "f114dd54-43b1-4804-86c1-abcfb5f36d2e",
+          "text": "螢幕尺寸"
+        }
+      ],
+      "updated_at": "2026-10-23 22:11:22",
+      "correct": {
+        "uuid": "959e0312-bd58-4465-94d1-fd9258928105",
+        "text": "解析度",
+        "image": ""
+      }
+    },
+    "電輔車的特色是?": {
+      "text": "電輔車的特色是?",
+      "image": "",
+      "uuid": "fdb7185f-b2bd-4dd2-bc1f-7bace9ea2ce6",
+      "choices": [
+        {
+          "uuid": "15a8a36c-41f7-4d6b-a584-585c5cdea5e6",
+          "text": "動力輔助踩踏輕鬆"
+        },
+        {
+          "uuid": "9f03450f-6cb0-4dba-8375-e69693cb4479",
+          "text": "完全不用踩踏"
+        },
+        {
+          "uuid": "e76e4ec9-535a-45e1-ba9d-f6870007872f",
+          "text": "不可爬坡"
+        },
+        {
+          "uuid": "f721a6a8-4302-402d-abb8-f7261f302324",
+          "text": "不需充電"
+        }
+      ],
+      "updated_at": "2026-10-23 22:11:24",
+      "correct": {
+        "uuid": "15a8a36c-41f7-4d6b-a584-585c5cdea5e6",
+        "text": "動力輔助踩踏輕鬆",
+        "image": ""
+      }
+    },
+    "mo店+幾號發抵用券?": {
+      "text": "mo店+幾號發抵用券?",
+      "image": "",
+      "uuid": "68344525-ebd4-4ba9-befe-f25e982e6644",
+      "choices": [
+        {
+          "uuid": "0fe8e34f-9db4-4ad2-9b0c-4be6d187d8d0",
+          "text": "禮拜一"
+        },
+        {
+          "uuid": "65202b9e-817c-44f2-bf8b-c42e755f3cfc",
+          "text": "週末"
+        },
+        {
+          "uuid": "ca07ba1f-7075-432e-8eee-0bdda2ae77b5",
+          "text": "天天都有券"
+        },
+        {
+          "uuid": "fe9e220d-00a1-44f8-a351-58da69fd1796",
+          "text": "每月1號"
+        }
+      ],
+      "updated_at": "2026-10-23 22:11:25",
+      "wrong": [
+        {
+          "uuid": "fe9e220d-00a1-44f8-a351-58da69fd1796",
+          "text": "每月1號",
+          "image": ""
+        }
+      ]
     }
   }
 }
