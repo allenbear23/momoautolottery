@@ -3245,7 +3245,9 @@ window.QUIZ_DB = {
         }
       ],
       "updated_at": "2026-10-24 17:20:00",
-      "wrong": [],
+      "wrong": [
+        "1"
+      ],
       "screenshot": "momo answer/385463_0.jpg"
     },
     "哪一個不是樂金旗下品牌?": {
@@ -3346,26 +3348,36 @@ window.QUIZ_DB = {
       "image": "",
       "choices": [
         {
-          "text": "1"
+          "uuid": "448041d7-3bf6-4988-93a2-ab8bcb7d4234",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/00689014-6ef0-43a7-aebf-089013d86909.png"
         },
         {
-          "text": "2"
+          "uuid": "4d60c8b7-f3e7-48bb-9a5d-c439ac8c4103",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/ff9ff358-c3c1-49fc-8c15-3f2a05afbfcd.png"
         },
         {
-          "text": "3"
+          "uuid": "7b61f668-b7d2-4f3e-aa23-840a5b13887f",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/2fb14d98-4526-4c25-ab75-6d12a1e2ea02.png"
         },
         {
-          "text": "4"
+          "uuid": "86d24701-80f6-4832-86c6-00fbd7ee8075",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/4b74828b-d480-46d9-9012-5f4718678819.png"
         }
       ],
-      "updated_at": "2026-10-24 17:20:00",
+      "updated_at": "2026-10-24 22:11:29",
       "wrong": [
         {
           "text": "2"
         },
         "2"
       ],
-      "screenshot": "momo answer/messageImage_1792750702099_0.jpg"
+      "screenshot": "momo answer/messageImage_1792750702099_0.jpg",
+      "uuid": "24feb134-e107-40d3-8bc3-3360c336cecb",
+      "correct": {
+        "uuid": "86d24701-80f6-4832-86c6-00fbd7ee8075",
+        "text": "",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/4b74828b-d480-46d9-9012-5f4718678819.png"
+      }
     },
     "請問圖片中哪款是美國探險家行李箱": {
       "text": "請問圖片中哪款是美國探險家行李箱",
@@ -6414,6 +6426,504 @@ window.QUIZ_DB = {
       "updated_at": "2026-10-24 20:26:13",
       "correct": {
         "text": "4"
+      }
+    },
+    "圖片中哪一個是sunflower三花的logo?": {
+      "text": "圖片中哪一個是sunflower三花的logo?",
+      "image": "",
+      "uuid": "54144133-de59-48ae-8e32-b6906cb1d77b",
+      "choices": [
+        {
+          "uuid": "03f09802-54c0-421d-a5ab-27ca23e32f72",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/36869f13-7fb0-4393-8555-7d63184abba1.png"
+        },
+        {
+          "uuid": "8bb0418f-8434-4a5f-b9f9-3cbef181092a",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/e543aa82-aef0-40aa-8445-66e0f076c095.png"
+        },
+        {
+          "uuid": "99f187c1-f527-4c11-bd08-dcebf6b2f258",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/9f5ed55d-0442-4195-9bd5-382ece575a9c.png"
+        },
+        {
+          "uuid": "ec04058f-daf2-4607-a780-dbfb97c918af",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/651803d3-a3f9-4392-b6af-8e7dd9b51dfa.png"
+        }
+      ],
+      "updated_at": "2026-10-24 22:11:06",
+      "correct": {
+        "uuid": "8bb0418f-8434-4a5f-b9f9-3cbef181092a",
+        "text": "",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/e543aa82-aef0-40aa-8445-66e0f076c095.png"
+      }
+    },
+    "圖中商品主要用於哪一種用途?::img_377cfd21-247e-4540-9ba0-c04e6b8fabac.png": {
+      "text": "圖中商品主要用於哪一種用途?",
+      "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/377cfd21-247e-4540-9ba0-c04e6b8fabac.png",
+      "uuid": "bb48f6c9-9eff-4357-9f8e-229d0c9dbeb6",
+      "choices": [
+        {
+          "uuid": "1486be8d-8608-4d0e-a1bc-81c2eb0d2934",
+          "text": "清潔地板"
+        },
+        {
+          "uuid": "217d8c7b-bfab-4181-8b3d-4ffff779a115",
+          "text": "料理食物"
+        },
+        {
+          "uuid": "5b0205c9-0416-4882-9120-70fe232b563a",
+          "text": "個人美容修容"
+        },
+        {
+          "uuid": "6acf2c56-ffae-468a-b7a4-93d6525303c0",
+          "text": "按摩肩頸"
+        }
+      ],
+      "updated_at": "2026-10-24 22:11:14",
+      "correct": {
+        "uuid": "5b0205c9-0416-4882-9120-70fe232b563a",
+        "text": "個人美容修容",
+        "image": ""
+      }
+    },
+    "哪一個是麥當勞LOGO?": {
+      "text": "哪一個是麥當勞LOGO?",
+      "image": "",
+      "uuid": "1ec353f1-0963-4b5c-9904-5da10c87bf14",
+      "choices": [
+        {
+          "uuid": "1502c5ce-53ec-454b-a6eb-279bc710f49a",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/1d8f65bc-3d8a-40ea-ac62-ff2a9d6194da.png"
+        },
+        {
+          "uuid": "8470d14d-6173-4c7e-8f92-ecb88819cf0b",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/07ea3b71-ee78-49c6-a60e-ab12c28abea8.png"
+        },
+        {
+          "uuid": "e417ba17-57bc-49f6-9032-ae0975a1c30e",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/de26ed68-1ac8-4610-828f-e8f016697e6b.png"
+        },
+        {
+          "uuid": "f27e35e6-4ca3-45b4-b9ec-c960f7863612",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/154df233-7b01-43d5-be15-3b11a95c6acf.png"
+        }
+      ],
+      "updated_at": "2026-10-24 22:11:17",
+      "correct": {
+        "uuid": "e417ba17-57bc-49f6-9032-ae0975a1c30e",
+        "text": "",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/de26ed68-1ac8-4610-828f-e8f016697e6b.png"
+      }
+    },
+    "圖中商品最主要的功能是什麼?::img_9818c0dd-70ec-4ed3-894e-8ed92675f8de.png": {
+      "text": "圖中商品最主要的功能是什麼?",
+      "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/9818c0dd-70ec-4ed3-894e-8ed92675f8de.png",
+      "uuid": "75a72c4c-4f9c-40a4-bffd-de6acdffef04",
+      "choices": [
+        {
+          "uuid": "3fe8930f-ff38-409b-bb55-3d6a61ee5306",
+          "text": "降低濕度"
+        },
+        {
+          "uuid": "989da404-afac-4d7f-87c5-67b71dd45ebe",
+          "text": "清潔空氣"
+        },
+        {
+          "uuid": "a3daa8da-3962-4e1d-bc90-826065e4937d",
+          "text": "提高室內溫度"
+        },
+        {
+          "uuid": "a76a26d5-a838-44bd-872f-adbccf0c9eb2",
+          "text": "降低室溫"
+        }
+      ],
+      "updated_at": "2026-10-24 22:11:26",
+      "correct": {
+        "uuid": "a3daa8da-3962-4e1d-bc90-826065e4937d",
+        "text": "提高室內溫度",
+        "image": ""
+      }
+    },
+    "下列哪一台ASUS電競筆電最輕薄": {
+      "text": "下列哪一台ASUS電競筆電最輕薄",
+      "image": "",
+      "uuid": "9c092224-85e7-49e6-8113-862b196651a6",
+      "choices": [
+        {
+          "uuid": "3780dd29-ec32-46d0-8c3a-7a49cf0ae062",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/098dd454-ad7b-4fc5-8f03-fd8b6c94d69e.png"
+        },
+        {
+          "uuid": "5698f24f-9917-44e9-845e-600514e9c83c",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/78210530-5af0-4802-a163-395d613a9d8d.png"
+        },
+        {
+          "uuid": "933ce212-7bb5-467e-9519-928de838dcf5",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/b1b0470a-8d06-419e-a123-cdd07832bf75.png"
+        },
+        {
+          "uuid": "e9cb0155-b124-4937-9212-05429b6756d4",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/689a5e6a-96c4-4e18-8217-7a1ab88cd4f3.png"
+        }
+      ],
+      "updated_at": "2026-10-24 22:11:48",
+      "wrong": [
+        {
+          "uuid": "933ce212-7bb5-467e-9519-928de838dcf5",
+          "text": "",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/b1b0470a-8d06-419e-a123-cdd07832bf75.png"
+        }
+      ]
+    },
+    "LED燈泡最常見的優點是什麼?": {
+      "text": "LED燈泡最常見的優點是什麼?",
+      "image": "",
+      "uuid": "1e4671ff-0b27-4ab4-8ab8-6402e6c55875",
+      "choices": [
+        {
+          "uuid": "2cef7657-bc49-4459-89a2-108ad560e568",
+          "text": "較省電"
+        },
+        {
+          "uuid": "5619231d-44d3-4f2d-a0e8-da583bf1353f",
+          "text": "需要預熱"
+        },
+        {
+          "uuid": "76419473-fc7d-4da4-80e0-e16041aeb0be",
+          "text": "較耗電"
+        },
+        {
+          "uuid": "d8fb5d84-dd6a-4769-8873-a78473b3ce5d",
+          "text": "容易破裂"
+        }
+      ],
+      "updated_at": "2026-10-24 22:11:31",
+      "wrong": [
+        {
+          "uuid": "5619231d-44d3-4f2d-a0e8-da583bf1353f",
+          "text": "需要預熱",
+          "image": ""
+        }
+      ]
+    },
+    "kipling的中文別稱叫什麼包?": {
+      "text": "kipling的中文別稱叫什麼包?",
+      "choices": [
+        {
+          "text": "猩猩包"
+        },
+        {
+          "text": "猴子包"
+        },
+        {
+          "text": "金剛包 (疑似正確)"
+        },
+        {
+          "text": "狒狒包"
+        }
+      ],
+      "updated_at": "2026-10-24 22:27:02",
+      "wrong": [
+        "1"
+      ]
+    },
+    "想做好夜間保養推薦哪款陽明生醫商品": {
+      "text": "想做好夜間保養推薦哪款陽明生醫商品",
+      "choices": [
+        {
+          "text": "1  好關犀"
+        },
+        {
+          "text": "2  夜光纖子"
+        },
+        {
+          "text": "3  視倍修"
+        },
+        {
+          "text": "4  一家人"
+        }
+      ],
+      "updated_at": "2026-10-24 22:27:02",
+      "correct": {
+        "text": "2  夜光纖子"
+      }
+    },
+    "兒童乘車時使用汽座有助於?": {
+      "text": "兒童乘車時使用汽座有助於?",
+      "choices": [
+        {
+          "text": "提升乘車安全穩定性"
+        },
+        {
+          "text": "節省油耗"
+        },
+        {
+          "text": "提高車速"
+        },
+        {
+          "text": "以上皆是"
+        }
+      ],
+      "updated_at": "2026-10-24 22:27:02",
+      "wrong": [
+        "4"
+      ]
+    },
+    "以下哪款是鋁框行李箱?": {
+      "text": "以下哪款是鋁框行李箱?",
+      "choices": [],
+      "updated_at": "2026-10-24 22:27:02",
+      "wrong": [
+        "4"
+      ]
+    },
+    "下列哪個為看看買雙11活動滿額贈的第一檻": {
+      "text": "下列哪個為看看買雙11活動滿額贈的第一檻",
+      "choices": [],
+      "updated_at": "2026-10-24 22:27:02",
+      "correct": {
+        "text": "4"
+      }
+    },
+    "請問石頭科技的掃地機器人有出過什麼顏色?": {
+      "text": "請問石頭科技的掃地機器人有出過什麼顏色?",
+      "choices": [
+        {
+          "text": "粉紅色"
+        },
+        {
+          "text": "橘色"
+        },
+        {
+          "text": "綠色"
+        },
+        {
+          "text": "白色"
+        }
+      ],
+      "updated_at": "2026-10-24 22:27:02",
+      "wrong": [
+        "1"
+      ]
+    },
+    "途中洗衣機的開門方式屬於哪一種?": {
+      "text": "途中洗衣機的開門方式屬於哪一種?",
+      "choices": [
+        {
+          "text": "前開式"
+        },
+        {
+          "text": "雙門對開式"
+        },
+        {
+          "text": "側滑式"
+        }
+      ],
+      "updated_at": "2026-10-24 22:27:02",
+      "wrong": [
+        "2"
+      ]
+    },
+    "請問圖中的鞋是哪個品牌": {
+      "text": "請問圖中的鞋是哪個品牌",
+      "choices": [
+        {
+          "text": "KANGOL"
+        },
+        {
+          "text": "Palladium"
+        },
+        {
+          "text": "Grace Gift"
+        },
+        {
+          "text": "北歐小刺蝟"
+        }
+      ],
+      "updated_at": "2026-10-24 22:27:02",
+      "correct": {
+        "text": "北歐小刺蝟"
+      }
+    },
+    "請選出哪一個才是Bobbi Brown 芭比波廊正確的商品?": {
+      "text": "請選出哪一個才是Bobbi Brown 芭比波廊正確的商品?",
+      "choices": [],
+      "updated_at": "2026-10-24 22:27:02",
+      "correct": {
+        "text": "4"
+      },
+      "wrong": [
+        "2"
+      ]
+    },
+    "請問包雙上是哪個卡通人物?": {
+      "text": "請問包雙上是哪個卡通人物?",
+      "choices": [
+        {
+          "text": "老虎"
+        },
+        {
+          "text": "猛虎"
+        },
+        {
+          "text": "胖虎"
+        }
+      ],
+      "updated_at": "2026-10-24 22:27:02"
+    },
+    "momo獨家石頭美型蒸氣洗地機F25 Stream是誰?": {
+      "text": "momo獨家石頭美型蒸氣洗地機F25 Stream是誰?",
+      "choices": [
+        {
+          "text": "白刷刷"
+        },
+        {
+          "text": "白胖胖"
+        },
+        {
+          "text": "白冰冰"
+        },
+        {
+          "text": "白蒸蒸"
+        }
+      ],
+      "updated_at": "2026-10-24 22:27:02",
+      "correct": {
+        "text": "白蒸蒸"
+      }
+    },
+    "韓國品牌 CORINGCO 主要屬於哪一類美妝用品?": {
+      "text": "韓國品牌 CORINGCO 主要屬於哪一類美妝用品?",
+      "choices": [
+        {
+          "text": "美甲用品"
+        },
+        {
+          "text": "香水"
+        },
+        {
+          "text": "眼妝彩妝"
+        },
+        {
+          "text": "保養品"
+        }
+      ],
+      "updated_at": "2026-10-24 22:27:02",
+      "correct": {
+        "text": "眼妝彩妝"
+      }
+    },
+    "UAG最常見的商品是?": {
+      "text": "UAG最常見的商品是?",
+      "choices": [
+        {
+          "text": "相機鏡頭"
+        },
+        {
+          "text": "路由器"
+        },
+        {
+          "text": "手機保護殼"
+        },
+        {
+          "text": "電競主機"
+        }
+      ],
+      "updated_at": "2026-10-24 22:27:02",
+      "correct": {
+        "text": "手機保護殼"
+      }
+    },
+    "請選出哪一個是台糖豬肉": {
+      "text": "請選出哪一個是台糖豬肉",
+      "choices": [],
+      "updated_at": "2026-10-24 22:27:02",
+      "correct": {
+        "text": "3"
+      }
+    },
+    "請問下列哪一個是非韓系保養品牌?": {
+      "text": "請問下列哪一個是非韓系保養品牌?",
+      "choices": [
+        {
+          "text": "審美之選"
+        },
+        {
+          "text": "innisfree"
+        },
+        {
+          "text": "AHC"
+        },
+        {
+          "text": "Torriden桃瑞丹"
+        }
+      ],
+      "updated_at": "2026-10-24 22:27:02",
+      "correct": {
+        "text": "審美之選"
+      }
+    },
+    "何者為美國廚具用品品牌?": {
+      "text": "何者為美國廚具用品品牌?",
+      "choices": [
+        {
+          "text": "1  MEOFLam"
+        },
+        {
+          "text": "2  OXO"
+        },
+        {
+          "text": "3  BUFFALO"
+        },
+        {
+          "text": "4  WMF"
+        }
+      ],
+      "updated_at": "2026-10-24 22:27:02",
+      "wrong": [
+        "2"
+      ]
+    },
+    "Montbell是哪一國的戶外機能品牌?": {
+      "text": "Montbell是哪一國的戶外機能品牌?",
+      "choices": [
+        {
+          "text": "日本"
+        },
+        {
+          "text": "聯合國"
+        },
+        {
+          "text": "動物王國"
+        },
+        {
+          "text": "小人國"
+        }
+      ],
+      "updated_at": "2026-10-24 22:27:02",
+      "wrong": [
+        "3"
+      ]
+    },
+    "下列哪一項商品常以 (kg) 作為重要容量規格?": {
+      "text": "下列哪一項商品常以 (kg) 作為重要容量規格?",
+      "choices": [
+        {
+          "text": "1  滾筒洗衣機"
+        },
+        {
+          "text": "2  電視"
+        },
+        {
+          "text": "3  冰箱"
+        },
+        {
+          "text": "4  冷氣"
+        }
+      ],
+      "updated_at": "2026-10-24 22:27:02",
+      "correct": {
+        "text": "1  滾筒洗衣機"
       }
     }
   }
