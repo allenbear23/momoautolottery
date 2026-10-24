@@ -268,6 +268,8 @@
     "台灣哪間飯店無溫泉設施？": {
       "text": "台灣哪間飯店無溫泉設施？",
       "screenshot": "momo answer/S__164995087_0.jpg",
+      "image": "",
+      "uuid": "8f3e5fd8-c1ab-40b6-b1c1-86ee2a3a1dbb",
       "choices": [
         {
           "text": "蘭城晶英酒店"
@@ -285,6 +287,13 @@
       "correct": {
         "text": "蘭城晶英酒店"
       },
+      "wrong": [
+        {
+          "uuid": "fefb2603-5352-41f8-87c2-951959343bb3",
+          "text": "",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/b82b576b-5f19-4c92-b81d-a1af33883a64.jpg"
+        }
+      ],
       "updated_at": "2026-10-23 13:20:00"
     },
     "請問此商品為哪個品牌？::S__184852516": {
@@ -1131,7 +1140,8 @@
         {
           "text": "相機品牌"
         }
-      ]
+      ],
+      "screenshot": "momo answer/573056_0.jpg"
     },
     "哪一款Lenovo商用桌機最大台?": {
       "text": "哪一款Lenovo商用桌機最大台?",
@@ -1290,37 +1300,6 @@
         "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/17385923-fb4e-4821-9a4b-d95f4f312134.png"
       }
     },
-    "台灣哪間飯店無溫泉設施?": {
-      "text": "台灣哪間飯店無溫泉設施?",
-      "image": "",
-      "uuid": "8f3e5fd8-c1ab-40b6-b1c1-86ee2a3a1dbb",
-      "choices": [
-        {
-          "uuid": "22f87272-cf60-42e8-824e-97d53146b8f2",
-          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/95c3482a-7eb4-4b51-ab72-1c78af93c927.jpg"
-        },
-        {
-          "uuid": "379781f5-5620-4cee-acef-e733854cad8e",
-          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/1df1ec29-c871-46dc-aaf2-8e0ba588328a.jpg"
-        },
-        {
-          "uuid": "d174fee4-8612-4e93-87fe-89cd4aa2ef6b",
-          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/98789299-5d52-4990-83ac-38840fc93380.jpg"
-        },
-        {
-          "uuid": "fefb2603-5352-41f8-87c2-951959343bb3",
-          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/b82b576b-5f19-4c92-b81d-a1af33883a64.jpg"
-        }
-      ],
-      "updated_at": "2026-10-23 18:11:14",
-      "wrong": [
-        {
-          "uuid": "fefb2603-5352-41f8-87c2-951959343bb3",
-          "text": "",
-          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/b82b576b-5f19-4c92-b81d-a1af33883a64.jpg"
-        }
-      ]
-    },
     "哪一個是LACOSTE的LOGO::img_1cfcbb12-01d8-4756-9e38-85cd1b2fdff3.png": {
       "text": "哪一個是LACOSTE的LOGO",
       "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/1cfcbb12-01d8-4756-9e38-85cd1b2fdff3.png",
@@ -1348,7 +1327,8 @@
         "uuid": "ff72ade5-58ef-4969-992d-9cd513167048",
         "text": "綠色鱷魚",
         "image": ""
-      }
+      },
+      "screenshot": "momo answer/12332844_0.jpg"
     },
     "此商品沒有具備什麼功能?::img_862c4db8-c4bf-47e9-804f-70eed504c62f.png": {
       "text": "此商品沒有具備什麼功能?",
@@ -1440,7 +1420,8 @@
       ],
       "correct": {
         "text": "台糖"
-      }
+      },
+      "screenshot": "momo answer/5670431_0.jpg"
     },
     "請問圖片中與商品聯名的角色名稱?::img_ac53d398-cbf0-4cd9-af72-7c9b9facda6f.png": {
       "text": "請問圖片中與商品聯名的角色名稱?",
@@ -1844,7 +1825,8 @@
       "correct": {
         "text": "韓國"
       },
-      "wrong": []
+      "wrong": [],
+      "screenshot": "momo answer/12333748_0.jpg"
     },
     "以下哪項商品目前沒有售賣?": {
       "text": "以下哪項商品目前沒有售賣?",
@@ -1854,7 +1836,8 @@
       "correct": {
         "text": "1"
       },
-      "wrong": []
+      "wrong": [],
+      "screenshot": "momo answer/12333746_0.jpg"
     },
     "ECOFLOW DELTA 3Max Plus 可以用在什麼電器?": {
       "text": "ECOFLOW DELTA 3Max Plus 可以用在什麼電器?",
@@ -2125,7 +2108,8 @@
         {
           "text": "紅色"
         }
-      ]
+      ],
+      "screenshot": "momo answer/5670498_0.jpg"
     },
     "請問這是哪家出版社?": {
       "text": "請問這是哪家出版社?",
@@ -2149,7 +2133,8 @@
         {
           "text": "商周出版社"
         }
-      ]
+      ],
+      "screenshot": "momo answer/5670497_0.jpg"
     },
     "請問這是哪一款雙11爆品?": {
       "text": "請問這是哪一款雙11爆品?",
@@ -2238,7 +2223,8 @@
         {
           "text": "11/10"
         }
-      ]
+      ],
+      "screenshot": "momo answer/S__102523006_0.jpg"
     },
     "以下哪個品項主打趁年輕存老本?": {
       "text": "以下哪個品項主打趁年輕存老本?",
@@ -2262,7 +2248,8 @@
         {
           "text": "1"
         }
-      ]
+      ],
+      "screenshot": "momo answer/810586_0.jpg"
     },
     "請問哪個不是台塑生醫醫之方舒暢益生菌的特色?": {
       "text": "請問哪個不是台塑生醫醫之方舒暢益生菌的特色?",
@@ -2565,7 +2552,8 @@
         }
       ],
       "updated_at": "2026-10-24 17:20:00",
-      "wrong": []
+      "wrong": [],
+      "screenshot": "momo answer/messageImage_1792767243822_0.jpg"
     },
     "以下哪個是Apple Watch Uitr4 ?": {
       "text": "以下哪個是Apple Watch Uitr4 ?",
@@ -2592,7 +2580,8 @@
         {
           "text": "1"
         }
-      ]
+      ],
+      "screenshot": "momo answer/12844_0.jpg"
     },
     "三星A57有幾個鏡頭?": {
       "text": "三星A57有幾個鏡頭?",
@@ -2616,7 +2605,8 @@
         {
           "text": "1"
         }
-      ]
+      ],
+      "screenshot": "momo answer/S__102375490_0.jpg"
     },
     "請問此商品是台酒生技的哪一款?": {
       "text": "請問此商品是台酒生技的哪一款?",
@@ -2639,7 +2629,8 @@
       "correct": {
         "text": "黑酵母酒粕逆齡活膚青春露"
       },
-      "wrong": []
+      "wrong": [],
+      "screenshot": "momo answer/12330780_0.jpg"
     },
     "哪項保健食品可幫助維持肌膚彈性?": {
       "text": "哪項保健食品可幫助維持肌膚彈性?",
@@ -2683,7 +2674,8 @@
         }
       ],
       "updated_at": "2026-10-24 17:20:00",
-      "wrong": []
+      "wrong": [],
+      "screenshot": "momo answer/messageImage_1792765455278_0.jpg"
     },
     "圖中是什麼商品": {
       "text": "圖中是什麼商品",
@@ -2703,7 +2695,8 @@
         }
       ],
       "updated_at": "2026-10-24 17:20:00",
-      "wrong": []
+      "wrong": [],
+      "screenshot": "momo answer/S__36216839_0.jpg"
     },
     "此商品價格最接近?": {
       "text": "此商品價格最接近?",
@@ -2724,7 +2717,8 @@
         {
           "text": "999元"
         }
-      ]
+      ],
+      "screenshot": "momo answer/1132925_0.jpg"
     },
     "以下哪一個符合DHC速攻藍莓商品特色": {
       "text": "以下哪一個符合DHC速攻藍莓商品特色",
@@ -2816,7 +2810,8 @@
         {
           "text": "煎蛋"
         }
-      ]
+      ],
+      "screenshot": "momo answer/95457_0.jpg"
     },
     "台酒生技的黑酵母酒粕逆齡活膚青春露產地是哪裡?": {
       "text": "台酒生技的黑酵母酒粕逆齡活膚青春露產地是哪裡?",
@@ -2891,7 +2886,8 @@
         {
           "text": "2"
         }
-      ]
+      ],
+      "screenshot": "momo answer/S__36200783_0.jpg"
     },
     "EPSON 的LOGO是什麼顏色": {
       "text": "EPSON 的LOGO是什麼顏色",
@@ -2987,7 +2983,8 @@
         {
           "text": "敏感話題"
         }
-      ]
+      ],
+      "screenshot": "momo answer/573149_0.jpg"
     },
     "11/9 11/10 11/12 11/13 單日直播下單抽?": {
       "text": "11/9 11/10 11/12 11/13 單日直播下單抽?",
@@ -3055,7 +3052,8 @@
         }
       ],
       "updated_at": "2026-10-24 17:20:00",
-      "wrong": []
+      "wrong": [],
+      "screenshot": "momo answer/385463_0.jpg"
     },
     "哪一個不是樂金旗下品牌?": {
       "text": "哪一個不是樂金旗下品牌?",
@@ -3119,7 +3117,8 @@
       "correct": {
         "text": "大雛菊花朵"
       },
-      "wrong": []
+      "wrong": [],
+      "screenshot": "momo answer/573060_0.jpg"
     },
     "NOW Foods源自於哪個國家": {
       "text": "NOW Foods源自於哪個國家",
@@ -3142,7 +3141,8 @@
       "correct": {
         "text": "美國"
       },
-      "wrong": []
+      "wrong": [],
+      "screenshot": "momo answer/12326542_0.jpg"
     },
     "好好生醫貴婦指標膠原蛋白三胜肽": {
       "text": "好好生醫貴婦指標膠原蛋白三胜肽",
@@ -3166,7 +3166,8 @@
         {
           "text": "2"
         }
-      ]
+      ],
+      "screenshot": "momo answer/messageImage_1792750702099_0.jpg"
     },
     "請問圖片中哪款是美國探險家行李箱": {
       "text": "請問圖片中哪款是美國探險家行李箱",
@@ -3234,7 +3235,8 @@
         {
           "text": "1 眼睛圖片"
         }
-      ]
+      ],
+      "screenshot": "momo answer/lJJxSlV.png"
     },
     "圖片中贈品為看看買哪一門檻的贈品   (2把剪刀圖片)": {
       "text": "圖片中贈品為看看買哪一門檻的贈品   (2把剪刀圖片)",
@@ -3282,7 +3284,8 @@
         {
           "text": "黑豆"
         }
-      ]
+      ],
+      "screenshot": "momo answer/S__116785468_0.jpg"
     },
     "請問圖中是哪位歌手聯名鞋款?": {
       "text": "請問圖中是哪位歌手聯名鞋款?",
@@ -3303,7 +3306,8 @@
         {
           "text": "Michael Jackson"
         }
-      ]
+      ],
+      "screenshot": "momo answer/S__116785467_0.jpg"
     },
     "請選出哪一個是寶拉的身體乳液產品": {
       "text": "請選出哪一個是寶拉的身體乳液產品",
@@ -3371,7 +3375,8 @@
       "correct": {
         "text": "楊洋"
       },
-      "wrong": []
+      "wrong": [],
+      "screenshot": "momo answer/12325807_0.jpg"
     },
     "請問出國必帶的東西是什麼?": {
       "text": "請問出國必帶的東西是什麼?",
@@ -3395,7 +3400,8 @@
         {
           "text": "婦潔免洗內褲"
         }
-      ]
+      ],
+      "screenshot": "momo answer/38805_0.jpg"
     },
     "下列哪個商品是義美生醫益生菌": {
       "text": "下列哪個商品是義美生醫益生菌",
@@ -3446,7 +3452,8 @@
         {
           "text": "相機與列印設備"
         }
-      ]
+      ],
+      "screenshot": "momo answer/748913_0.jpg"
     },
     "官方專場直播滿多少送2%回饋?": {
       "text": "官方專場直播滿多少送2%回饋?",
@@ -3470,7 +3477,8 @@
         {
           "text": "3000"
         }
-      ]
+      ],
+      "screenshot": "momo answer/572903_0.jpg"
     },
     "下列何者是存在的品牌?": {
       "text": "下列何者是存在的品牌?",
@@ -3497,7 +3505,8 @@
         {
           "text": "BBL"
         }
-      ]
+      ],
+      "screenshot": "momo answer/570878_0.jpg"
     },
     "下列何者非安踏 Anta的球鞋?": {
       "text": "下列何者非安踏 Anta的球鞋?",
@@ -3524,7 +3533,8 @@
         {
           "text": "2"
         }
-      ]
+      ],
+      "screenshot": "momo answer/1594073_0.jpg"
     },
     "請選出東妮精梳棉床組": {
       "text": "請選出東妮精梳棉床組",
@@ -3568,7 +3578,8 @@
         {
           "text": "2"
         }
-      ]
+      ],
+      "screenshot": "momo answer/572293_0.jpg"
     },
     "以下哪個最適合  (需要特殊營養照顧) 的毛小孩?": {
       "text": "以下哪個最適合  (需要特殊營養照顧) 的毛小孩?",
@@ -3777,7 +3788,8 @@
       "correct": {
         "text": "3打勾圖"
       },
-      "wrong": []
+      "wrong": [],
+      "screenshot": "momo answer/8E995B13-4D7A-44BC-857C-02493541B5A5_0.jpg"
     },
     "請問圖片中為伊雷蕾和哪個IP聯名?": {
       "text": "請問圖片中為伊雷蕾和哪個IP聯名?",
@@ -3898,7 +3910,8 @@
         {
           "text": "台灣"
         }
-      ]
+      ],
+      "screenshot": "momo answer/328429_0.jpg"
     },
     "哪一個商品名稱叫冰淇淋磨砂膏?": {
       "text": "哪一個商品名稱叫冰淇淋磨砂膏?",
@@ -3922,7 +3935,8 @@
         {
           "text": "4"
         }
-      ]
+      ],
+      "screenshot": "momo answer/532314_0.jpg"
     },
     "哪一之沐浴乳受到gd青睞?": {
       "text": "哪一之沐浴乳受到gd青睞?",
@@ -3987,7 +4001,8 @@
         {
           "text": "6折"
         }
-      ]
+      ],
+      "screenshot": "momo answer/messageImage_1792823051295_0.jpg"
     },
     "請問哪一個是ARIEL洗衣精?": {
       "text": "請問哪一個是ARIEL洗衣精?",
@@ -4081,6 +4096,524 @@
         "text": "凡士林"
       },
       "wrong": []
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle秒OPPO Reno16的代言人是BABYHONSTER": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle秒OPPO Reno16的代言人是BABYHONSTER",
+      "image": "",
+      "screenshot": "momo answer/1026422.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle10:22包新品了請問娜個品牌有優袼雪榚": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle10:22包新品了請問娜個品牌有優袼雪榚",
+      "image": "",
+      "screenshot": "momo answer/1134172_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle18:22UberEats": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle18:22UberEats",
+      "image": "",
+      "screenshot": "momo answer/12327475_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle新品！山Q口：請問墨鏡品牌RAYBAN全": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle新品！山Q口：請問墨鏡品牌RAYBAN全",
+      "image": "",
+      "screenshot": "momo answer/12332828_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle20:28三265新品5": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle20:28三265新品5",
+      "image": "",
+      "screenshot": "momo answer/13154_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "下列何者非李寧 Lining球答錯囉！": {
+      "text": "下列何者非李寧 Lining球答錯囉！",
+      "image": "",
+      "screenshot": "momo answer/1594072_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:12.金Y新品一下列何者非日本服飾飾品": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:12.金Y新品一下列何者非日本服飾飾品",
+      "image": "",
+      "screenshot": "momo answer/1928513_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:27f⋯•新品！ECOFLOW DELTA 3 Max": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:27f⋯•新品！ECOFLOW DELTA 3 Max",
+      "image": "",
+      "screenshot": "momo answer/26446_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle10:40LTE*•哪一系列的Lenovo商用桌機是": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle10:40LTE*•哪一系列的Lenovo商用桌機是",
+      "image": "",
+      "screenshot": "momo answer/3165668_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:13◎必鶏2円D 91%": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:13◎必鶏2円D 91%",
+      "image": "",
+      "screenshot": "momo answer/3477_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle1雙管柜浹日1人延謝日": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle1雙管柜浹日1人延謝日",
+      "image": "",
+      "screenshot": "momo answer/348655.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleOPPO Reno16的代言人是": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleOPPO Reno16的代言人是",
+      "image": "",
+      "screenshot": "momo answer/348689.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle8:14S…新品5請選出PORTER最知名人手": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle8:14S…新品5請選出PORTER最知名人手",
+      "image": "",
+      "screenshot": "momo answer/385526_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle个新品52025年第一名的F1車隊是": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle个新品52025年第一名的F1車隊是",
+      "image": "",
+      "screenshot": "momo answer/3859472_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle←新品5笛森諾": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle←新品5笛森諾",
+      "image": "",
+      "screenshot": "momo answer/3861445_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle←新品5下列何為看看買11/1.11加": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle←新品5下列何為看看買11/1.11加",
+      "image": "",
+      "screenshot": "momo answer/3863644_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle13（請勿重新整理貢面，避免無法遊玩圖中商品主要用途是？": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle13（請勿重新整理貢面，避免無法遊玩圖中商品主要用途是？",
+      "image": "",
+      "screenshot": "momo answer/386506_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle38此冏丽土委切肥翁啊：溫暖身體": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle38此冏丽土委切肥翁啊：溫暖身體",
+      "image": "",
+      "screenshot": "momo answer/38693.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle14:20013.00KB/S": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle14:20013.00KB/S",
+      "image": "",
+      "screenshot": "momo answer/4545_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12-47 日興語 ，QA S5d 67%1新品：": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12-47 日興語 ，QA S5d 67%1新品：",
+      "image": "",
+      "screenshot": "momo answer/5671387_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:13新品5於2026/9/4正式上市的S系": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:13新品5於2026/9/4正式上市的S系",
+      "image": "",
+      "screenshot": "momo answer/572698_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "外接式SSD目前最高容量是幾TB？6TB4TB": {
+      "text": "外接式SSD目前最高容量是幾TB？6TB4TB",
+      "image": "",
+      "screenshot": "momo answer/572745_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle个20:110.••KB/s": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle个20:110.••KB/s",
+      "image": "",
+      "screenshot": "momo answer/573138_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle个22:120.•.新品一": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle个22:120.•.新品一",
+      "image": "",
+      "screenshot": "momo answer/573279_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle←新品5KB/s": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle←新品5KB/s",
+      "image": "",
+      "screenshot": "momo answer/573963_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle倒12:120.••新品一": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle倒12:120.••新品一",
+      "image": "",
+      "screenshot": "momo answer/574080_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle60請問此商品是什麼東西？收納袋": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle60請問此商品是什麼東西？收納袋",
+      "image": "",
+      "screenshot": "momo answer/577055_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle←新品、下列何者非日本UHA味覺糖？": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle←新品、下列何者非日本UHA味覺糖？",
+      "image": "",
+      "screenshot": "momo answer/7758832_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle←僅限緊急通話日 ♪§新品一": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle←僅限緊急通話日 ♪§新品一",
+      "image": "",
+      "screenshot": "momo answer/792188_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle僅限緊急通話日 ♪§新品，（7618:15": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle僅限緊急通話日 ♪§新品，（7618:15",
+      "image": "",
+      "screenshot": "momo answer/792349_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle22:23@.新品，188）": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle22:23@.新品，188）",
+      "image": "",
+      "screenshot": "momo answer/79648_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:21 1f說sa新品-Q LiE1 KeIs": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:21 1f說sa新品-Q LiE1 KeIs",
+      "image": "",
+      "screenshot": "momo answer/83894_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle10:274LINE請問哪個不是台塑生醫醫之": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle10:274LINE請問哪個不是台塑生醫醫之",
+      "image": "",
+      "screenshot": "momo answer/8A8870C4-0138-40B2-8D56-3C76267C98CF_0.png",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle10:26新品，4G+1日75%": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle10:26新品，4G+1日75%",
+      "image": "",
+      "screenshot": "momo answer/91315_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:18新品，4G+1日63%": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:18新品，4G+1日63%",
+      "image": "",
+      "screenshot": "momo answer/92117_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle14:22KB/S）55%": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle14:22KB/S）55%",
+      "image": "",
+      "screenshot": "momo answer/92402_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle2:17新品，46+1日51%": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle2:17新品，46+1日51%",
+      "image": "",
+      "screenshot": "momo answer/92932_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:18新品！KB/s": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:18新品！KB/s",
+      "image": "",
+      "screenshot": "momo answer/95537_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle10:284G+1日93%新品5": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle10:284G+1日93%新品5",
+      "image": "",
+      "screenshot": "momo answer/96105_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle10:17新品5団100%": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle10:17新品5団100%",
+      "image": "",
+      "screenshot": "momo answer/97583_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:19•新品一24.2": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:19•新品一24.2",
+      "image": "",
+      "screenshot": "momo answer/98625_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:18日92%新品，": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:18日92%新品，",
+      "image": "",
+      "screenshot": "momo answer/98720_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle2:17目100%新品！": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle2:17目100%新品！",
+      "image": "",
+      "screenshot": "momo answer/99543_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle14:26日momo知試在請選出不是繪本作品": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle14:26日momo知試在請選出不是繪本作品",
+      "image": "",
+      "screenshot": "momo answer/GCT2AH3.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle个何者為美國廚具用品品牌？NEOFLam": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle个何者為美國廚具用品品牌？NEOFLam",
+      "image": "",
+      "screenshot": "momo answer/IA2drpi.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle10:188三月19新品5": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle10:188三月19新品5",
+      "image": "",
+      "screenshot": "momo answer/IMG_0953.PNG",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:40•1 87，新品了": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:40•1 87，新品了",
+      "image": "",
+      "screenshot": "momo answer/IMG_0956.PNG",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "LEVIS的LOGO是哪一個？S.IAOTSIAaT": {
+      "text": "LEVIS的LOGO是哪一個？S.IAOTSIAaT",
+      "image": "",
+      "screenshot": "momo answer/KFQmRMD.png",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle10:30《 LINE•11 4G 904": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle10:30《 LINE•11 4G 904",
+      "image": "",
+      "screenshot": "momo answer/S__102350931_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:19《 LINE請問此品牌LOGO為何？": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:19《 LINE請問此品牌LOGO為何？",
+      "image": "",
+      "screenshot": "momo answer/S__102359163_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:19ALINE請問Mammut長毛象起源": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:19ALINE請問Mammut長毛象起源",
+      "image": "",
+      "screenshot": "momo answer/S__102359165_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle18:14ALINE●●●": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle18:14ALINE●●●",
+      "image": "",
+      "screenshot": "momo answer/S__102367286_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle10:16ALINE•1 4G80": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle10:16ALINE•1 4G80",
+      "image": "",
+      "screenshot": "momo answer/S__102391824_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle10:394《 Messenger新品一": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle10:394《 Messenger新品一",
+      "image": "",
+      "screenshot": "momo answer/S__116785466_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:38イ《 Messenger圖片中的贈品為看看買哪一門檻的": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:38イ《 Messenger圖片中的贈品為看看買哪一門檻的",
+      "image": "",
+      "screenshot": "momo answer/S__116785469_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:24新品一活力、精神、日常補給": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:24新品一活力、精神、日常補給",
+      "image": "",
+      "screenshot": "momo answer/S__184852517_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:234•01新品一": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:234•01新品一",
+      "image": "",
+      "screenshot": "momo answer/S__184852539.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle10:174新品一最愛健康也愛穿緊身衣品": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle10:174新品一最愛健康也愛穿緊身衣品",
+      "image": "",
+      "screenshot": "momo answer/S__197124132_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle10:281Q口：實體通路「卡多摩嬰童館」": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle10:281Q口：實體通路「卡多摩嬰童館」",
+      "image": "",
+      "screenshot": "momo answer/S__197124154_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:15螢幕錄影螢幕錄影影片已儲存到「照片」": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:15螢幕錄影螢幕錄影影片已儲存到「照片」",
+      "image": "",
+      "screenshot": "momo answer/S__197124208_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:15新品5山Q ：": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:15新品5山Q ：",
+      "image": "",
+      "screenshot": "momo answer/S__36143107_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle14:17三月66新品5": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle14:17三月66新品5",
+      "image": "",
+      "screenshot": "momo answer/S__36159631_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle14:21新品5Canon 在下列哪個領域最具": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle14:21新品5Canon 在下列哪個領域最具",
+      "image": "",
+      "screenshot": "momo answer/S__36159635_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle20:20•N16新品5": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle20:20•N16新品5",
+      "image": "",
+      "screenshot": "momo answer/S__36200766_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle2:144新品！請問Mammut長毛象旳起源": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle2:144新品！請問Mammut長毛象旳起源",
+      "image": "",
+      "screenshot": "momo answer/S__364535812_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle20:204ALINE00l 4G 904": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle20:204ALINE00l 4G 904",
+      "image": "",
+      "screenshot": "momo answer/S__49782789_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle10:114•1 4G新品5": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle10:114•1 4G新品5",
+      "image": "",
+      "screenshot": "momo answer/S__49823747_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:11401 4G 807新品5": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle12:11401 4G 807新品5",
+      "image": "",
+      "screenshot": "momo answer/S__49848323_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle10:37三992新品！": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle10:37三992新品！",
+      "image": "",
+      "screenshot": "momo answer/S__70598660_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle18:11•15G874）": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle18:11•15G874）",
+      "image": "",
+      "screenshot": "momo answer/S__761896962_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle1降低濕度清潔空氣": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle1降低濕度清潔空氣",
+      "image": "",
+      "screenshot": "momo answer/messageImage_1792751755602_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle55秒青回答下列問題T何 avnv逐攻藍莓商品特色？": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle55秒青回答下列問題T何 avnv逐攻藍莓商品特色？",
+      "image": "",
+      "screenshot": "momo answer/messageImage_1792759583501_0.jpg",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle1哪一家不是五星飯店？新竹國賓大飯店": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle1哪一家不是五星飯店？新竹國賓大飯店",
+      "image": "",
+      "screenshot": "momo answer/nh14DlJ.png",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
+    },
+    "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle三星首款有防窺功能的手機型號是？Galaxy $25 Uitra": {
+      "text": "Unable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_td_model_v3_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundleUnable to find a valid E5 in provided path /System/Library/PrivateFrameworks/TextRecognition.framework/Resources/cr_orientation_model_v1_e5.mlmodelc.bundle/. Found bundles : { }. Expected : { H14G.N301.bundle H14G.bundle H14.bundle H14P.bundle H14S.bundle H14C.bundle H14D.bundle universal.bundle jit.bundle }. @ GetE5PathFromCompositeBundle三星首款有防窺功能的手機型號是？Galaxy $25 Uitra",
+      "image": "",
+      "screenshot": "momo answer/uEBZGvx.png",
+      "choices": [],
+      "updated_at": "2026-10-24 17:48:00"
     }
   }
 }
