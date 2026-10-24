@@ -133,9 +133,9 @@
       display: block;
     }
 
-    /* VIEW 1: PRACTICE MODE */
+    /* VIEW 1: PRACTICE MODE (EXACT MOMO IN-GAME LAYOUT) */
     .practice-container {
-      max-width: 840px;
+      max-width: 440px;
       margin: 0 auto;
     }
 
@@ -143,18 +143,18 @@
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 12px 16px;
+      padding: 10px 14px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 16px;
+      gap: 8px;
+      margin-bottom: 12px;
     }
 
     .mode-select-group {
       display: flex;
-      gap: 6px;
+      gap: 4px;
       flex-wrap: wrap;
     }
 
@@ -162,7 +162,7 @@
       background: #ffffff;
       border: 1px solid var(--border);
       color: var(--text-muted);
-      padding: 6px 12px;
+      padding: 4px 10px;
       border-radius: var(--radius);
       cursor: pointer;
     }
@@ -178,79 +178,63 @@
       color: var(--pink);
     }
 
-    .arena-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
+    /* Real Momo Phone Frame Layout */
+    .momo-game-frame {
+      background: #ffffff;
+      border: 1px solid #e5e5e5;
       border-radius: var(--radius);
-      padding: 20px;
+      padding: 20px 16px;
       position: relative;
     }
 
-    .arena-header {
+    .momo-top-banner {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-      flex-wrap: wrap;
-      gap: 10px;
+      align-items: flex-start;
+      border-bottom: 1px solid #f0f0f0;
+      padding-bottom: 12px;
+      margin-bottom: 12px;
     }
 
-    .progress-box {
+    .momo-title-area .game-main-title {
+      color: var(--pink);
+      margin-bottom: 2px;
+    }
+
+    .momo-title-area .game-sub-title {
       color: var(--text-muted);
     }
 
-    .progress-box span {
-      color: var(--text);
-    }
-
-    .live-badges {
-      display: flex;
-      gap: 6px;
-      align-items: center;
-    }
-
-    .badge-streak, .badge-score, .badge-timer {
-      background: #ffffff;
-      border: 1px solid var(--border);
-      padding: 4px 10px;
-      border-radius: var(--radius);
-      color: var(--text);
-    }
-
-    .badge-timer {
-      border-color: var(--pink);
+    .momo-timer-badge {
+      border: 1px solid var(--pink);
       color: var(--pink);
-      min-width: 50px;
-      text-align: center;
-    }
-
-    .progress-bar-wrap {
-      width: 100%;
-      height: 4px;
-      background: #f0f0f0;
+      background: var(--pink-bg);
+      padding: 4px 12px;
       border-radius: var(--radius);
-      margin-bottom: 18px;
-      overflow: hidden;
+      text-align: center;
+      min-width: 60px;
     }
 
-    .progress-bar-fill {
-      height: 100%;
-      background: var(--pink);
-      transition: width 0.2s ease;
-      width: 10%;
+    .momo-rule-tip {
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      line-height: 1.4;
     }
 
-    .question-box {
-      margin-bottom: 18px;
+    .momo-q-heading {
+      color: var(--text-muted);
+      margin-bottom: 6px;
     }
 
-    .question-title-large {
+    .momo-q-text {
       color: var(--text);
       line-height: 1.5;
+      margin-bottom: 14px;
+      min-height: 42px;
     }
 
-    .arena-media {
-      max-height: 360px;
+    .momo-q-img-wrap {
+      max-height: 240px;
       background: #fafafa;
       border: 1px solid var(--border);
       border-radius: var(--radius);
@@ -258,49 +242,30 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 18px;
-      position: relative;
+      margin-bottom: 14px;
       cursor: zoom-in;
     }
 
-    .arena-media img {
-      max-height: 360px;
+    .momo-q-img-wrap img {
+      max-height: 240px;
       width: auto;
       max-width: 100%;
       object-fit: contain;
     }
 
-    .media-zoom-hint {
-      position: absolute;
-      bottom: 8px;
-      right: 8px;
-      background: #ffffff;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      padding: 2px 8px;
-      border-radius: var(--radius);
-      pointer-events: none;
+    /* 4 Momo Answer Slots */
+    .momo-options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
     }
 
-    .arena-options {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 8px;
-      margin-bottom: 18px;
-    }
-
-    @media (min-width: 640px) {
-      .arena-options.type-c-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    .arena-opt-btn {
+    .momo-opt-row {
       background: #ffffff;
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 12px 14px;
-      color: var(--text);
       display: flex;
       align-items: center;
       gap: 12px;
@@ -308,12 +273,12 @@
       text-align: left;
     }
 
-    .arena-opt-btn:hover:not(.disabled) {
-      background: var(--card-hover);
+    .momo-opt-row:hover:not(.disabled) {
       border-color: var(--border-dark);
+      background: #fafafa;
     }
 
-    .opt-key-badge {
+    .momo-num-badge {
       width: 24px;
       height: 24px;
       border-radius: var(--radius);
@@ -326,109 +291,85 @@
       flex-shrink: 0;
     }
 
-    .arena-opt-btn.correct {
+    .momo-opt-content {
+      flex: 1;
+      color: var(--text);
+    }
+
+    .momo-opt-img-thumb {
+      max-height: 120px;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+      display: block;
+      margin: 4px 0;
+    }
+
+    .momo-opt-row.correct {
       background: var(--pink-bg) !important;
       border-color: var(--pink) !important;
       color: var(--pink) !important;
     }
 
-    .arena-opt-btn.correct .opt-key-badge {
+    .momo-opt-row.correct .momo-num-badge {
       background: var(--pink);
       color: #ffffff;
       border-color: var(--pink);
     }
 
-    .arena-opt-btn.wrong {
+    .momo-opt-row.wrong {
       background: #fef2f2 !important;
       border-color: #ef4444 !important;
       color: #dc2626 !important;
     }
 
-    .arena-opt-btn.wrong .opt-key-badge {
+    .momo-opt-row.wrong .momo-num-badge {
       background: #ef4444;
       color: #ffffff;
       border-color: #ef4444;
     }
 
-    .opt-img-box {
-      width: 100%;
-      height: 140px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      border-radius: var(--radius);
-      background: #fafafa;
-      border: 1px solid var(--border);
-      margin-bottom: 6px;
-    }
-
-    .opt-img-box img {
-      max-height: 140px;
-      width: auto;
-      max-width: 100%;
-      object-fit: contain;
-    }
-
-    .arena-feedback {
-      background: #fafafa;
+    /* Momo In-Game Result Bar */
+    .momo-result-banner {
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 12px 16px;
+      background: #fafafa;
+      padding: 12px 14px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .feedback-text {
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .feedback-actions {
-      display: flex;
       gap: 8px;
-      align-items: center;
     }
 
-    .btn-next {
+    .momo-result-text {
+      color: var(--text);
+    }
+
+    .momo-confirm-btn {
+      width: 100%;
       background: var(--pink);
       color: #ffffff;
       border: 1px solid var(--pink);
-      padding: 8px 18px;
+      padding: 12px;
       border-radius: var(--radius);
       cursor: pointer;
+      margin-top: 10px;
+      text-align: center;
     }
 
-    .btn-next:hover {
+    .momo-confirm-btn:hover {
       background: var(--pink-hover);
     }
 
-    .btn-report {
-      background: #ffffff;
-      color: var(--text);
-      border: 1px solid var(--border);
-      padding: 8px 14px;
-      border-radius: var(--radius);
-      cursor: pointer;
-    }
-
-    .btn-report:hover {
-      border-color: var(--border-dark);
-    }
-
-    .summary-card {
+    .momo-summary-wrap {
       text-align: center;
       padding: 30px 16px;
     }
 
-    .summary-score {
+    .momo-summary-score {
       color: var(--pink);
-      margin-bottom: 8px;
+      margin: 8px 0 16px;
     }
 
     /* VIEW 2: BROWSE & REPORT MODE */
@@ -817,10 +758,10 @@
       </div>
 
       <nav class="mode-nav">
-        <button class="nav-btn" data-view="practice" id="btnNavPractice">
+        <button class="nav-btn active" data-view="practice" id="btnNavPractice">
           答題訓練
         </button>
-        <button class="nav-btn active" data-view="browse" id="btnNavBrowse">
+        <button class="nav-btn" data-view="browse" id="btnNavBrowse">
           題庫總覽
         </button>
         <button class="nav-btn" data-view="upload" id="btnNavUpload">
@@ -849,80 +790,80 @@
       </div>
     </div>
 
-    <!-- VIEW 1: PRACTICE MODE -->
-    <section id="viewPractice" class="view-section">
+    <!-- VIEW 1: PRACTICE MODE (EXACT REAL MOMO QUESTION SCREEN) -->
+    <section id="viewPractice" class="view-section active">
       <div class="practice-container">
-        <!-- Practice Filter & Setup -->
+        <!-- Controls Header -->
         <div class="practice-controls">
           <div class="mode-select-group">
             <button class="mode-chip active" data-mode="sprint10">10 題速測</button>
             <button class="mode-chip" data-mode="infinite">自由刷題</button>
-            <button class="mode-chip" data-mode="unverified">專攻待確認題</button>
-            <button class="mode-chip" data-mode="visual">專攻圖片題</button>
-            <button class="mode-chip" data-mode="wrong">錯題複習庫</button>
+            <button class="mode-chip" data-mode="unverified">待確認題</button>
+            <button class="mode-chip" data-mode="visual">圖片題專練</button>
+            <button class="mode-chip" data-mode="wrong">錯題複習</button>
           </div>
           <button class="action-btn" onclick="startNewSession()">重新開始</button>
         </div>
 
-        <!-- Arena Card -->
-        <div class="arena-card" id="arenaCard">
-          <div class="arena-header">
-            <div class="progress-box">
-              第 <span id="arenaIdx">1</span> / <span id="arenaTotal">10</span> 題
+        <!-- Phone In-Game Replica Container -->
+        <div class="momo-game-frame" id="arenaCard">
+          <!-- Top Status Bar -->
+          <div class="momo-top-banner">
+            <div class="momo-title-area">
+              <div class="game-main-title">momo知識王</div>
+              <div class="game-sub-title">天天答題賺$50 · 第 <span id="arenaIdx">1</span> / <span id="arenaTotal">10</span> 題</div>
             </div>
-            <div class="live-badges">
-              <span class="badge-streak" id="arenaStreak">連對 0</span>
-              <span class="badge-score" id="arenaScore">0 分</span>
-              <span class="badge-timer" id="arenaTimer">60s</span>
-            </div>
-          </div>
-
-          <div class="progress-bar-wrap">
-            <div class="progress-bar-fill" id="arenaProgressBar"></div>
-          </div>
-
-          <div class="question-box">
-            <div class="question-title-large" id="arenaQuestionText">題目載入中...</div>
-          </div>
-
-          <!-- Arena Media Box -->
-          <div class="arena-media" id="arenaMediaBox" style="display: none;" onclick="openArenaModal()">
-            <img id="arenaImg" src="" alt="題目截圖">
-            <span class="media-zoom-hint">點擊放大</span>
-          </div>
-
-          <!-- Options Grid -->
-          <div class="arena-options" id="arenaOptionsGrid"></div>
-
-          <!-- Action & Feedback Bar -->
-          <div class="arena-feedback" id="arenaFeedbackBar" style="display: none;">
-            <div class="feedback-text" id="feedbackText"></div>
-            <div class="feedback-actions">
-              <button class="btn-report" id="btnReportFromArena" onclick="reportCorrectChoice()">
-                標記此項為正解
-              </button>
-              <button class="btn-next" id="btnNext" onclick="nextQuestion()">
-                下一題 [Space]
-              </button>
+            <div class="momo-timer-badge">
+              <span id="arenaTimer">60</span> 秒
             </div>
           </div>
+
+          <!-- Official Momo Reminder Text -->
+          <div class="momo-rule-tip">
+            ※遊戲開始時，請勿重新整理頁面，避免無法遊玩
+          </div>
+
+          <!-- Question Section -->
+          <div class="momo-q-heading">請回答下列問題</div>
+          <div class="momo-q-text" id="arenaQuestionText">題目載入中...</div>
+
+          <!-- Question Image if available -->
+          <div class="momo-q-img-wrap" id="arenaMediaBox" style="display: none;" onclick="openArenaModal()">
+            <img id="arenaImg" src="" alt="題目附圖">
+          </div>
+
+          <!-- 4 Options Rows -->
+          <div class="momo-options-list" id="arenaOptionsGrid"></div>
+
+          <!-- Feedback Bar -->
+          <div class="momo-result-banner" id="arenaFeedbackBar" style="display: none;">
+            <div class="momo-result-text" id="feedbackText"></div>
+            <button class="action-btn" id="btnReportFromArena" onclick="reportCorrectChoice()">
+              標記正解
+            </button>
+          </div>
+
+          <!-- Next Button -->
+          <button class="momo-confirm-btn" id="btnNext" style="display: none;" onclick="nextQuestion()">
+            確認答案 (下一題)
+          </button>
         </div>
 
-        <!-- Session Finished Card -->
-        <div class="arena-card summary-card" id="summaryCard" style="display: none;">
-          <div>測驗結束</div>
-          <div class="summary-score" id="summaryScore">100 分</div>
-          <p id="summaryDesc" style="color: var(--text-muted); margin-bottom: 16px;">完成測驗</p>
+        <!-- Game Over Summary -->
+        <div class="momo-game-frame momo-summary-wrap" id="summaryCard" style="display: none;">
+          <div>遊戲結束</div>
+          <div class="momo-summary-score" id="summaryScore">0分</div>
+          <p id="summaryDesc" style="color: var(--text-muted); margin-bottom: 16px;">完成答題</p>
           <div style="display: flex; gap: 8px; justify-content: center;">
-            <button class="btn-next" onclick="startNewSession()">再來一輪</button>
-            <button class="btn-report" onclick="switchNav('browse')">瀏覽完整題庫</button>
+            <button class="action-btn btn-confirm" onclick="startNewSession()">再玩一次</button>
+            <button class="action-btn" onclick="switchNav('browse')">題庫總覽</button>
           </div>
         </div>
       </div>
     </section>
 
     <!-- VIEW 2: BROWSE & REPORT MODE -->
-    <section id="viewBrowse" class="view-section active">
+    <section id="viewBrowse" class="view-section">
       <!-- Toolbar -->
       <div class="toolbar">
         <div class="search-box">
@@ -1095,11 +1036,11 @@
       if (currentPracticeMode === 'sprint10') {
         practiceQueue = pool.slice(0, 10);
         timerSeconds = 60;
-        document.getElementById('arenaTimer').style.display = 'inline-block';
+        document.getElementById('arenaTimer').innerText = timerSeconds;
         startTimer();
       } else {
         practiceQueue = pool;
-        document.getElementById('arenaTimer').style.display = 'none';
+        document.getElementById('arenaTimer').innerText = '--';
       }
 
       practiceIndex = 0;
@@ -1110,10 +1051,10 @@
 
     function startTimer() {
       const timerEl = document.getElementById('arenaTimer');
-      timerEl.innerText = `${timerSeconds}s`;
+      timerEl.innerText = timerSeconds;
       timerInterval = setInterval(() => {
         timerSeconds--;
-        timerEl.innerText = `${timerSeconds}s`;
+        timerEl.innerText = timerSeconds;
         if (timerSeconds <= 0) {
           clearInterval(timerInterval);
           finishSession();
@@ -1130,16 +1071,11 @@
       arenaAnswered = false;
       currentSelectedOpt = null;
       document.getElementById('arenaFeedbackBar').style.display = 'none';
+      document.getElementById('btnNext').style.display = 'none';
 
       const q = practiceQueue[practiceIndex];
       document.getElementById('arenaIdx').innerText = practiceIndex + 1;
       document.getElementById('arenaTotal').innerText = practiceQueue.length;
-      document.getElementById('arenaStreak').innerText = `連對 ${practiceStreak}`;
-      document.getElementById('arenaScore').innerText = `${practiceScore} 分`;
-
-      const pct = Math.round(((practiceIndex + 1) / practiceQueue.length) * 100);
-      document.getElementById('arenaProgressBar').style.width = `${pct}%`;
-
       document.getElementById('arenaQuestionText').innerText = q.text;
 
       const mediaBox = document.getElementById('arenaMediaBox');
@@ -1157,12 +1093,10 @@
       optGrid.innerHTML = '';
 
       let choices = q.choices || [];
-      const hasImgOpts = choices.some(c => c.image);
-      optGrid.className = 'arena-options' + (hasImgOpts ? ' type-c-grid' : '');
 
       if (choices.length === 0) {
         optGrid.innerHTML = `
-          <div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 16px;">
+          <div style="text-align: center; color: var(--text-muted); padding: 16px;">
             本題尚無預設選項文字，請檢視截圖並於下方回報。
           </div>
         `;
@@ -1172,25 +1106,25 @@
       }
 
       choices.forEach((c, i) => {
-        const btn = document.createElement('button');
-        btn.className = 'arena-opt-btn';
-        btn.dataset.idx = i;
+        const row = document.createElement('div');
+        row.className = 'momo-opt-row';
+        row.dataset.idx = i;
 
-        let contentHtml = `<span class="opt-key-badge">${i + 1}</span>`;
+        let contentHtml = `<span class="momo-num-badge">${i + 1}</span>`;
         if (c.image) {
           contentHtml += `
-            <div style="flex: 1;">
-              <div class="opt-img-box"><img src="${c.image}" alt="選項圖片"></div>
+            <div class="momo-opt-content">
+              <img src="${c.image}" alt="選項圖片" class="momo-opt-img-thumb">
               <div>${escapeHtml(c.text || `圖片選項 ${i + 1}`)}</div>
             </div>
           `;
         } else {
-          contentHtml += `<span>${escapeHtml(c.text || `選項 ${i + 1}`)}</span>`;
+          contentHtml += `<div class="momo-opt-content">${escapeHtml(c.text || `選項 ${i + 1}`)}</div>`;
         }
 
-        btn.innerHTML = contentHtml;
-        btn.onclick = () => selectOption(i, c, q);
-        optGrid.appendChild(btn);
+        row.innerHTML = contentHtml;
+        row.onclick = () => selectOption(i, c, q);
+        optGrid.appendChild(row);
       });
     }
 
@@ -1199,8 +1133,8 @@
       arenaAnswered = true;
       currentSelectedOpt = choiceObj;
 
-      const optBtns = document.querySelectorAll('.arena-opt-btn');
-      const chosenBtn = optBtns[idx];
+      const optRows = document.querySelectorAll('.momo-opt-row');
+      const chosenRow = optRows[idx];
 
       const targetText = q.correct ? (q.correct.text || q.correct) : null;
       const targetUuid = q.correct ? q.correct.uuid : null;
@@ -1218,25 +1152,27 @@
       const isUnverified = !q.correct;
 
       if (isCorrect) {
-        chosenBtn.classList.add('correct');
+        chosenRow.classList.add('correct');
         practiceStreak++;
         practiceScore += 10;
-        showFeedback(true, '答對了！+10 分');
+        showFeedback(true, `答對囉！ 答對${practiceStreak}題 +${practiceScore}分`);
       } else if (isUnverified) {
-        chosenBtn.classList.add('correct');
-        showFeedback(null, `已選擇：${choiceObj.text || `選項 ${idx+1}`} (此題待確認)`);
+        chosenRow.classList.add('correct');
+        showFeedback(null, `已選取：${choiceObj.text || `選項 ${idx+1}`} (待確認)`);
       } else {
-        chosenBtn.classList.add('wrong');
+        chosenRow.classList.add('wrong');
         practiceStreak = 0;
         practiceWrongSet.add(q.key);
-        optBtns.forEach((b, i) => {
+        optRows.forEach((r, i) => {
           const c = q.choices[i];
           if (c && targetText && (c.text === targetText || targetText.includes(c.text) || c.text.includes(targetText))) {
-            b.classList.add('correct');
+            r.classList.add('correct');
           }
         });
-        showFeedback(false, `答錯了！正解為：${escapeHtml(targetText || '已標記選項')}`);
+        showFeedback(false, `答錯囉！正解為：${escapeHtml(targetText || '已標記選項')}`);
       }
+
+      document.getElementById('btnNext').style.display = 'block';
     }
 
     function showFeedback(status, msg) {
@@ -1262,8 +1198,8 @@
       clearInterval(timerInterval);
       document.getElementById('arenaCard').style.display = 'none';
       document.getElementById('summaryCard').style.display = 'block';
-      document.getElementById('summaryScore').innerText = `${practiceScore} 分`;
-      document.getElementById('summaryDesc').innerText = `完成測驗，得分：${practiceScore} 分 · 答對 ${practiceScore / 10} 題`;
+      document.getElementById('summaryScore').innerText = `答對 ${practiceScore / 10} 題 +${practiceScore}分`;
+      document.getElementById('summaryDesc').innerText = `本輪測驗結束，累計得分: ${practiceScore} 分`;
     }
 
     async function reportCorrectChoice() {
@@ -1499,9 +1435,9 @@
         if (document.getElementById('viewPractice').classList.contains('active')) {
           if (['1', '2', '3', '4'].includes(e.key)) {
             const idx = parseInt(e.key) - 1;
-            const btns = document.querySelectorAll('.arena-opt-btn');
-            if (btns[idx] && !arenaAnswered) btns[idx].click();
-          } else if (e.code === 'Space') {
+            const rows = document.querySelectorAll('.momo-opt-row');
+            if (rows[idx] && !arenaAnswered) rows[idx].click();
+          } else if (e.code === 'Space' || e.key === 'Enter') {
             e.preventDefault();
             if (arenaAnswered) nextQuestion();
           }
