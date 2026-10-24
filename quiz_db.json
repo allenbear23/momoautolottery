@@ -1581,6 +1581,66 @@
           "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/28094fd0-eecd-43c1-8ad3-13b1cadeecd5.png"
         }
       ]
+    },
+    "捲包床墊的最大優勢是什麼?": {
+      "text": "捲包床墊的最大優勢是什麼?",
+      "image": "",
+      "uuid": "1827df26-febf-4679-98ca-1ae9027c7e01",
+      "choices": [
+        {
+          "uuid": "0175c640-d648-4351-a7f3-9d66eb706546",
+          "text": "厚度特別厚"
+        },
+        {
+          "uuid": "18eb789f-3eb4-4a27-81cb-6a7edcfc90b3",
+          "text": "方便搬運與配送"
+        },
+        {
+          "uuid": "bbcaac7f-c6b3-48a9-9b50-0362a5638227",
+          "text": "容易塌陷"
+        },
+        {
+          "uuid": "fe935548-59ba-47af-96d4-f993978011d8",
+          "text": "隨時可以重新捲起來"
+        }
+      ],
+      "updated_at": "2026-10-24 12:11:01",
+      "correct": {
+        "uuid": "18eb789f-3eb4-4a27-81cb-6a7edcfc90b3",
+        "text": "方便搬運與配送",
+        "image": ""
+      }
+    },
+    "請問下列哪個是出遊解放雙手的好幫手?": {
+      "text": "請問下列哪個是出遊解放雙手的好幫手?",
+      "image": "",
+      "uuid": "52db0698-a4fa-48a0-9ca2-c89d76bd1b24",
+      "choices": [
+        {
+          "uuid": "156c0645-98f8-41c4-87cc-6525072cc0f2",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/020a325d-bc4c-40d9-8785-2e254496c55b.jpg"
+        },
+        {
+          "uuid": "2d6f8444-3f47-4a9d-bed6-e435cd31ed31",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/ead3c955-f8d8-4d29-a5a6-47fa14dab63f.jpg"
+        },
+        {
+          "uuid": "cff6b02b-9738-48ff-aaa6-2db76c57b7d3",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/97e2ffa4-13c6-4b06-936f-168a6a8713c4.jpg"
+        },
+        {
+          "uuid": "d7faa8a6-7188-4eb6-8705-a5b3848a8718",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/bc0bfdab-5167-4aea-adfa-ec60e80463c2.jpg"
+        }
+      ],
+      "updated_at": "2026-10-24 12:11:02",
+      "wrong": [
+        {
+          "uuid": "156c0645-98f8-41c4-87cc-6525072cc0f2",
+          "text": "",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/020a325d-bc4c-40d9-8785-2e254496c55b.jpg"
+        }
+      ]
     }
   }
 }
