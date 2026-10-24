@@ -1027,12 +1027,12 @@ def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = Tr
     total_display_points = (current_points + correct_count) * 10
     print(f"[{datetime.now().strftime('%H:%M:%S')}] {prefix}🏁 答題結束！本場答對: {correct_count} 題，累計積分: {total_display_points} 分")
 
-    # 4. 判斷兌換門檻 (若達到 60 分滿分兌換 $50 mo 點，或 22:11 最後一場達到 >= 30 分)
+    # 4. 判斷兌換門檻 (僅每日最後一場 >= 22:00 時，才兌換可負擔的最佳獎勵)
     prize_claimed = None
     if auto_claim and not has_claimed_today:
         now_hour = datetime.now().hour
         is_last_slot = (now_hour >= 22)
-        should_claim = (total_display_points >= 60) or (is_last_slot and total_display_points >= 30)
+        should_claim = is_last_slot and (total_display_points >= 30)
 
         if should_claim:
             print(f"{prefix}滿足兌換門檻 ({total_display_points}分)，發動兌換獎勵...")
