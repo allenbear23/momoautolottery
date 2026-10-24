@@ -83,6 +83,18 @@ window.QUIZ_DB = {
         },
         {
           "text": "金幣 m 標誌"
+        },
+        {
+          "text": "mo點"
+        },
+        {
+          "text": "奇異果"
+        },
+        {
+          "text": "桃子"
+        },
+        {
+          "text": "mo幣"
         }
       ],
       "correct": {
@@ -184,7 +196,7 @@ window.QUIZ_DB = {
         }
       ],
       "correct": {
-        "text": "選項 1 (漸層運動水壺)"
+        "text": "1"
       },
       "updated_at": "2026-10-23 13:20:00"
     },
@@ -287,7 +299,7 @@ window.QUIZ_DB = {
         }
       ],
       "correct": {
-        "text": "蘭城晶英酒店"
+        "text": "1"
       },
       "wrong": [
         {
@@ -438,10 +450,22 @@ window.QUIZ_DB = {
         },
         {
           "text": "義大利"
+        },
+        {
+          "text": "1加拿大"
+        },
+        {
+          "text": "2美國"
+        },
+        {
+          "text": "3英國"
+        },
+        {
+          "text": "4義大利"
         }
       ],
       "correct": {
-        "text": "瑞士"
+        "text": "1加拿大"
       },
       "updated_at": "2026-10-23 13:20:00",
       "wrong": []
@@ -486,7 +510,7 @@ window.QUIZ_DB = {
         }
       ],
       "correct": {
-        "text": "Nike 勾勾球鞋 (選項 1)"
+        "text": "1"
       },
       "unverified_choice": {
         "text": "選項 4",
@@ -788,6 +812,12 @@ window.QUIZ_DB = {
         },
         {
           "text": "用腳踩"
+        },
+        {
+          "text": "用併的"
+        },
+        {
+          "text": "用腳踩   (疑似正確答案)"
         }
       ],
       "unverified_choice": {
@@ -851,10 +881,13 @@ window.QUIZ_DB = {
         },
         {
           "text": "隨他們去 (THE LET THEM THEORY)"
+        },
+        {
+          "text": "隨他們去 the let them"
         }
       ],
       "correct": {
-        "text": "隨他們去 (THE LET THEM THEORY)"
+        "text": "隨他們去 the let them"
       },
       "unverified_choice": {
         "text": "原子習慣",
@@ -1167,6 +1200,15 @@ window.QUIZ_DB = {
         },
         {
           "text": "機身重量"
+        },
+        {
+          "text": "記憶卡廠牌"
+        },
+        {
+          "text": "相機品牌"
+        },
+        {
+          "text": "機身顏色"
         }
       ],
       "correct": {
@@ -1446,6 +1488,30 @@ window.QUIZ_DB = {
         {
           "uuid": "f755d5dc-fea1-4d6e-b28a-8aa124b74bbe",
           "text": "露得清"
+        },
+        {
+          "text": "Solone"
+        },
+        {
+          "text": "CEZANNE"
+        },
+        {
+          "text": "CLIO"
+        },
+        {
+          "text": "CANMAKE"
+        },
+        {
+          "text": "小珍珍"
+        },
+        {
+          "text": "洪瑞珍"
+        },
+        {
+          "text": "老協珍"
+        },
+        {
+          "text": "台灣小糧口"
         }
       ],
       "updated_at": "2026-10-23 20:11:22",
@@ -1457,7 +1523,7 @@ window.QUIZ_DB = {
         }
       ],
       "correct": {
-        "text": "台糖"
+        "text": "台灣小糧口"
       },
       "screenshot": "momo answer/5670431_0.jpg"
     },
@@ -1481,13 +1547,23 @@ window.QUIZ_DB = {
         {
           "uuid": "c04bafcf-77cc-4a96-abfb-08af395eb130",
           "text": "虎爺"
+        },
+        {
+          "text": "美國隊長"
+        },
+        {
+          "text": "雷神索爾"
+        },
+        {
+          "text": "洛基"
+        },
+        {
+          "text": "鋼鐵人"
         }
       ],
       "updated_at": "2026-10-23 22:11:01",
       "correct": {
-        "uuid": "9ee1f0fb-30cf-4dc0-b44c-f72179ea5371",
-        "text": "白沙屯媽祖",
-        "image": ""
+        "text": "雷神索爾"
       }
     },
     "電視標示「4K」,主要指的是什麼?": {
@@ -2362,9 +2438,7 @@ window.QUIZ_DB = {
       ],
       "updated_at": "2026-10-24 18:11:22",
       "correct": {
-        "uuid": "e1014d1a-e0f7-4b87-9fdc-22daeb967628",
-        "text": "",
-        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/962ec113-0724-41fc-8642-d2862c01ebf1.png"
+        "text": "3"
       },
       "wrong": [],
       "uuid": "a2b4bdc8-0bd3-4544-af9f-0e39d47fd26b"
@@ -2795,6 +2869,9 @@ window.QUIZ_DB = {
         },
         {
           "text": "9元"
+        },
+        {
+          "text": "99元"
         }
       ],
       "updated_at": "2026-10-24 17:20:00",
@@ -4397,6 +4474,9 @@ window.QUIZ_DB = {
         {
           "uuid": "bd0e7716-94d6-4983-923f-8c57153b58ee",
           "text": "FULLY綠番茄泥膜"
+        },
+        {
+          "text": "OBgE自然遮瑕素研雙"
         }
       ],
       "updated_at": "2026-10-24 18:11:12",
@@ -4970,6 +5050,18 @@ window.QUIZ_DB = {
         {
           "uuid": "opt_4",
           "text": "2026/12/12"
+        },
+        {
+          "text": "2026/11/11(三)"
+        },
+        {
+          "text": "2026/6/18(四)"
+        },
+        {
+          "text": "2026/11/1(日)"
+        },
+        {
+          "text": "2026/12/12(六)"
         }
       ],
       "correct": {
@@ -5044,6 +5136,18 @@ window.QUIZ_DB = {
         {
           "uuid": "opt_4",
           "text": "4"
+        },
+        {
+          "text": "1(圖片20TB)"
+        },
+        {
+          "text": "2(圖片X24)"
+        },
+        {
+          "text": "3(圖片30TB)"
+        },
+        {
+          "text": "4(圖片8TB)"
         }
       ],
       "correct": {
@@ -5503,6 +5607,18 @@ window.QUIZ_DB = {
         {
           "uuid": "opt_4",
           "text": "4"
+        },
+        {
+          "text": "1 (魚圖片)"
+        },
+        {
+          "text": "2 (一點絕圖片)"
+        },
+        {
+          "text": "3 (包大人圖片)"
+        },
+        {
+          "text": "4 (貓糧圖片)"
         }
       ],
       "correct": {
