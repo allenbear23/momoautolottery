@@ -901,16 +901,16 @@ def select_answer(question: dict, choices: list, db: dict, gemini_key: str = Non
 
     has_img = bool(question.get("image") or any(c.get("image") for c in candidate_choices))
 
-    # 3. 若為純文字題，優先嘗試極速文字 AI
+    # 3. 優先呼叫 Google Gemini AI 全面解題 (現已備妥 4 組 Key，支援純文字與多模態圖文)
+    gemini_choice_id = query_gemini(q_text, candidate_choices, gemini_key, question.get("image"), target_hint=target_hint)
+    if gemini_choice_id:
+        return gemini_choice_id
+
+    # 4. 次之呼叫 Groq AI 備援 (純文字題)
     if not has_img:
         groq_choice_id = query_groq(q_text, candidate_choices, groq_key)
         if groq_choice_id:
             return groq_choice_id
-
-    # 4. 多模態題優先呼叫 Google Gemini AI (支援 CoT 與 target_hint 提示)
-    gemini_choice_id = query_gemini(q_text, candidate_choices, gemini_key, question.get("image"), target_hint=target_hint)
-    if gemini_choice_id:
-        return gemini_choice_id
 
     # 5. 次之呼叫 OpenRouter AI 備援 (支援題目圖文與型C純圖片選項)
     openrouter_choice_id = query_openrouter(q_text, candidate_choices, openrouter_key, question.get("image"))
