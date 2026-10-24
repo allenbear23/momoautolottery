@@ -384,7 +384,9 @@
         }
       ],
       "correct": {
-        "text": "CHANEL 香奈兒 Chance 圓瓶 (選項 1)"
+        "uuid": "6a298269-13c8-4266-ba53-398096318e6f",
+        "text": "CHANEL 香奈兒 Chance 圓瓶",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/0f5223e7-ff40-42ba-aa4c-d94892c2b3aa.png"
       },
       "updated_at": "2026-10-24 18:11:37",
       "image": "",
