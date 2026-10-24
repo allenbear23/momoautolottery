@@ -107,7 +107,8 @@
       border-radius: 16px !important;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
       border: 1px solid #f0e0ea !important;
-      overflow: hidden !important;
+      overflow: visible !important;
+      padding-bottom: 20px !important;
     }
 
     .Area_knowledgeKing .box {
@@ -119,7 +120,7 @@
     /* 重新計算 vw 單位至 400px 手機尺寸 (1vw ≈ 4px) */
     .Area_knowledgeKing .box_game {
       position: relative !important;
-      padding-bottom: 24px !important;
+      padding-bottom: 10px !important;
     }
 
     .Area_knowledgeKing .box_game-title {
@@ -133,21 +134,22 @@
     }
 
     .Area_knowledgeKing .box_game-question {
-      margin-top: -30px !important;
+      margin-top: -10px !important;
       background-size: 100% auto !important;
     }
 
     .Area_knowledgeKing .box_game-question .box_game-body-top {
       aspect-ratio: auto !important;
-      height: 60px !important;
-      padding: 0 20px !important;
+      height: 64px !important;
+      padding: 0 16px 8px !important;
       display: flex !important;
       align-items: flex-end !important;
+      box-sizing: border-box !important;
     }
 
     .Area_knowledgeKing .box_game-question .box_game-body-top-time {
       width: 90px !important;
-      padding-bottom: 8px !important;
+      padding-bottom: 6px !important;
       display: flex !important;
       align-items: flex-end !important;
       gap: 6px !important;
@@ -169,7 +171,7 @@
     }
 
     .Area_knowledgeKing .box_game-question .box_game-body-top-question {
-      font-size: 18px !important;
+      font-size: 17px !important;
       padding-bottom: 8px !important;
       transform: none !important;
       width: calc(100% - 90px) !important;
@@ -180,23 +182,23 @@
     .Area_knowledgeKing .box_game-question .box_game-body-questions {
       width: calc(100% - 32px) !important;
       height: auto !important;
-      min-height: 380px !important;
-      max-height: 540px !important;
+      min-height: 400px !important;
       border-radius: 20px !important;
       margin: 0 auto !important;
-      padding: 16px 18px 24px !important;
+      padding: 20px 18px 24px !important;
       box-sizing: border-box !important;
-      overflow-y: auto !important;
       background: #ffffff !important;
       display: flex !important;
       flex-direction: column !important;
+      position: relative !important;
     }
 
     .Area_knowledgeKing .box_game-question .box_game-body-questions h4 {
-      font-size: 18px !important;
-      line-height: 1.4 !important;
-      margin: 4px 0 12px 0 !important;
+      font-size: 17px !important;
+      line-height: 1.45 !important;
+      margin: 0 0 14px 0 !important;
       color: #333333 !important;
+      font-weight: 700 !important;
     }
 
     .Area_knowledgeKing .box_game-body-questions-image {
@@ -216,7 +218,7 @@
     .Area_knowledgeKing .box_game-question .box_game-body-questions .questions-list {
       display: grid !important;
       gap: 10px !important;
-      margin: 10px 0 0 !important;
+      margin: 8px 0 0 !important;
       padding: 0 !important;
       list-style: none !important;
     }
@@ -230,6 +232,7 @@
       cursor: pointer !important;
       min-height: 48px !important;
       padding-right: 12px !important;
+      box-sizing: border-box !important;
     }
 
     .Area_knowledgeKing .box_game-question .box_game-body-questions .questions-list li .num {
@@ -282,39 +285,49 @@
     .Area_knowledgeKing .box_game-btn {
       position: relative !important;
       width: 260px !important;
-      margin: 16px auto 0 !important;
+      margin: 18px auto 0 !important;
       bottom: auto !important;
       left: auto !important;
       right: auto !important;
+      z-index: 10 !important;
     }
 
     .Area_knowledgeKing .box_game-btn .KK_btn {
       display: block !important;
-      padding: 10px 0 !important;
+      padding: 12px 0 !important;
       font-size: 17px !important;
+      font-weight: bold !important;
+      color: #ffffff !important;
       border-radius: 30px !important;
       text-align: center !important;
+      background: linear-gradient(180deg, #ff9dc4 0%, #ff6fa8 100%) !important;
       box-shadow: 0 4px 0 #e2578e !important;
+      text-decoration: none !important;
+      cursor: pointer !important;
     }
 
-    /* 答題回饋吉祥物與橫幅 */
+    /* 答題回饋吉祥物與橫幅：預設隱藏，答題後才顯示 */
     .Area_knowledgeKing .box_game-feedback {
+      display: none !important;
       position: relative !important;
-      margin: 12px auto 0 !important;
+      margin: 14px auto 0 !important;
       padding: 10px 14px !important;
       border-radius: 12px !important;
       background: #ffffff !important;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08) !important;
-      display: flex !important;
       align-items: center !important;
       gap: 10px !important;
-      width: calc(100% - 40px) !important;
+      width: calc(100% - 32px) !important;
       box-sizing: border-box !important;
     }
 
+    .Area_knowledgeKing .box_game.is_feedback .box_game-feedback {
+      display: flex !important;
+    }
+
     .Area_knowledgeKing .box_game-feedback-mascot {
-      width: 50px !important;
-      height: 50px !important;
+      width: 48px !important;
+      height: 48px !important;
       object-fit: contain !important;
       flex-shrink: 0 !important;
     }
@@ -848,7 +861,7 @@
           question: {
             uuid: currentQObj.key,
             text: currentQObj.text || currentQObj.key,
-            image: currentQObj.screenshot || currentQObj.image || null
+            image: currentQObj.image || null
           },
           choices: currentQObj.choices.map((c, i) => ({
             uuid: c.uuid || `opt_${i+1}`,
