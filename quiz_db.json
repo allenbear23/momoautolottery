@@ -3345,26 +3345,36 @@
       "image": "",
       "choices": [
         {
-          "text": "1"
+          "uuid": "448041d7-3bf6-4988-93a2-ab8bcb7d4234",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/00689014-6ef0-43a7-aebf-089013d86909.png"
         },
         {
-          "text": "2"
+          "uuid": "4d60c8b7-f3e7-48bb-9a5d-c439ac8c4103",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/ff9ff358-c3c1-49fc-8c15-3f2a05afbfcd.png"
         },
         {
-          "text": "3"
+          "uuid": "7b61f668-b7d2-4f3e-aa23-840a5b13887f",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/2fb14d98-4526-4c25-ab75-6d12a1e2ea02.png"
         },
         {
-          "text": "4"
+          "uuid": "86d24701-80f6-4832-86c6-00fbd7ee8075",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/4b74828b-d480-46d9-9012-5f4718678819.png"
         }
       ],
-      "updated_at": "2026-10-24 17:20:00",
+      "updated_at": "2026-10-24 22:11:29",
       "wrong": [
         {
           "text": "2"
         },
         "2"
       ],
-      "screenshot": "momo answer/messageImage_1792750702099_0.jpg"
+      "screenshot": "momo answer/messageImage_1792750702099_0.jpg",
+      "uuid": "24feb134-e107-40d3-8bc3-3360c336cecb",
+      "correct": {
+        "uuid": "86d24701-80f6-4832-86c6-00fbd7ee8075",
+        "text": "",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/4b74828b-d480-46d9-9012-5f4718678819.png"
+      }
     },
     "請問圖片中哪款是美國探險家行李箱": {
       "text": "請問圖片中哪款是美國探險家行李箱",
@@ -6414,6 +6424,184 @@
       "correct": {
         "text": "4"
       }
+    },
+    "圖片中哪一個是sunflower三花的logo?": {
+      "text": "圖片中哪一個是sunflower三花的logo?",
+      "image": "",
+      "uuid": "54144133-de59-48ae-8e32-b6906cb1d77b",
+      "choices": [
+        {
+          "uuid": "03f09802-54c0-421d-a5ab-27ca23e32f72",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/36869f13-7fb0-4393-8555-7d63184abba1.png"
+        },
+        {
+          "uuid": "8bb0418f-8434-4a5f-b9f9-3cbef181092a",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/e543aa82-aef0-40aa-8445-66e0f076c095.png"
+        },
+        {
+          "uuid": "99f187c1-f527-4c11-bd08-dcebf6b2f258",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/9f5ed55d-0442-4195-9bd5-382ece575a9c.png"
+        },
+        {
+          "uuid": "ec04058f-daf2-4607-a780-dbfb97c918af",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/651803d3-a3f9-4392-b6af-8e7dd9b51dfa.png"
+        }
+      ],
+      "updated_at": "2026-10-24 22:11:06",
+      "correct": {
+        "uuid": "8bb0418f-8434-4a5f-b9f9-3cbef181092a",
+        "text": "",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/e543aa82-aef0-40aa-8445-66e0f076c095.png"
+      }
+    },
+    "圖中商品主要用於哪一種用途?::img_377cfd21-247e-4540-9ba0-c04e6b8fabac.png": {
+      "text": "圖中商品主要用於哪一種用途?",
+      "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/377cfd21-247e-4540-9ba0-c04e6b8fabac.png",
+      "uuid": "bb48f6c9-9eff-4357-9f8e-229d0c9dbeb6",
+      "choices": [
+        {
+          "uuid": "1486be8d-8608-4d0e-a1bc-81c2eb0d2934",
+          "text": "清潔地板"
+        },
+        {
+          "uuid": "217d8c7b-bfab-4181-8b3d-4ffff779a115",
+          "text": "料理食物"
+        },
+        {
+          "uuid": "5b0205c9-0416-4882-9120-70fe232b563a",
+          "text": "個人美容修容"
+        },
+        {
+          "uuid": "6acf2c56-ffae-468a-b7a4-93d6525303c0",
+          "text": "按摩肩頸"
+        }
+      ],
+      "updated_at": "2026-10-24 22:11:14",
+      "correct": {
+        "uuid": "5b0205c9-0416-4882-9120-70fe232b563a",
+        "text": "個人美容修容",
+        "image": ""
+      }
+    },
+    "哪一個是麥當勞LOGO?": {
+      "text": "哪一個是麥當勞LOGO?",
+      "image": "",
+      "uuid": "1ec353f1-0963-4b5c-9904-5da10c87bf14",
+      "choices": [
+        {
+          "uuid": "1502c5ce-53ec-454b-a6eb-279bc710f49a",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/1d8f65bc-3d8a-40ea-ac62-ff2a9d6194da.png"
+        },
+        {
+          "uuid": "8470d14d-6173-4c7e-8f92-ecb88819cf0b",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/07ea3b71-ee78-49c6-a60e-ab12c28abea8.png"
+        },
+        {
+          "uuid": "e417ba17-57bc-49f6-9032-ae0975a1c30e",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/de26ed68-1ac8-4610-828f-e8f016697e6b.png"
+        },
+        {
+          "uuid": "f27e35e6-4ca3-45b4-b9ec-c960f7863612",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/154df233-7b01-43d5-be15-3b11a95c6acf.png"
+        }
+      ],
+      "updated_at": "2026-10-24 22:11:17",
+      "correct": {
+        "uuid": "e417ba17-57bc-49f6-9032-ae0975a1c30e",
+        "text": "",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/de26ed68-1ac8-4610-828f-e8f016697e6b.png"
+      }
+    },
+    "圖中商品最主要的功能是什麼?::img_9818c0dd-70ec-4ed3-894e-8ed92675f8de.png": {
+      "text": "圖中商品最主要的功能是什麼?",
+      "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/9818c0dd-70ec-4ed3-894e-8ed92675f8de.png",
+      "uuid": "75a72c4c-4f9c-40a4-bffd-de6acdffef04",
+      "choices": [
+        {
+          "uuid": "3fe8930f-ff38-409b-bb55-3d6a61ee5306",
+          "text": "降低濕度"
+        },
+        {
+          "uuid": "989da404-afac-4d7f-87c5-67b71dd45ebe",
+          "text": "清潔空氣"
+        },
+        {
+          "uuid": "a3daa8da-3962-4e1d-bc90-826065e4937d",
+          "text": "提高室內溫度"
+        },
+        {
+          "uuid": "a76a26d5-a838-44bd-872f-adbccf0c9eb2",
+          "text": "降低室溫"
+        }
+      ],
+      "updated_at": "2026-10-24 22:11:26",
+      "correct": {
+        "uuid": "a3daa8da-3962-4e1d-bc90-826065e4937d",
+        "text": "提高室內溫度",
+        "image": ""
+      }
+    },
+    "下列哪一台ASUS電競筆電最輕薄": {
+      "text": "下列哪一台ASUS電競筆電最輕薄",
+      "image": "",
+      "uuid": "9c092224-85e7-49e6-8113-862b196651a6",
+      "choices": [
+        {
+          "uuid": "3780dd29-ec32-46d0-8c3a-7a49cf0ae062",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/098dd454-ad7b-4fc5-8f03-fd8b6c94d69e.png"
+        },
+        {
+          "uuid": "5698f24f-9917-44e9-845e-600514e9c83c",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/78210530-5af0-4802-a163-395d613a9d8d.png"
+        },
+        {
+          "uuid": "933ce212-7bb5-467e-9519-928de838dcf5",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/b1b0470a-8d06-419e-a123-cdd07832bf75.png"
+        },
+        {
+          "uuid": "e9cb0155-b124-4937-9212-05429b6756d4",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/689a5e6a-96c4-4e18-8217-7a1ab88cd4f3.png"
+        }
+      ],
+      "updated_at": "2026-10-24 22:11:48",
+      "wrong": [
+        {
+          "uuid": "933ce212-7bb5-467e-9519-928de838dcf5",
+          "text": "",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/b1b0470a-8d06-419e-a123-cdd07832bf75.png"
+        }
+      ]
+    },
+    "LED燈泡最常見的優點是什麼?": {
+      "text": "LED燈泡最常見的優點是什麼?",
+      "image": "",
+      "uuid": "1e4671ff-0b27-4ab4-8ab8-6402e6c55875",
+      "choices": [
+        {
+          "uuid": "2cef7657-bc49-4459-89a2-108ad560e568",
+          "text": "較省電"
+        },
+        {
+          "uuid": "5619231d-44d3-4f2d-a0e8-da583bf1353f",
+          "text": "需要預熱"
+        },
+        {
+          "uuid": "76419473-fc7d-4da4-80e0-e16041aeb0be",
+          "text": "較耗電"
+        },
+        {
+          "uuid": "d8fb5d84-dd6a-4769-8873-a78473b3ce5d",
+          "text": "容易破裂"
+        }
+      ],
+      "updated_at": "2026-10-24 22:11:31",
+      "wrong": [
+        {
+          "uuid": "5619231d-44d3-4f2d-a0e8-da583bf1353f",
+          "text": "需要預熱",
+          "image": ""
+        }
+      ]
     }
   }
 }
