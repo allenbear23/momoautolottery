@@ -542,30 +542,38 @@
       "updated_at": "2026-10-23 13:20:00"
     },
     "以下哪個品牌為plain-me的包款？": {
-      "text": "以下哪個品牌為plain-me的包款？",
+      "text": "以下哪個品牌為plain-me的包款?",
       "screenshot": "momo answer/384970_0.jpg",
       "choices": [
         {
-          "text": "手提雲朵包"
+          "uuid": "19f1352a-1eaa-4c8d-94f4-cad858f3e303",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/7b967006-3d6a-4e53-982c-5e8bcdea1f88.jpg"
         },
         {
-          "text": "JanSport 後背包"
+          "uuid": "2179cc55-819b-48aa-8ff7-2f1c8c7f12ac",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/0a0b5ea3-da5a-4fd8-a4f9-c807aedf24e9.jpg"
         },
         {
-          "text": "plain-me 經典旅行小包 (選項 3)"
+          "uuid": "a7aa319a-0a57-4ce1-80a3-be0ac7c70300",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/3880cc08-2afc-41e9-ab92-1674c6ce4e92.jpg"
         },
         {
-          "text": "刺蝟後背包"
+          "uuid": "cf64b248-a7b0-4931-8c94-2727f7d18ee3",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/d11042aa-c961-4c52-ae24-110d33a0f998.jpg"
         }
       ],
       "correct": {
-        "text": "plain-me 經典旅行小包 (選項 3)"
+        "uuid": "a7aa319a-0a57-4ce1-80a3-be0ac7c70300",
+        "text": "",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/3880cc08-2afc-41e9-ab92-1674c6ce4e92.jpg"
       },
       "unverified_choice": {
         "text": "手提雲朵包",
         "note": "實測選「手提雲朵包」答錯，正確為「plain-me 經典旅行小包 (選項 3)」"
       },
-      "updated_at": "2026-10-23 13:20:00"
+      "updated_at": "2026-10-24 20:11:08",
+      "image": "",
+      "uuid": "609e46b3-06a5-49d1-8f33-1d48ce6352a3"
     },
     "年度mo店+熱銷衛生紙品牌？": {
       "text": "年度mo店+熱銷衛生紙品牌？",
@@ -5522,6 +5530,298 @@
       },
       "wrong": [],
       "updated_at": "2026-10-24 19:07:33"
+    },
+    "哪個品牌有賣年菜商品?": {
+      "text": "哪個品牌有賣年菜商品?",
+      "image": "",
+      "uuid": "15fd3e14-9b0f-4117-b137-531c13685c05",
+      "choices": [
+        {
+          "uuid": "48ab57a6-02e7-444a-9405-c744ce31e142",
+          "text": "以上皆是"
+        },
+        {
+          "uuid": "4f9d60ee-935b-4055-8b2b-9a3fef582be2",
+          "text": "老協珍"
+        },
+        {
+          "uuid": "68a152e9-2e29-4241-906f-3c2b2837fc1b",
+          "text": "寒舍集團"
+        },
+        {
+          "uuid": "8055d344-8251-4863-9e6e-4ad32959bac9",
+          "text": "王品集團"
+        }
+      ],
+      "updated_at": "2026-10-24 20:11:02",
+      "correct": {
+        "uuid": "48ab57a6-02e7-444a-9405-c744ce31e142",
+        "text": "以上皆是",
+        "image": ""
+      }
+    },
+    "奧利塔是賣甚麼的": {
+      "text": "奧利塔是賣甚麼的",
+      "image": "",
+      "uuid": "422aa388-43b2-4198-b431-c8d47f300c43",
+      "choices": [
+        {
+          "uuid": "ae40f018-3799-4191-a378-5bdacc9da214",
+          "text": "芭樂"
+        },
+        {
+          "uuid": "bb9342aa-193f-46ba-b47c-053dad4ae472",
+          "text": "進口油"
+        },
+        {
+          "uuid": "bf64a552-e4ab-46c7-a25c-d9a453a514cc",
+          "text": "水餃"
+        },
+        {
+          "uuid": "f3992897-ae17-491d-8f3f-abc26ba6353f",
+          "text": "蒜頭"
+        }
+      ],
+      "updated_at": "2026-10-24 20:11:04",
+      "wrong": [
+        {
+          "uuid": "f3992897-ae17-491d-8f3f-abc26ba6353f",
+          "text": "蒜頭",
+          "image": ""
+        }
+      ]
+    },
+    "下列哪個商品蘭蔻沒有?": {
+      "text": "下列哪個商品蘭蔻沒有?",
+      "image": "",
+      "uuid": "5c2580ae-1cf0-48e7-9708-75f9fa6ba2c1",
+      "choices": [
+        {
+          "uuid": "1562d002-469b-44ff-aad3-dfe3c30e2509",
+          "text": "鍋子"
+        },
+        {
+          "uuid": "94d2ac26-7a2d-4536-9da8-b0843e897537",
+          "text": "小黑瓶PRO"
+        },
+        {
+          "uuid": "9c9e83c2-ea6a-4259-a781-fade6158f00b",
+          "text": "抗皺筆"
+        },
+        {
+          "uuid": "b963ce10-f224-43f9-a700-7b748cb744e2",
+          "text": "小黑水"
+        }
+      ],
+      "updated_at": "2026-10-24 20:11:09",
+      "correct": {
+        "uuid": "1562d002-469b-44ff-aad3-dfe3c30e2509",
+        "text": "鍋子",
+        "image": ""
+      }
+    },
+    "請問知本金聯世紀酒店最著名的特色為何?::img_9a7b26a4-00dc-4472-aea4-af59829324d3.jpg": {
+      "text": "請問知本金聯世紀酒店最著名的特色為何?",
+      "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/9a7b26a4-00dc-4472-aea4-af59829324d3.jpg",
+      "uuid": "2950a8e0-9f2b-4c91-bffb-a82d7b15ab22",
+      "choices": [
+        {
+          "uuid": "2114901c-1b60-4a58-abf3-04d9a17bc692",
+          "text": "樂園設施"
+        },
+        {
+          "uuid": "704b2385-70a4-4d9e-99de-cf50399eb8ce",
+          "text": "海景渡假"
+        },
+        {
+          "uuid": "d6b34b20-bf67-4f08-9f62-c768c3e601ee",
+          "text": "溫泉住宿"
+        },
+        {
+          "uuid": "e99e5b65-9637-4a41-ad95-a36787a53113",
+          "text": "滑雪活動"
+        }
+      ],
+      "updated_at": "2026-10-24 20:11:18",
+      "correct": {
+        "uuid": "d6b34b20-bf67-4f08-9f62-c768c3e601ee",
+        "text": "溫泉住宿",
+        "image": ""
+      }
+    },
+    "請問此商品能補充到哪些保健精華?::img_a0c8aeaf-99a8-4dd6-8b92-3d9e54e99506.png": {
+      "text": "請問此商品能補充到哪些保健精華?",
+      "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/a0c8aeaf-99a8-4dd6-8b92-3d9e54e99506.png",
+      "uuid": "471bc41d-e773-4389-8b8c-6924024d01f5",
+      "choices": [
+        {
+          "uuid": "05d91b13-e63c-4e2a-8f8d-3fecd32271d9",
+          "text": "優蛋白"
+        },
+        {
+          "uuid": "0da1616e-3c01-4c89-9712-f4c2774e5caf",
+          "text": "以上皆是"
+        },
+        {
+          "uuid": "b2204407-2253-448b-8b6a-de0a4d583121",
+          "text": "UCII"
+        },
+        {
+          "uuid": "bc9ab2e5-d1a3-4104-9277-a369ed66baa5",
+          "text": "魚油"
+        }
+      ],
+      "updated_at": "2026-10-24 20:11:24",
+      "correct": {
+        "uuid": "0da1616e-3c01-4c89-9712-f4c2774e5caf",
+        "text": "以上皆是",
+        "image": ""
+      }
+    },
+    "我是誰?::img_9df75403-d3f1-4dea-acd4-3094f5882455.png": {
+      "text": "我是誰?",
+      "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/9df75403-d3f1-4dea-acd4-3094f5882455.png",
+      "uuid": "a919aaae-8d84-4f81-b22f-8441475fd7cc",
+      "choices": [
+        {
+          "uuid": "0a6da377-8c24-498b-835d-aca4fa20863b",
+          "text": "撞球桌"
+        },
+        {
+          "uuid": "50f9ecf8-c277-40f6-a02c-2c3c923311d9",
+          "text": "電動麻將桌"
+        },
+        {
+          "uuid": "b5897b01-a79f-4436-8635-bdd7bd8949fa",
+          "text": "徐老師"
+        },
+        {
+          "uuid": "fd9ae971-e08d-4006-aaa0-7de7ed5586e4",
+          "text": "桌球桌"
+        }
+      ],
+      "updated_at": "2026-10-24 20:11:32",
+      "correct": {
+        "uuid": "50f9ecf8-c277-40f6-a02c-2c3c923311d9",
+        "text": "電動麻將桌",
+        "image": ""
+      }
+    },
+    "哪個內衣品牌是CALVIN KLEIN?": {
+      "text": "哪個內衣品牌是CALVIN KLEIN?",
+      "image": "",
+      "uuid": "206e9607-52b8-4f41-a5f1-8ea1887f2da3",
+      "choices": [
+        {
+          "uuid": "60e92413-91f0-47b8-8987-532b64aa00e3",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/e7d3188a-7bc0-4ceb-882a-d337aaaf5007.jpg"
+        },
+        {
+          "uuid": "92066b97-9b18-4786-ba9b-2f405c2e5698",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/eae315aa-3dc4-41d2-b869-610f517c794e.jpg"
+        },
+        {
+          "uuid": "bf7f9747-dee8-4051-910e-602a7eeb779b",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/e17bfd4e-7ece-45e8-8ab3-d71f812de25b.jpg"
+        },
+        {
+          "uuid": "c9b5151b-553c-468a-a3a1-d2a4078441b6",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/c1be255c-2854-462b-ae11-6fd0475457c1.jpg"
+        }
+      ],
+      "updated_at": "2026-10-24 20:11:41",
+      "correct": {
+        "uuid": "bf7f9747-dee8-4051-910e-602a7eeb779b",
+        "text": "",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/e17bfd4e-7ece-45e8-8ab3-d71f812de25b.jpg"
+      }
+    },
+    "夜酵素什麼時候吃?::img_64bbe7f4-ab66-48ee-b1c6-17aa3cffbce9.png": {
+      "text": "夜酵素什麼時候吃?",
+      "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/64bbe7f4-ab66-48ee-b1c6-17aa3cffbce9.png",
+      "uuid": "6c2de78d-7844-4b13-b0ba-efa236577c6f",
+      "choices": [
+        {
+          "uuid": "17c0b45c-5768-489a-b64f-5b9d50890987",
+          "text": "起床就吃"
+        },
+        {
+          "uuid": "5ec579f0-177c-4e2e-842d-ddb2c38d4ab1",
+          "text": "早餐後吃"
+        },
+        {
+          "uuid": "a2e98d14-dab8-4191-9fb5-2014fba538e4",
+          "text": "睡覺前吃"
+        },
+        {
+          "uuid": "baac7a86-baa6-43f8-ad15-cef370af485c",
+          "text": "午餐後吃"
+        }
+      ],
+      "updated_at": "2026-10-24 20:11:48",
+      "correct": {
+        "uuid": "a2e98d14-dab8-4191-9fb5-2014fba538e4",
+        "text": "睡覺前吃",
+        "image": ""
+      }
+    },
+    "請問水潤極光EX12000代言人是誰?::img_81cae491-1281-440f-90cc-0d9bf25a2268.png": {
+      "text": "請問水潤極光EX12000代言人是誰?",
+      "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/81cae491-1281-440f-90cc-0d9bf25a2268.png",
+      "uuid": "0197f302-a87e-4907-9510-bb7f5ae4095e",
+      "choices": [
+        {
+          "uuid": "3b26a4e0-d87b-4202-9d2c-834a1c1617e8",
+          "text": "好心亞"
+        },
+        {
+          "uuid": "42d0ee0d-f85b-4cc1-a35f-6656c1728361",
+          "text": "粗心亞"
+        },
+        {
+          "uuid": "5dee0683-4e54-47b2-80e1-7092756e24bc",
+          "text": "擔心亞"
+        },
+        {
+          "uuid": "af1bede7-6cf7-4385-97f5-30dbf10cce59",
+          "text": "安心亞"
+        }
+      ],
+      "updated_at": "2026-10-24 20:11:57",
+      "correct": {
+        "uuid": "af1bede7-6cf7-4385-97f5-30dbf10cce59",
+        "text": "安心亞",
+        "image": ""
+      }
+    },
+    "猜猜哪一個是王品集團的「聚日式鍋物」?": {
+      "text": "猜猜哪一個是王品集團的「聚日式鍋物」?",
+      "image": "",
+      "uuid": "769ffd62-ab62-42e9-b824-68c64e19af2f",
+      "choices": [
+        {
+          "uuid": "147e2690-eb7c-4374-9224-5ed6a9075969",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/99052b78-b332-425c-8340-ab36c8957aaf.png"
+        },
+        {
+          "uuid": "4f6fcad0-7e72-4bc3-a2af-9a1b249fb9a4",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/1eae9fe0-f7b8-49e8-9ece-10bded92b282.png"
+        },
+        {
+          "uuid": "9e0a262e-5eb1-4c67-a2c9-17b21de76acc",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/f95c469a-c506-4b7a-936e-d8f0b07cc7a5.png"
+        },
+        {
+          "uuid": "e2d0e042-b1dd-406d-a028-ce447c226029",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/fe9acbbb-d890-473e-bb58-591fe9f5bb78.png"
+        }
+      ],
+      "updated_at": "2026-10-24 20:12:08",
+      "unverified_choice": {
+        "uuid": "147e2690-eb7c-4374-9224-5ed6a9075969",
+        "text": "",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/99052b78-b332-425c-8340-ab36c8957aaf.png"
+      }
     }
   }
 }
