@@ -327,13 +327,13 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
     if has_choice_images or question_image:
         cot_instruction = (
             "【解題要求 (請務必遵照)】：\n"
-            "1. 請先仔細觀察並依序描述各選項圖片（或題目附圖）中的商品名稱、包裝印字、商標或用途特徵。\n"
+            "1. 請先仔細觀察並簡要描述各選項圖片（或題目附圖）中的商品名稱、包裝印字、商標或用途特徵。\n"
             "2. 依據題目問題進行比對分析，指出何者最符合題目要求。\n"
-            "3. 請在回答的最末行，只輸出最正確選項的編號數字 (例如 1, 2, 3 或 4)。"
+            "3. 請在回答的最末行，明確輸出格式：『最終結論：選項 X』(X 為 1, 2, 3 或 4)。"
         )
     else:
         cot_instruction = (
-            "請直接分析最正確的選項，並在回答的最末行只輸出正確選項的編號數字 (例如 1, 2, 3 或 4)。"
+            "請直接分析最正確的選項，並在回答的最末行明確輸出格式：『最終結論：選項 X』(X 為 1, 2, 3 或 4)。"
         )
 
     prompt = (
@@ -380,7 +380,7 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
                 "contents": [{"parts": parts}],
                 "generationConfig": {
                     "temperature": 0.0,
-                    "maxOutputTokens": 600
+                    "maxOutputTokens": 1200
                 }
             }
             data = json.dumps(payload).encode("utf-8")
@@ -395,18 +395,26 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
                         text_out = " ".join(non_thought).strip() if non_thought else " ".join(p.get("text", "") for p in parts_list).strip()
                         print(f"[{model}] 回傳內容:\n{text_out}")
 
-                        # 1. 優先從最後一行提取結論數字
+                        # 1. 優先從「結論：選項 X」或「答案：X」精確提取
+                        m_target = re.search(r'(?:最終結論|結論|正解|答案)[^\n]*?(?:選項\s*|選\s*)?([1-9])\b', text_out)
+                        if m_target:
+                            idx = int(m_target.group(1)) - 1
+                            if 0 <= idx < len(choices):
+                                print(f"[{model}] 精確結論提取選項: {idx+1}. {choices[idx].get('text') or choices[idx].get('uuid')}")
+                                return choices[idx]["uuid"]
+
+                        # 2. 次選：從倒數行提取單獨存在的編號
                         lines = [ln.strip() for ln in text_out.splitlines() if ln.strip()]
                         if lines:
-                            for ln in reversed(lines):
-                                m = re.search(r'\b([1-9])\b', ln)
+                            for ln in reversed(lines[-3:]):
+                                m = re.search(r'^(?:選項\s*)?([1-9])$', ln)
                                 if m:
                                     idx = int(m.group(1)) - 1
                                     if 0 <= idx < len(choices):
-                                        print(f"[{model}] 結論提取選項: {idx+1}. {choices[idx].get('text') or choices[idx].get('uuid')}")
+                                        print(f"[{model}] 倒數行提取選項: {idx+1}. {choices[idx].get('text') or choices[idx].get('uuid')}")
                                         return choices[idx]["uuid"]
 
-                        # 2. 全文關鍵字比對
+                        # 3. 全文關鍵字比對
                         for idx, c in enumerate(choices):
                             if c.get("text") and c.get("text") in text_out:
                                 print(f"[{model}] 命中關鍵字: {c.get('text')}")

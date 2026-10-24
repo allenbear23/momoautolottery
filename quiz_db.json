@@ -756,7 +756,10 @@
         "text": "水管",
         "note": "實測選「水管」答錯，請選澆水器/灑水壺"
       },
-      "updated_at": "2026-10-23 13:20:00"
+      "updated_at": "2026-10-23 13:20:00",
+      "correct": {
+        "text": "澆水壺 / 灑水壺"
+      }
     },
     "樂高怎麼玩？": {
       "text": "樂高怎麼玩？",
@@ -2130,7 +2133,10 @@
           "text": "紅色"
         }
       ],
-      "screenshot": "momo answer/5670498_0.jpg"
+      "screenshot": "momo answer/5670498_0.jpg",
+      "correct": {
+        "text": "紅色"
+      }
     },
     "請問這是哪家出版社?": {
       "text": "請問這是哪家出版社?",
@@ -2155,7 +2161,10 @@
           "text": "商周出版社"
         }
       ],
-      "screenshot": "momo answer/5670497_0.jpg"
+      "screenshot": "momo answer/5670497_0.jpg",
+      "correct": {
+        "text": "商周出版"
+      }
     },
     "請問這是哪一款雙11爆品?": {
       "text": "請問這是哪一款雙11爆品?",
@@ -2264,13 +2273,18 @@
           "text": "4"
         }
       ],
-      "updated_at": "2026-10-24 17:20:00",
+      "updated_at": "2026-10-24 18:03:46",
       "wrong": [
         {
           "text": "1"
         }
       ],
-      "screenshot": "momo answer/810586_0.jpg"
+      "screenshot": "momo answer/810586_0.jpg",
+      "correct": {
+        "text": "3",
+        "uuid": "",
+        "image": ""
+      }
     },
     "請問哪個不是台塑生醫醫之方舒暢益生菌的特色?": {
       "text": "請問哪個不是台塑生醫醫之方舒暢益生菌的特色?",

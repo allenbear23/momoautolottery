@@ -2243,13 +2243,18 @@ window.QUIZ_DATA = {
           "text": "4"
         }
       ],
-      "updated_at": "2026-10-24 17:20:00",
+      "updated_at": "2026-10-24 18:03:46",
       "wrong": [
         {
           "text": "1"
         }
       ],
-      "screenshot": "momo answer/810586_0.jpg"
+      "screenshot": "momo answer/810586_0.jpg",
+      "correct": {
+        "text": "3",
+        "uuid": "",
+        "image": ""
+      }
     },
     "請問哪個不是台塑生醫醫之方舒暢益生菌的特色?": {
       "text": "請問哪個不是台塑生醫醫之方舒暢益生菌的特色?",
