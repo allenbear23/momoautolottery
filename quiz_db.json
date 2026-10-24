@@ -1521,6 +1521,66 @@
           "image": ""
         }
       ]
+    },
+    "請問這是pony effect的哪一款明星商品?::img_6a10375d-3325-4980-ad66-6c8cda8ff6f5.png": {
+      "text": "請問這是pony effect的哪一款明星商品?",
+      "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/6a10375d-3325-4980-ad66-6c8cda8ff6f5.png",
+      "uuid": "eb3f167e-c2ec-4514-be66-984298673d83",
+      "choices": [
+        {
+          "uuid": "40b7cafc-6208-46ed-967e-bc27c14913d8",
+          "text": "小金磚氣墊"
+        },
+        {
+          "uuid": "533d11a7-16d6-47f0-8b7b-d2bd5992ee7c",
+          "text": "絕對持久定妝噴霧"
+        },
+        {
+          "uuid": "d09637d7-37db-4853-97cc-c6df43d9a536",
+          "text": "水透光妝前乳"
+        },
+        {
+          "uuid": "f6c40b0a-5358-4072-bd11-8ed22e893a65",
+          "text": "絕對持久柔焦蜜粉"
+        }
+      ],
+      "updated_at": "2026-10-24 10:11:01",
+      "correct": {
+        "uuid": "d09637d7-37db-4853-97cc-c6df43d9a536",
+        "text": "水透光妝前乳",
+        "image": ""
+      }
+    },
+    "請問最近韓國女星都在瘋什麼?": {
+      "text": "請問最近韓國女星都在瘋什麼?",
+      "image": "",
+      "uuid": "7a156dec-9122-4652-8991-dadb92740393",
+      "choices": [
+        {
+          "uuid": "6d4125c7-ee8a-4537-bdbf-206fdffe1d38",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/b602821a-ee8c-4811-b7b8-9c1bf1d2243e.png"
+        },
+        {
+          "uuid": "a39dacb8-8a19-408d-bb23-a711370dff24",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/4dd38c80-d894-4ec6-9e5c-dad7268b85af.png"
+        },
+        {
+          "uuid": "aa0c6185-8bb1-4ea8-a60d-820d88d9975e",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/28094fd0-eecd-43c1-8ad3-13b1cadeecd5.png"
+        },
+        {
+          "uuid": "e68d0d04-b9da-4b40-b0f4-e4a151f84bc6",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/35f42aad-8b81-4ac0-a740-2f26005e757b.png"
+        }
+      ],
+      "updated_at": "2026-10-24 10:11:08",
+      "wrong": [
+        {
+          "uuid": "aa0c6185-8bb1-4ea8-a60d-820d88d9975e",
+          "text": "",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/28094fd0-eecd-43c1-8ad3-13b1cadeecd5.png"
+        }
+      ]
     }
   }
 }
