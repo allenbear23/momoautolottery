@@ -5585,11 +5585,12 @@
       "updated_at": "2026-10-24 20:11:04",
       "wrong": [
         {
-          "uuid": "f3992897-ae17-491d-8f3f-abc26ba6353f",
-          "text": "蒜頭",
-          "image": ""
+          "text": "蒜頭"
         }
-      ]
+      ],
+      "correct": {
+        "text": "進口油"
+      }
     },
     "下列哪個商品蘭蔻沒有?": {
       "text": "下列哪個商品蘭蔻沒有?",
@@ -5820,6 +5821,10 @@
       "unverified_choice": {
         "uuid": "147e2690-eb7c-4374-9224-5ed6a9075969",
         "text": "",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/99052b78-b332-425c-8340-ab36c8957aaf.png"
+      },
+      "correct": {
+        "uuid": "147e2690-eb7c-4374-9224-5ed6a9075969",
         "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/99052b78-b332-425c-8340-ab36c8957aaf.png"
       }
     }

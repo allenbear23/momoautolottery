@@ -255,6 +255,9 @@ def get_gemini_api_keys(api_key: str = None) -> list:
     return keys
 
 
+MODEL_RATE_LIMITED = {}
+
+
 def query_gemini(question_text: str, choices: list, api_key: str = None, question_image: str = None, target_hint: str = None) -> str:
     """利用 Google Gemini API 進行即時智能判題 (支援圖文多模態、思維鏈 CoT 與題庫輔助提示)"""
     keys = get_gemini_api_keys(api_key)
@@ -372,8 +375,13 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
         "gemini-3-flash-preview"
     ]
 
+    now_t = time.time()
     for key in keys:
         for model in models:
+            # 若該模型剛觸發 429 限流，自動跳過進入下一備援模型，防止浪費 60s 倒數時間
+            if now_t < MODEL_RATE_LIMITED.get(model, 0):
+                continue
+
             url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={key}"
             payload = {
                 "contents": [{"parts": parts}],
@@ -385,7 +393,7 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
             data = json.dumps(payload).encode("utf-8")
             req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"}, method="POST")
             try:
-                with urllib.request.urlopen(req, timeout=7.0) as resp:
+                with urllib.request.urlopen(req, timeout=6.5) as resp:
                     result = json.loads(resp.read().decode("utf-8"))
                     candidates = result.get("candidates", [])
                     if candidates:
@@ -418,6 +426,11 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
                             if c.get("text") and c.get("text") in text_out:
                                 print(f"[{model}] 命中關鍵字: {c.get('text')}")
                                 return c["uuid"]
+            except urllib.error.HTTPError as e:
+                if e.code == 429:
+                    MODEL_RATE_LIMITED[model] = time.time() + 75
+                    print(f"[{model}] 觸發 429 限流，自動冷卻 75 秒並無縫切換備援模型")
+                continue
             except Exception:
                 continue
 
@@ -464,7 +477,7 @@ def query_groq(question_text: str, choices: list, api_key: str = None, question_
     if any(neg in question_text for neg in ("沒有", "不是", "非", "何者不", "不包含", "未包含", "無")):
         neg_warn = "⚠️【重要警告：本題為反向/否定題，請選出『不包含 / 沒有』的選項！】\n\n"
 
-    prompt = f"""請以 momo 雙11官方背景與常識知識庫為準，判斷這道題目的正確答案。
+    prompt = f"""請以台灣 momo 購物網活動與日常生活常見商品常識為準，判斷這道題目的正確答案。
 
 {MOMO_COMPACT_CONTEXT}
 
@@ -472,11 +485,11 @@ def query_groq(question_text: str, choices: list, api_key: str = None, question_
 【選項清單】：
 {options_str}
 
-【重要規則】：
-1. 答案必須是選項清單中的其中一個。
-2. 請直接輸出正確選項的數字編號（例如只輸出 1 或 2 或 3 或 4），不要輸出多餘的問候語或思考過程。"""
+【作答規則】：
+1. 請先寫一句簡短分析各選項。
+2. 最後一行請務必輸出：『最終結論：選項 X』(X 為 1, 2, 3 或 4)。"""
 
-    models = ["qwen/qwen3.8-27b", "openai/gpt-oss-120b"]
+    models = ["llama-3.3-70b-versatile", "llama-3.1-8b-instant", "qwen/qwen3.8-27b"]
     url = "https://api.groq.com/openai/v1/chat/completions"
 
     for model in models:
@@ -484,7 +497,7 @@ def query_groq(question_text: str, choices: list, api_key: str = None, question_
             "model": model,
             "messages": [{"role": "user", "content": prompt}],
             "temperature": 0.0,
-            "max_tokens": 50
+            "max_tokens": 120
         }
         data = json.dumps(payload).encode("utf-8")
         req = urllib.request.Request(
@@ -498,9 +511,16 @@ def query_groq(question_text: str, choices: list, api_key: str = None, question_
             method="POST"
         )
         try:
-            with urllib.request.urlopen(req, timeout=2.5) as resp:
+            with urllib.request.urlopen(req, timeout=3.0) as resp:
                 res = json.loads(resp.read().decode("utf-8"))
                 text_out = res["choices"][0]["message"]["content"].strip()
+                m_target = re.search(r'(?:最終結論|結論|正解|答案)[^\n]*?(?:選項\s*|選\s*)?([1-9])\b', text_out)
+                if m_target:
+                    idx = int(m_target.group(1)) - 1
+                    if 0 <= idx < len(choices):
+                        print(f"[Groq AI ({model})] 結論解析選項: {idx+1}. {choices[idx].get('text')}")
+                        return choices[idx]["uuid"]
+
                 m = re.search(r'\b([1-9])\b', text_out)
                 if m:
                     idx = int(m.group(1)) - 1
@@ -517,7 +537,6 @@ def query_groq(question_text: str, choices: list, api_key: str = None, question_
                 break
             continue
         except Exception:
-            continue
             continue
 
     return None
