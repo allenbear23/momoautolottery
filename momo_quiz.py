@@ -326,13 +326,13 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
 
     if has_choice_images or question_image:
         cot_instruction = (
-            "【解題要求 (限短句快速推論)】：\n"
-            "1. 每個選項請用一句話（不超過15字）極簡標註商品或品牌名稱。\n"
-            "2. 最末行明確輸出格式：『最終結論：選項 X』(X 為 1, 2, 3 或 4)。"
+            "【解題要求 (結論優先，防止截斷)】：\n"
+            "1. 第一行請直接輸出最終答案，格式必須為：『最終結論：選項 X』(X 為 1, 2, 3 或 4)。\n"
+            "2. 第二行起再簡要列出各選項商品的辨識特徵。"
         )
     else:
         cot_instruction = (
-            "請快速判斷，並在最末行明確輸出格式：『最終結論：選項 X』(X 為 1, 2, 3 或 4)。"
+            "第一行請直接輸出格式：『最終結論：選項 X』(X 為 1, 2, 3 或 4)。"
         )
 
     prompt = (
@@ -379,13 +379,13 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
                 "contents": [{"parts": parts}],
                 "generationConfig": {
                     "temperature": 0.0,
-                    "maxOutputTokens": 300
+                    "maxOutputTokens": 800
                 }
             }
             data = json.dumps(payload).encode("utf-8")
             req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"}, method="POST")
             try:
-                with urllib.request.urlopen(req, timeout=4.5) as resp:
+                with urllib.request.urlopen(req, timeout=7.0) as resp:
                     result = json.loads(resp.read().decode("utf-8"))
                     candidates = result.get("candidates", [])
                     if candidates:
