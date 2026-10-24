@@ -285,7 +285,7 @@
     .Area_knowledgeKing .box_game-btn {
       position: relative !important;
       width: 260px !important;
-      margin: 18px auto 0 !important;
+      margin: 18px auto 14px !important;
       bottom: auto !important;
       left: auto !important;
       right: auto !important;
@@ -304,38 +304,79 @@
       box-shadow: 0 4px 0 #e2578e !important;
       text-decoration: none !important;
       cursor: pointer !important;
+      outline: none !important;
+      border: none !important;
     }
 
-    /* 答題回饋吉祥物與橫幅：預設隱藏，答題後才顯示 */
+    .Area_knowledgeKing .box_game-btn .KK_btn:focus,
+    .Area_knowledgeKing .box_game-btn .KK_btn:active {
+      outline: none !important;
+      border: none !important;
+    }
+
+    /* 隱藏漂浮在卡片外的官方綠色底波浪裝飾 */
+    .Area_knowledgeKing .box::after {
+      display: none !important;
+    }
+
+    /* 答題回饋吉祥物與橫幅：預設隱藏，答題後才在卡片下方顯示完整橫幅 */
     .Area_knowledgeKing .box_game-feedback {
       display: none !important;
       position: relative !important;
+      width: 280px !important;
       margin: 14px auto 0 !important;
-      padding: 10px 14px !important;
-      border-radius: 12px !important;
-      background: #ffffff !important;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08) !important;
-      align-items: center !important;
-      gap: 10px !important;
-      width: calc(100% - 32px) !important;
+      padding: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      border: none !important;
       box-sizing: border-box !important;
     }
 
     .Area_knowledgeKing .box_game.is_feedback .box_game-feedback {
-      display: flex !important;
+      display: block !important;
     }
 
+    .Area_knowledgeKing .box_game.is_feedback .box_game-body-questions {
+      padding-bottom: 20px !important;
+    }
+
+    /* 橫幅完整尺寸呈現 (785x270 原始比例) */
     .Area_knowledgeKing .box_game-feedback-mascot {
-      width: 48px !important;
-      height: 48px !important;
-      object-fit: contain !important;
-      flex-shrink: 0 !important;
+      width: 100% !important;
+      height: auto !important;
+      display: block !important;
+      margin: 0 auto !important;
     }
 
+    /* 答對時的字樣定位在橫幅對話框內 */
     .Area_knowledgeKing .box_game-feedback-result {
-      font-size: 15px !important;
+      position: absolute !important;
+      right: 28px !important;
+      bottom: 22px !important;
       margin: 0 !important;
-      font-weight: 600 !important;
+      font-size: 14px !important;
+      font-weight: 700 !important;
+      color: #4a4a4a !important;
+      line-height: 1 !important;
+      letter-spacing: 0.5px !important;
+      text-align: right !important;
+      transform: none !important;
+    }
+
+    .Area_knowledgeKing .box_game-feedback-score {
+      font-size: 17px !important;
+      color: #ee4986 !important;
+      font-weight: 800 !important;
+      margin: 0 1px !important;
+    }
+
+    /* 答錯時 is_wrong.png 已內嵌「答錯喔！」文案，隱藏文字避免重疊 */
+    .Area_knowledgeKing .box_game-feedback.is_wrong .box_game-feedback-result {
+      display: none !important;
+    }
+
+    .Area_knowledgeKing .box_game-feedback.is_correct .box_game-feedback-result {
+      display: block !important;
     }
 
     /* 結束頁樣式適配 */
