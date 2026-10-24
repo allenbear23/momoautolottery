@@ -1129,18 +1129,22 @@
 
     function parseDb(db) {
       const qObj = db.questions || {};
-      rawQuestions = Object.keys(qObj).map(k => {
+      rawQuestions = [];
+      Object.keys(qObj).forEach(k => {
         const item = qObj[k];
-        return {
+        const text = item.text || k;
+        if (!item.choices || item.choices.length < 2) return;
+        if (text.includes('PrivateFrameworks') || text.includes('Unable to find a valid')) return;
+        rawQuestions.push({
           key: k,
-          text: item.text || k,
+          text: text,
           image: item.image || '',
           screenshot: item.screenshot || '',
           choices: item.choices || [],
           correct: item.correct || null,
           wrong: item.wrong || [],
           updated_at: item.updated_at || ''
-        };
+        });
       });
     }
 
