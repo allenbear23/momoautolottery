@@ -3,995 +3,839 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>momo 雙11 題庫與答題訓練系統</title>
-  <style>
-    :root {
-      --bg: #ffffff;
-      --card-bg: #ffffff;
-      --card-hover: #fafafa;
-      --border: #e5e5e5;
-      --border-dark: #111111;
-      --text: #111111;
-      --text-muted: #666666;
-      --pink: #ff007f;
-      --pink-hover: #e60072;
-      --pink-bg: rgba(255, 0, 127, 0.08);
-      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", sans-serif;
-      --font-size: 14px;
-      --font-weight: 400;
-      --radius: 4px;
-    }
+  <title>momo 雙11 知識王 · 官方真機模擬與題庫系統</title>
+  
+  <!-- momo 官方原始樣式表 (100% 官方 CDN) -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" />
+  <link rel="stylesheet" href="https://img1.momoshop.com.tw/ecm/img/online/10/007/05/700/images/edm-common.css?t=1786503020567">
+  <link rel="stylesheet" href="https://image.momoshop.com.tw/ecm/img/online/10/007/04/650/images/pageLayout.min.css?t=1792671981731">
+  <link rel="stylesheet" href="https://image.momoshop.com.tw/ecm/img/online/10/007/04/650/images/Layout.css?t=1792671981731">
+  <link rel="stylesheet" href="https://image.momoshop.com.tw/ecm/img/online/10/007/04/650/images/registerCSS.css?t=1792671981731">
 
-    * {
-      box-sizing: border-box;
+  <style>
+    /* 外層視窗居中與模式工具列 (微邊框白底風格) */
+    body {
+      background-color: #f7f7f8;
       margin: 0;
       padding: 0;
-      font-weight: var(--font-weight) !important;
-      font-size: var(--font-size);
-      font-family: var(--font-family);
-      letter-spacing: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      color: #333333;
     }
 
-    body {
-      background-color: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      padding: 20px 16px 60px;
-    }
-
-    .container {
-      max-width: 1080px;
-      margin: 0 auto;
-    }
-
-    /* Top Nav */
-    .nav-header {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 14px 18px;
+    .sim-header {
+      background: #ffffff;
+      border-bottom: 1px solid #e5e5e5;
+      padding: 10px 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 16px;
+      gap: 10px;
     }
 
-    .logo-group h1 {
-      color: var(--pink);
-      margin-bottom: 2px;
+    .sim-header-title {
+      font-weight: 700;
+      color: #ff007f;
+      font-size: 15px;
     }
 
-    .logo-group p {
-      color: var(--text-muted);
-    }
-
-    .mode-nav {
-      display: flex;
-      gap: 4px;
-      background: #ffffff;
-      padding: 4px;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-    }
-
-    .nav-btn {
-      background: transparent;
-      border: 1px solid transparent;
-      color: var(--text-muted);
-      padding: 6px 14px;
-      border-radius: var(--radius);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-    }
-
-    .nav-btn:hover {
-      color: var(--text);
-      border-color: var(--border);
-    }
-
-    .nav-btn.active {
-      background: var(--pink);
-      color: #ffffff;
-      border-color: var(--pink);
-    }
-
-    /* Stats Overview Pills */
-    .stats-bar {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 16px;
-    }
-
-    .stat-pill {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 8px 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .stat-pill span {
-      color: var(--text-muted);
-    }
-
-    .stat-pill strong {
-      color: var(--text);
-    }
-
-    /* Views */
-    .view-section {
-      display: none;
-    }
-
-    .view-section.active {
-      display: block;
-    }
-
-    /* VIEW 1: PRACTICE MODE (EXACT MOMO IN-GAME LAYOUT) */
-    .practice-container {
-      max-width: 440px;
-      margin: 0 auto;
-    }
-
-    .practice-controls {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 10px 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-
-    .mode-select-group {
-      display: flex;
-      gap: 4px;
-      flex-wrap: wrap;
-    }
-
-    .mode-chip {
-      background: #ffffff;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      padding: 4px 10px;
-      border-radius: var(--radius);
-      cursor: pointer;
-    }
-
-    .mode-chip:hover {
-      color: var(--text);
-      border-color: var(--border-dark);
-    }
-
-    .mode-chip.active {
-      background: var(--pink-bg);
-      border-color: var(--pink);
-      color: var(--pink);
-    }
-
-    /* Real Momo Phone Frame Layout */
-    .momo-game-frame {
+    .sim-btn {
       background: #ffffff;
       border: 1px solid #e5e5e5;
-      border-radius: var(--radius);
-      padding: 20px 16px;
-      position: relative;
-    }
-
-    .momo-top-banner {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      border-bottom: 1px solid #f0f0f0;
-      padding-bottom: 12px;
-      margin-bottom: 12px;
-    }
-
-    .momo-title-area .game-main-title {
-      color: var(--pink);
-      margin-bottom: 2px;
-    }
-
-    .momo-title-area .game-sub-title {
-      color: var(--text-muted);
-    }
-
-    .momo-timer-badge {
-      border: 1px solid var(--pink);
-      color: var(--pink);
-      background: var(--pink-bg);
-      padding: 4px 12px;
-      border-radius: var(--radius);
-      text-align: center;
-      min-width: 60px;
-    }
-
-    .momo-rule-tip {
-      color: var(--text-muted);
-      margin-bottom: 14px;
-      line-height: 1.4;
-    }
-
-    .momo-q-heading {
-      color: var(--text-muted);
-      margin-bottom: 6px;
-    }
-
-    .momo-q-text {
-      color: var(--text);
-      line-height: 1.5;
-      margin-bottom: 14px;
-      min-height: 42px;
-    }
-
-    .momo-q-img-wrap {
-      max-height: 240px;
-      background: #fafafa;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 14px;
-      cursor: zoom-in;
-    }
-
-    .momo-q-img-wrap img {
-      max-height: 240px;
-      width: auto;
-      max-width: 100%;
-      object-fit: contain;
-    }
-
-    /* 4 Momo Answer Slots */
-    .momo-options-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-
-    .momo-opt-row {
-      background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 12px 14px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
+      padding: 5px 12px;
+      border-radius: 4px;
       cursor: pointer;
-      text-align: left;
+      font-size: 13px;
+      color: #333333;
+      transition: all 0.15s ease;
     }
 
-    .momo-opt-row:hover:not(.disabled) {
-      border-color: var(--border-dark);
-      background: #fafafa;
-    }
-
-    .momo-num-badge {
-      width: 24px;
-      height: 24px;
-      border-radius: var(--radius);
-      background: #f5f5f5;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .momo-opt-content {
-      flex: 1;
-      color: var(--text);
-    }
-
-    .momo-opt-img-thumb {
-      max-height: 120px;
-      width: auto;
-      max-width: 100%;
-      object-fit: contain;
-      display: block;
-      margin: 4px 0;
-    }
-
-    .momo-opt-row.correct {
-      background: var(--pink-bg) !important;
-      border-color: var(--pink) !important;
-      color: var(--pink) !important;
-    }
-
-    .momo-opt-row.correct .momo-num-badge {
-      background: var(--pink);
+    .sim-btn.active {
+      background: #ff007f;
       color: #ffffff;
-      border-color: var(--pink);
+      border-color: #ff007f;
     }
 
-    .momo-opt-row.wrong {
-      background: #fef2f2 !important;
-      border-color: #ef4444 !important;
-      color: #dc2626 !important;
-    }
-
-    .momo-opt-row.wrong .momo-num-badge {
-      background: #ef4444;
-      color: #ffffff;
-      border-color: #ef4444;
-    }
-
-    /* Momo In-Game Result Bar */
-    .momo-result-banner {
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: #fafafa;
-      padding: 12px 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .momo-result-text {
-      color: var(--text);
-    }
-
-    .momo-confirm-btn {
-      width: 100%;
-      background: var(--pink);
-      color: #ffffff;
-      border: 1px solid var(--pink);
-      padding: 12px;
-      border-radius: var(--radius);
-      cursor: pointer;
-      margin-top: 10px;
-      text-align: center;
-    }
-
-    .momo-confirm-btn:hover {
-      background: var(--pink-hover);
-    }
-
-    .momo-summary-wrap {
-      text-align: center;
-      padding: 30px 16px;
-    }
-
-    .momo-summary-score {
-      color: var(--pink);
-      margin: 8px 0 16px;
-    }
-
-    /* VIEW 2: BROWSE & REPORT MODE */
-    .toolbar {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 12px 16px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 16px;
-      position: sticky;
-      top: 10px;
-      z-index: 90;
-    }
-
-    .search-box {
-      flex: 1;
-      min-width: 240px;
-    }
-
-    .search-input {
-      width: 100%;
+    .sim-mode-bar {
       background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 8px 12px;
-      color: var(--text);
-      outline: none;
-    }
-
-    .search-input:focus {
-      border-color: var(--pink);
-    }
-
-    .filter-tabs {
-      display: flex;
-      gap: 4px;
-      background: #ffffff;
-      padding: 4px;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      flex-wrap: wrap;
-    }
-
-    .tab-btn {
-      background: transparent;
-      border: 1px solid transparent;
-      color: var(--text-muted);
-      padding: 6px 12px;
-      border-radius: var(--radius);
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    .tab-btn:hover {
-      color: var(--text);
-    }
-
-    .tab-btn.active {
-      background: var(--pink);
-      color: #ffffff;
-      border-color: var(--pink);
-    }
-
-    .cards-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .quiz-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 16px;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-    }
-
-    @media (min-width: 768px) {
-      .quiz-card.has-media {
-        grid-template-columns: 200px 1fr;
-        align-items: start;
-      }
-    }
-
-    .quiz-card:hover {
-      border-color: #cccccc;
-    }
-
-    .media-box {
-      width: 100%;
-      background: #fafafa;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: zoom-in;
-      position: relative;
-      max-height: 240px;
-    }
-
-    .media-box img {
-      width: 100%;
-      height: auto;
-      max-height: 240px;
-      object-fit: contain;
-      display: block;
-    }
-
-    .card-content {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 10px;
-    }
-
-    .question-title {
-      line-height: 1.5;
-      color: var(--text);
-    }
-
-    .badge-group {
-      display: flex;
-      gap: 4px;
-      flex-shrink: 0;
-    }
-
-    .status-badge {
-      padding: 2px 8px;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      background: #ffffff;
-      color: var(--text-muted);
-    }
-
-    .badge-verified {
-      border-color: var(--pink);
-      color: var(--pink);
-      background: var(--pink-bg);
-    }
-
-    .badge-pending {
-      border-color: var(--border);
-      color: var(--text-muted);
-    }
-
-    .badge-img {
-      border-color: var(--border);
-      color: var(--text);
-      background: #f5f5f5;
-      padding: 2px 6px;
-      border-radius: var(--radius);
-    }
-
-    .options-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 6px;
-    }
-
-    .option-item {
-      background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 8px 12px;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-    }
-
-    .option-item:hover {
-      border-color: var(--border-dark);
-      color: var(--text);
-    }
-
-    .option-item.correct {
-      background: var(--pink-bg);
-      border-color: var(--pink);
-      color: var(--pink);
-    }
-
-    .option-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #cccccc;
-      flex-shrink: 0;
-    }
-
-    .option-item.correct .option-dot {
-      background: var(--pink);
-    }
-
-    .card-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: var(--text-muted);
-      border-top: 1px solid var(--border);
-      padding-top: 10px;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .card-actions {
+      border-bottom: 1px solid #e5e5e5;
+      padding: 8px 16px;
       display: flex;
       gap: 6px;
+      flex-wrap: wrap;
+      align-items: center;
+      font-size: 13px;
     }
 
-    .action-btn {
-      background: #ffffff;
-      border: 1px solid var(--border);
-      color: var(--text);
+    .sim-chip {
+      background: #f7f7f8;
+      border: 1px solid #e5e5e5;
       padding: 4px 10px;
-      border-radius: var(--radius);
+      border-radius: 4px;
       cursor: pointer;
+      color: #666666;
     }
 
-    .action-btn:hover {
-      border-color: var(--border-dark);
+    .sim-chip.active {
+      background: rgba(255, 0, 127, 0.08);
+      border-color: #ff007f;
+      color: #ff007f;
+      font-weight: 600;
     }
 
-    .action-btn.btn-confirm {
-      border-color: var(--pink);
-      color: var(--pink);
+    /* 官方容器適配與居中 */
+    .Area_knowledgeKing.for_phone {
+      margin: 10px auto 40px !important;
+      max-width: 500px !important;
+      position: relative !important;
+      background: #ffecf5;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
     }
 
-    .action-btn.btn-confirm:hover {
-      background: var(--pink-bg);
+    /* 快捷鍵提示徽章 */
+    .shortcut-badge {
+      font-size: 11px;
+      color: #888;
+      margin-left: 4px;
     }
 
-    /* VIEW 3: UPLOAD & CROWDSOURCE */
-    .upload-container {
-      max-width: 640px;
-      margin: 0 auto;
+    /* 題庫總覽與上傳頁 */
+    #viewBrowse, #viewUpload {
+      max-width: 960px;
+      margin: 20px auto;
+      padding: 0 16px;
     }
 
-    .upload-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-    }
-
-    .upload-dropzone {
-      border: 1px dashed var(--pink);
-      background: #ffffff;
-      border-radius: var(--radius);
-      padding: 28px 16px;
-      text-align: center;
-      cursor: pointer;
-      margin-bottom: 16px;
-    }
-
-    .upload-dropzone:hover, .upload-dropzone.dragover {
-      background: var(--pink-bg);
-    }
-
-    .dropzone-text {
-      color: var(--text);
-      margin-bottom: 4px;
-    }
-
-    .dropzone-subtext {
-      color: var(--text-muted);
-    }
-
-    .upload-preview {
-      display: none;
-      margin-bottom: 16px;
-      text-align: center;
-    }
-
-    .upload-preview img {
-      max-height: 240px;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-    }
-
-    .form-group {
-      margin-bottom: 14px;
-    }
-
-    .form-label {
-      display: block;
-      color: var(--text-muted);
-      margin-bottom: 4px;
-    }
-
-    .form-input {
+    .sim-search-input {
       width: 100%;
-      background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
       padding: 8px 12px;
-      color: var(--text);
+      border: 1px solid #e5e5e5;
+      border-radius: 4px;
       outline: none;
+      box-sizing: border-box;
+      font-size: 13px;
     }
 
-    .form-input:focus {
-      border-color: var(--pink);
-    }
-
-    .btn-submit-upload {
-      width: 100%;
-      background: var(--pink);
-      color: #ffffff;
-      border: 1px solid var(--pink);
-      padding: 10px;
-      border-radius: var(--radius);
-      cursor: pointer;
-      margin-top: 6px;
-    }
-
-    .btn-submit-upload:hover {
-      background: var(--pink-hover);
-    }
-
-    /* Lightbox Modal */
-    .image-modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.75);
-      z-index: 1000;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      cursor: zoom-out;
-    }
-
-    .image-modal.open {
+    .sim-card-list {
       display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 14px;
     }
 
-    .image-modal img {
-      max-width: 90vw;
-      max-height: 90vh;
+    .sim-card {
+      background: #ffffff;
+      border: 1px solid #e5e5e5;
+      border-radius: 4px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .sim-opt-tag {
+      display: inline-block;
+      padding: 3px 8px;
+      margin: 2px 4px 2px 0;
+      background: #f5f5f5;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+
+    .sim-opt-tag.correct {
+      background: rgba(255, 0, 127, 0.1);
+      color: #ff007f;
+      border: 1px solid #ff007f;
+      font-weight: 600;
+    }
+
+    .sim-card-img {
+      max-height: 160px;
       object-fit: contain;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      cursor: default;
-      background: #ffffff;
-    }
-
-    .modal-close-btn {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      background: #ffffff;
-      border: 1px solid var(--border);
-      color: var(--text);
-      width: 32px;
-      height: 32px;
-      border-radius: var(--radius);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      border: 1px solid #eee;
+      border-radius: 4px;
+      align-self: flex-start;
+      margin-top: 6px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Top Nav Header -->
-    <header class="nav-header">
-      <div class="logo-group">
-        <h1>momo 雙11 題庫系統</h1>
-        <p>社群協作題庫與答題訓練系統</p>
-      </div>
 
-      <nav class="mode-nav">
-        <button class="nav-btn active" data-view="practice" id="btnNavPractice">
-          答題訓練
-        </button>
-        <button class="nav-btn" data-view="browse" id="btnNavBrowse">
-          題庫總覽
-        </button>
-        <button class="nav-btn" data-view="upload" id="btnNavUpload">
-          上傳截圖
-        </button>
-      </nav>
-    </header>
-
-    <!-- Global Stats Pills -->
-    <div class="stats-bar">
-      <div class="stat-pill">
-        <span>題庫總量</span>
-        <strong id="statTotal">--</strong>
-      </div>
-      <div class="stat-pill">
-        <span>已確認解答</span>
-        <strong id="statVerified" style="color: var(--pink);">--</strong>
-      </div>
-      <div class="stat-pill">
-        <span>待協作確認</span>
-        <strong id="statPending">--</strong>
-      </div>
-      <div class="stat-pill">
-        <span>含截圖題目</span>
-        <strong id="statMedia">--</strong>
-      </div>
+  <!-- 控制頂欄 -->
+  <header class="sim-header">
+    <div style="display:flex; align-items:center; gap:8px;">
+      <span class="sim-header-title">momo 雙11 知識王</span>
+      <span style="color:#888;">· 官方原始碼模式 (鍵盤 1~4 選擇，空白鍵/Enter 確認)</span>
     </div>
+    <div style="display:flex; gap:8px;">
+      <button class="sim-btn active" id="tabBtnPractice" onclick="switchTab('practice')">官方答題體驗</button>
+      <button class="sim-btn" id="tabBtnBrowse" onclick="switchTab('browse')">題庫總覽 (<span id="totalDbCount">--</span>)</button>
+      <button class="sim-btn" id="tabBtnUpload" onclick="switchTab('upload')">上傳題目截圖</button>
+    </div>
+  </header>
 
-    <!-- VIEW 1: PRACTICE MODE (EXACT REAL MOMO QUESTION SCREEN) -->
-    <section id="viewPractice" class="view-section active">
-      <div class="practice-container">
-        <!-- Controls Header -->
-        <div class="practice-controls">
-          <div class="mode-select-group">
-            <button class="mode-chip active" data-mode="sprint10">10 題速測</button>
-            <button class="mode-chip" data-mode="infinite">自由刷題</button>
-            <button class="mode-chip" data-mode="unverified">待確認題</button>
-            <button class="mode-chip" data-mode="visual">圖片題專練</button>
-            <button class="mode-chip" data-mode="wrong">錯題複習</button>
-          </div>
-          <button class="action-btn" onclick="startNewSession()">重新開始</button>
-        </div>
-
-        <!-- Phone In-Game Replica Container -->
-        <div class="momo-game-frame" id="arenaCard">
-          <!-- Top Status Bar -->
-          <div class="momo-top-banner">
-            <div class="momo-title-area">
-              <div class="game-main-title">momo知識王</div>
-              <div class="game-sub-title">天天答題賺$50 · 第 <span id="arenaIdx">1</span> / <span id="arenaTotal">10</span> 題</div>
-            </div>
-            <div class="momo-timer-badge">
-              <span id="arenaTimer">60</span> 秒
-            </div>
-          </div>
-
-          <!-- Official Momo Reminder Text -->
-          <div class="momo-rule-tip">
-            ※遊戲開始時，請勿重新整理頁面，避免無法遊玩
-          </div>
-
-          <!-- Question Section -->
-          <div class="momo-q-heading">請回答下列問題</div>
-          <div class="momo-q-text" id="arenaQuestionText">題目載入中...</div>
-
-          <!-- Question Image if available -->
-          <div class="momo-q-img-wrap" id="arenaMediaBox" style="display: none;" onclick="openArenaModal()">
-            <img id="arenaImg" src="" alt="題目附圖">
-          </div>
-
-          <!-- 4 Options Rows -->
-          <div class="momo-options-list" id="arenaOptionsGrid"></div>
-
-          <!-- Feedback Bar -->
-          <div class="momo-result-banner" id="arenaFeedbackBar" style="display: none;">
-            <div class="momo-result-text" id="feedbackText"></div>
-            <button class="action-btn" id="btnReportFromArena" onclick="reportCorrectChoice()">
-              標記正解
-            </button>
-          </div>
-
-          <!-- Next Button -->
-          <button class="momo-confirm-btn" id="btnNext" style="display: none;" onclick="nextQuestion()">
-            確認答案 (下一題)
-          </button>
-        </div>
-
-        <!-- Game Over Summary -->
-        <div class="momo-game-frame momo-summary-wrap" id="summaryCard" style="display: none;">
-          <div>遊戲結束</div>
-          <div class="momo-summary-score" id="summaryScore">0分</div>
-          <p id="summaryDesc" style="color: var(--text-muted); margin-bottom: 16px;">完成答題</p>
-          <div style="display: flex; gap: 8px; justify-content: center;">
-            <button class="action-btn btn-confirm" onclick="startNewSession()">再玩一次</button>
-            <button class="action-btn" onclick="switchNav('browse')">題庫總覽</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- VIEW 2: BROWSE & REPORT MODE -->
-    <section id="viewBrowse" class="view-section">
-      <!-- Toolbar -->
-      <div class="toolbar">
-        <div class="search-box">
-          <input type="text" id="searchInput" class="search-input" placeholder="搜尋題幹、關鍵字、選項...">
-        </div>
-
-        <div class="filter-tabs">
-          <button class="tab-btn active" data-filter="all">全部</button>
-          <button class="tab-btn" data-filter="verified">已確認正解</button>
-          <button class="tab-btn" data-filter="pending">待協作確認</button>
-          <button class="tab-btn" data-filter="media">含截圖</button>
-          <button class="tab-btn" data-filter="visual">純圖片選項</button>
-        </div>
-      </div>
-
-      <!-- Card List -->
-      <div class="cards-list" id="cardsList"></div>
-    </section>
-
-    <!-- VIEW 3: UPLOAD & CROWDSOURCE -->
-    <section id="viewUpload" class="view-section">
-      <div class="upload-container">
-        <div class="upload-card">
-          <div style="margin-bottom: 4px;">上傳題目與截圖</div>
-          <p style="color: var(--text-muted); margin-bottom: 16px;">
-            可貼上或選取截圖，送出後將同步加入題庫協作。
-          </p>
-
-          <!-- Dropzone -->
-          <div class="upload-dropzone" id="uploadDropzone">
-            <input type="file" id="fileInput" accept="image/*" style="display: none;">
-            <div class="dropzone-text">點擊選擇圖片，或拖曳圖片至此</div>
-            <div class="dropzone-subtext">支援直接按下 Ctrl+V / Cmd+V 貼上截圖</div>
-          </div>
-
-          <!-- Preview -->
-          <div class="upload-preview" id="uploadPreviewBox">
-            <img id="uploadPreviewImg" src="" alt="預覽截圖">
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">題目文字 (若為圖片題可留空)</label>
-            <input type="text" id="inputQuestionText" class="form-input" placeholder="輸入題目文字">
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">選項 1</label>
-            <input type="text" id="inputOpt1" class="form-input" placeholder="選項 1">
-          </div>
-          <div class="form-group">
-            <label class="form-label">選項 2</label>
-            <input type="text" id="inputOpt2" class="form-input" placeholder="選項 2">
-          </div>
-          <div class="form-group">
-            <label class="form-label">選項 3</label>
-            <input type="text" id="inputOpt3" class="form-input" placeholder="選項 3">
-          </div>
-          <div class="form-group">
-            <label class="form-label">選項 4</label>
-            <input type="text" id="inputOpt4" class="form-input" placeholder="選項 4">
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">已知正確答案 (選填)</label>
-            <input type="text" id="inputCorrect" class="form-input" placeholder="輸入正確答案文字">
-          </div>
-
-          <button class="btn-submit-upload" id="btnSubmitUpload" onclick="submitUploadQuestion()">
-            確認送出
-          </button>
-        </div>
-      </div>
-    </section>
+  <!-- 訓練模式切換列 -->
+  <div class="sim-mode-bar" id="practiceModeBar">
+    <span style="color:#666;">題庫模式：</span>
+    <button class="sim-chip active" data-pmode="sprint10" onclick="changeMode('sprint10')">10 題速測 (限時60s)</button>
+    <button class="sim-chip" data-pmode="infinite" onclick="changeMode('infinite')">無限連續答題</button>
+    <button class="sim-chip" data-pmode="visual" onclick="changeMode('visual')">專攻純圖片題</button>
+    <button class="sim-chip" data-pmode="unverified" onclick="changeMode('unverified')">專攻待確認題</button>
+    <button class="sim-chip" data-pmode="wrong" onclick="changeMode('wrong')">錯題複習專區</button>
+    <button class="sim-btn" style="margin-left:auto;" onclick="restartGame()">重新開始</button>
   </div>
 
-  <!-- Fullscreen Lightbox Modal -->
-  <div class="image-modal" id="imageModal" onclick="closeImageModal()">
-    <button class="modal-close-btn" onclick="closeImageModal()">&times;</button>
-    <img id="modalImg" src="" alt="放大預覽" onclick="event.stopPropagation()">
-  </div>
+  <!-- TAB 1: 100% 官方原始 HTML 結構 -->
+  <main id="viewPractice">
+    <div class="WRAPPER articleList"> 
+      <!-- 官方手機版版面容器 -->
+      <div class="Area Area_knowledgeKing for_phone" data-title="momo知識王遊戲"> 
+        <div class="box"> 
 
-  <!-- Static Fallback Data -->
+          <!-- 01 起始頁 (官方原始 HTML) --> 
+          <div class="box_ box_start is_show" id="box_start" data-title="01起始頁" style="display: none;"> 
+            <h1 class="box_start-title"> 
+              <img src="https://img1.momoshop.com.tw/ecm/img/online/10/007/04/650/images/game_title-1.png?t=1792671981731" alt="momo知識王" /> 
+              <div class="box_start-title-bg box_start-title-bg8"></div> 
+              <div class="box_start-title-bg box_start-title-bg5"></div> 
+              <div class="box_start-title-bg box_start-title-bg3"></div> 
+              <div class="box_start-title-bg box_start-title-bg2"></div> 
+              <div class="box_start-title-bg box_start-title-bg4"></div> 
+              <div class="box_start-title-bg box_start-title-bg6"></div> 
+              <div class="box_start-title-bg box_start-title-bg7"></div> 
+            </h1> 
+            <div class="box_start-rules"> 
+              <div class="box_start-rules-body"> 
+                <h2>遊戲玩法說明</h2> 
+                <ol> 
+                  <li>限時<span id="KK_rulesTimeLimit">60</span>秒內開放答題，每答對一題+<span id="KK_rulesScore">10</span>積分，並且可繼續答題直到秒數歸0，若答錯則遊戲結束，請於下一時段再次參加。</li> 
+                  <li>確認答案前皆可任意修改提交選項，但提交後不得修改。</li> 
+                  <li>倒數時間結束後，不論是否有答題，系統將自動結算結果和積分。</li> 
+                  <li>請注意遊戲開始時，進行重新整理或跳出momoAPP將導致無法遊玩，請於下一時段參加。</li> 
+                </ol> 
+              </div> 
+            </div> 
+            <div class="box_start-btn"> 
+              <div class="btn btn-play" title="開始遊戲">
+                <a class="go_bt" id="btn_play" href="javascript:void(0);"><img src="https://img1.momoshop.com.tw/ecm/img/online/10/007/04/650/images/btn-play.png?t=1792671981731" /></a>
+              </div> 
+              <div class="btn btn-back" title="回到主頁">
+                <a id="KK_backBtn" href="javascript:void(0);"><img src="https://img1.momoshop.com.tw/ecm/img/online/10/007/04/650/images/btn-back.png?t=1792671981731" /></a>
+              </div> 
+            </div> 
+          </div> 
+
+          <!-- 02 答題頁 (型A純文字 / 型B文字+圖片 / 型C純圖片選項，官方原始 HTML) --> 
+          <div class="box_ box_game" id="box_game" data-title="02答題頁" data-type="typeA" style="display: block;"> 
+            <h1 class="box_game-title"> 
+              <img src="https://img1.momoshop.com.tw/ecm/img/online/10/007/04/650/images/game_page_title.png?t=1792671981731" alt="momo知識王" /> 
+              <div class="box_game-title-bg box_game-title-bg4"></div> 
+              <div class="box_game-title-bg box_game-title-bg3"></div> 
+              <div class="box_game-title-bg box_game-title-bg2"></div> 
+            </h1> 
+            <div class="box_game-question"> 
+              <div class="box_game-body"> 
+                <div class="box_game-body-top"> 
+                  <div class="box_game-body-top-time"> 
+                    <span class="countdown">倒數</span> 
+                    <span class="time" id="KK_timer">60</span> 
+                    <span class="unit">秒</span> 
+                  </div> 
+                  <div class="box_game-body-top-question"> 
+                    <span class="question">請回答下列問題</span> 
+                  </div> 
+                </div> 
+                <div class="box_game-body-questions"> 
+                  <h4 id="KK_questionTitle">題目載入中...</h4> 
+                  <!-- 題目圖片，型B專用 (官方原始結構) --> 
+                  <div class="box_game-body-questions-image" id="KK_questionImage" style="display: none;"> 
+                    <img src="" alt="題目圖片" /> 
+                  </div> 
+                  <!-- 選項列表，型C加上 questions-list-img (官方原始結構) --> 
+                  <ul class="questions-list" id="KK_options"></ul> 
+                </div> 
+              </div> 
+              <!-- 答題回饋 (官方原始結構) --> 
+              <div class="box_game-feedback" id="KK_feedback" style="display: none;"> 
+                <img class="box_game-feedback-mascot" id="KK_feedbackMascot" src="https://img1.momoshop.com.tw/ecm/img/online/10/007/04/650/images/is_bingo.png?t=1792671981731" alt="吉祥物" /> 
+                <p class="box_game-feedback-result" id="KK_feedbackResult">答對<span id="KK_feedbackCorrectCount">0</span>題 <span class="box_game-feedback-score">+</span><span class="box_game-feedback-score" id="KK_feedbackScore">0</span>分</p> 
+              </div> 
+            </div> 
+            <div class="box_game-btn"> 
+              <a class="go_bt KK_btn" id="KK_actionBtn" href="javascript:void(0);">確認答案</a> 
+            </div> 
+          </div> 
+
+          <!-- 03 結束頁 (官方原始 HTML) --> 
+          <div class="box_ box_game box_ending is_feedback" id="box_ending" data-title="03結束頁" style="display: none;"> 
+            <h1 class="box_game-title"> 
+              <img src="https://img1.momoshop.com.tw/ecm/img/online/10/007/04/650/images/game_page_title.png?t=1792671981731" alt="momo知識王" /> 
+              <div class="box_game-title-bg box_game-title-bg4"></div> 
+              <div class="box_game-title-bg box_game-title-bg3"></div> 
+              <div class="box_game-title-bg box_game-title-bg2"></div> 
+            </h1> 
+            <div class="box_game-question"> 
+              <div class="box_game-body box_ending-body"> 
+                <div class="box_game-body-top"> 
+                  <div class="box_game-body-top-time"> 
+                    <span class="countdown">倒數</span> 
+                    <span class="time">0</span> 
+                    <span class="unit">秒</span> 
+                  </div> 
+                  <div class="box_game-body-top-question"> 
+                    <span class="question">遊戲結束</span> 
+                  </div> 
+                </div> 
+                <div class="box_game-body-questions box_ending-body-questions"> 
+                  <div class="box_ending-body-title" id="KK_endingTitle">太棒了</div> 
+                  <div class="box_ending-body-bg box_ending-body-bg2"></div> 
+                  <div class="box_ending-body-bg box_ending-body-bg3"></div> 
+                  <div class="box_ending-body-bg box_ending-body-bg4"></div> 
+                  <div class="box_ending-body-bg box_ending-body-bg5"></div> 
+                  <div class="box_ending-body-bg box_ending-body-bg6"></div> 
+                  <div class="box_ending-body-bg box_ending-body-bg7"></div> 
+                  <div class="box_ending-body-bg box_ending-body-bg8"></div> 
+                  <h4 class="box_ending-body-score" id="KK_finalScore">0</h4> 
+                </div> 
+              </div> 
+              <div class="box_game-feedback is_nextTime"> 
+                <img class="box_game-feedback-mascot" src="https://img1.momoshop.com.tw/ecm/img/online/10/007/04/650/images/is_nextTime.png?t=1792671981731" alt="吉祥物-下次再來" /> 
+                <p class="box_game-feedback-result" id="KK_endingResultText">累計答對 0 題，獲得 0 積分！</p> 
+              </div> 
+            </div> 
+            <div class="box_game-btn"> 
+              <a class="go_bt KK_btn" id="KK_goBackBtn" href="javascript:void(0);" onclick="restartGame()">再來一局</a> 
+            </div> 
+          </div> 
+
+          <!-- 浮層 (官方原始結構) --> 
+          <div class="box_alert" id="KK_alertTimeUp" data-title="浮層-時間到" style="display: none;"> 
+            <div class="box_alert-body"> 
+              <h3>時間到!</h3> 
+              <p>未選擇任意答案將自動結算</p> 
+            </div> 
+          </div> 
+
+        </div> 
+      </div> 
+    </div> 
+  </main>
+
+  <!-- TAB 2: 題庫總覽 -->
+  <section id="viewBrowse" style="display: none;">
+    <div style="display:flex; gap:10px; margin-bottom:12px;">
+      <input type="text" id="browseInput" class="sim-search-input" placeholder="搜尋題目、選項關鍵字..." oninput="onSearch(this.value)">
+      <button class="sim-btn" onclick="filterBrowse('all')">全部</button>
+      <button class="sim-btn" onclick="filterBrowse('has_image')">含圖片</button>
+      <button class="sim-btn" onclick="filterBrowse('verified')">已驗證</button>
+    </div>
+    <div class="sim-card-list" id="browseList"></div>
+  </section>
+
+  <!-- TAB 3: 上傳題目截圖 -->
+  <section id="viewUpload" style="display: none;">
+    <div style="background:#fff; border:1px solid #e5e5e5; padding:20px; border-radius:4px; max-width:600px; margin:0 auto;">
+      <h3 style="margin-top:0;">新增題目或貼上截圖</h3>
+      <p style="color:#666; font-size:13px;">可直接在此頁按下 Ctrl+V / Cmd+V 貼上截圖。</p>
+      <input type="file" id="uploadFile" accept="image/*" style="margin-bottom:12px; display:block;" onchange="onFileSelected(this.files[0])">
+      <div id="previewBox" style="display:none; margin-bottom:12px; text-align:center;">
+        <img id="previewImg" src="" style="max-height:180px; border:1px solid #eee;">
+      </div>
+      <input type="text" id="uploadText" class="sim-search-input" placeholder="題目文字" style="margin-bottom:8px;">
+      <input type="text" id="uploadAns" class="sim-search-input" placeholder="已知正解 (選填)" style="margin-bottom:14px;">
+      <button class="sim-btn active" style="width:100%; padding:8px;" onclick="submitNewQuestion()">加入題庫</button>
+    </div>
+  </section>
+
+  <!-- 引用本地題目數據庫 (備援) -->
   <script src="quiz_data.js"></script>
+
+  <!-- 官方相容邏輯：knowledgeKing.js 核心代碼移植 -->
   <script>
-    let quizData = [];
-    let currentPracticeMode = 'sprint10';
-    let practiceQueue = [];
-    let practiceIndex = 0;
-    let practiceStreak = 0;
-    let practiceScore = 0;
-    let practiceWrongSet = new Set();
-    let currentSelectedOpt = null;
-    let arenaAnswered = false;
-    let timerInterval = null;
-    let timerSeconds = 60;
+    // ----------------------------------------------------
+    // 1. 全局題庫與狀態
+    // ----------------------------------------------------
+    let rawQuestions = [];
+    let currentMode = 'sprint10';
+    let questionQueue = [];
+    let queueIdx = 0;
+    let wrongKeysSet = new Set();
+    let currentQObj = null; // 當前題目原生對象
 
-    let browseFilter = 'all';
-    let browseSearch = '';
-    let uploadedFileB64 = null;
-    let uploadedFileName = '';
+    // ----------------------------------------------------
+    // 2. 官方規格常數與設定 (取自 momo 官方 knowledgeKing.js)
+    // ----------------------------------------------------
+    const POINT_DISPLAY_MULTIPLIER = 10;
 
-    async function init() {
+    const gameConfig = {
+      screenIds: {
+        START:  '#box_start',
+        GAME:   '#box_game',
+        ENDING: '#box_ending'
+      },
+      elements: {
+        playBtn:              '#btn_play',
+        backBtn:              '#KK_backBtn',
+        rulesTimeLimit:       '#KK_rulesTimeLimit',
+        rulesScore:           '#KK_rulesScore',
+        timer:                '#KK_timer',
+        questionTitle:        '#KK_questionTitle',
+        questionImage:        '#KK_questionImage',
+        optionsList:          '#KK_options',
+        feedback:             '#KK_feedback',
+        feedbackImg:          '#KK_feedbackMascot',
+        feedbackCorrectCount: '#KK_feedbackCorrectCount',
+        feedbackScore:        '#KK_feedbackScore',
+        actionBtn:            '#KK_actionBtn',
+        endingTitle:          '#KK_endingTitle',
+        finalScore:           '#KK_finalScore',
+        goBackBtn:            '#KK_goBackBtn',
+        alertTimeUp:          '#KK_alertTimeUp'
+      },
+      questionType: {
+        TEXT:           'typeA',
+        QUESTION_IMAGE: 'typeB',
+        CHOICE_IMAGE:   'typeC'
+      },
+      optionClass: {
+        SELECTED:   'is_selected',
+        CORRECT:    'is_correct',
+        WRONG:      'is_wrong',
+        IMAGE_LIST: 'questions-list-img'
+      },
+      feedbackType: {
+        correct: { class: 'is_correct', img: 'https://img1.momoshop.com.tw/ecm/img/online/10/007/04/650/images/is_bingo.png?t=1792671981731', alt: '吉祥物-答對' },
+        wrong:   { class: 'is_wrong',   img: 'https://img1.momoshop.com.tw/ecm/img/online/10/007/04/650/images/is_wrong.png?t=1792671981731', alt: '吉祥物-答錯' }
+      },
+      btnText: {
+        confirm: '確認答案',
+        next:    '下一題',
+        end:     '遊戲結束'
+      },
+      endingTitle: {
+        noScore:  '再接再厲',
+        hasScore: '太棒了'
+      },
+      timeLimit: 60,
+      timerTickMs: 250
+    };
+
+    const gameState = {
+      timeLimit:         60,
+      startedAt:         0,
+      currentQuestionId: null,
+      selectedChoiceId:  null,
+      correctCount:      0,
+      gameTimer:         null,
+      isAnswered:        false,
+      isGameActive:      false,
+      btnMode:           'confirm'
+    };
+
+    function el(key) {
+      return document.querySelector(gameConfig.elements[key]);
+    }
+
+    function showScreen(screen) {
+      for (let k in gameConfig.screenIds) {
+        const sEl = document.querySelector(gameConfig.screenIds[k]);
+        if (sEl) sEl.style.display = 'none';
+      }
+      const active = document.querySelector(gameConfig.screenIds[screen]);
+      if (active) active.style.display = 'block';
+    }
+
+    function toDisplayScore(count) {
+      return count * POINT_DISPLAY_MULTIPLIER;
+    }
+
+    // ----------------------------------------------------
+    // 3. 官方題型判斷與 DOM 生成 (100% 官方 knowledgeKing.js)
+    // ----------------------------------------------------
+    function isImageOnlyChoice(choice) {
+      return !choice.text && Boolean(choice.image);
+    }
+
+    function getQuestionType(data) {
+      if (data.choices.some(c => Boolean(c.image))) return gameConfig.questionType.CHOICE_IMAGE;
+      if (data.question.image) return gameConfig.questionType.QUESTION_IMAGE;
+      return gameConfig.questionType.TEXT;
+    }
+
+    // 官方建立選項節點
+    function createChoiceItem(choice, index, isImageType) {
+      const number = index + 1;
+      const item = document.createElement('li');
+      item.dataset.choiceId = choice.uuid || `opt_${number}`;
+
+      const numberEl = document.createElement('span');
+      numberEl.className = 'num';
+      numberEl.textContent = number;
+      item.appendChild(numberEl);
+
+      if (isImageType) {
+        const imageEl = document.createElement('img');
+        imageEl.src = choice.image || '';
+        imageEl.alt = choice.text || '選項' + number;
+        item.appendChild(imageEl);
+        if (choice.text) {
+          const textEl = document.createElement('span');
+          textEl.className = 'txt';
+          textEl.textContent = choice.text;
+          item.appendChild(textEl);
+        }
+      } else {
+        const textEl = document.createElement('span');
+        textEl.className = 'txt';
+        textEl.textContent = choice.text || ('選項 ' + number);
+        item.appendChild(textEl);
+      }
+      return item;
+    }
+
+    // 官方渲染單一題目
+    function renderQuestion(data) {
+      const gameEl       = document.querySelector(gameConfig.screenIds.GAME);
+      const listEl       = el('optionsList');
+      const imageWrapEl  = el('questionImage');
+      const questionType = getQuestionType(data);
+      const isImageType  = questionType === gameConfig.questionType.CHOICE_IMAGE;
+
+      gameState.currentQuestionId = data.question.uuid;
+      gameState.selectedChoiceId  = null;
+      gameState.isAnswered        = false;
+
+      gameEl.setAttribute('data-type', questionType);
+      el('questionTitle').textContent = data.question.text;
+
+      if (data.question.image) {
+        imageWrapEl.querySelector('img').src = data.question.image;
+        imageWrapEl.style.display = 'block';
+      } else {
+        imageWrapEl.style.display = 'none';
+      }
+
+      listEl.classList.toggle(gameConfig.optionClass.IMAGE_LIST, isImageType);
+      listEl.innerHTML = '';
+      data.choices.forEach((choice, index) => {
+        const item = createChoiceItem(choice, index, isImageType);
+        listEl.appendChild(item);
+      });
+
+      hideFeedback();
+      setActionBtn('confirm');
+      listEl.scrollTop = 0;
+      gameEl.querySelector('.box_game-body-questions').scrollTop = 0;
+    }
+
+    // 官方選項點擊 (送出前可自由更換)
+    function onOptionClick(event) {
+      if (!gameState.isGameActive || gameState.isAnswered) return;
+
+      const target = event.target.closest('li');
+      if (!target) return;
+
+      const listEl = el('optionsList');
+      listEl.querySelectorAll('li').forEach(li => li.classList.remove(gameConfig.optionClass.SELECTED));
+      target.classList.add(gameConfig.optionClass.SELECTED);
+      gameState.selectedChoiceId = target.dataset.choiceId;
+    }
+
+    // 官方答題回饋
+    function showFeedback(isCorrect, correctChoiceId) {
+      const type = isCorrect ? gameConfig.feedbackType.correct : gameConfig.feedbackType.wrong;
+      const feedbackEl = el('feedback');
+      const imgEl = el('feedbackImg');
+
+      feedbackEl.classList.remove(gameConfig.feedbackType.correct.class, gameConfig.feedbackType.wrong.class);
+      feedbackEl.classList.add(type.class);
+      imgEl.src = type.img;
+      imgEl.alt = type.alt;
+      el('feedbackCorrectCount').textContent = gameState.correctCount;
+      el('feedbackScore').textContent = toDisplayScore(gameState.correctCount);
+      feedbackEl.style.display = 'block';
+      document.querySelector(gameConfig.screenIds.GAME).classList.add('is_feedback');
+    }
+
+    function hideFeedback() {
+      const feedbackEl = el('feedback');
+      feedbackEl.style.display = 'none';
+      feedbackEl.classList.remove(gameConfig.feedbackType.correct.class, gameConfig.feedbackType.wrong.class);
+      document.querySelector(gameConfig.screenIds.GAME).classList.remove('is_feedback');
+    }
+
+    function setActionBtn(mode) {
+      gameState.btnMode = mode;
+      el('actionBtn').textContent = gameConfig.btnText[mode];
+    }
+
+    // 官方標示選項 (加上 is_correct / is_wrong)
+    function markSelectedChoice(isCorrect, correctChoiceId) {
+      const { SELECTED, CORRECT, WRONG } = gameConfig.optionClass;
+      const items = el('optionsList').querySelectorAll('li');
+      items.forEach(li => {
+        li.classList.remove(SELECTED);
+        if (li.dataset.choiceId === gameState.selectedChoiceId) {
+          li.classList.add(isCorrect ? CORRECT : WRONG);
+        }
+        // 若答錯，將正確選項同時標綠，提供即時提示
+        if (!isCorrect && correctChoiceId && li.dataset.choiceId === correctChoiceId) {
+          li.classList.add(CORRECT);
+        }
+      });
+    }
+
+    // ----------------------------------------------------
+    // 4. 本地仿真 API (取代遠端 quizApi)
+    // ----------------------------------------------------
+    const localQuizApi = {
+      startGame: async function() {
+        return { success: true };
+      },
+
+      getQuestion: async function() {
+        if (queueIdx >= questionQueue.length) {
+          throw { code: 'GAME_OVER' };
+        }
+        currentQObj = questionQueue[queueIdx];
+        queueIdx++;
+
+        // 轉換為官方 API 的 question / choices 規格
+        return {
+          question: {
+            uuid: currentQObj.key,
+            text: currentQObj.text || currentQObj.key,
+            image: currentQObj.screenshot || currentQObj.image || null
+          },
+          choices: currentQObj.choices.map((c, i) => ({
+            uuid: c.uuid || `opt_${i+1}`,
+            text: c.text || '',
+            image: c.image || null
+          }))
+        };
+      },
+
+      submitAnswer: async function(questionId, choiceId) {
+        const q = currentQObj;
+        const targetText = q.correct ? (q.correct.text || q.correct) : null;
+        const targetUuid = q.correct ? q.correct.uuid : null;
+        const targetImg = q.correct ? q.correct.image : null;
+
+        const selectedChoice = q.choices.find((c, i) => (c.uuid || `opt_${i+1}`) === choiceId);
+
+        let isCorrect = false;
+        let correctChoiceId = null;
+
+        // 尋找真實正確選項的 choiceId
+        q.choices.forEach((c, i) => {
+          const cid = c.uuid || `opt_${i+1}`;
+          if (targetText && c.text && (c.text === targetText || targetText.includes(c.text) || c.text.includes(targetText))) {
+            correctChoiceId = cid;
+          } else if (targetUuid && c.uuid === targetUuid) {
+            correctChoiceId = cid;
+          } else if (targetImg && c.image && targetImg.split('/').pop() === c.image.split('/').pop()) {
+            correctChoiceId = cid;
+          }
+        });
+
+        if (targetText && selectedChoice && selectedChoice.text && (selectedChoice.text === targetText || targetText.includes(selectedChoice.text) || selectedChoice.text.includes(targetText))) {
+          isCorrect = true;
+        } else if (targetUuid && selectedChoice && selectedChoice.uuid === targetUuid) {
+          isCorrect = true;
+        } else if (targetImg && selectedChoice && selectedChoice.image && targetImg.split('/').pop() === selectedChoice.image.split('/').pop()) {
+          isCorrect = true;
+        } else if (!q.correct) {
+          // 題庫未確定答案時，預設給過並記錄
+          isCorrect = true;
+        }
+
+        if (!isCorrect) {
+          wrongKeysSet.add(q.key);
+        }
+
+        return { isCorrect, correctChoiceId };
+      }
+    };
+
+    // ----------------------------------------------------
+    // 5. 官方答題與倒數流程
+    // ----------------------------------------------------
+    async function submitAnswer() {
+      if (gameState.isAnswered || gameState.selectedChoiceId === null) {
+        alert('請先點選一個選項！');
+        return;
+      }
+
+      gameState.isAnswered = true;
+      const res = await localQuizApi.submitAnswer(gameState.currentQuestionId, gameState.selectedChoiceId);
+
+      if (res.isCorrect) {
+        gameState.correctCount++;
+      }
+
+      markSelectedChoice(res.isCorrect, res.correctChoiceId);
+      showFeedback(res.isCorrect, res.correctChoiceId);
+
+      if (res.isCorrect) {
+        setActionBtn('next');
+      } else {
+        if (currentMode === 'sprint10') {
+          stopTimer();
+          gameState.isGameActive = false;
+          setActionBtn('end');
+        } else {
+          // 無限模式允許看錯題後繼續
+          setActionBtn('next');
+        }
+      }
+    }
+
+    async function loadQuestion() {
+      try {
+        const data = await localQuizApi.getQuestion();
+        if (gameState.isGameActive) {
+          renderQuestion(data);
+        }
+      } catch (err) {
+        endGame();
+      }
+    }
+
+    function onActionBtnClick() {
+      if (gameState.btnMode === 'confirm') {
+        submitAnswer();
+      } else if (gameState.btnMode === 'next') {
+        loadQuestion();
+      } else {
+        endGame();
+      }
+    }
+
+    function startTimer() {
+      stopTimer();
+      el('timer').textContent = gameState.timeLimit;
+      gameState.gameTimer = setInterval(() => {
+        const elapsed = Math.floor((Date.now() - gameState.startedAt) / 1000);
+        const rem = Math.max(gameState.timeLimit - elapsed, 0);
+        el('timer').textContent = rem;
+        if (rem <= 0) {
+          timeUp();
+        }
+      }, gameConfig.timerTickMs);
+    }
+
+    function stopTimer() {
+      clearInterval(gameState.gameTimer);
+      gameState.gameTimer = null;
+    }
+
+    function timeUp() {
+      stopTimer();
+      gameState.isGameActive = false;
+      const alertEl = el('alertTimeUp');
+      if (alertEl) alertEl.style.display = 'block';
+      setTimeout(() => {
+        if (alertEl) alertEl.style.display = 'none';
+        endGame();
+      }, 2000);
+    }
+
+    function endGame() {
+      stopTimer();
+      gameState.isGameActive = false;
+
+      const endingTitleEl = el('endingTitle');
+      if (endingTitleEl) {
+        endingTitleEl.textContent = gameState.correctCount === 0
+          ? gameConfig.endingTitle.noScore
+          : gameConfig.endingTitle.hasScore;
+      }
+      el('finalScore').textContent = toDisplayScore(gameState.correctCount);
+      document.getElementById('KK_endingResultText').textContent = `答對 ${gameState.correctCount} 題，累計獲得 ${toDisplayScore(gameState.correctCount)} 積分！`;
+      showScreen('ENDING');
+    }
+
+    // 重新開始新的一局
+    function restartGame() {
+      stopTimer();
+      gameState.isGameActive = true;
+      gameState.startedAt = Date.now();
+      gameState.correctCount = 0;
+      queueIdx = 0;
+
+      // 依模式挑選題目
+      let pool = [...rawQuestions];
+      if (currentMode === 'visual') {
+        pool = pool.filter(q => (q.choices && q.choices.some(c => c.image)) || q.image || q.screenshot);
+      } else if (currentMode === 'unverified') {
+        pool = pool.filter(q => !q.correct);
+      } else if (currentMode === 'wrong') {
+        pool = pool.filter(q => wrongKeysSet.has(q.key));
+      }
+
+      if (pool.length === 0) pool = [...rawQuestions];
+      pool.sort(() => Math.random() - 0.5);
+
+      if (currentMode === 'sprint10') {
+        questionQueue = pool.slice(0, 10);
+        gameState.timeLimit = 60;
+        startTimer();
+      } else {
+        questionQueue = pool;
+        gameState.timeLimit = 999;
+        el('timer').textContent = '--';
+      }
+
+      showScreen('GAME');
+      loadQuestion();
+    }
+
+    function changeMode(m) {
+      currentMode = m;
+      document.querySelectorAll('#practiceModeBar .sim-chip').forEach(c => {
+        c.classList.toggle('active', c.dataset.pmode === m);
+      });
+      restartGame();
+    }
+
+    // ----------------------------------------------------
+    // 6. 題庫加載與初始化
+    // ----------------------------------------------------
+    async function initApp() {
       try {
         const resp = await fetch('/api/questions');
         if (resp.ok) {
-          const json = await resp.json();
-          parseRawDb(json);
+          const db = await resp.json();
+          parseDb(db);
         } else {
-          fallbackLocalData();
+          fallbackDb();
         }
       } catch (e) {
-        fallbackLocalData();
+        fallbackDb();
       }
 
-      setupEvents();
-      startNewSession();
-      renderBrowseList();
+      document.getElementById('totalDbCount').innerText = rawQuestions.length;
+
+      // 綁定官方事件監聽
+      el('optionsList').addEventListener('click', onOptionClick);
+      el('actionBtn').addEventListener('click', onActionBtnClick);
+      el('playBtn').addEventListener('click', restartGame);
+
+      setupKeyboard();
+      restartGame();
+      renderBrowse(rawQuestions);
     }
 
-    function fallbackLocalData() {
-      if (window.QUIZ_DATA) {
-        parseRawDb(window.QUIZ_DATA);
-      }
+    function fallbackDb() {
+      if (window.QUIZ_DATA) parseDb(window.QUIZ_DATA);
     }
 
-    function parseRawDb(db) {
+    function parseDb(db) {
       const qObj = db.questions || {};
-      quizData = Object.keys(qObj).map(k => {
+      rawQuestions = Object.keys(qObj).map(k => {
         const item = qObj[k];
         return {
           key: k,
@@ -1004,561 +848,85 @@
           updated_at: item.updated_at || ''
         };
       });
-
-      updateStats();
     }
 
-    function updateStats() {
-      document.getElementById('statTotal').innerText = quizData.length;
-      document.getElementById('statVerified').innerText = quizData.filter(q => q.correct).length;
-      document.getElementById('statPending').innerText = quizData.filter(q => !q.correct).length;
-      document.getElementById('statMedia').innerText = quizData.filter(q => q.screenshot || q.image).length;
-    }
-
-    function startNewSession() {
-      clearInterval(timerInterval);
-      arenaAnswered = false;
-      document.getElementById('arenaCard').style.display = 'block';
-      document.getElementById('summaryCard').style.display = 'none';
-
-      let pool = [...quizData];
-      if (currentPracticeMode === 'unverified') {
-        pool = pool.filter(q => !q.correct);
-      } else if (currentPracticeMode === 'visual') {
-        pool = pool.filter(q => q.screenshot || q.image || q.choices.some(c => c.image));
-      } else if (currentPracticeMode === 'wrong') {
-        pool = pool.filter(q => practiceWrongSet.has(q.key) || (q.wrong && q.wrong.length > 0));
-      }
-
-      if (pool.length === 0) pool = [...quizData];
-      pool.sort(() => Math.random() - 0.5);
-
-      if (currentPracticeMode === 'sprint10') {
-        practiceQueue = pool.slice(0, 10);
-        timerSeconds = 60;
-        document.getElementById('arenaTimer').innerText = timerSeconds;
-        startTimer();
-      } else {
-        practiceQueue = pool;
-        document.getElementById('arenaTimer').innerText = '--';
-      }
-
-      practiceIndex = 0;
-      practiceStreak = 0;
-      practiceScore = 0;
-      renderArenaQuestion();
-    }
-
-    function startTimer() {
-      const timerEl = document.getElementById('arenaTimer');
-      timerEl.innerText = timerSeconds;
-      timerInterval = setInterval(() => {
-        timerSeconds--;
-        timerEl.innerText = timerSeconds;
-        if (timerSeconds <= 0) {
-          clearInterval(timerInterval);
-          finishSession();
-        }
-      }, 1000);
-    }
-
-    function renderArenaQuestion() {
-      if (practiceIndex >= practiceQueue.length) {
-        finishSession();
-        return;
-      }
-
-      arenaAnswered = false;
-      currentSelectedOpt = null;
-      document.getElementById('arenaFeedbackBar').style.display = 'none';
-      document.getElementById('btnNext').style.display = 'none';
-
-      const q = practiceQueue[practiceIndex];
-      document.getElementById('arenaIdx').innerText = practiceIndex + 1;
-      document.getElementById('arenaTotal').innerText = practiceQueue.length;
-      document.getElementById('arenaQuestionText').innerText = q.text;
-
-      const mediaBox = document.getElementById('arenaMediaBox');
-      const arenaImg = document.getElementById('arenaImg');
-      const imgSrc = q.screenshot || q.image;
-
-      if (imgSrc) {
-        arenaImg.src = imgSrc;
-        mediaBox.style.display = 'flex';
-      } else {
-        mediaBox.style.display = 'none';
-      }
-
-      const optGrid = document.getElementById('arenaOptionsGrid');
-      optGrid.innerHTML = '';
-
-      let choices = q.choices || [];
-
-      if (choices.length === 0) {
-        optGrid.innerHTML = `
-          <div style="text-align: center; color: var(--text-muted); padding: 16px;">
-            本題尚無預設選項文字，請檢視截圖並於下方回報。
-          </div>
-        `;
-        document.getElementById('arenaFeedbackBar').style.display = 'flex';
-        document.getElementById('feedbackText').innerHTML = `<span>本題尚待協作</span>`;
-        return;
-      }
-
-      choices.forEach((c, i) => {
-        const row = document.createElement('div');
-        row.className = 'momo-opt-row';
-        row.dataset.idx = i;
-
-        let contentHtml = `<span class="momo-num-badge">${i + 1}</span>`;
-        if (c.image) {
-          contentHtml += `
-            <div class="momo-opt-content">
-              <img src="${c.image}" alt="選項圖片" class="momo-opt-img-thumb">
-              <div>${escapeHtml(c.text || `圖片選項 ${i + 1}`)}</div>
-            </div>
-          `;
-        } else {
-          contentHtml += `<div class="momo-opt-content">${escapeHtml(c.text || `選項 ${i + 1}`)}</div>`;
-        }
-
-        row.innerHTML = contentHtml;
-        row.onclick = () => selectOption(i, c, q);
-        optGrid.appendChild(row);
-      });
-    }
-
-    function selectOption(idx, choiceObj, q) {
-      if (arenaAnswered) return;
-      arenaAnswered = true;
-      currentSelectedOpt = choiceObj;
-
-      const optRows = document.querySelectorAll('.momo-opt-row');
-      const chosenRow = optRows[idx];
-
-      const targetText = q.correct ? (q.correct.text || q.correct) : null;
-      const targetUuid = q.correct ? q.correct.uuid : null;
-      const targetImg = q.correct ? q.correct.image : null;
-
-      let isCorrect = false;
-      if (targetText && choiceObj.text && (choiceObj.text === targetText || targetText.includes(choiceObj.text) || choiceObj.text.includes(targetText))) {
-        isCorrect = true;
-      } else if (targetUuid && choiceObj.uuid === targetUuid) {
-        isCorrect = true;
-      } else if (targetImg && choiceObj.image && targetImg.split('/').pop() === choiceObj.image.split('/').pop()) {
-        isCorrect = true;
-      }
-
-      const isUnverified = !q.correct;
-
-      if (isCorrect) {
-        chosenRow.classList.add('correct');
-        practiceStreak++;
-        practiceScore += 10;
-        showFeedback(true, `答對囉！ 答對${practiceStreak}題 +${practiceScore}分`);
-      } else if (isUnverified) {
-        chosenRow.classList.add('correct');
-        showFeedback(null, `已選取：${choiceObj.text || `選項 ${idx+1}`} (待確認)`);
-      } else {
-        chosenRow.classList.add('wrong');
-        practiceStreak = 0;
-        practiceWrongSet.add(q.key);
-        optRows.forEach((r, i) => {
-          const c = q.choices[i];
-          if (c && targetText && (c.text === targetText || targetText.includes(c.text) || c.text.includes(targetText))) {
-            r.classList.add('correct');
-          }
-        });
-        showFeedback(false, `答錯囉！正解為：${escapeHtml(targetText || '已標記選項')}`);
-      }
-
-      document.getElementById('btnNext').style.display = 'block';
-    }
-
-    function showFeedback(status, msg) {
-      const bar = document.getElementById('arenaFeedbackBar');
-      const txt = document.getElementById('feedbackText');
-      bar.style.display = 'flex';
-
-      if (status === true) {
-        txt.innerHTML = `<span style="color: var(--pink);">${msg}</span>`;
-      } else if (status === false) {
-        txt.innerHTML = `<span style="color: #dc2626;">${msg}</span>`;
-      } else {
-        txt.innerHTML = `<span style="color: var(--text-muted);">${msg}</span>`;
-      }
-    }
-
-    function nextQuestion() {
-      practiceIndex++;
-      renderArenaQuestion();
-    }
-
-    function finishSession() {
-      clearInterval(timerInterval);
-      document.getElementById('arenaCard').style.display = 'none';
-      document.getElementById('summaryCard').style.display = 'block';
-      document.getElementById('summaryScore').innerText = `答對 ${practiceScore / 10} 題 +${practiceScore}分`;
-      document.getElementById('summaryDesc').innerText = `本輪測驗結束，累計得分: ${practiceScore} 分`;
-    }
-
-    async function reportCorrectChoice() {
-      if (!currentSelectedOpt) {
-        alert('請先點選選項');
-        return;
-      }
-      const q = practiceQueue[practiceIndex];
-      const payload = {
-        question_key: q.key,
-        correct: {
-          text: currentSelectedOpt.text || '',
-          uuid: currentSelectedOpt.uuid || '',
-          image: currentSelectedOpt.image || ''
-        }
-      };
-
-      try {
-        const resp = await fetch('/api/report_answer', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-        if (resp.ok) {
-          q.correct = payload.correct;
-          updateStats();
-          alert(`已成功將「${currentSelectedOpt.text || '所選項'}」設定為正解`);
-        } else {
-          alert('儲存失敗');
-        }
-      } catch (e) {
-        alert('無法連線至伺服器');
-      }
-    }
-
-    function renderBrowseList() {
-      const container = document.getElementById('cardsList');
-      const filtered = quizData.filter(q => {
-        if (browseSearch) {
-          const s = browseSearch.toLowerCase();
-          const matchQ = q.text.toLowerCase().includes(s);
-          const matchOpts = q.choices.some(c => (c.text || '').toLowerCase().includes(s));
-          if (!matchQ && !matchOpts) return false;
-        }
-
-        if (browseFilter === 'verified') return !!q.correct;
-        if (browseFilter === 'pending') return !q.correct;
-        if (browseFilter === 'media') return !!(q.screenshot || q.image);
-        if (browseFilter === 'visual') return q.choices.some(c => c.image);
-        return true;
-      });
-
-      if (filtered.length === 0) {
-        container.innerHTML = `
-          <div style="text-align: center; color: var(--text-muted); padding: 40px 16px;">
-            無符合條件題目
-          </div>
-        `;
-        return;
-      }
-
-      container.innerHTML = filtered.map((item, idx) => {
-        const imgSrc = item.screenshot || item.image;
-        const correctText = item.correct ? (item.correct.text || item.correct) : null;
-        const isVerified = !!item.correct;
-
-        let mediaHtml = '';
-        if (imgSrc) {
-          mediaHtml = `
-            <div class="media-box" onclick="openImageModal('${imgSrc}')">
-              <img src="${imgSrc}" alt="題目截圖" loading="lazy">
-            </div>
-          `;
-        }
-
-        let choicesHtml = '';
-        if (item.choices && item.choices.length > 0) {
-          choicesHtml = `
-            <div class="options-grid">
-              ${item.choices.map((c, cIdx) => {
-                const text = c.text || `[圖片選項 ${cIdx + 1}]`;
-                const isThisCorrect = correctText && (text === correctText || correctText.includes(text) || text.includes(correctText));
-                let cls = 'option-item' + (isThisCorrect ? ' correct' : '');
-
-                return `
-                  <div class="${cls}" onclick="quickReportChoice('${escapeHtml(item.key)}', '${escapeHtml(text)}')">
-                    <span class="option-dot"></span>
-                    <span>${escapeHtml(text)}</span>
-                  </div>
-                `;
-              }).join('')}
-            </div>
-          `;
-        } else if (correctText) {
-          choicesHtml = `
-            <div class="options-grid">
-              <div class="option-item correct">
-                <span class="option-dot"></span>
-                <span>正確解答：${escapeHtml(correctText)}</span>
-              </div>
-            </div>
-          `;
-        }
-
-        return `
-          <article class="quiz-card ${imgSrc ? 'has-media' : ''}">
-            ${mediaHtml}
-            <div class="card-content">
-              <div class="card-header">
-                <div class="question-title">
-                  <span style="color: var(--pink); margin-right: 6px;">#${idx + 1}</span>
-                  <span>${escapeHtml(item.text)}</span>
-                </div>
-                <div class="badge-group">
-                  ${imgSrc ? '<span class="badge-img">截圖</span>' : ''}
-                  <span class="status-badge ${isVerified ? 'badge-verified' : 'badge-pending'}">
-                    ${isVerified ? '已確認' : '待確認'}
-                  </span>
-                </div>
-              </div>
-
-              ${choicesHtml}
-
-              <div class="card-footer">
-                <span>更新時間：${escapeHtml(item.updated_at || '無')}</span>
-                <div class="card-actions">
-                  <button class="action-btn btn-confirm" onclick="promptReportAnswer('${escapeHtml(item.key)}')">
-                    標記正解
-                  </button>
-                  <button class="action-btn" onclick="copyCardText('${escapeHtml(item.text)}', '${escapeHtml(correctText || '未確認')}')">
-                    複製題答
-                  </button>
-                </div>
-              </div>
-            </div>
-          </article>
-        `;
-      }).join('');
-    }
-
-    async function quickReportChoice(key, choiceText) {
-      if (!confirm(`確定要將「${choiceText}」標記為正確答案嗎？`)) return;
-      await sendReport(key, { text: choiceText });
-    }
-
-    async function promptReportAnswer(key) {
-      const q = quizData.find(item => item.key === key);
-      const curr = q && q.correct ? (q.correct.text || q.correct) : '';
-      const ans = prompt(`請輸入本題正確答案：\n${q ? q.text : key}`, curr);
-      if (ans && ans.trim()) {
-        await sendReport(key, { text: ans.trim() });
-      }
-    }
-
-    async function sendReport(key, correctObj) {
-      try {
-        const resp = await fetch('/api/report_answer', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ question_key: key, correct: correctObj })
-        });
-        if (resp.ok) {
-          const q = quizData.find(item => item.key === key);
-          if (q) q.correct = correctObj;
-          updateStats();
-          renderBrowseList();
-          alert('已更新正解');
-        } else {
-          alert('伺服器回應異常');
-        }
-      } catch (e) {
-        alert('請確認 view_quiz.py 伺服器正在執行');
-      }
-    }
-
-    function setupEvents() {
-      document.querySelectorAll('.nav-btn').forEach(b => {
-        b.onclick = () => switchNav(b.dataset.view);
-      });
-
-      document.querySelectorAll('.mode-chip').forEach(c => {
-        c.onclick = () => {
-          document.querySelectorAll('.mode-chip').forEach(x => x.classList.remove('active'));
-          c.classList.add('active');
-          currentPracticeMode = c.dataset.mode;
-          startNewSession();
-        };
-      });
-
-      document.getElementById('searchInput').oninput = (e) => {
-        browseSearch = e.target.value.trim();
-        renderBrowseList();
-      };
-
-      document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.onclick = () => {
-          document.querySelectorAll('.tab-btn').forEach(x => x.classList.remove('active'));
-          btn.classList.add('active');
-          browseFilter = btn.dataset.filter;
-          renderBrowseList();
-        };
-      });
-
-      const dropzone = document.getElementById('uploadDropzone');
-      const fileInput = document.getElementById('fileInput');
-
-      dropzone.onclick = () => fileInput.click();
-      fileInput.onchange = (e) => handleFileSelect(e.target.files[0]);
-
-      dropzone.ondragover = (e) => { e.preventDefault(); dropzone.classList.add('dragover'); };
-      dropzone.ondragleave = () => dropzone.classList.remove('dragover');
-      dropzone.ondrop = (e) => {
-        e.preventDefault();
-        dropzone.classList.remove('dragover');
-        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-          handleFileSelect(e.dataTransfer.files[0]);
-        }
-      };
-
-      window.addEventListener('paste', (e) => {
-        const items = (e.clipboardData || e.originalEvent.clipboardData).items;
-        for (let item of items) {
-          if (item.kind === 'file' && item.type.startsWith('image/')) {
-            const blob = item.getAsFile();
-            handleFileSelect(blob);
-            switchNav('upload');
-            break;
-          }
-        }
-      });
-
+    // 鍵盤快捷鍵：1~4 選擇選項，Space / Enter 確認/下一題
+    function setupKeyboard() {
       window.addEventListener('keydown', (e) => {
-        if (document.getElementById('viewPractice').classList.contains('active')) {
+        if (document.getElementById('viewPractice').style.display !== 'none') {
           if (['1', '2', '3', '4'].includes(e.key)) {
             const idx = parseInt(e.key) - 1;
-            const rows = document.querySelectorAll('.momo-opt-row');
-            if (rows[idx] && !arenaAnswered) rows[idx].click();
+            const items = el('optionsList').querySelectorAll('li');
+            if (items[idx] && !gameState.isAnswered) {
+              items[idx].click();
+            }
           } else if (e.code === 'Space' || e.key === 'Enter') {
             e.preventDefault();
-            if (arenaAnswered) nextQuestion();
+            onActionBtnClick();
           }
         }
       });
     }
 
-    function handleFileSelect(file) {
-      if (!file) return;
-      uploadedFileName = file.name || `upload_${Date.now()}.png`;
+    // ----------------------------------------------------
+    // 7. 導航分頁切換
+    // ----------------------------------------------------
+    function switchTab(tab) {
+      document.getElementById('viewPractice').style.display = tab === 'practice' ? 'block' : 'none';
+      document.getElementById('practiceModeBar').style.display = tab === 'practice' ? 'flex' : 'none';
+      document.getElementById('viewBrowse').style.display = tab === 'browse' ? 'block' : 'none';
+      document.getElementById('viewUpload').style.display = tab === 'upload' ? 'block' : 'none';
 
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        uploadedFileB64 = e.target.result;
-        document.getElementById('uploadPreviewImg').src = uploadedFileB64;
-        document.getElementById('uploadPreviewBox').style.display = 'block';
-      };
-      reader.readAsDataURL(file);
+      document.getElementById('tabBtnPractice').classList.toggle('active', tab === 'practice');
+      document.getElementById('tabBtnBrowse').classList.toggle('active', tab === 'browse');
+      document.getElementById('tabBtnUpload').classList.toggle('active', tab === 'upload');
     }
 
-    async function submitUploadQuestion() {
-      const qText = document.getElementById('inputQuestionText').value.trim();
-      const o1 = document.getElementById('inputOpt1').value.trim();
-      const o2 = document.getElementById('inputOpt2').value.trim();
-      const o3 = document.getElementById('inputOpt3').value.trim();
-      const o4 = document.getElementById('inputOpt4').value.trim();
-      const corr = document.getElementById('inputCorrect').value.trim();
+    // 題庫瀏覽清單
+    function renderBrowse(list) {
+      const c = document.getElementById('browseList');
+      c.innerHTML = '';
+      list.slice(0, 100).forEach((q, i) => {
+        const div = document.createElement('div');
+        div.className = 'sim-card';
 
-      if (!qText && !uploadedFileB64) {
-        alert('請至少填寫題目文字或提供截圖');
-        return;
-      }
+        let correctLabel = q.correct ? (q.correct.text || q.correct) : '待確認';
+        let choicesHtml = q.choices.map((ch, idx) => {
+          const isCor = (q.correct && (ch.text === correctLabel || (ch.uuid && ch.uuid === q.correct.uuid)));
+          return `<span class="sim-opt-tag ${isCor ? 'correct' : ''}">(${idx+1}) ${ch.text || '[圖片選項]'}</span>`;
+        }).join('');
 
-      const choices = [o1, o2, o3, o4].filter(x => !!x).map((t, idx) => ({ text: t, index: idx + 1 }));
-
-      const payload = {
-        question_text: qText || '待確認題目 (見截圖)',
-        image_base64: uploadedFileB64 || null,
-        image_name: uploadedFileName,
-        choices: choices,
-        correct_text: corr || null
-      };
-
-      try {
-        const resp = await fetch('/api/upload_question', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-
-        if (resp.ok) {
-          const res = await resp.json();
-          alert('上傳成功');
-          document.getElementById('inputQuestionText').value = '';
-          document.getElementById('inputOpt1').value = '';
-          document.getElementById('inputOpt2').value = '';
-          document.getElementById('inputOpt3').value = '';
-          document.getElementById('inputOpt4').value = '';
-          document.getElementById('inputCorrect').value = '';
-          uploadedFileB64 = null;
-          document.getElementById('uploadPreviewBox').style.display = 'none';
-
-          if (res.new_question) {
-            quizData.unshift(res.new_question);
-            updateStats();
-          }
-          switchNav('browse');
-        } else {
-          alert('上傳失敗');
-        }
-      } catch (e) {
-        alert('無法連線至伺服器');
-      }
-    }
-
-    function switchNav(viewName) {
-      document.querySelectorAll('.nav-btn').forEach(b => {
-        b.classList.toggle('active', b.dataset.view === viewName);
+        div.innerHTML = `
+          <div style="font-weight:600;">${i+1}. ${escapeHtml(q.text)}</div>
+          <div>${choicesHtml}</div>
+          <div style="font-size:12px; color:#888;">正解：<b style="color:#ff007f;">${escapeHtml(String(correctLabel))}</b> · 題號: ${q.key}</div>
+          ${(q.screenshot || q.image) ? `<img class="sim-card-img" src="${q.screenshot || q.image}">` : ''}
+        `;
+        c.appendChild(div);
       });
-      document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
+    }
 
-      if (viewName === 'practice') {
-        document.getElementById('viewPractice').classList.add('active');
-      } else if (viewName === 'browse') {
-        document.getElementById('viewBrowse').classList.add('active');
-        renderBrowseList();
-      } else if (viewName === 'upload') {
-        document.getElementById('viewUpload').classList.add('active');
+    function onSearch(kw) {
+      const filtered = rawQuestions.filter(q => q.text.includes(kw) || JSON.stringify(q.choices).includes(kw));
+      renderBrowse(filtered);
+    }
+
+    function filterBrowse(t) {
+      if (t === 'has_image') {
+        renderBrowse(rawQuestions.filter(q => q.image || q.screenshot || q.choices.some(c => c.image)));
+      } else if (t === 'verified') {
+        renderBrowse(rawQuestions.filter(q => !!q.correct));
+      } else {
+        renderBrowse(rawQuestions);
       }
-    }
-
-    function openImageModal(src) {
-      document.getElementById('modalImg').src = src;
-      document.getElementById('imageModal').classList.add('open');
-    }
-
-    function openArenaModal() {
-      const src = document.getElementById('arenaImg').src;
-      if (src) openImageModal(src);
-    }
-
-    function closeImageModal() {
-      document.getElementById('imageModal').classList.remove('open');
-    }
-
-    function copyCardText(q, a) {
-      const text = `題目：${q}\n答案：${a}`;
-      navigator.clipboard.writeText(text).then(() => alert('已複製'));
     }
 
     function escapeHtml(str) {
       if (!str) return '';
-      return String(str)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
+      return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     }
 
-    init();
+    window.addEventListener('DOMContentLoaded', initApp);
   </script>
 </body>
 </html>
