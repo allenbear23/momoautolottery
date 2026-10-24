@@ -1688,7 +1688,8 @@ window.QUIZ_DATA = {
         },
         {
           "text": "3"
-        }
+        },
+        "選項 2"
       ]
     },
     "在mo+消費可在哪裡領取折價券?": {
@@ -1952,7 +1953,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "3"
-        }
+        },
+        "3"
       ]
     },
     "哪一個是泡泡馬特熱門IP (MOLLY)": {
@@ -1977,7 +1979,10 @@ window.QUIZ_DATA = {
         {
           "text": "4"
         }
-      ]
+      ],
+      "correct": {
+        "text": "2"
+      }
     },
     "請問圖片中哪款不是新秀麗行李箱": {
       "text": "請問圖片中哪款不是新秀麗行李箱",
@@ -2000,7 +2005,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "4"
-        }
+        },
+        "4"
       ]
     },
     "以下哪款是TILLAK行李箱升級款配色": {
@@ -2021,7 +2027,9 @@ window.QUIZ_DATA = {
         }
       ],
       "updated_at": "2026-10-24 17:20:00",
-      "wrong": []
+      "wrong": [
+        "4"
+      ]
     },
     "哪一系列的Lenovo商用桌機是大機箱?": {
       "text": "哪一系列的Lenovo商用桌機是大機箱?",
@@ -2047,7 +2055,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "M70s"
-        }
+        },
+        "M70s"
       ]
     },
     "電子閱讀器常使用哪種螢幕?": {
@@ -2074,7 +2083,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "Plasma"
-        }
+        },
+        "Plasma"
       ]
     },
     "玩遊戲時充電器瓦數要怎麼挑?": {
@@ -2098,7 +2108,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "40w"
-        }
+        },
+        "40w"
       ]
     },
     "MUJI的LOGO是什麼顏色的": {
@@ -2122,7 +2133,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "紅色"
-        }
+        },
+        "紅色"
       ],
       "screenshot": "momo answer/5670498_0.jpg",
       "correct": {
@@ -2150,7 +2162,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "商周出版社"
-        }
+        },
+        "商周出版社"
       ],
       "screenshot": "momo answer/5670497_0.jpg",
       "correct": {
@@ -2198,7 +2211,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "3"
-        }
+        },
+        "3"
       ]
     },
     "實體通路 (卡多摩英童館) 是哪一間店鋪?": {
@@ -2243,7 +2257,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "11/10"
-        }
+        },
+        "11/10"
       ],
       "screenshot": "momo answer/S__102523006_0.jpg"
     },
@@ -2301,7 +2316,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "李李仁代言"
-        }
+        },
+        "李李仁代言"
       ]
     },
     "Jennie在凡士林廣告拿的是哪一個口味的凝乳": {
@@ -2355,7 +2371,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "3"
-        }
+        },
+        "3"
       ]
     },
     "請問墨鏡品牌RAYBAN的全球代言人是?": {
@@ -2402,7 +2419,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "GODIVA"
-        }
+        },
+        "GODIVA"
       ]
     },
     "請選出品牌為PLAYBOY的鞋款": {
@@ -2427,7 +2445,10 @@ window.QUIZ_DATA = {
         {
           "text": "4"
         }
-      ]
+      ],
+      "correct": {
+        "text": "1"
+      }
     },
     "哪個牌子行李箱是The DoDoMen代言?": {
       "text": "哪個牌子行李箱是The DoDoMen代言?",
@@ -2453,7 +2474,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "萬國通路"
-        }
+        },
+        "萬國通路"
       ]
     },
     "最愛健康也愛穿緊身衣的品牌是甚麼?": {
@@ -2480,7 +2502,9 @@ window.QUIZ_DATA = {
         },
         {
           "text": "大研生醫"
-        }
+        },
+        "豐傑生醫",
+        "大研生醫"
       ]
     },
     "請選出PORTER新款momo賣最好系列": {
@@ -2504,7 +2528,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "4"
-        }
+        },
+        "4"
       ]
     },
     "請問圖中gozo和哪位公主聯名?": {
@@ -2637,7 +2662,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "1"
-        }
+        },
+        "1"
       ],
       "screenshot": "momo answer/S__102375490_0.jpg"
     },
@@ -2686,7 +2712,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "1"
-        }
+        },
+        "1"
       ]
     },
     "下列哪款由富含有豐富Omega-3": {
@@ -2749,7 +2776,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "999元"
-        }
+        },
+        "999元"
       ],
       "screenshot": "momo answer/1132925_0.jpg"
     },
@@ -2774,8 +2802,12 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "3C追劇推薦"
-        }
-      ]
+        },
+        "3C追劇推薦"
+      ],
+      "correct": {
+        "text": "以上皆是"
+      }
     },
     "下列哪個是衛生棉常見的製造材質": {
       "text": "下列哪個是衛生棉常見的製造材質",
@@ -2821,7 +2853,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "美國"
-        }
+        },
+        "美國"
       ]
     },
     "請問此商品最大的功能為何?": {
@@ -2842,7 +2875,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "煎蛋"
-        }
+        },
+        "煎蛋"
       ],
       "screenshot": "momo answer/95457_0.jpg"
     },
@@ -2870,7 +2904,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "日本"
-        }
+        },
+        "日本"
       ]
     },
     "哪一句話最讓人生氣?": {
@@ -2894,7 +2929,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "我都可以"
-        }
+        },
+        "我都可以"
       ]
     },
     "下列何者為韓國FULLY綠番茄系列商品?": {
@@ -2918,7 +2954,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "2"
-        }
+        },
+        "2"
       ],
       "screenshot": "momo answer/S__36200783_0.jpg"
     },
@@ -2943,7 +2980,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "EPSON"
-        }
+        },
+        "EPSON"
       ]
     },
     "猜看看16吋LG筆電的重量": {
@@ -2964,7 +3002,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "800G"
-        }
+        },
+        "800G"
       ]
     },
     "請選出PORTER最知名人手一包經典款": {
@@ -2988,7 +3027,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "3"
-        }
+        },
+        "3"
       ]
     },
     "哪一個不是資生堂集團旗下品牌": {
@@ -3015,7 +3055,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "敏感話題"
-        }
+        },
+        "敏感話題"
       ],
       "screenshot": "momo answer/573149_0.jpg"
     },
@@ -3040,7 +3081,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "MOMO周邊小物"
-        }
+        },
+        "MOMO周邊小物"
       ]
     },
     "下列哪個硬碟是演唱會神器?": {
@@ -3065,7 +3107,10 @@ window.QUIZ_DATA = {
         {
           "text": "4"
         }
-      ]
+      ],
+      "correct": {
+        "text": "3"
+      }
     },
     "瑪薇絲主要販售哪一類商品?": {
       "text": "瑪薇絲主要販售哪一類商品?",
@@ -3112,7 +3157,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "WHOO后"
-        }
+        },
+        "WHOO后"
       ]
     },
     "請問圖中鞋款是時下哪個流行品牌?": {
@@ -3198,7 +3244,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "2"
-        }
+        },
+        "2"
       ],
       "screenshot": "momo answer/messageImage_1792750702099_0.jpg"
     },
@@ -3243,7 +3290,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "3"
-        }
+        },
+        "3"
       ]
     },
     "以下那些是  (超極薑黃MAX複方膠囊)  的功效": {
@@ -3267,7 +3315,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "1 眼睛圖片"
-        }
+        },
+        "1 眼睛圖片"
       ],
       "screenshot": "momo answer/lJJxSlV.png"
     },
@@ -3289,7 +3338,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "第1檻"
-        }
+        },
+        "第1檻"
       ]
     },
     "請問小禎代言的蛋白飲是什麼成分": {
@@ -3316,7 +3366,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "黑豆"
-        }
+        },
+        "黑豆"
       ],
       "screenshot": "momo answer/S__116785468_0.jpg"
     },
@@ -3338,7 +3389,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "Michael Jackson"
-        }
+        },
+        "Michael Jackson"
       ],
       "screenshot": "momo answer/S__116785467_0.jpg"
     },
@@ -3363,7 +3415,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "3"
-        }
+        },
+        "3"
       ]
     },
     "下列哪個是洗衣球": {
@@ -3387,7 +3440,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "問問"
-        }
+        },
+        "問問"
       ]
     },
     "請問黃金品牌周大福的全球代言人是?": {
@@ -3432,7 +3486,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "婦潔免洗內褲"
-        }
+        },
+        "婦潔免洗內褲"
       ],
       "screenshot": "momo answer/38805_0.jpg"
     },
@@ -3457,7 +3512,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "3"
-        }
+        },
+        "3"
       ]
     },
     "Canon 在下列哪個領域最具知名度?": {
@@ -3484,7 +3540,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "相機與列印設備"
-        }
+        },
+        "相機與列印設備"
       ],
       "screenshot": "momo answer/748913_0.jpg"
     },
@@ -3509,7 +3566,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "3000"
-        }
+        },
+        "3000"
       ],
       "screenshot": "momo answer/572903_0.jpg"
     },
@@ -3537,7 +3595,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "BBL"
-        }
+        },
+        "BBL"
       ],
       "screenshot": "momo answer/570878_0.jpg"
     },
@@ -3610,7 +3669,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "2"
-        }
+        },
+        "2"
       ],
       "screenshot": "momo answer/572293_0.jpg"
     },
@@ -3635,7 +3695,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "3"
-        }
+        },
+        "3"
       ]
     },
     "下列何者唯一品夫人的logo?": {
@@ -3659,7 +3720,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "4"
-        }
+        },
+        "4"
       ]
     },
     "哪一個是泡泡瑪特熱門IP  (CRYBABY) ?": {
@@ -3891,7 +3953,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "1"
-        }
+        },
+        "1"
       ]
     },
     "請選出哪一款抹茶粉是100%無加糖的?": {
@@ -3915,7 +3978,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "3"
-        }
+        },
+        "3"
       ]
     },
     "請問露得清來自哪個國家品牌?": {
@@ -3942,7 +4006,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "台灣"
-        }
+        },
+        "台灣"
       ],
       "screenshot": "momo answer/328429_0.jpg"
     },
@@ -3967,7 +4032,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "4"
-        }
+        },
+        "4"
       ],
       "screenshot": "momo answer/532314_0.jpg"
     },
@@ -3992,7 +4058,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "艾惟諾燕麥沐浴露"
-        }
+        },
+        "艾惟諾燕麥沐浴露"
       ]
     },
     "請問圖片中楊謹華代言的襪子是哪個品牌?": {
@@ -4010,7 +4077,10 @@ window.QUIZ_DATA = {
         }
       ],
       "updated_at": "2026-10-24 17:20:00",
-      "wrong": []
+      "wrong": [],
+      "correct": {
+        "text": "footer"
+      }
     },
     "11/1-11/12達特醫雙11活動是幾折?": {
       "text": "11/1-11/12達特醫雙11活動是幾折?",
@@ -4033,7 +4103,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "6折"
-        }
+        },
+        "6折"
       ],
       "screenshot": "momo answer/messageImage_1792823051295_0.jpg"
     },
@@ -4058,7 +4129,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "3"
-        }
+        },
+        "3"
       ]
     },
     "雙十一囤貨一定要買甚麼?": {
@@ -4334,6 +4406,1122 @@ window.QUIZ_DATA = {
         "text": "",
         "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/6b857d26-b2a6-4ae6-8e35-de20407467c3.jpg"
       }
+    },
+    "拍攝運動會賽跑時下列哪項因素最容易影響照片是否清晰": {
+      "text": "拍攝運動會賽跑時下列哪項因素最容易影響照片是否清晰",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "記憶卡廠牌"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "快門速度"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "相機品牌"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "機身顏色"
+        }
+      ],
+      "correct": null,
+      "wrong": [
+        "相機品牌"
+      ],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "樂高怎麼玩?": {
+      "text": "樂高怎麼玩?",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "用丟的"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "用併的"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "拿來吃"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "用腳踩"
+        }
+      ],
+      "correct": {
+        "text": "用腳踩"
+      },
+      "wrong": [
+        "用併的"
+      ],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "Kosmiya最受歡迎的商品類別是?": {
+      "text": "Kosmiya最受歡迎的商品類別是?",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "睡衣/居家套裝"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "皮鞋"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "牛仔外套"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "運動褲"
+        }
+      ],
+      "correct": {
+        "text": "睡衣/居家套裝"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "OPPO Reno16 的代言人是誰?": {
+      "text": "OPPO Reno16 的代言人是誰?",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "1錯誤"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "2"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "3"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "4"
+        }
+      ],
+      "correct": null,
+      "wrong": [
+        "1錯誤"
+      ],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "直播間小編留言前面的標誌為?": {
+      "text": "直播間小編留言前面的標誌為?",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "mo點"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "奇異果"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "桃子"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "mo幣"
+        }
+      ],
+      "correct": null,
+      "wrong": [
+        "桃子"
+      ],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "下列何者非李寧 Lining的球鞋?": {
+      "text": "下列何者非李寧 Lining的球鞋?",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "1"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "2"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "3錯誤"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "4"
+        }
+      ],
+      "correct": {
+        "text": "1"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "請問Mammut長毛象的起源地在哪?": {
+      "text": "請問Mammut長毛象的起源地在哪?",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "1加拿大"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "2美國"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "3英國"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "4義大利"
+        }
+      ],
+      "correct": {
+        "text": "1加拿大"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "下列哪個是韓國品牌THE TOOL LAB美容工具/刷具": {
+      "text": "下列哪個是韓國品牌THE TOOL LAB美容工具/刷具",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "1"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "2"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "3"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "4"
+        }
+      ],
+      "correct": {
+        "text": "3"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "請問哪一張圖片中有巧虎?": {
+      "text": "請問哪一張圖片中有巧虎?",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "1巧虎好朋友"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "2超級市場"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "3小雞逛超市"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "4妖怪托顯所"
+        }
+      ],
+      "correct": {
+        "text": "1巧虎好朋友"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "請問哪一款式美亞矽膠尼龍鍋鏟": {
+      "text": "請問哪一款式美亞矽膠尼龍鍋鏟",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "1"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "2"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "3"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "4"
+        }
+      ],
+      "correct": {
+        "text": "2"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "FILA近兩年的韓星代言人為?": {
+      "text": "FILA近兩年的韓星代言人為?",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "田柾國"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "白種元"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "韓韶禧"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "安成宰"
+        }
+      ],
+      "correct": {
+        "text": "韓韶禧"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "以下哪個是SONY單眼的鏡頭卡口": {
+      "text": "以下哪個是SONY單眼的鏡頭卡口",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "RF Mount"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "L Mount"
+        }
+      ],
+      "correct": null,
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "此商品最可能出現於哪間店家     (x24圖片)": {
+      "text": "此商品最可能出現於哪間店家     (x24圖片)",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "免睏寵物樂園"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "Heromama"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "寶寶共和國"
+        }
+      ],
+      "correct": {
+        "text": "免睏寵物樂園"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "以下何者為德國品牌的電動工具?": {
+      "text": "以下何者為德國品牌的電動工具?",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "1WORX威克士"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "2BOSCH"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "3makitg"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "4miluaukee"
+        }
+      ],
+      "correct": {
+        "text": "2BOSCH"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "以下哪個不是寵物罐頭品牌?": {
+      "text": "以下哪個不是寵物罐頭品牌?",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "1貓星球"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "2橘子工訪"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "3法國皇家"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "4seeds"
+        }
+      ],
+      "correct": {
+        "text": "2橘子工訪"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "請選出素食組合": {
+      "text": "請選出素食組合",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "1"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "2"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "3"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "4"
+        }
+      ],
+      "correct": {
+        "text": "3"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "哪個內衣品牌士CALVINKLEIN?": {
+      "text": "哪個內衣品牌士CALVINKLEIN?",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "1"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "2"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "3"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "4"
+        }
+      ],
+      "correct": {
+        "text": "3"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "哪款式台酒生技黑酵母青春露?": {
+      "text": "哪款式台酒生技黑酵母青春露?",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "1"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "2"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "3"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "4"
+        }
+      ],
+      "correct": {
+        "text": "3"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "請選出品牌為ORIENT的手錶": {
+      "text": "請選出品牌為ORIENT的手錶",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "1"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "2"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "3錯誤"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "4"
+        }
+      ],
+      "correct": {
+        "text": "4"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "PORTER今年最殺活動是哪一天?": {
+      "text": "PORTER今年最殺活動是哪一天?",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "2026/11/11"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "2026/6/18"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "2026/11/1"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "2026/12/12"
+        }
+      ],
+      "correct": {
+        "text": "2026/6/18(四)"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "請問此商品是哪個品牌?    (3個鍋子 圖片)": {
+      "text": "請問此商品是哪個品牌?    (3個鍋子 圖片)",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "鍋寶"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "美心"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "掌廚"
+        }
+      ],
+      "correct": {
+        "text": "鍋寶"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "以下哪個品牌以復古英倫風音箱聞名?": {
+      "text": "以下哪個品牌以復古英倫風音箱聞名?",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "1"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "2 BOSE"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "3 EDIFIER"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "4 JBL"
+        }
+      ],
+      "correct": {
+        "text": "1"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "下列哪個士NAS硬碟?": {
+      "text": "下列哪個士NAS硬碟?",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "1"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "2"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "3"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "4"
+        }
+      ],
+      "correct": {
+        "text": "3(圖片30TB)"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "店家主要賣甚麼商品?     (BIKEFUN圖片)": {
+      "text": "店家主要賣甚麼商品?     (BIKEFUN圖片)",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "冰箱"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "電視"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "腳踏車"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "行車紀錄器"
+        }
+      ],
+      "correct": {
+        "text": "腳踏車"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "請問圖片中的行李箱是哪個品牌?": {
+      "text": "請問圖片中的行李箱是哪個品牌?",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "笛森諾"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "swiss style"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "新秀麗"
+        }
+      ],
+      "correct": null,
+      "wrong": [
+        "笛森諾"
+      ],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "Nadle S900四何一摺疊車沒有哪一個功能?": {
+      "text": "Nadle S900四何一摺疊車沒有哪一個功能?",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "電輔"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "腳踏"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "推行"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "滑步"
+        }
+      ],
+      "correct": {
+        "text": "電輔"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "BEAMS最初是以什麼型態起家?": {
+      "text": "BEAMS最初是以什麼型態起家?",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "選品店"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "運動品牌"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "戶外品牌"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "牛仔褲品牌"
+        }
+      ],
+      "correct": {
+        "text": "選品店"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "Onitsuka Tiger 鬼塚虎是哪一國品牌?": {
+      "text": "Onitsuka Tiger 鬼塚虎是哪一國品牌?",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "美國"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "加拿大"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "日本"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "韓國"
+        }
+      ],
+      "correct": {
+        "text": "日本"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "下列哪個不是契爾氏金盞花水的成分": {
+      "text": "下列哪個不是契爾氏金盞花水的成分",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "膳食纖維"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "原翠金盞花"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "3倍尿囊素"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "新升級生肽酵母"
+        }
+      ],
+      "correct": {
+        "text": "膳食纖維"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "哪一個樂園可以搭日月潭纜車?": {
+      "text": "哪一個樂園可以搭日月潭纜車?",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "1九族文化村"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "2六福村"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "3劍湖山"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "4麗寶樂園"
+        }
+      ],
+      "correct": {
+        "text": "1九族文化村"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "以下哪個品牌來自奧地利?": {
+      "text": "以下哪個品牌來自奧地利?",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "SWAROVSKI"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "Tiffany & Co."
+        },
+        {
+          "uuid": "opt_3",
+          "text": "PANDORA"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "GEORG JENSEN"
+        }
+      ],
+      "correct": {
+        "text": "SWAROVSKI"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "請問寵物關節保健品是哪個品牌?": {
+      "text": "請問寵物關節保健品是哪個品牌?",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "我們都是好朋友"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "動物好朋友"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "動物小朋友"
+        }
+      ],
+      "correct": {
+        "text": "動物好朋友"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "以下哪個是HP的電競機種?": {
+      "text": "以下哪個是HP的電競機種?",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "Victus"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "Laptop"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "ProBook"
+        }
+      ],
+      "correct": {
+        "text": "Victus"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "2026年Galaxy A系列最新型號是?": {
+      "text": "2026年Galaxy A系列最新型號是?",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "1"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "2錯誤"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "3"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "4"
+        }
+      ],
+      "correct": {
+        "text": "3"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "品牌超高性價比專門以電商銷售為主": {
+      "text": "品牌超高性價比專門以電商銷售為主",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "1  poco"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "2 蘋果"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "3  asus"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "4  谷哥"
+        }
+      ],
+      "correct": {
+        "text": "1  poco"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "台灣哪間飯店無溫泉設施?": {
+      "text": "台灣哪間飯店無溫泉設施?",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "1"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "2"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "3"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "4"
+        }
+      ],
+      "correct": {
+        "text": "1"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "COACH起源於哪個城市?": {
+      "text": "COACH起源於哪個城市?",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "東京"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "台北"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "首爾"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "紐約"
+        }
+      ],
+      "correct": {
+        "text": "紐約"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "台灣市佔第一的人體工學椅品牌是哪個": {
+      "text": "台灣市佔第一的人體工學椅品牌是哪個",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "1  E-home"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "2  irocks"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "3"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "4  CHEERS"
+        }
+      ],
+      "correct": {
+        "text": "2  irocks"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "請選出獨立筒彈簧": {
+      "text": "請選出獨立筒彈簧",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "1"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "2"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "3"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "4"
+        }
+      ],
+      "correct": {
+        "text": "1"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "請問此商品的主要功效為何?": {
+      "text": "請問此商品的主要功效為何?",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "卸妝"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "保濕"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "防曬"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "抗老"
+        }
+      ],
+      "correct": {
+        "text": "卸妝"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "下列何者是最近網上瘋傳的演唱會神器?": {
+      "text": "下列何者是最近網上瘋傳的演唱會神器?",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "1"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "2"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "3"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "4"
+        }
+      ],
+      "correct": {
+        "text": "3 (包大人圖片)"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "主打分齡代謝碎酯錠的品牌是?": {
+      "text": "主打分齡代謝碎酯錠的品牌是?",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "美好專科"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "美体專科"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "美麗專科"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "美女專科"
+        }
+      ],
+      "correct": {
+        "text": "美体專科"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "NIKE今年與哪個團體推出聯名服飾?": {
+      "text": "NIKE今年與哪個團體推出聯名服飾?",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "BTS"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "咻比嘟華"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "SHE"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "CORTIS"
+        }
+      ],
+      "correct": {
+        "text": "BTS"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
+    },
+    "請選出哪一個是棉條?": {
+      "text": "請選出哪一個是棉條?",
+      "choices": [
+        {
+          "uuid": "opt_1",
+          "text": "1  御守棉"
+        },
+        {
+          "uuid": "opt_2",
+          "text": "2  蘇菲"
+        },
+        {
+          "uuid": "opt_3",
+          "text": "3"
+        },
+        {
+          "uuid": "opt_4",
+          "text": "4"
+        }
+      ],
+      "correct": {
+        "text": "2  蘇菲"
+      },
+      "wrong": [],
+      "updated_at": "2026-10-24 19:07:33"
     }
   }
 };
