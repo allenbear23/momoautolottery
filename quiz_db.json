@@ -133,7 +133,7 @@
         }
       ],
       "correct": {
-        "text": "冷氣機"
+        "text": "冷氣機 (選項 3)"
       },
       "updated_at": "2026-10-23 13:20:00"
     },
@@ -1574,13 +1574,11 @@
         }
       ],
       "updated_at": "2026-10-24 10:11:08",
-      "wrong": [
-        {
-          "uuid": "aa0c6185-8bb1-4ea8-a60d-820d88d9975e",
-          "text": "",
-          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/28094fd0-eecd-43c1-8ad3-13b1cadeecd5.png"
-        }
-      ]
+      "correct": {
+        "uuid": "e68d0d04-b9da-4b40-b0f4-e4a151f84bc6",
+        "text": "橄欖檸檬Shot (選項 4)",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/35f42aad-8b81-4ac0-a740-2f26005e757b.png"
+      }
     },
     "捲包床墊的最大優勢是什麼?": {
       "text": "捲包床墊的最大優勢是什麼?",
@@ -1634,13 +1632,11 @@
         }
       ],
       "updated_at": "2026-10-24 12:11:02",
-      "wrong": [
-        {
-          "uuid": "156c0645-98f8-41c4-87cc-6525072cc0f2",
-          "text": "",
-          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/020a325d-bc4c-40d9-8785-2e254496c55b.jpg"
-        }
-      ]
+      "correct": {
+        "uuid": "d7faa8a6-7188-4eb6-8705-a5b3848a8718",
+        "text": "手機掛繩背帶 (選項 4)",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/bc0bfdab-5167-4aea-adfa-ec60e80463c2.jpg"
+      }
     },
     "在mo+消費可在哪裡領取折價券?": {
       "text": "在mo+消費可在哪裡領取折價券?",
@@ -1752,13 +1748,11 @@
         }
       ],
       "updated_at": "2026-10-24 14:11:16",
-      "wrong": [
-        {
-          "uuid": "3b1fd2c7-09a4-48a7-a9c1-09141f364126",
-          "text": "",
-          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/1c9d658c-33b4-448c-ae66-daca1350b574.png"
-        }
-      ]
+      "correct": {
+        "uuid": "e982c59a-dc05-4d22-a40d-8c489cbbb702",
+        "text": "有機大紅棗 (選項 4)",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/77b0cbf1-4eca-4a3d-a36b-41e1570d07d0.png"
+      }
     }
   }
 }

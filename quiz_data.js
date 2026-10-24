@@ -133,7 +133,7 @@ window.QUIZ_DATA = {
         }
       ],
       "correct": {
-        "text": "冷氣機"
+        "text": "冷氣機 (選項 3)"
       },
       "updated_at": "2026-10-23 13:20:00"
     },
@@ -1165,6 +1165,594 @@ window.QUIZ_DATA = {
         "note": "10:11 場次超時 (409) 未判定，待確認"
       },
       "updated_at": "2026-10-23 10:12:13"
+    },
+    "請選出以下哪個是國外氣泡水品牌?": {
+      "text": "請選出以下哪個是國外氣泡水品牌?",
+      "image": "",
+      "uuid": "7ffce559-56ad-47d6-a3c6-8db716ff6a35",
+      "choices": [
+        {
+          "uuid": "46cd8213-1aa9-4560-880a-0845360e2d78",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/c375117a-02ba-45b3-9863-2fbdb8a7d1fd.png"
+        },
+        {
+          "uuid": "4b202957-870e-4d40-b44a-9b8ab64c3d7a",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/719d37f3-8523-4a63-a524-e3c5d908d321.png"
+        },
+        {
+          "uuid": "5e7094f2-8066-4619-938f-3b649c45cc8b",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/cd31b1cb-6459-4a11-b5d4-a5066dd4ecd5.png"
+        },
+        {
+          "uuid": "732f02b8-26f4-4083-8549-23227fa92fc1",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/bbc53f99-80b3-45a9-933b-ee0185f18d31.png"
+        }
+      ],
+      "updated_at": "2026-10-23 14:11:01",
+      "wrong": [
+        {
+          "uuid": "4b202957-870e-4d40-b44a-9b8ab64c3d7a",
+          "text": "",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/719d37f3-8523-4a63-a524-e3c5d908d321.png"
+        }
+      ]
+    },
+    "《哈利波特》作者是誰?": {
+      "text": "《哈利波特》作者是誰?",
+      "image": "",
+      "uuid": "5f26facb-d13a-4261-85b1-3c0c676b17cb",
+      "choices": [
+        {
+          "uuid": "44146356-5b94-4db5-8049-7b28046cedad",
+          "text": "金庸"
+        },
+        {
+          "uuid": "8472ec8c-1cab-4aee-a3d8-de04aa4e5a88",
+          "text": "東野圭吾"
+        },
+        {
+          "uuid": "a378490a-7c65-437d-af79-3100b3bc0c4a",
+          "text": "J.K.羅琳"
+        },
+        {
+          "uuid": "f466ea78-8326-46d6-aa1b-eaa83939c5fb",
+          "text": "村上春樹"
+        }
+      ],
+      "updated_at": "2026-10-23 18:11:01",
+      "correct": {
+        "uuid": "a378490a-7c65-437d-af79-3100b3bc0c4a",
+        "text": "J.K.羅琳",
+        "image": ""
+      }
+    },
+    "哪一張圖是OPPO Reno16超值泡泡鏡超值組?": {
+      "text": "哪一張圖是OPPO Reno16超值泡泡鏡超值組?",
+      "image": "",
+      "uuid": "14025f3e-33f1-43f0-a78f-be42b0f3eb53",
+      "choices": [
+        {
+          "uuid": "126c4755-5246-4e27-aea1-4181747fbc33",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/17385923-fb4e-4821-9a4b-d95f4f312134.png"
+        },
+        {
+          "uuid": "7f67813e-f376-46b2-8b55-e3ddbe8ed54e",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/ce415a2e-f153-4efb-b943-4329b432d938.png"
+        },
+        {
+          "uuid": "c98fedff-757f-4679-a026-fd79971ad033",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/3078ed47-81a2-48a7-8db9-8a3ee8a0156c.png"
+        },
+        {
+          "uuid": "fa21be2b-379f-490f-ad74-1e94a9b24203",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/85e34cd1-785e-4d60-b7c2-417127361343.png"
+        }
+      ],
+      "updated_at": "2026-10-23 18:11:02",
+      "correct": {
+        "uuid": "126c4755-5246-4e27-aea1-4181747fbc33",
+        "text": "",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/17385923-fb4e-4821-9a4b-d95f4f312134.png"
+      }
+    },
+    "台灣哪間飯店無溫泉設施?": {
+      "text": "台灣哪間飯店無溫泉設施?",
+      "image": "",
+      "uuid": "8f3e5fd8-c1ab-40b6-b1c1-86ee2a3a1dbb",
+      "choices": [
+        {
+          "uuid": "22f87272-cf60-42e8-824e-97d53146b8f2",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/95c3482a-7eb4-4b51-ab72-1c78af93c927.jpg"
+        },
+        {
+          "uuid": "379781f5-5620-4cee-acef-e733854cad8e",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/1df1ec29-c871-46dc-aaf2-8e0ba588328a.jpg"
+        },
+        {
+          "uuid": "d174fee4-8612-4e93-87fe-89cd4aa2ef6b",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/98789299-5d52-4990-83ac-38840fc93380.jpg"
+        },
+        {
+          "uuid": "fefb2603-5352-41f8-87c2-951959343bb3",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/b82b576b-5f19-4c92-b81d-a1af33883a64.jpg"
+        }
+      ],
+      "updated_at": "2026-10-23 18:11:14",
+      "wrong": [
+        {
+          "uuid": "fefb2603-5352-41f8-87c2-951959343bb3",
+          "text": "",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/b82b576b-5f19-4c92-b81d-a1af33883a64.jpg"
+        }
+      ]
+    },
+    "哪一個是LACOSTE的LOGO::img_1cfcbb12-01d8-4756-9e38-85cd1b2fdff3.png": {
+      "text": "哪一個是LACOSTE的LOGO",
+      "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/1cfcbb12-01d8-4756-9e38-85cd1b2fdff3.png",
+      "uuid": "28bc6b2b-d6c2-499b-9572-b1b38ef8f249",
+      "choices": [
+        {
+          "uuid": "e87f4e81-3fd1-4413-af0e-16965d9134c1",
+          "text": "香蕉"
+        },
+        {
+          "uuid": "ef39fbec-17ba-41cc-9b9b-a389460f4746",
+          "text": "蘋果"
+        },
+        {
+          "uuid": "f22bcf21-6ef6-4be3-935c-ba54a9caf1fd",
+          "text": "茄子"
+        },
+        {
+          "uuid": "ff72ade5-58ef-4969-992d-9cd513167048",
+          "text": "綠色鱷魚"
+        }
+      ],
+      "updated_at": "2026-10-23 20:11:01",
+      "correct": {
+        "uuid": "ff72ade5-58ef-4969-992d-9cd513167048",
+        "text": "綠色鱷魚",
+        "image": ""
+      }
+    },
+    "此商品沒有具備什麼功能?::img_862c4db8-c4bf-47e9-804f-70eed504c62f.png": {
+      "text": "此商品沒有具備什麼功能?",
+      "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/862c4db8-c4bf-47e9-804f-70eed504c62f.png",
+      "uuid": "5dbe554a-6233-46a9-9a70-d72324c56d7b",
+      "choices": [
+        {
+          "uuid": "2572be05-8f0e-413d-8f22-2aaf4976ca13",
+          "text": "淡斑美白"
+        },
+        {
+          "uuid": "47f15817-e944-49ea-b9e4-c723e5414338",
+          "text": "保濕亮白"
+        },
+        {
+          "uuid": "64a6baf0-b7f1-4c46-9b96-344fe3ad300b",
+          "text": "緊緻抗老"
+        },
+        {
+          "uuid": "d944f0c4-658b-4cb3-82d2-3b6c985f7db7",
+          "text": "舒緩發癢"
+        }
+      ],
+      "updated_at": "2026-10-23 20:11:11",
+      "correct": {
+        "uuid": "d944f0c4-658b-4cb3-82d2-3b6c985f7db7",
+        "text": "舒緩發癢",
+        "image": ""
+      }
+    },
+    "流行精品區可以找到哪種商品?": {
+      "text": "流行精品區可以找到哪種商品?",
+      "image": "",
+      "uuid": "7001c313-8d68-4724-9060-4ec7d571a806",
+      "choices": [
+        {
+          "uuid": "272e14e6-27ed-4c6d-8fb7-954576cc6da1",
+          "text": "洗衣機"
+        },
+        {
+          "uuid": "35799bc5-48b6-4371-ab7b-21929b545374",
+          "text": "電風扇"
+        },
+        {
+          "uuid": "4c1417e1-3e80-4cc9-884f-f71b3c84e8f3",
+          "text": "行李箱"
+        },
+        {
+          "uuid": "77c6a996-3d72-48d0-ba89-85ff59b78b47",
+          "text": "電冰箱"
+        }
+      ],
+      "updated_at": "2026-10-23 20:11:21",
+      "correct": {
+        "uuid": "4c1417e1-3e80-4cc9-884f-f71b3c84e8f3",
+        "text": "行李箱",
+        "image": ""
+      }
+    },
+    "請問此商品是哪個品牌?::img_62b6c4c7-596d-4ba0-9aad-866285e9c916.png": {
+      "text": "請問此商品是哪個品牌?",
+      "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/62b6c4c7-596d-4ba0-9aad-866285e9c916.png",
+      "uuid": "ba0e5ad3-f375-47a6-9d99-580f06f5b688",
+      "choices": [
+        {
+          "uuid": "84001e77-ddd8-47b2-b5a3-5a6ec0068990",
+          "text": "Relove"
+        },
+        {
+          "uuid": "90490eee-cea2-41e6-9fd0-4727d605fbf8",
+          "text": "霓淨思"
+        },
+        {
+          "uuid": "edc0fcf2-c6dc-4c19-8949-514757d238ba",
+          "text": "雅漾"
+        },
+        {
+          "uuid": "f755d5dc-fea1-4d6e-b28a-8aa124b74bbe",
+          "text": "露得清"
+        }
+      ],
+      "updated_at": "2026-10-23 20:11:22",
+      "wrong": [
+        {
+          "uuid": "edc0fcf2-c6dc-4c19-8949-514757d238ba",
+          "text": "雅漾",
+          "image": ""
+        }
+      ]
+    },
+    "請問圖片中與商品聯名的角色名稱?::img_ac53d398-cbf0-4cd9-af72-7c9b9facda6f.png": {
+      "text": "請問圖片中與商品聯名的角色名稱?",
+      "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/ac53d398-cbf0-4cd9-af72-7c9b9facda6f.png",
+      "uuid": "0b3a207f-922e-4f85-bdd8-0b7f3a135685",
+      "choices": [
+        {
+          "uuid": "2eaa14a1-12e1-418c-92aa-2fd1986dafad",
+          "text": "土地公"
+        },
+        {
+          "uuid": "8d85917c-1837-47b3-afa4-3ba73662869a",
+          "text": "關公"
+        },
+        {
+          "uuid": "9ee1f0fb-30cf-4dc0-b44c-f72179ea5371",
+          "text": "白沙屯媽祖"
+        },
+        {
+          "uuid": "c04bafcf-77cc-4a96-abfb-08af395eb130",
+          "text": "虎爺"
+        }
+      ],
+      "updated_at": "2026-10-23 22:11:01",
+      "correct": {
+        "uuid": "9ee1f0fb-30cf-4dc0-b44c-f72179ea5371",
+        "text": "白沙屯媽祖",
+        "image": ""
+      }
+    },
+    "電視標示「4K」,主要指的是什麼?": {
+      "text": "電視標示「4K」,主要指的是什麼?",
+      "image": "",
+      "uuid": "c9c2a581-2648-488b-97a8-b01dff59ba55",
+      "choices": [
+        {
+          "uuid": "0a5a7946-5205-4e42-8a0a-7c604020868f",
+          "text": "更新率"
+        },
+        {
+          "uuid": "959e0312-bd58-4465-94d1-fd9258928105",
+          "text": "解析度"
+        },
+        {
+          "uuid": "bafc1f87-694a-4a21-bb55-5df2ac6beb13",
+          "text": "音效規格"
+        },
+        {
+          "uuid": "f114dd54-43b1-4804-86c1-abcfb5f36d2e",
+          "text": "螢幕尺寸"
+        }
+      ],
+      "updated_at": "2026-10-23 22:11:22",
+      "correct": {
+        "uuid": "959e0312-bd58-4465-94d1-fd9258928105",
+        "text": "解析度",
+        "image": ""
+      }
+    },
+    "電輔車的特色是?": {
+      "text": "電輔車的特色是?",
+      "image": "",
+      "uuid": "fdb7185f-b2bd-4dd2-bc1f-7bace9ea2ce6",
+      "choices": [
+        {
+          "uuid": "15a8a36c-41f7-4d6b-a584-585c5cdea5e6",
+          "text": "動力輔助踩踏輕鬆"
+        },
+        {
+          "uuid": "9f03450f-6cb0-4dba-8375-e69693cb4479",
+          "text": "完全不用踩踏"
+        },
+        {
+          "uuid": "e76e4ec9-535a-45e1-ba9d-f6870007872f",
+          "text": "不可爬坡"
+        },
+        {
+          "uuid": "f721a6a8-4302-402d-abb8-f7261f302324",
+          "text": "不需充電"
+        }
+      ],
+      "updated_at": "2026-10-23 22:11:24",
+      "correct": {
+        "uuid": "15a8a36c-41f7-4d6b-a584-585c5cdea5e6",
+        "text": "動力輔助踩踏輕鬆",
+        "image": ""
+      }
+    },
+    "mo店+幾號發抵用券?": {
+      "text": "mo店+幾號發抵用券?",
+      "image": "",
+      "uuid": "68344525-ebd4-4ba9-befe-f25e982e6644",
+      "choices": [
+        {
+          "uuid": "0fe8e34f-9db4-4ad2-9b0c-4be6d187d8d0",
+          "text": "禮拜一"
+        },
+        {
+          "uuid": "65202b9e-817c-44f2-bf8b-c42e755f3cfc",
+          "text": "週末"
+        },
+        {
+          "uuid": "ca07ba1f-7075-432e-8eee-0bdda2ae77b5",
+          "text": "天天都有券"
+        },
+        {
+          "uuid": "fe9e220d-00a1-44f8-a351-58da69fd1796",
+          "text": "每月1號"
+        }
+      ],
+      "updated_at": "2026-10-23 22:11:25",
+      "wrong": [
+        {
+          "uuid": "fe9e220d-00a1-44f8-a351-58da69fd1796",
+          "text": "每月1號",
+          "image": ""
+        }
+      ]
+    },
+    "請問這是pony effect的哪一款明星商品?::img_6a10375d-3325-4980-ad66-6c8cda8ff6f5.png": {
+      "text": "請問這是pony effect的哪一款明星商品?",
+      "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/6a10375d-3325-4980-ad66-6c8cda8ff6f5.png",
+      "uuid": "eb3f167e-c2ec-4514-be66-984298673d83",
+      "choices": [
+        {
+          "uuid": "40b7cafc-6208-46ed-967e-bc27c14913d8",
+          "text": "小金磚氣墊"
+        },
+        {
+          "uuid": "533d11a7-16d6-47f0-8b7b-d2bd5992ee7c",
+          "text": "絕對持久定妝噴霧"
+        },
+        {
+          "uuid": "d09637d7-37db-4853-97cc-c6df43d9a536",
+          "text": "水透光妝前乳"
+        },
+        {
+          "uuid": "f6c40b0a-5358-4072-bd11-8ed22e893a65",
+          "text": "絕對持久柔焦蜜粉"
+        }
+      ],
+      "updated_at": "2026-10-24 10:11:01",
+      "correct": {
+        "uuid": "d09637d7-37db-4853-97cc-c6df43d9a536",
+        "text": "水透光妝前乳",
+        "image": ""
+      }
+    },
+    "請問最近韓國女星都在瘋什麼?": {
+      "text": "請問最近韓國女星都在瘋什麼?",
+      "image": "",
+      "uuid": "7a156dec-9122-4652-8991-dadb92740393",
+      "choices": [
+        {
+          "uuid": "6d4125c7-ee8a-4537-bdbf-206fdffe1d38",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/b602821a-ee8c-4811-b7b8-9c1bf1d2243e.png"
+        },
+        {
+          "uuid": "a39dacb8-8a19-408d-bb23-a711370dff24",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/4dd38c80-d894-4ec6-9e5c-dad7268b85af.png"
+        },
+        {
+          "uuid": "aa0c6185-8bb1-4ea8-a60d-820d88d9975e",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/28094fd0-eecd-43c1-8ad3-13b1cadeecd5.png"
+        },
+        {
+          "uuid": "e68d0d04-b9da-4b40-b0f4-e4a151f84bc6",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/35f42aad-8b81-4ac0-a740-2f26005e757b.png"
+        }
+      ],
+      "updated_at": "2026-10-24 10:11:08",
+      "correct": {
+        "uuid": "e68d0d04-b9da-4b40-b0f4-e4a151f84bc6",
+        "text": "橄欖檸檬Shot (選項 4)",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/35f42aad-8b81-4ac0-a740-2f26005e757b.png"
+      }
+    },
+    "捲包床墊的最大優勢是什麼?": {
+      "text": "捲包床墊的最大優勢是什麼?",
+      "image": "",
+      "uuid": "1827df26-febf-4679-98ca-1ae9027c7e01",
+      "choices": [
+        {
+          "uuid": "0175c640-d648-4351-a7f3-9d66eb706546",
+          "text": "厚度特別厚"
+        },
+        {
+          "uuid": "18eb789f-3eb4-4a27-81cb-6a7edcfc90b3",
+          "text": "方便搬運與配送"
+        },
+        {
+          "uuid": "bbcaac7f-c6b3-48a9-9b50-0362a5638227",
+          "text": "容易塌陷"
+        },
+        {
+          "uuid": "fe935548-59ba-47af-96d4-f993978011d8",
+          "text": "隨時可以重新捲起來"
+        }
+      ],
+      "updated_at": "2026-10-24 12:11:01",
+      "correct": {
+        "uuid": "18eb789f-3eb4-4a27-81cb-6a7edcfc90b3",
+        "text": "方便搬運與配送",
+        "image": ""
+      }
+    },
+    "請問下列哪個是出遊解放雙手的好幫手?": {
+      "text": "請問下列哪個是出遊解放雙手的好幫手?",
+      "image": "",
+      "uuid": "52db0698-a4fa-48a0-9ca2-c89d76bd1b24",
+      "choices": [
+        {
+          "uuid": "156c0645-98f8-41c4-87cc-6525072cc0f2",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/020a325d-bc4c-40d9-8785-2e254496c55b.jpg"
+        },
+        {
+          "uuid": "2d6f8444-3f47-4a9d-bed6-e435cd31ed31",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/ead3c955-f8d8-4d29-a5a6-47fa14dab63f.jpg"
+        },
+        {
+          "uuid": "cff6b02b-9738-48ff-aaa6-2db76c57b7d3",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/97e2ffa4-13c6-4b06-936f-168a6a8713c4.jpg"
+        },
+        {
+          "uuid": "d7faa8a6-7188-4eb6-8705-a5b3848a8718",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/bc0bfdab-5167-4aea-adfa-ec60e80463c2.jpg"
+        }
+      ],
+      "updated_at": "2026-10-24 12:11:02",
+      "correct": {
+        "uuid": "d7faa8a6-7188-4eb6-8705-a5b3848a8718",
+        "text": "手機掛繩背帶 (選項 4)",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/bc0bfdab-5167-4aea-adfa-ec60e80463c2.jpg"
+      }
+    },
+    "在mo+消費可在哪裡領取折價券?": {
+      "text": "在mo+消費可在哪裡領取折價券?",
+      "image": "",
+      "uuid": "4a62300f-3d3a-4831-99ed-cc7d77d9aa42",
+      "choices": [
+        {
+          "uuid": "2a5a0e24-557d-4474-8ace-d088d60aff0c",
+          "text": "以上皆是"
+        },
+        {
+          "uuid": "64cb574a-f6af-45d6-af6c-808d1f1265f8",
+          "text": "店鋪首頁"
+        },
+        {
+          "uuid": "741acd91-f4a0-4bde-af41-1150d3cbecfa",
+          "text": "商品頁"
+        },
+        {
+          "uuid": "86836737-4f58-4934-af77-9cdece130b1b",
+          "text": "購物車"
+        }
+      ],
+      "updated_at": "2026-10-24 14:11:01",
+      "correct": {
+        "uuid": "2a5a0e24-557d-4474-8ace-d088d60aff0c",
+        "text": "以上皆是",
+        "image": ""
+      }
+    },
+    "哪個樂園可以搭日月潭纜車?": {
+      "text": "哪個樂園可以搭日月潭纜車?",
+      "image": "",
+      "uuid": "90eede3d-28cc-4c8d-b45b-08931aef9703",
+      "choices": [
+        {
+          "uuid": "556fcc21-d20f-45c5-9bf1-4f41a2425254",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/6b1d0331-a12d-4bf9-992b-a180243bfe69.jpg"
+        },
+        {
+          "uuid": "6b853c73-1947-4df1-9121-0c7dae4ee860",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/1a6c61eb-8118-4d0c-8ac4-4ea796e7a7e6.jpg"
+        },
+        {
+          "uuid": "b4162f5a-8f84-4c3c-8cd6-5c95e04cec53",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/427c214c-f1de-48d6-9e6f-d6013bf8c446.jpg"
+        },
+        {
+          "uuid": "bcd03ef7-02be-4b62-bc11-a571b7db73c0",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/98cc8011-0e3b-4d9f-a830-48859195441d.jpg"
+        }
+      ],
+      "updated_at": "2026-10-24 14:11:02",
+      "correct": {
+        "uuid": "556fcc21-d20f-45c5-9bf1-4f41a2425254",
+        "text": "",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/6b1d0331-a12d-4bf9-992b-a180243bfe69.jpg"
+      }
+    },
+    "請選出哪個是巴黎萊雅的眼霜?": {
+      "text": "請選出哪個是巴黎萊雅的眼霜?",
+      "image": "",
+      "uuid": "6e9ae1b1-d414-4e0b-8c86-72206ccca693",
+      "choices": [
+        {
+          "uuid": "192ece0f-9d01-45bc-b5ff-2c7b74cac3ca",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/6195db1d-5aca-45fc-8394-3487ad975bde.png"
+        },
+        {
+          "uuid": "816a90bb-4cd5-4212-9ba4-80c482143327",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/e7024142-4415-4db8-a395-4da297bd3cd5.png"
+        },
+        {
+          "uuid": "c95c2056-e469-4efb-8671-3bb8d469c362",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/7588463a-910f-429f-b1b7-bb87ab66d75d.png"
+        },
+        {
+          "uuid": "ffe146b2-65cd-48d7-b918-9a1841aa3dab",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/52aab1b0-a6d3-4823-becf-de35af6798b9.png"
+        }
+      ],
+      "updated_at": "2026-10-24 14:11:10",
+      "correct": {
+        "uuid": "192ece0f-9d01-45bc-b5ff-2c7b74cac3ca",
+        "text": "",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/6195db1d-5aca-45fc-8394-3487ad975bde.png"
+      }
+    },
+    "統一生機紅棗長什麼樣子": {
+      "text": "統一生機紅棗長什麼樣子",
+      "image": "",
+      "uuid": "85fa8d19-4086-47ae-98cb-943e5185ef35",
+      "choices": [
+        {
+          "uuid": "3b1fd2c7-09a4-48a7-a9c1-09141f364126",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/1c9d658c-33b4-448c-ae66-daca1350b574.png"
+        },
+        {
+          "uuid": "825e213d-1e2c-4c14-936a-27b0434f289a",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/2366ce13-f8b0-4669-9503-49b0693d6d17.png"
+        },
+        {
+          "uuid": "b771c943-3f35-4636-9ec5-3150a0f6fa0d",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/2d56680e-710e-4e6e-9110-67cdf3ba18a3.png"
+        },
+        {
+          "uuid": "e982c59a-dc05-4d22-a40d-8c489cbbb702",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/77b0cbf1-4eca-4a3d-a36b-41e1570d07d0.png"
+        }
+      ],
+      "updated_at": "2026-10-24 14:11:16",
+      "correct": {
+        "uuid": "e982c59a-dc05-4d22-a40d-8c489cbbb702",
+        "text": "有機大紅棗 (選項 4)",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/77b0cbf1-4eca-4a3d-a36b-41e1570d07d0.png"
+      }
     }
   }
 };

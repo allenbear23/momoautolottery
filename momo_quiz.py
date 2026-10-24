@@ -11,6 +11,8 @@ import time
 import json
 import re
 import argparse
+import base64
+import threading
 import urllib.request
 import urllib.error
 import urllib.parse
@@ -45,24 +47,117 @@ HEADERS = {
 }
 
 DB_FILE = os.path.join(os.path.dirname(__file__), "quiz_db.json")
+DB_LOCK = threading.Lock()
+
+
+def normalize_q_text(text: str) -> str:
+    """去除標點符號、括號與空白，用於容錯比對題目"""
+    if not text:
+        return ""
+    return re.sub(r'[^\w\u4e00-\u9fa5]', '', text).lower()
 
 
 def load_quiz_db() -> dict:
-    if os.path.exists(DB_FILE):
-        try:
-            with open(DB_FILE, "r", encoding="utf-8") as f:
-                return json.load(f)
-        except Exception:
-            pass
-    return {"questions": {}}
+    with DB_LOCK:
+        if os.path.exists(DB_FILE):
+            try:
+                with open(DB_FILE, "r", encoding="utf-8") as f:
+                    return json.load(f)
+            except Exception:
+                pass
+        return {"questions": {}}
 
 
 def save_quiz_db(db: dict):
-    try:
-        with open(DB_FILE, "w", encoding="utf-8") as f:
-            json.dump(db, f, ensure_ascii=False, indent=2)
-    except Exception as e:
-        print(f"儲存題庫異常: {e}")
+    with DB_LOCK:
+        try:
+            with open(DB_FILE, "w", encoding="utf-8") as f:
+                json.dump(db, f, ensure_ascii=False, indent=2)
+        except Exception as e:
+            print(f"儲存題庫異常: {e}")
+
+
+def find_db_record(question: dict, db: dict) -> tuple:
+    """多維度容錯查找題庫紀錄 (精確 Key -> 原文 -> 去除標點之正規化比對)"""
+    q_text = (question.get("text") or "").strip()
+    q_img = (question.get("image") or "").strip()
+    q_img_base = os.path.basename(urllib.parse.urlsplit(q_img).path) if q_img else ""
+    norm_q = normalize_q_text(q_text)
+
+    key = get_question_key(question)
+    q_dict = db.get("questions", {})
+
+    # 1. 精確 key 匹配
+    if key in q_dict:
+        return key, q_dict[key]
+    if q_text in q_dict:
+        return q_text, q_dict[q_text]
+
+    # 2. 標點符號歸一化比對 (解決 ？ 與 ?、空白差異)
+    if norm_q:
+        for db_k, db_v in q_dict.items():
+            v_text = db_v.get("text", "")
+            v_img = db_v.get("image", "")
+            v_img_base = os.path.basename(urllib.parse.urlsplit(v_img).path) if v_img else ""
+
+            if q_img_base and v_img_base and q_img_base != v_img_base:
+                continue
+
+            if normalize_q_text(v_text) == norm_q:
+                return db_k, db_v
+
+    return key, {}
+
+
+def update_db_question(db_key: str, question: dict, choices: list, correct: dict = None, wrong_choice: dict = None, unverified_choice: dict = None):
+    """線程安全的增量更新題庫，防止多帳號並行時覆蓋彼此記錄"""
+    with DB_LOCK:
+        db = {"questions": {}}
+        if os.path.exists(DB_FILE):
+            try:
+                with open(DB_FILE, "r", encoding="utf-8") as f:
+                    db = json.load(f)
+            except Exception:
+                pass
+
+        q_dict = db.setdefault("questions", {})
+        # 若以正規化比對已存在別名 key，優先更新已存在項
+        target_key = db_key
+        norm_target = normalize_q_text(question.get("text", ""))
+        if target_key not in q_dict and norm_target:
+            for k, v in q_dict.items():
+                if normalize_q_text(v.get("text", "")) == norm_target:
+                    target_key = k
+                    break
+
+        rec = q_dict.setdefault(target_key, {})
+        rec["text"] = question.get("text", rec.get("text", ""))
+        rec["image"] = question.get("image", rec.get("image", ""))
+        rec["uuid"] = question.get("uuid", rec.get("uuid", ""))
+        rec["choices"] = choices or rec.get("choices", [])
+        rec["updated_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        if correct:
+            rec["correct"] = correct
+            # 若原本有錯的列表中包含此正確項則移除
+            if "wrong" in rec:
+                c_uuid = correct.get("uuid")
+                rec["wrong"] = [w for w in rec["wrong"] if (w.get("uuid") if isinstance(w, dict) else w) != c_uuid]
+
+        if wrong_choice:
+            wrongs = rec.setdefault("wrong", [])
+            w_uuid = wrong_choice.get("uuid") if isinstance(wrong_choice, dict) else wrong_choice
+            if not any((w.get("uuid") if isinstance(w, dict) else w) == w_uuid for w in wrongs):
+                wrongs.append(wrong_choice)
+
+        if unverified_choice:
+            rec["unverified_choice"] = unverified_choice
+
+        try:
+            with open(DB_FILE, "w", encoding="utf-8") as f:
+                json.dump(db, f, ensure_ascii=False, indent=2)
+        except Exception as e:
+            print(f"儲存題庫異常: {e}")
 
 
 def get_user_display_name(cookie: str, default_idx: int = 1) -> str:
@@ -160,45 +255,58 @@ def get_gemini_api_keys(api_key: str = None) -> list:
     return keys
 
 
-def query_gemini(question_text: str, choices: list, api_key: str = None, question_image: str = None) -> str:
-    """利用 Google Gemini API 進行即時智能判題 (支援圖文多模態)"""
+def query_gemini(question_text: str, choices: list, api_key: str = None, question_image: str = None, target_hint: str = None) -> str:
+    """利用 Google Gemini API 進行即時智能判題 (支援圖文多模態、思維鏈 CoT 與題庫輔助提示)"""
     keys = get_gemini_api_keys(api_key)
     if not keys:
         return None
 
+    def fetch_img(url):
+        if not url:
+            return None, "image/jpeg"
+        try:
+            if url.startswith("http"):
+                req = urllib.request.Request(url, headers=HEADERS)
+                with urllib.request.urlopen(req, timeout=3.5) as r:
+                    m = r.headers.get("Content-Type", "image/jpeg").split(";")[0]
+                    return r.read(), m
+            elif os.path.exists(url):
+                with open(url, "rb") as f:
+                    m = "image/png" if url.lower().endswith(".png") else "image/jpeg"
+                    return f.read(), m
+        except Exception:
+            return None, "image/jpeg"
+        return None, "image/jpeg"
+
+    # 並行下載選項圖片加速
+    choice_imgs = [c.get("image", "").strip() for c in choices]
+    has_choice_images = any(bool(u) for u in choice_imgs)
+
+    fetched_choice_imgs = []
+    if has_choice_images:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=len(choices)) as ex:
+            fetched_choice_imgs = list(ex.map(fetch_img, choice_imgs))
+    else:
+        fetched_choice_imgs = [(None, "image/jpeg")] * len(choices)
+
     options_list = []
     choice_image_parts = []
     for i, c in enumerate(choices):
-        t = c.get('text', '').strip()
-        img_url = c.get('image', '').strip()
+        t = (c.get('text') or '').strip()
+        img_url = (c.get('image') or '').strip()
         if not t and img_url:
             t = f"選項 {i+1} 圖片"
         options_list.append(f"{i+1}. {t}")
 
-        if img_url:
-            try:
-                c_img_data = None
-                c_mime = "image/jpeg"
-                if img_url.startswith("http"):
-                    req_img = urllib.request.Request(img_url, headers=HEADERS)
-                    with urllib.request.urlopen(req_img, timeout=3) as img_resp:
-                        c_img_data = img_resp.read()
-                        c_mime = img_resp.headers.get("Content-Type", "image/jpeg").split(";")[0]
-                elif os.path.exists(img_url):
-                    with open(img_url, "rb") as f:
-                        c_img_data = f.read()
-                        if img_url.lower().endswith(".png"):
-                            c_mime = "image/png"
-                if c_img_data:
-                    choice_image_parts.append({"text": f"【選項 {i+1} 圖片】："})
-                    choice_image_parts.append({
-                        "inlineData": {
-                            "mimeType": c_mime,
-                            "data": base64.b64encode(c_img_data).decode("utf-8")
-                        }
-                    })
-            except Exception:
-                pass
+        c_img_data, c_mime = fetched_choice_imgs[i]
+        if c_img_data:
+            choice_image_parts.append({"text": f"【選項 {i+1} 圖片】："})
+            choice_image_parts.append({
+                "inlineData": {
+                    "mimeType": c_mime,
+                    "data": base64.b64encode(c_img_data).decode("utf-8")
+                }
+            })
 
     options_str = "\n".join(options_list)
 
@@ -212,46 +320,47 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
     if any(neg in question_text for neg in ("沒有", "不是", "非", "何者不", "不包含", "未包含", "無")):
         neg_warn = "⚠️【重要警告：本題為反向/否定題，請選出『不包含 / 沒有』的選項！】\n\n"
 
+    hint_str = ""
+    if target_hint:
+        hint_str = f"💡【題庫提示】：已知本題正確答案特徵為『{target_hint}』，請在各選項圖片中仔細比對找出對應商品！\n\n"
+
+    if has_choice_images or question_image:
+        cot_instruction = (
+            "【解題要求 (請務必遵照)】：\n"
+            "1. 請先仔細觀察並依序描述各選項圖片（或題目附圖）中的商品名稱、包裝印字、商標或用途特徵。\n"
+            "2. 依據題目問題進行比對分析，指出何者最符合題目要求。\n"
+            "3. 請在回答的最末行，只輸出最正確選項的編號數字 (例如 1, 2, 3 或 4)。"
+        )
+    else:
+        cot_instruction = (
+            "請直接分析最正確的選項，並在回答的最末行只輸出正確選項的編號數字 (例如 1, 2, 3 或 4)。"
+        )
+
     prompt = (
         f"你是一個精通台灣 momo 購物網活動與商品通識的解題專家。\n\n"
         f"{momo_context}\n"
         f"{neg_warn}"
+        f"{hint_str}"
         f"【解題原則】：\n"
         f"- 若問大小/規格：直立式桌機(Tower) > 薄型小型(SFF) > 超微型(Tiny)；Pro Max/Ultra > 標準款。\n"
         f"- 若為商品附圖：請仔細辨識圖片上的商標文字、包裝印字與Logo。\n"
-        f"- 若為純圖片選項：請仔細比對各選項圖片中的實體規格與特徵。\n\n"
+        f"- 若為純圖片選項：請仔細比對各選項圖片中的包裝品牌、品名與特徵。\n\n"
         f"【問題】：{question_text}\n"
         f"【選項】：\n{options_str}\n\n"
-        f"請只回答最正確選項的編號數字 (例如 1, 2, 3 或 4)，絕對不要輸出任何其他多餘文字。"
+        f"{cot_instruction}"
     )
 
     parts = []
     if question_image:
-        try:
-            img_data = None
-            mime = "image/jpeg"
-            if question_image.startswith("http"):
-                req_img = urllib.request.Request(question_image, headers=HEADERS)
-                with urllib.request.urlopen(req_img, timeout=4) as img_resp:
-                    img_data = img_resp.read()
-                    mime = img_resp.headers.get("Content-Type", "image/jpeg").split(";")[0]
-            elif os.path.exists(question_image):
-                with open(question_image, "rb") as f:
-                    img_data = f.read()
-                    if question_image.lower().endswith(".png"):
-                        mime = "image/png"
-
-            if img_data:
-                b64_data = base64.b64encode(img_data).decode("utf-8")
-                parts.append({"text": "【題目附圖】："})
-                parts.append({
-                    "inlineData": {
-                        "mimeType": mime,
-                        "data": b64_data
-                    }
-                })
-        except Exception:
-            pass
+        q_data, q_mime = fetch_img(question_image)
+        if q_data:
+            parts.append({"text": "【題目附圖】："})
+            parts.append({
+                "inlineData": {
+                    "mimeType": q_mime,
+                    "data": base64.b64encode(q_data).decode("utf-8")
+                }
+            })
 
     if choice_image_parts:
         parts.extend(choice_image_parts)
@@ -284,14 +393,20 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
                         parts_list = candidates[0].get("content", {}).get("parts", [])
                         non_thought = [p.get("text", "") for p in parts_list if not p.get("thought", False)]
                         text_out = " ".join(non_thought).strip() if non_thought else " ".join(p.get("text", "") for p in parts_list).strip()
-                        print(f"[{model}] 原始回傳內容: '{text_out}'")
+                        print(f"[{model}] 回傳內容:\n{text_out}")
 
-                        m = re.search(r'\b([1-9])\b', text_out)
-                        if m:
-                            idx = int(m.group(1)) - 1
-                            if 0 <= idx < len(choices):
-                                print(f"[{model}] 解析選項為: {idx+1}. {choices[idx].get('text')}")
-                                return choices[idx]["uuid"]
+                        # 1. 優先從最後一行提取結論數字
+                        lines = [ln.strip() for ln in text_out.splitlines() if ln.strip()]
+                        if lines:
+                            for ln in reversed(lines):
+                                m = re.search(r'\b([1-9])\b', ln)
+                                if m:
+                                    idx = int(m.group(1)) - 1
+                                    if 0 <= idx < len(choices):
+                                        print(f"[{model}] 結論提取選項: {idx+1}. {choices[idx].get('text') or choices[idx].get('uuid')}")
+                                        return choices[idx]["uuid"]
+
+                        # 2. 全文關鍵字比對
                         for idx, c in enumerate(choices):
                             if c.get("text") and c.get("text") in text_out:
                                 print(f"[{model}] 命中關鍵字: {c.get('text')}")
@@ -695,27 +810,26 @@ def get_question_key(question: dict) -> str:
 
 def select_answer(question: dict, choices: list, db: dict, gemini_key: str = None, groq_key: str = None, openrouter_key: str = None) -> str:
     q_text = question.get("text", "").strip()
-    key = get_question_key(question)
-
-    record = db["questions"].get(key, {})
-    # 兼顧舊格式 (若 key 為題目純文字)
-    if not record and q_text:
-        record = db["questions"].get(q_text, {})
+    key, record = find_db_record(question, db)
 
     correct_val = record.get("correct")
     wrong_vals = record.get("wrong", [])
+    target_hint = None
 
     # 1. 命中題庫已知正確答案
     if correct_val:
         target_uuid = correct_val.get("uuid") if isinstance(correct_val, dict) else correct_val
         target_text = correct_val.get("text") if isinstance(correct_val, dict) else correct_val
         target_img = correct_val.get("image", "") if isinstance(correct_val, dict) else ""
+        if target_text:
+            target_hint = target_text
+
         for c in choices:
             c_uuid = c.get("uuid")
             c_text = c.get("text")
             c_img = c.get("image", "")
             if (c_uuid and c_uuid == target_uuid) or \
-               (c_text and c_text == target_text) or \
+               (c_text and target_text and (c_text == target_text or normalize_q_text(c_text) == normalize_q_text(target_text))) or \
                (c_img and target_img and os.path.basename(c_img) == os.path.basename(target_img)):
                 print(f"[題庫命中] 選擇已確認之正確答案: {c_text or c_uuid}")
                 return c_uuid
@@ -728,7 +842,7 @@ def select_answer(question: dict, choices: list, db: dict, gemini_key: str = Non
             w_img = w.get("image", "") if isinstance(w, dict) else ""
             if c.get("uuid") and c.get("uuid") == w_uuid:
                 return True
-            if c.get("text") and c.get("text") == w_text:
+            if c.get("text") and w_text and (c.get("text") == w_text or normalize_q_text(c.get("text")) == normalize_q_text(w_text)):
                 return True
             if c.get("image") and w_img and os.path.basename(c.get("image")) == os.path.basename(w_img):
                 return True
@@ -750,8 +864,8 @@ def select_answer(question: dict, choices: list, db: dict, gemini_key: str = Non
         if groq_choice_id:
             return groq_choice_id
 
-    # 4. 多模態題優先呼叫 Google Gemini AI (圖文解析極速 1.2s，辨識精確)
-    gemini_choice_id = query_gemini(q_text, candidate_choices, gemini_key, question.get("image"))
+    # 4. 多模態題優先呼叫 Google Gemini AI (支援 CoT 與 target_hint 提示)
+    gemini_choice_id = query_gemini(q_text, candidate_choices, gemini_key, question.get("image"), target_hint=target_hint)
     if gemini_choice_id:
         return gemini_choice_id
 
@@ -815,7 +929,6 @@ def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = Tr
 
     print(f"[{datetime.now().strftime('%H:%M:%S')}] {prefix}🚀 成功進入知識王遊戲！限時 60 秒...")
 
-    db = load_quiz_db()
     correct_count = 0
     start_time = time.time()
 
@@ -835,19 +948,9 @@ def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = Tr
         if not choices:
             break
 
-        # 只要取題成功，在 AI 思考前即刻持久化至題庫 (確保圖片與選項完整不丟失)
-        if db_key not in db["questions"]:
-            db["questions"][db_key] = {}
-
-        q_record = db["questions"][db_key]
-        q_record.update({
-            "text": q_text,
-            "image": question.get("image", ""),
-            "uuid": q_uuid,
-            "choices": choices,
-            "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        })
-        save_quiz_db(db)
+        # 只要取題成功，在 AI 思考前即刻線程安全持久化至題庫
+        update_db_question(db_key, question, choices)
+        db = load_quiz_db()
 
         selected_choice_id = select_answer(question, choices, db, gemini_key=gemini_key, groq_key=groq_key, openrouter_key=openrouter_key)
         selected_choice_obj = next((c for c in choices if c["uuid"] == selected_choice_id), choices[0])
@@ -870,8 +973,7 @@ def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = Tr
         ans_status, ans_res = send_quiz_request("POST", "/quiz/answer.PROMO", cookie, ans_body)
         if ans_status != 200:
             print(f"{prefix}提交答案異常 ({ans_res.get('code', ans_status)})，題目已存入題庫供手動判定。")
-            q_record["unverified_choice"] = choice_obj
-            save_quiz_db(db)
+            update_db_question(db_key, question, choices, unverified_choice=choice_obj)
             break
 
         is_correct = ans_res.get("isCorrect", False)
@@ -880,22 +982,14 @@ def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = Tr
             correct_count += 1
             elapsed = time.time() - start_time
             print(f"🎉 {prefix}第 {correct_count} 題答對！(+10 分，已用時 {elapsed:.1f}s)")
-            q_record["correct"] = choice_obj
-            save_quiz_db(db)
+            update_db_question(db_key, question, choices, correct=choice_obj)
             if correct_count >= 10:
                 print(f"{prefix}🌟 已達成單場 10 題答對目標！")
                 break
             time.sleep(0.05)
         else:
             print(f"❌ {prefix}回答錯誤，本場時段結束。")
-            wrongs = q_record.setdefault("wrong", [])
-            if not any(
-                (w.get("uuid") == choice_obj["uuid"] or (w.get("text") and w.get("text") == choice_obj["text"]))
-                if isinstance(w, dict) else w == (choice_obj["text"] or choice_obj["uuid"])
-                for w in wrongs
-            ):
-                wrongs.append(choice_obj)
-            save_quiz_db(db)
+            update_db_question(db_key, question, choices, wrong_choice=choice_obj)
             break
 
     total_display_points = (current_points + correct_count) * 10
