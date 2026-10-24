@@ -1,4 +1,5 @@
-window.QUIZ_DATA = {
+// Auto-generated from quiz_db.json
+window.QUIZ_DB = {
   "questions": {
     "請問此商品主要功效為何？::348655": {
       "text": "請問此商品主要功效為何？ (DARLIE 好來 全亮白 雙管極煥白牙膏)",
@@ -95,7 +96,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "桃子"
-        }
+        },
+        "3"
       ]
     },
     "請選出不是寶可夢的書籍": {
@@ -799,7 +801,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "用併的"
-        }
+        },
+        "2"
       ]
     },
     "Kosmiya最受歡迎的商品類別是？": {
@@ -1173,7 +1176,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "相機品牌"
-        }
+        },
+        "3"
       ],
       "screenshot": "momo answer/573056_0.jpg"
     },
@@ -2064,7 +2068,8 @@ window.QUIZ_DATA = {
         {
           "text": "M70s"
         },
-        "M70s"
+        "M70s",
+        "4"
       ]
     },
     "電子閱讀器常使用哪種螢幕?": {
@@ -2092,7 +2097,8 @@ window.QUIZ_DATA = {
         {
           "text": "Plasma"
         },
-        "Plasma"
+        "Plasma",
+        "3"
       ]
     },
     "玩遊戲時充電器瓦數要怎麼挑?": {
@@ -2117,7 +2123,8 @@ window.QUIZ_DATA = {
         {
           "text": "40w"
         },
-        "40w"
+        "40w",
+        "2"
       ]
     },
     "MUJI的LOGO是什麼顏色的": {
@@ -2142,7 +2149,8 @@ window.QUIZ_DATA = {
         {
           "text": "紅色"
         },
-        "紅色"
+        "紅色",
+        "1"
       ],
       "screenshot": "momo answer/5670498_0.jpg",
       "correct": {
@@ -2171,7 +2179,8 @@ window.QUIZ_DATA = {
         {
           "text": "商周出版社"
         },
-        "商周出版社"
+        "商周出版社",
+        "4"
       ],
       "screenshot": "momo answer/5670497_0.jpg",
       "correct": {
@@ -2266,7 +2275,8 @@ window.QUIZ_DATA = {
         {
           "text": "11/10"
         },
-        "11/10"
+        "11/10",
+        "2"
       ],
       "screenshot": "momo answer/S__102523006_0.jpg"
     },
@@ -2325,7 +2335,8 @@ window.QUIZ_DATA = {
         {
           "text": "李李仁代言"
         },
-        "李李仁代言"
+        "李李仁代言",
+        "4"
       ]
     },
     "Jennie在凡士林廣告拿的是哪一個口味的凝乳": {
@@ -2428,7 +2439,8 @@ window.QUIZ_DATA = {
         {
           "text": "GODIVA"
         },
-        "GODIVA"
+        "GODIVA",
+        "1"
       ]
     },
     "請選出品牌為PLAYBOY的鞋款": {
@@ -2452,7 +2464,8 @@ window.QUIZ_DATA = {
       "wrong": [
         {
           "text": "4"
-        }
+        },
+        "3"
       ],
       "correct": {
         "text": "1"
@@ -2483,7 +2496,8 @@ window.QUIZ_DATA = {
         {
           "text": "萬國通路"
         },
-        "萬國通路"
+        "萬國通路",
+        "2"
       ]
     },
     "最愛健康也愛穿緊身衣的品牌是甚麼?": {
@@ -2512,7 +2526,10 @@ window.QUIZ_DATA = {
           "text": "大研生醫"
         },
         "豐傑生醫",
-        "大研生醫"
+        "大研生醫",
+        {
+          "text": "1 2"
+        }
       ]
     },
     "請選出PORTER新款momo賣最好系列": {
@@ -2785,9 +2802,13 @@ window.QUIZ_DATA = {
         {
           "text": "999元"
         },
-        "999元"
+        "999元",
+        "2"
       ],
-      "screenshot": "momo answer/1132925_0.jpg"
+      "screenshot": "momo answer/1132925_0.jpg",
+      "correct": {
+        "text": "9999元"
+      }
     },
     "以下哪一個符合DHC速攻藍莓商品特色": {
       "text": "以下哪一個符合DHC速攻藍莓商品特色",
@@ -2811,7 +2832,8 @@ window.QUIZ_DATA = {
         {
           "text": "3C追劇推薦"
         },
-        "3C追劇推薦"
+        "3C追劇推薦",
+        "3"
       ],
       "correct": {
         "text": "以上皆是"
@@ -2862,7 +2884,8 @@ window.QUIZ_DATA = {
         {
           "text": "美國"
         },
-        "美國"
+        "美國",
+        "2"
       ]
     },
     "請問此商品最大的功能為何?": {
@@ -2884,7 +2907,8 @@ window.QUIZ_DATA = {
         {
           "text": "煎蛋"
         },
-        "煎蛋"
+        "煎蛋",
+        "1"
       ],
       "screenshot": "momo answer/95457_0.jpg"
     },
@@ -2913,7 +2937,8 @@ window.QUIZ_DATA = {
         {
           "text": "日本"
         },
-        "日本"
+        "日本",
+        "1"
       ]
     },
     "哪一句話最讓人生氣?": {
@@ -2938,7 +2963,8 @@ window.QUIZ_DATA = {
         {
           "text": "我都可以"
         },
-        "我都可以"
+        "我都可以",
+        "2"
       ]
     },
     "下列何者為韓國FULLY綠番茄系列商品?": {
@@ -2989,7 +3015,8 @@ window.QUIZ_DATA = {
         {
           "text": "EPSON"
         },
-        "EPSON"
+        "EPSON",
+        "3"
       ]
     },
     "猜看看16吋LG筆電的重量": {
@@ -3011,7 +3038,8 @@ window.QUIZ_DATA = {
         {
           "text": "800G"
         },
-        "800G"
+        "800G",
+        "3"
       ]
     },
     "請選出PORTER最知名人手一包經典款": {
@@ -3064,7 +3092,8 @@ window.QUIZ_DATA = {
         {
           "text": "敏感話題"
         },
-        "敏感話題"
+        "敏感話題",
+        "4"
       ],
       "screenshot": "momo answer/573149_0.jpg"
     },
@@ -3090,7 +3119,8 @@ window.QUIZ_DATA = {
         {
           "text": "MOMO周邊小物"
         },
-        "MOMO周邊小物"
+        "MOMO周邊小物",
+        "1"
       ]
     },
     "下列哪個硬碟是演唱會神器?": {
@@ -3166,7 +3196,8 @@ window.QUIZ_DATA = {
         {
           "text": "WHOO后"
         },
-        "WHOO后"
+        "WHOO后",
+        "1"
       ]
     },
     "請問圖中鞋款是時下哪個流行品牌?": {
@@ -3181,7 +3212,9 @@ window.QUIZ_DATA = {
         }
       ],
       "updated_at": "2026-10-24 17:20:00",
-      "wrong": []
+      "wrong": [
+        "3"
+      ]
     },
     "MARDI最經典的圖案是甚麼?": {
       "text": "MARDI最經典的圖案是甚麼?",
@@ -3324,7 +3357,8 @@ window.QUIZ_DATA = {
         {
           "text": "1 眼睛圖片"
         },
-        "1 眼睛圖片"
+        "1 眼睛圖片",
+        "1"
       ],
       "screenshot": "momo answer/lJJxSlV.png"
     },
@@ -3347,7 +3381,8 @@ window.QUIZ_DATA = {
         {
           "text": "第1檻"
         },
-        "第1檻"
+        "第1檻",
+        "2"
       ]
     },
     "請問小禎代言的蛋白飲是什麼成分": {
@@ -3398,7 +3433,8 @@ window.QUIZ_DATA = {
         {
           "text": "Michael Jackson"
         },
-        "Michael Jackson"
+        "Michael Jackson",
+        "1"
       ],
       "screenshot": "momo answer/S__116785467_0.jpg"
     },
@@ -3449,7 +3485,8 @@ window.QUIZ_DATA = {
         {
           "text": "問問"
         },
-        "問問"
+        "問問",
+        "4"
       ]
     },
     "請問黃金品牌周大福的全球代言人是?": {
@@ -3495,7 +3532,8 @@ window.QUIZ_DATA = {
         {
           "text": "婦潔免洗內褲"
         },
-        "婦潔免洗內褲"
+        "婦潔免洗內褲",
+        "1"
       ],
       "screenshot": "momo answer/38805_0.jpg"
     },
@@ -3549,7 +3587,8 @@ window.QUIZ_DATA = {
         {
           "text": "相機與列印設備"
         },
-        "相機與列印設備"
+        "相機與列印設備",
+        "1"
       ],
       "screenshot": "momo answer/748913_0.jpg"
     },
@@ -3575,7 +3614,8 @@ window.QUIZ_DATA = {
         {
           "text": "3000"
         },
-        "3000"
+        "3000",
+        "3"
       ],
       "screenshot": "momo answer/572903_0.jpg"
     },
@@ -3604,7 +3644,8 @@ window.QUIZ_DATA = {
         {
           "text": "BBL"
         },
-        "BBL"
+        "BBL",
+        "3"
       ],
       "screenshot": "momo answer/570878_0.jpg"
     },
@@ -3680,7 +3721,10 @@ window.QUIZ_DATA = {
         },
         "2"
       ],
-      "screenshot": "momo answer/572293_0.jpg"
+      "screenshot": "momo answer/572293_0.jpg",
+      "correct": {
+        "text": "1"
+      }
     },
     "以下哪個最適合  (需要特殊營養照顧) 的毛小孩?": {
       "text": "以下哪個最適合  (需要特殊營養照顧) 的毛小孩?",
@@ -4015,7 +4059,8 @@ window.QUIZ_DATA = {
         {
           "text": "台灣"
         },
-        "台灣"
+        "台灣",
+        "1"
       ],
       "screenshot": "momo answer/328429_0.jpg"
     },
@@ -4068,7 +4113,10 @@ window.QUIZ_DATA = {
           "text": "艾惟諾燕麥沐浴露"
         },
         "艾惟諾燕麥沐浴露"
-      ]
+      ],
+      "correct": {
+        "text": "Hetras沐浴乳"
+      }
     },
     "請問圖片中楊謹華代言的襪子是哪個品牌?": {
       "text": "請問圖片中楊謹華代言的襪子是哪個品牌?",
@@ -4085,7 +4133,9 @@ window.QUIZ_DATA = {
         }
       ],
       "updated_at": "2026-10-24 17:20:00",
-      "wrong": [],
+      "wrong": [
+        "4"
+      ],
       "correct": {
         "text": "footer"
       }
@@ -4112,7 +4162,8 @@ window.QUIZ_DATA = {
         {
           "text": "6折"
         },
-        "6折"
+        "6折",
+        "1"
       ],
       "screenshot": "momo answer/messageImage_1792823051295_0.jpg"
     },
@@ -4716,7 +4767,9 @@ window.QUIZ_DATA = {
         }
       ],
       "correct": null,
-      "wrong": [],
+      "wrong": [
+        "3"
+      ],
       "updated_at": "2026-10-24 19:07:33"
     },
     "此商品最可能出現於哪間店家     (x24圖片)": {
@@ -4894,7 +4947,9 @@ window.QUIZ_DATA = {
       "correct": {
         "text": "4"
       },
-      "wrong": [],
+      "wrong": [
+        "3"
+      ],
       "updated_at": "2026-10-24 19:07:33"
     },
     "PORTER今年最殺活動是哪一天?": {
@@ -5041,7 +5096,8 @@ window.QUIZ_DATA = {
       ],
       "correct": null,
       "wrong": [
-        "笛森諾"
+        "笛森諾",
+        "1"
       ],
       "updated_at": "2026-10-24 19:07:33"
     },
@@ -5268,7 +5324,9 @@ window.QUIZ_DATA = {
       "correct": {
         "text": "3"
       },
-      "wrong": [],
+      "wrong": [
+        "2"
+      ],
       "updated_at": "2026-10-24 19:07:33"
     },
     "品牌超高性價比專門以電商銷售為主": {
@@ -5826,6 +5884,420 @@ window.QUIZ_DATA = {
       "correct": {
         "uuid": "147e2690-eb7c-4374-9224-5ed6a9075969",
         "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/99052b78-b332-425c-8340-ab36c8957aaf.png"
+      }
+    },
+    "以下哪項商品目前沒有售賣?": {
+      "text": "以下哪項商品目前沒有售賣?",
+      "choices": [],
+      "updated_at": "2026-10-24 20:26:13"
+    },
+    "實體通路 (卡多摩嬰童館) 是哪一間店鋪?": {
+      "text": "實體通路 (卡多摩嬰童館) 是哪一間店鋪?",
+      "choices": [
+        {
+          "text": "1 T+t丁"
+        },
+        {
+          "text": "2 寶寶共和國"
+        },
+        {
+          "text": "3 mykidz"
+        },
+        {
+          "text": "4 淨淨"
+        }
+      ],
+      "updated_at": "2026-10-24 20:26:13",
+      "correct": {
+        "text": "2 寶寶共和國"
+      }
+    },
+    "以下哪一個符合DHC速攻藍莓商品特色   (沒圖片版本)": {
+      "text": "以下哪一個符合DHC速攻藍莓商品特色   (沒圖片版本)",
+      "choices": [
+        {
+          "text": "以上皆是"
+        },
+        {
+          "text": "演唱會神器"
+        },
+        {
+          "text": "獨家三倍溶出技術"
+        },
+        {
+          "text": "3C追劇推薦"
+        }
+      ],
+      "updated_at": "2026-10-24 20:26:13",
+      "correct": {
+        "text": "以上皆是"
+      }
+    },
+    "泡泡瑪特2026年聯名哪款運動賽事?": {
+      "text": "泡泡瑪特2026年聯名哪款運動賽事?",
+      "choices": [
+        {
+          "text": "NBA 冠軍賽"
+        },
+        {
+          "text": "MLB 世界大賽"
+        },
+        {
+          "text": "FIFA 世界盃"
+        }
+      ],
+      "updated_at": "2026-10-24 20:26:13",
+      "correct": {
+        "text": "FIFA 世界盃"
+      }
+    },
+    "哪一款不是故宮聯名款": {
+      "text": "哪一款不是故宮聯名款",
+      "choices": [],
+      "updated_at": "2026-10-24 20:26:13",
+      "correct": {
+        "text": "4"
+      }
+    },
+    "請問哪一個AMD R7-9800X3D可以安裝在哪張主機板上?": {
+      "text": "請問哪一個AMD R7-9800X3D可以安裝在哪張主機板上?",
+      "choices": [
+        {
+          "text": "B850主機板"
+        },
+        {
+          "text": "B860主機板"
+        },
+        {
+          "text": "B760主機板"
+        },
+        {
+          "text": "Z890主機板"
+        }
+      ],
+      "updated_at": "2026-10-24 20:26:13",
+      "correct": {
+        "text": "B850主機板"
+      }
+    },
+    "請問到MOMO買到華碩指定顯示卡會送什麼限量好禮?": {
+      "text": "請問到MOMO買到華碩指定顯示卡會送什麼限量好禮?",
+      "choices": [
+        {
+          "text": "1 風扇"
+        },
+        {
+          "text": "2 顯卡支架"
+        },
+        {
+          "text": "3 散熱膏"
+        },
+        {
+          "text": "4 外接碟"
+        }
+      ],
+      "updated_at": "2026-10-24 20:26:13",
+      "correct": {
+        "text": "2 顯卡支架"
+      }
+    },
+    "請位下列哪個為看看買雙11加碼贈品顏色?": {
+      "text": "請位下列哪個為看看買雙11加碼贈品顏色?",
+      "choices": [
+        {
+          "text": "1(圖片藍色)"
+        },
+        {
+          "text": "2(圖片粉色)"
+        },
+        {
+          "text": "3(圖片綠色)"
+        },
+        {
+          "text": "4(圖片紫色)"
+        }
+      ],
+      "updated_at": "2026-10-24 20:26:13",
+      "correct": {
+        "text": "2(圖片粉色)"
+      }
+    },
+    "請選出巴黎萊雅眼霜?": {
+      "text": "請選出巴黎萊雅眼霜?",
+      "choices": [],
+      "updated_at": "2026-10-24 20:26:13",
+      "correct": {
+        "text": "1"
+      }
+    },
+    "哪項產品最適合上課筆記 追劇 娛樂與行動辦公?": {
+      "text": "哪項產品最適合上課筆記 追劇 娛樂與行動辦公?",
+      "choices": [
+        {
+          "text": "Apple Watch"
+        },
+        {
+          "text": "AirPods"
+        },
+        {
+          "text": "iPad"
+        },
+        {
+          "text": "HomePod"
+        }
+      ],
+      "updated_at": "2026-10-24 20:26:13",
+      "correct": {
+        "text": "iPad"
+      }
+    },
+    "請選出哪一個是AVEDA的logo?": {
+      "text": "請選出哪一個是AVEDA的logo?",
+      "choices": [
+        {
+          "text": "1 fhifeido"
+        },
+        {
+          "text": "2  心機彩妝"
+        },
+        {
+          "text": "4 資生堂東京櫃"
+        }
+      ],
+      "updated_at": "2026-10-24 20:26:13",
+      "correct": {
+        "text": "3"
+      }
+    },
+    "下列哪一個非奶粉品牌?": {
+      "text": "下列哪一個非奶粉品牌?",
+      "choices": [
+        {
+          "text": "克寧"
+        },
+        {
+          "text": "豐力富"
+        },
+        {
+          "text": "桂格"
+        },
+        {
+          "text": "立頓"
+        }
+      ],
+      "updated_at": "2026-10-24 20:26:13",
+      "correct": {
+        "text": "立頓"
+      }
+    },
+    "哪一台視hp的印表機?": {
+      "text": "哪一台視hp的印表機?",
+      "choices": [],
+      "updated_at": "2026-10-24 20:26:13",
+      "correct": {
+        "text": "3"
+      }
+    },
+    "哪款陽明生醫品項是何孝敬長輩關鍵靈活?": {
+      "text": "哪款陽明生醫品項是何孝敬長輩關鍵靈活?",
+      "choices": [],
+      "updated_at": "2026-10-24 20:26:13",
+      "correct": {
+        "text": "3"
+      }
+    },
+    "請問 BEBE  POSHE奢華寶貝在哪有設專櫃?": {
+      "text": "請問 BEBE  POSHE奢華寶貝在哪有設專櫃?",
+      "choices": [
+        {
+          "text": "萬家福"
+        },
+        {
+          "text": "小北百貨"
+        },
+        {
+          "text": "微風專櫃"
+        },
+        {
+          "text": "全家"
+        }
+      ],
+      "updated_at": "2026-10-24 20:26:13",
+      "correct": {
+        "text": "微風專櫃"
+      }
+    },
+    "請選出哪一個是古寶抗痘沐浴乳?": {
+      "text": "請選出哪一個是古寶抗痘沐浴乳?",
+      "choices": [],
+      "updated_at": "2026-10-24 20:26:13",
+      "correct": {
+        "text": "4"
+      }
+    },
+    "何為看看買本次滿額贈的第三檻消費金額?": {
+      "text": "何為看看買本次滿額贈的第三檻消費金額?",
+      "choices": [
+        {
+          "text": "11111"
+        },
+        {
+          "text": "111"
+        },
+        {
+          "text": "1111"
+        },
+        {
+          "text": "11"
+        }
+      ],
+      "updated_at": "2026-10-24 20:26:13",
+      "correct": {
+        "text": "11111"
+      }
+    },
+    "以下哪個不能給寵物保養補給?": {
+      "text": "以下哪個不能給寵物保養補給?",
+      "choices": [],
+      "updated_at": "2026-10-24 20:26:13",
+      "correct": {
+        "text": "1"
+      }
+    },
+    "請選出電動床": {
+      "text": "請選出電動床",
+      "choices": [],
+      "updated_at": "2026-10-24 20:26:13",
+      "correct": {
+        "text": "2"
+      }
+    },
+    "圖中是哪一種冬季保暖商品?": {
+      "text": "圖中是哪一種冬季保暖商品?",
+      "choices": [
+        {
+          "text": "羊毛大衣"
+        },
+        {
+          "text": "高領毛衣"
+        },
+        {
+          "text": "羽絨外套"
+        },
+        {
+          "text": "衝鋒褲"
+        }
+      ],
+      "updated_at": "2026-10-24 20:26:13",
+      "correct": {
+        "text": "衝鋒褲"
+      }
+    },
+    "以下哪一個品項是主打  邏輯清晰": {
+      "text": "以下哪一個品項是主打  邏輯清晰",
+      "choices": [
+        {
+          "text": "1  手機"
+        },
+        {
+          "text": "2  主機"
+        },
+        {
+          "text": "3  電視"
+        },
+        {
+          "text": "4  白蘭氏"
+        }
+      ],
+      "updated_at": "2026-10-24 20:26:13",
+      "correct": {
+        "text": "4  白蘭氏"
+      }
+    },
+    "雅詩蘭黛最熱銷的no.1精華是誰?": {
+      "text": "雅詩蘭黛最熱銷的no.1精華是誰?",
+      "choices": [
+        {
+          "text": "特潤超導舒敏奇肌安瓶"
+        },
+        {
+          "text": "特潤全能修護亮眼霜"
+        },
+        {
+          "text": "特潤超導全方位修護精華水(小綜瓶)"
+        }
+      ],
+      "updated_at": "2026-10-24 20:26:13"
+    },
+    "羅技K98M用的是哪一種鍵軸": {
+      "text": "羅技K98M用的是哪一種鍵軸",
+      "choices": [
+        {
+          "text": "櫻花軸"
+        },
+        {
+          "text": "大理石軸"
+        },
+        {
+          "text": "紅軸"
+        }
+      ],
+      "updated_at": "2026-10-24 20:26:13",
+      "correct": {
+        "text": "大理石軸"
+      }
+    },
+    "哪個不是星巴克季節限定商品?": {
+      "text": "哪個不是星巴克季節限定商品?",
+      "choices": [],
+      "updated_at": "2026-10-24 20:26:13",
+      "correct": {
+        "text": "1"
+      }
+    },
+    "請問哪一個是植村秀定妝噴霧?": {
+      "text": "請問哪一個是植村秀定妝噴霧?",
+      "choices": [],
+      "updated_at": "2026-10-24 20:26:13",
+      "correct": {
+        "text": "2"
+      }
+    },
+    "請選出哪一個是潤肌桃子S1精華液": {
+      "text": "請選出哪一個是潤肌桃子S1精華液",
+      "choices": [],
+      "updated_at": "2026-10-24 20:26:13",
+      "correct": {
+        "text": "3"
+      }
+    },
+    "潗淨藍天天喝開水是煮沸幾度C的水": {
+      "text": "潗淨藍天天喝開水是煮沸幾度C的水",
+      "choices": [
+        {
+          "text": "50度"
+        },
+        {
+          "text": "200度"
+        },
+        {
+          "text": "110度"
+        },
+        {
+          "text": "90度"
+        }
+      ],
+      "updated_at": "2026-10-24 20:26:13",
+      "correct": {
+        "text": "110度"
+      }
+    },
+    "哪個是羅技首創類比滑鼠?": {
+      "text": "哪個是羅技首創類比滑鼠?",
+      "choices": [],
+      "updated_at": "2026-10-24 20:26:13",
+      "correct": {
+        "text": "4"
       }
     }
   }
