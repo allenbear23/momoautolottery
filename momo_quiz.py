@@ -514,23 +514,34 @@ def query_groq(question_text: str, choices: list, api_key: str = None, question_
             with urllib.request.urlopen(req, timeout=3.0) as resp:
                 res = json.loads(resp.read().decode("utf-8"))
                 text_out = res["choices"][0]["message"]["content"].strip()
-                m_target = re.search(r'(?:最終結論|結論|正解|答案)[^\n]*?(?:選項\s*|選\s*)?([1-9])\b', text_out)
+                m_target = re.search(r'(?:最終結論|結論|正解|答案|應選|故選)[^\n]*?(?:選項\s*|選\s*)?([1-9])\b', text_out)
                 if m_target:
                     idx = int(m_target.group(1)) - 1
                     if 0 <= idx < len(choices):
                         print(f"[Groq AI ({model})] 結論解析選項: {idx+1}. {choices[idx].get('text')}")
                         return choices[idx]["uuid"]
 
+                # 提取末行結論的關鍵字或數字，避免分析文本中提及錯誤選項被誤判
+                last_line = text_out.strip().splitlines()[-1] if text_out.strip() else ""
+                m_last = re.search(r'\b([1-9])\b', last_line)
+                if m_last:
+                    idx = int(m_last.group(1)) - 1
+                    if 0 <= idx < len(choices):
+                        print(f"[Groq AI ({model})] 末行數字解析選項: {idx+1}. {choices[idx].get('text')}")
+                        return choices[idx]["uuid"]
+
+                for idx, c in enumerate(choices):
+                    c_text = (c.get("text") or "").strip()
+                    if c_text and c_text in last_line:
+                        print(f"[Groq AI ({model})] 末行命中關鍵字: {c_text}")
+                        return c["uuid"]
+
                 m = re.search(r'\b([1-9])\b', text_out)
                 if m:
                     idx = int(m.group(1)) - 1
                     if 0 <= idx < len(choices):
-                        print(f"[Groq AI ({model})] 解析選項為: {idx+1}. {choices[idx].get('text')}")
+                        print(f"[Groq AI ({model})] 全文首個數字選項為: {idx+1}. {choices[idx].get('text')}")
                         return choices[idx]["uuid"]
-                for idx, c in enumerate(choices):
-                    if c.get("text") and c.get("text") in text_out:
-                        print(f"[Groq AI ({model})] 命中關鍵字: {c.get('text')}")
-                        return c["uuid"]
         except urllib.error.HTTPError as e:
             if e.code in (400, 401, 403):
                 GROQ_DISABLED = True
