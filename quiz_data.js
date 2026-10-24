@@ -363,26 +363,39 @@ window.QUIZ_DATA = {
       "updated_at": "2026-10-23 13:20:00"
     },
     "請選出哪一個不是Dior的香水？": {
-      "text": "請選出哪一個不是Dior的香水？",
+      "text": "請選出哪一個不是Dior的香水?",
       "screenshot": "momo answer/S__184852519_0.jpg",
       "choices": [
         {
-          "text": "CHANEL 香奈兒 Chance 圓瓶 (選項 1)"
+          "uuid": "6a298269-13c8-4266-ba53-398096318e6f",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/dbae2be3-d6e5-4475-8310-f3e254273cdc.png"
         },
         {
-          "text": "Miss Dior"
+          "uuid": "84b29f1b-7bfe-4267-81fb-b0b496c0d035",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/48dbf685-602b-4b28-a98e-501f166f0a22.png"
         },
         {
-          "text": "Dior 癮誘"
+          "uuid": "8e2c5b3c-0412-4482-a1d2-12e5d9873004",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/b392975a-76b7-4bda-88cd-1bac0aeef50f.png"
         },
         {
-          "text": "Dior SAUVAGE 曠野之心"
+          "uuid": "b487e669-a679-4451-a988-7f3df7f0d9b2",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/25904e20-b693-4066-ad52-c11f6bfc4deb.png"
         }
       ],
       "correct": {
         "text": "CHANEL 香奈兒 Chance 圓瓶 (選項 1)"
       },
-      "updated_at": "2026-10-23 13:20:00"
+      "updated_at": "2026-10-24 18:11:37",
+      "image": "",
+      "uuid": "1393a793-1ad0-414b-b390-506db973c75d",
+      "wrong": [
+        {
+          "uuid": "b487e669-a679-4451-a988-7f3df7f0d9b2",
+          "text": "",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/25904e20-b693-4066-ad52-c11f6bfc4deb.png"
+        }
+      ]
     },
     "請選出唯一一本理財投資書": {
       "text": "請選出唯一一本理財投資書",
@@ -743,7 +756,10 @@ window.QUIZ_DATA = {
         "text": "水管",
         "note": "實測選「水管」答錯，請選澆水器/灑水壺"
       },
-      "updated_at": "2026-10-23 13:20:00"
+      "updated_at": "2026-10-23 13:20:00",
+      "correct": {
+        "text": "澆水壺 / 灑水壺"
+      }
     },
     "樂高怎麼玩？": {
       "text": "樂高怎麼玩？",
@@ -777,27 +793,35 @@ window.QUIZ_DATA = {
       ]
     },
     "Kosmiya最受歡迎的商品類別是？": {
-      "text": "Kosmiya最受歡迎的商品類別是？",
+      "text": "Kosmiya最受歡迎的商品類別是?",
       "screenshot": "momo answer/38726.jpg",
       "choices": [
         {
+          "uuid": "2d671f0a-bf90-454a-a10b-ac58b02422ec",
           "text": "睡衣/居家套裝"
         },
         {
+          "uuid": "303e8e25-f0f2-433a-b830-40f84a3db55a",
           "text": "皮鞋"
         },
         {
+          "uuid": "68b59229-d4e5-46fd-9520-137fa8ab2351",
           "text": "牛仔外套"
         },
         {
-          "text": "車車"
+          "uuid": "b74a77eb-3027-4fca-91ff-01e6b11520c2",
+          "text": "運動褲"
         }
       ],
       "correct": {
-        "text": "睡衣/居家套裝"
+        "uuid": "2d671f0a-bf90-454a-a10b-ac58b02422ec",
+        "text": "睡衣/居家套裝",
+        "image": ""
       },
-      "updated_at": "2026-10-23 13:20:00",
-      "wrong": []
+      "updated_at": "2026-10-24 18:11:09",
+      "wrong": [],
+      "image": "",
+      "uuid": "4862ac95-912c-4c28-a682-7448a1c62bc7"
     },
     "請選出唯一一本心理勵志書": {
       "text": "請選出唯一一本心理勵志書",
@@ -2109,7 +2133,10 @@ window.QUIZ_DATA = {
           "text": "紅色"
         }
       ],
-      "screenshot": "momo answer/5670498_0.jpg"
+      "screenshot": "momo answer/5670498_0.jpg",
+      "correct": {
+        "text": "紅色"
+      }
     },
     "請問這是哪家出版社?": {
       "text": "請問這是哪家出版社?",
@@ -2134,7 +2161,10 @@ window.QUIZ_DATA = {
           "text": "商周出版社"
         }
       ],
-      "screenshot": "momo answer/5670497_0.jpg"
+      "screenshot": "momo answer/5670497_0.jpg",
+      "correct": {
+        "text": "商周出版"
+      }
     },
     "請問這是哪一款雙11爆品?": {
       "text": "請問這是哪一款雙11爆品?",
@@ -2288,23 +2318,30 @@ window.QUIZ_DATA = {
       "image": "",
       "choices": [
         {
-          "text": "1"
+          "uuid": "189062b3-f7b1-4a2d-ac8b-f176ac138739",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/1123d913-bb0e-4719-8177-4dee65585b8a.png"
         },
         {
-          "text": "2"
+          "uuid": "2bb6dd04-3240-4f59-8aa6-e06cb4236f51",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/4fda1b52-dc9a-41ab-b30a-d7d910499ae1.png"
         },
         {
-          "text": "3"
+          "uuid": "e1014d1a-e0f7-4b87-9fdc-22daeb967628",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/962ec113-0724-41fc-8642-d2862c01ebf1.png"
         },
         {
-          "text": "4"
+          "uuid": "e88e2ed9-1bdb-4718-a1c4-f2caf2b845ac",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/f08bac24-f723-49bb-ba23-4d0e922bda78.png"
         }
       ],
-      "updated_at": "2026-10-24 17:20:00",
+      "updated_at": "2026-10-24 18:11:22",
       "correct": {
-        "text": "3"
+        "uuid": "e1014d1a-e0f7-4b87-9fdc-22daeb967628",
+        "text": "",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/962ec113-0724-41fc-8642-d2862c01ebf1.png"
       },
-      "wrong": []
+      "wrong": [],
+      "uuid": "a2b4bdc8-0bd3-4544-af9f-0e39d47fd26b"
     },
     "下列何為看看買11/1.11加碼活動贈品?": {
       "text": "下列何為看看買11/1.11加碼活動贈品?",
@@ -4619,6 +4656,211 @@ window.QUIZ_DATA = {
       "screenshot": "momo answer/uEBZGvx.png",
       "choices": [],
       "updated_at": "2026-10-24 17:48:00"
+    },
+    "此商品主要功能為何?::img_16a8cd85-3c5c-49ee-ab0c-ef1d16b8c41d.png": {
+      "text": "此商品主要功能為何?",
+      "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/16a8cd85-3c5c-49ee-ab0c-ef1d16b8c41d.png",
+      "uuid": "84227f81-3f47-4d6a-8c8b-3a8a794349bf",
+      "choices": [
+        {
+          "uuid": "345bfeac-0850-422d-8dc4-24f2c53f9cd2",
+          "text": "保健食品"
+        },
+        {
+          "uuid": "862f3c4f-84fb-4860-9fbe-4b5465a09a68",
+          "text": "妝前乳"
+        },
+        {
+          "uuid": "b3ea3e4e-8873-4588-b483-326473d26a82",
+          "text": "防曬乳"
+        },
+        {
+          "uuid": "f3413d12-a559-406d-99d3-68b772122a90",
+          "text": "清潔用品"
+        }
+      ],
+      "updated_at": "2026-10-24 18:11:07",
+      "correct": {
+        "uuid": "862f3c4f-84fb-4860-9fbe-4b5465a09a68",
+        "text": "妝前乳",
+        "image": ""
+      }
+    },
+    "下面哪一款最適合戶外攜帶使用?": {
+      "text": "下面哪一款最適合戶外攜帶使用?",
+      "image": "",
+      "uuid": "5a74c2d4-eb5d-430c-b57b-a545b8ab3d11",
+      "choices": [
+        {
+          "uuid": "112f3754-ccd3-41d4-8024-d3b942dea3e2",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/23226b22-370f-482f-a875-043abf997e5c.jpg"
+        },
+        {
+          "uuid": "8200e63c-9d00-4b46-a521-63a330bf8218",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/6b390376-506d-417e-948b-0dbac1b98fce.jpg"
+        },
+        {
+          "uuid": "d19132d7-24d3-4742-9d68-59f474516521",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/90f03d10-32c7-41ce-9018-c3713b873cf8.jpg"
+        },
+        {
+          "uuid": "fdc45635-67fc-435c-92a6-9d50a149f108",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/21f3ee33-b29f-472e-a545-76a26b43c646.jpg"
+        }
+      ],
+      "updated_at": "2026-10-24 18:11:08",
+      "correct": {
+        "uuid": "8200e63c-9d00-4b46-a521-63a330bf8218",
+        "text": "",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/6b390376-506d-417e-948b-0dbac1b98fce.jpg"
+      }
+    },
+    "請找出哪一個是SYM LOGO?": {
+      "text": "請找出哪一個是SYM LOGO?",
+      "image": "",
+      "uuid": "6c187ba8-cd1f-471f-b681-d0acf80411fd",
+      "choices": [
+        {
+          "uuid": "39a8100b-8ef9-4fe4-ba2c-0d5ce758cb7f",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/1e467bd6-4494-4e0c-8b06-7cab4ca73c7e.jpg"
+        },
+        {
+          "uuid": "b848c905-442c-41ed-8ea0-540a73c4c3d6",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/4515a340-af94-4ef7-8816-e7b3224350c7.png"
+        },
+        {
+          "uuid": "ddc4e0a1-5172-4d64-85f6-434358dfdca5",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/29588314-b470-43c5-b6db-b59e89b55b1d.png"
+        },
+        {
+          "uuid": "df843984-39c0-4b78-be6e-f5de80a4bdf9",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/5c2bf2c7-4e00-4726-9e1c-3c6d92932159.png"
+        }
+      ],
+      "updated_at": "2026-10-24 18:11:13",
+      "correct": {
+        "uuid": "b848c905-442c-41ed-8ea0-540a73c4c3d6",
+        "text": "",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/4515a340-af94-4ef7-8816-e7b3224350c7.png"
+      }
+    },
+    "請問下列哪一個是雅漾的明星商品?": {
+      "text": "請問下列哪一個是雅漾的明星商品?",
+      "image": "",
+      "uuid": "425d6edb-2d1f-4914-a710-30e233f18290",
+      "choices": [
+        {
+          "uuid": "214364d8-b573-407c-befc-6aa64f3a0f73",
+          "text": "礦泉水"
+        },
+        {
+          "uuid": "adbd5a84-0890-47bb-9bf1-cd36a0a352ab",
+          "text": "明星花露水"
+        },
+        {
+          "uuid": "b36f05ea-d003-42b1-87c1-97d7083d7bd9",
+          "text": "食鹽水"
+        },
+        {
+          "uuid": "fbe3affd-2539-4072-b037-3d3e0def6f0b",
+          "text": "活泉水"
+        }
+      ],
+      "updated_at": "2026-10-24 18:11:10",
+      "correct": {
+        "uuid": "fbe3affd-2539-4072-b037-3d3e0def6f0b",
+        "text": "活泉水",
+        "image": ""
+      }
+    },
+    "下列何者非韓國OliveYoung必買?": {
+      "text": "下列何者非韓國OliveYoung必買?",
+      "image": "",
+      "uuid": "85392cde-179c-4d17-9a73-a93047dc8f81",
+      "choices": [
+        {
+          "uuid": "17e8b78a-d65e-482c-983f-8b8456fc560d",
+          "text": "OBgE自然遮瑕素顏霜"
+        },
+        {
+          "uuid": "3092d90a-53a8-4038-a6a0-fcdebbaacbbc",
+          "text": "資生堂UV防曬蜜粉餅"
+        },
+        {
+          "uuid": "ac5a942d-996d-48fe-a74f-8f7dbf427820",
+          "text": "Lilyeve頭皮安瓶精華"
+        },
+        {
+          "uuid": "bd0e7716-94d6-4983-923f-8c57153b58ee",
+          "text": "FULLY綠番茄泥膜"
+        }
+      ],
+      "updated_at": "2026-10-24 18:11:12",
+      "correct": {
+        "uuid": "3092d90a-53a8-4038-a6a0-fcdebbaacbbc",
+        "text": "資生堂UV防曬蜜粉餅",
+        "image": ""
+      }
+    },
+    "請選出哪一個是理膚寶水防曬商品?": {
+      "text": "請選出哪一個是理膚寶水防曬商品?",
+      "image": "",
+      "uuid": "65c0d4f7-e1a4-4e6c-b40c-ed3cce50ed47",
+      "choices": [
+        {
+          "uuid": "07a670f0-65b3-4d2a-94c8-7036833884d3",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/9e6aee00-2ac6-4367-95e3-f745c5af65a9.png"
+        },
+        {
+          "uuid": "0f31f9e7-fda7-4b6f-9907-63892fff2a7a",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/35cf6eaa-2098-41ae-8eeb-16bf0fa255cc.png"
+        },
+        {
+          "uuid": "6a1f0e92-8731-4a57-8bc9-190df0ae3cb6",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/b851ba99-f06a-4b66-9086-4920ef67307a.png"
+        },
+        {
+          "uuid": "c13320a4-d3d4-4cfe-9134-5788d5ee8dc6",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/0d37412c-a188-4a32-b1a8-716e5e62ab0b.png"
+        }
+      ],
+      "updated_at": "2026-10-24 18:11:19",
+      "wrong": [
+        {
+          "uuid": "0f31f9e7-fda7-4b6f-9907-63892fff2a7a",
+          "text": "",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/35cf6eaa-2098-41ae-8eeb-16bf0fa255cc.png"
+        }
+      ]
+    },
+    "請選出哪一個才是快車肉乾的商品": {
+      "text": "請選出哪一個才是快車肉乾的商品",
+      "image": "",
+      "uuid": "5b2ac3eb-fe21-4eff-ac79-7ff9edb59211",
+      "choices": [
+        {
+          "uuid": "857de465-a311-4ffd-a832-6ef30f9e3128",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/4b955b90-59dd-4293-9d4a-30ea2d1c8086.jpg"
+        },
+        {
+          "uuid": "a8e1f63b-9eb7-4c05-9501-08d593959c1c",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/9652d282-9697-443f-8b10-82f38136ef66.jpg"
+        },
+        {
+          "uuid": "e3b87ce7-0a6c-4edf-b8f6-7eb71c21d0ef",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/6b857d26-b2a6-4ae6-8e35-de20407467c3.jpg"
+        },
+        {
+          "uuid": "f293526d-2c4d-4b70-b7e2-494f44ff098c",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/726a7ced-f059-4a5d-ae45-0cbfeea6717f.jpg"
+        }
+      ],
+      "updated_at": "2026-10-24 18:11:30",
+      "correct": {
+        "uuid": "e3b87ce7-0a6c-4edf-b8f6-7eb71c21d0ef",
+        "text": "",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/6b857d26-b2a6-4ae6-8e35-de20407467c3.jpg"
+      }
     }
   }
 };

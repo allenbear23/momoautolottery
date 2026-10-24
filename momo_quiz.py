@@ -380,13 +380,13 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
                 "contents": [{"parts": parts}],
                 "generationConfig": {
                     "temperature": 0.0,
-                    "maxOutputTokens": 1200
+                    "maxOutputTokens": 1500
                 }
             }
             data = json.dumps(payload).encode("utf-8")
             req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"}, method="POST")
             try:
-                with urllib.request.urlopen(req, timeout=6.5) as resp:
+                with urllib.request.urlopen(req, timeout=12.0) as resp:
                     result = json.loads(resp.read().decode("utf-8"))
                     candidates = result.get("candidates", [])
                     if candidates:
