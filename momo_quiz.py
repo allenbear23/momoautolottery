@@ -819,17 +819,20 @@ def select_answer(question: dict, choices: list, db: dict, gemini_key: str = Non
     # 1. 命中題庫已知正確答案
     if correct_val:
         target_uuid = correct_val.get("uuid") if isinstance(correct_val, dict) else correct_val
-        target_text = correct_val.get("text") if isinstance(correct_val, dict) else correct_val
+        raw_target_text = correct_val.get("text") if isinstance(correct_val, dict) else (correct_val if isinstance(correct_val, str) else "")
         target_img = correct_val.get("image", "") if isinstance(correct_val, dict) else ""
-        if target_text:
-            target_hint = target_text
+        clean_target = re.sub(r'[\(（]?選項\s*\d+[\)）]?', '', raw_target_text).strip()
+        target_hint = clean_target or raw_target_text
+
+        norm_target = normalize_q_text(clean_target)
 
         for c in choices:
             c_uuid = c.get("uuid")
-            c_text = c.get("text")
+            c_text = c.get("text", "")
             c_img = c.get("image", "")
+            norm_c = normalize_q_text(c_text)
             if (c_uuid and c_uuid == target_uuid) or \
-               (c_text and target_text and (c_text == target_text or normalize_q_text(c_text) == normalize_q_text(target_text))) or \
+               (norm_c and norm_target and (norm_c == norm_target or norm_c in norm_target or norm_target in norm_c)) or \
                (c_img and target_img and os.path.basename(c_img) == os.path.basename(target_img)):
                 print(f"[題庫命中] 選擇已確認之正確答案: {c_text or c_uuid}")
                 return c_uuid
@@ -838,11 +841,14 @@ def select_answer(question: dict, choices: list, db: dict, gemini_key: str = Non
     def is_wrong(c):
         for w in wrong_vals:
             w_uuid = w.get("uuid") if isinstance(w, dict) else w
-            w_text = w.get("text") if isinstance(w, dict) else w
+            raw_w_text = w.get("text") if isinstance(w, dict) else (w if isinstance(w, str) else "")
+            clean_w = re.sub(r'[\(（]?選項\s*\d+[\)）]?', '', raw_w_text).strip()
+            norm_w = normalize_q_text(clean_w)
             w_img = w.get("image", "") if isinstance(w, dict) else ""
             if c.get("uuid") and c.get("uuid") == w_uuid:
                 return True
-            if c.get("text") and w_text and (c.get("text") == w_text or normalize_q_text(c.get("text")) == normalize_q_text(w_text)):
+            norm_c = normalize_q_text(c.get("text", ""))
+            if norm_c and norm_w and (norm_c == norm_w or norm_c in norm_w or norm_w in norm_c):
                 return True
             if c.get("image") and w_img and os.path.basename(c.get("image")) == os.path.basename(w_img):
                 return True
