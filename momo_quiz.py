@@ -1027,9 +1027,8 @@ def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = Tr
             elapsed = time.time() - start_time
             print(f"🎉 {prefix}第 {correct_count} 題答對！(+10 分，已用時 {elapsed:.1f}s)")
             update_db_question(db_key, question, choices, correct=choice_obj)
-            if correct_count >= 10:
-                print(f"{prefix}🌟 已達成單場 10 題答對目標！")
-                break
+            if correct_count % 10 == 0:
+                print(f"{prefix}🌟 累計已達 {correct_count} 題答對！繼續答題爭取更高分與新題庫記錄...")
             time.sleep(0.05)
         else:
             print(f"❌ {prefix}回答錯誤，本場時段結束。")
