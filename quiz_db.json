@@ -1504,6 +1504,39 @@
         {
           "uuid": "fd66fe38-a1fa-4297-94d4-103d5df1a7e9",
           "text": "小獅王辛巴"
+        },
+        {
+          "text": "Solone"
+        },
+        {
+          "text": "CEZANNE"
+        },
+        {
+          "text": "CLIO"
+        },
+        {
+          "text": "CANMAKE"
+        },
+        {
+          "text": "小珍珍"
+        },
+        {
+          "text": "洪瑞珍"
+        },
+        {
+          "text": "老協珍"
+        },
+        {
+          "text": "台灣小糧口"
+        },
+        {
+          "text": "MEDIHEAL"
+        },
+        {
+          "text": "epais"
+        },
+        {
+          "text": "OBqE"
         }
       ],
       "updated_at": "2026-10-25 12:11:31",
@@ -1515,9 +1548,7 @@
         }
       ],
       "correct": {
-        "uuid": "71da6c39-1ee9-4c29-b042-560e840bec81",
-        "text": "妙妙熊",
-        "image": ""
+        "text": "OBqE"
       },
       "screenshot": "momo answer/5670431_0.jpg"
     },
@@ -2546,9 +2577,7 @@
         "3"
       ],
       "correct": {
-        "uuid": "010c22b7-2149-4257-9cdd-b701b34a8b95",
-        "text": "",
-        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/66d2c26c-d075-4f4f-8619-643b0148429c.png"
+        "text": "1"
       },
       "uuid": "f26b7678-cd01-4681-8355-64ec5095185c"
     },
@@ -5073,9 +5102,7 @@
         }
       ],
       "correct": {
-        "uuid": "d363d67e-95fa-4144-be2b-b669369f9ce8",
-        "text": "",
-        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/8307cac7-5ae4-4cd3-8646-bf0c28ba762f.png"
+        "text": "4"
       },
       "wrong": [
         "3"
@@ -5743,6 +5770,9 @@
         {
           "uuid": "f9cbed3a-a282-4938-bd31-3e4d6959c375",
           "text": "CORTIS"
+        },
+        {
+          "text": "SHE"
         }
       ],
       "correct": {
@@ -7643,13 +7673,14 @@
         {
           "uuid": "e1f1d70d-264f-4e7a-a44c-f21a67cfd39d",
           "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/5dc7fcbd-999a-4672-9f36-a797e3cda107.png"
+        },
+        {
+          "text": "3(圖片一個紫色的東西)"
         }
       ],
       "updated_at": "2026-10-25 12:11:38",
       "correct": {
-        "uuid": "a46c1e53-fbf1-4d66-8db2-18403264786e",
-        "text": "",
-        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/70d2a1ff-dd6c-4f05-8db3-f14ae67a07d6.png"
+        "text": "3(圖片一個紫色的東西)"
       },
       "image": "",
       "uuid": "b402de11-589b-49d4-a279-691bf1f89a00"

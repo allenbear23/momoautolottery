@@ -474,8 +474,9 @@
   <!-- 訓練模式切換列 -->
   <div class="sim-mode-bar" id="practiceModeBar">
     <span style="color:#666;">題庫模式：</span>
+    <button class="sim-chip" data-pmode="official" onclick="changeMode('official')">⭐ 程式實測標準題 (官方格式)</button>
     <button class="sim-chip active" data-pmode="sprint10" onclick="changeMode('sprint10')">10 題速測 (限時60s)</button>
-    <button class="sim-chip" data-pmode="infinite" onclick="changeMode('infinite')">無限連續答題</button>
+    <button class="sim-chip" data-pmode="infinite" onclick="changeMode('infinite')">全部題目連續答題</button>
     <button class="sim-chip" data-pmode="visual" onclick="changeMode('visual')">專攻純圖片題</button>
     <button class="sim-chip" data-pmode="unverified" onclick="changeMode('unverified')">專攻待確認題</button>
     <button class="sim-chip" data-pmode="wrong" onclick="changeMode('wrong')">錯題複習專區</button>
@@ -623,6 +624,7 @@
     <div style="display:flex; gap:10px; margin-bottom:12px;">
       <input type="text" id="browseInput" class="sim-search-input" placeholder="搜尋題目、選項關鍵字..." oninput="onSearch(this.value)">
       <button class="sim-btn" onclick="filterBrowse('all')">全部</button>
+      <button class="sim-btn" onclick="filterBrowse('official')">⭐ 程式實測標準題</button>
       <button class="sim-btn" onclick="filterBrowse('has_image')">含圖片</button>
       <button class="sim-btn" onclick="filterBrowse('verified')">已驗證</button>
     </div>
@@ -1062,7 +1064,9 @@
 
       // 依模式挑選題目
       let pool = [...rawQuestions];
-      if (currentMode === 'visual') {
+      if (currentMode === 'official') {
+        pool = pool.filter(q => q.isOfficial);
+      } else if (currentMode === 'visual') {
         pool = pool.filter(q => (q.choices && q.choices.some(c => c.image)) || q.image || q.screenshot);
       } else if (currentMode === 'unverified') {
         pool = pool.filter(q => !q.correct);
@@ -1135,6 +1139,7 @@
         const text = item.text || k;
         if (!item.choices || item.choices.length < 2) return;
         if (text.includes('PrivateFrameworks') || text.includes('Unable to find a valid')) return;
+        const isOfficial = Boolean(item.uuid) || (item.choices && item.choices.some(c => Boolean(c.uuid)));
         rawQuestions.push({
           key: k,
           text: text,
@@ -1143,6 +1148,7 @@
           choices: item.choices || [],
           correct: item.correct || null,
           wrong: item.wrong || [],
+          isOfficial: isOfficial,
           updated_at: item.updated_at || ''
         });
       });
@@ -1210,7 +1216,9 @@
     }
 
     function filterBrowse(t) {
-      if (t === 'has_image') {
+      if (t === 'official') {
+        renderBrowse(rawQuestions.filter(q => q.isOfficial));
+      } else if (t === 'has_image') {
         renderBrowse(rawQuestions.filter(q => q.image || q.screenshot || q.choices.some(c => c.image)));
       } else if (t === 'verified') {
         renderBrowse(rawQuestions.filter(q => !!q.correct));
