@@ -61,10 +61,22 @@ window.QUIZ_DB = {
         },
         {
           "text": "選項 4 (金色盒)"
+        },
+        {
+          "text": "1  紫色"
+        },
+        {
+          "text": "2  藍色"
+        },
+        {
+          "text": "3  紅色"
+        },
+        {
+          "text": "4  黃色"
         }
       ],
       "correct": {
-        "text": "選項 2 (藍色盒)"
+        "text": "1  紫色"
       },
       "updated_at": "2026-10-23 13:20:00"
     },
@@ -1512,6 +1524,15 @@ window.QUIZ_DB = {
         },
         {
           "text": "台灣小糧口"
+        },
+        {
+          "text": "MEDIHEAL"
+        },
+        {
+          "text": "epais"
+        },
+        {
+          "text": "OBqE"
         }
       ],
       "updated_at": "2026-10-23 20:11:22",
@@ -1523,7 +1544,7 @@ window.QUIZ_DB = {
         }
       ],
       "correct": {
-        "text": "台灣小糧口"
+        "text": "OBqE"
       },
       "screenshot": "momo answer/5670431_0.jpg"
     },
@@ -1952,6 +1973,12 @@ window.QUIZ_DB = {
         },
         {
           "text": "以上都可以"
+        },
+        {
+          "text": "投影機"
+        },
+        {
+          "text": "電冰箱"
         }
       ],
       "updated_at": "2026-10-24 17:20:00",
@@ -2666,10 +2693,25 @@ window.QUIZ_DB = {
         },
         {
           "text": "4"
+        },
+        {
+          "text": "1(藍色)"
+        },
+        {
+          "text": "2(金色)"
+        },
+        {
+          "text": "3(粉色)"
+        },
+        {
+          "text": "4(圖片中有羽毛)"
         }
       ],
       "updated_at": "2026-10-24 17:20:00",
-      "wrong": []
+      "wrong": [],
+      "correct": {
+        "text": "4(圖片中有羽毛)"
+      }
     },
     "DJI雲台相機是哪一台": {
       "text": "DJI雲台相機是哪一台",
@@ -3686,27 +3728,37 @@ window.QUIZ_DB = {
       "image": "",
       "choices": [
         {
+          "uuid": "199e38a8-1d3c-4889-a505-3deb9f316449",
           "text": "5000"
         },
         {
+          "uuid": "244af76e-6b52-45db-a0b3-2054b67eb03f",
           "text": "2200"
         },
         {
+          "uuid": "bb01e2e8-cc0d-4176-9855-89a26a06041c",
           "text": "3000"
         },
         {
+          "uuid": "f8bf0896-9bcc-4f6a-95a5-cc49b606bce3",
           "text": "1000"
         }
       ],
-      "updated_at": "2026-10-24 17:20:00",
+      "updated_at": "2026-10-25 10:11:16",
       "wrong": [
         {
           "text": "3000"
         },
         "3000",
-        "3"
+        "3",
+        {
+          "uuid": "f8bf0896-9bcc-4f6a-95a5-cc49b606bce3",
+          "text": "1000",
+          "image": ""
+        }
       ],
-      "screenshot": "momo answer/572903_0.jpg"
+      "screenshot": "momo answer/572903_0.jpg",
+      "uuid": "7256b239-2551-46fd-aeaf-9b21cb712143"
     },
     "下列何者是存在的品牌?": {
       "text": "下列何者是存在的品牌?",
@@ -4352,30 +4404,30 @@ window.QUIZ_DB = {
     },
     "此商品主要功能為何?::img_16a8cd85-3c5c-49ee-ab0c-ef1d16b8c41d.png": {
       "text": "此商品主要功能為何?",
-      "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/16a8cd85-3c5c-49ee-ab0c-ef1d16b8c41d.png",
-      "uuid": "84227f81-3f47-4d6a-8c8b-3a8a794349bf",
+      "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/d7e91983-e59f-4ad9-b62c-eb3812c44d4a.png",
+      "uuid": "6d669bd4-4714-419e-8d2e-cedd2f150aec",
       "choices": [
         {
-          "uuid": "345bfeac-0850-422d-8dc4-24f2c53f9cd2",
-          "text": "保健食品"
+          "uuid": "20516fd2-4c5a-4629-a2c1-a848329ebd24",
+          "text": "保護毛孩關節"
         },
         {
-          "uuid": "862f3c4f-84fb-4860-9fbe-4b5465a09a68",
-          "text": "妝前乳"
+          "uuid": "749e74b1-c870-4e2f-b055-900d77e39371",
+          "text": "讓毛來更愛喝水"
         },
         {
-          "uuid": "b3ea3e4e-8873-4588-b483-326473d26a82",
-          "text": "防曬乳"
+          "uuid": "80d1edce-2cc1-4a82-825e-f0c84747787c",
+          "text": "清潔毛孩"
         },
         {
-          "uuid": "f3413d12-a559-406d-99d3-68b772122a90",
-          "text": "清潔用品"
+          "uuid": "eccaa803-6283-4920-bd5e-a7b493c3e651",
+          "text": "填飽毛孩肚子"
         }
       ],
-      "updated_at": "2026-10-24 18:11:07",
+      "updated_at": "2026-10-25 10:11:17",
       "correct": {
-        "uuid": "862f3c4f-84fb-4860-9fbe-4b5465a09a68",
-        "text": "妝前乳",
+        "uuid": "20516fd2-4c5a-4629-a2c1-a848329ebd24",
+        "text": "保護毛孩關節",
         "image": ""
       }
     },
@@ -5435,10 +5487,19 @@ window.QUIZ_DB = {
         {
           "uuid": "opt_4",
           "text": "4"
+        },
+        {
+          "text": "a37"
+        },
+        {
+          "text": "a17"
+        },
+        {
+          "text": "a27"
         }
       ],
       "correct": {
-        "text": "3"
+        "text": "a27"
       },
       "wrong": [
         "2"
@@ -5579,19 +5640,28 @@ window.QUIZ_DB = {
       "text": "請問此商品的主要功效為何?",
       "choices": [
         {
-          "uuid": "opt_1",
-          "text": "卸妝"
+          "uuid": "4197f1c8-94e9-4529-8ef5-dfd7a782bd1a",
+          "text": "護髮"
         },
         {
-          "uuid": "opt_2",
-          "text": "保濕"
-        },
-        {
-          "uuid": "opt_3",
+          "uuid": "742af6a0-4be0-4074-be8d-7b056c031584",
           "text": "防曬"
         },
         {
-          "uuid": "opt_4",
+          "uuid": "8af422d7-0b4b-49a4-b427-7c4c98cb44de",
+          "text": "去角質"
+        },
+        {
+          "uuid": "cf643635-7a8a-4eac-9d31-d50e7f24d50b",
+          "text": "抗痘"
+        },
+        {
+          "text": "卸妝"
+        },
+        {
+          "text": "保濕"
+        },
+        {
           "text": "抗老"
         }
       ],
@@ -5599,7 +5669,9 @@ window.QUIZ_DB = {
         "text": "卸妝"
       },
       "wrong": [],
-      "updated_at": "2026-10-24 19:07:33"
+      "updated_at": "2026-10-25 10:11:22",
+      "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/18a4fcb0-1751-4f00-8e9a-33623634d8b4.png",
+      "uuid": "b127d741-2d66-4d13-9eb6-12b8b30cf072"
     },
     "下列何者是最近網上瘋傳的演唱會神器?": {
       "text": "下列何者是最近網上瘋傳的演唱會神器?",
@@ -6738,11 +6810,23 @@ window.QUIZ_DB = {
         },
         {
           "text": "北歐小刺蝟"
+        },
+        {
+          "text": "MAGY"
+        },
+        {
+          "text": "Fitflop"
+        },
+        {
+          "text": "VIVIAIA"
+        },
+        {
+          "text": "UGG"
         }
       ],
       "updated_at": "2026-10-24 22:27:02",
       "correct": {
-        "text": "北歐小刺蝟"
+        "text": "UGG"
       }
     },
     "請選出哪一個才是Bobbi Brown 芭比波廊正確的商品?": {
@@ -6924,6 +7008,637 @@ window.QUIZ_DB = {
       "updated_at": "2026-10-24 22:27:02",
       "correct": {
         "text": "1  滾筒洗衣機"
+      }
+    },
+    "下列何者非韓國保養品牌?": {
+      "text": "下列何者非韓國保養品牌?",
+      "image": "",
+      "uuid": "956083b8-1397-4652-99d9-af44a6714136",
+      "choices": [
+        {
+          "uuid": "4b838b51-a199-423f-a262-fd98985c9fb7",
+          "text": "MEDIHEAL"
+        },
+        {
+          "uuid": "555cfcf1-0610-4cb6-b992-4fe292b2c401",
+          "text": "森田藥粧"
+        },
+        {
+          "uuid": "64ce7314-cf96-494d-bba8-dcde271e099b",
+          "text": "FULLY"
+        },
+        {
+          "uuid": "c7608f31-a1d8-4f51-b29d-de8bd2e3b02b",
+          "text": "OBgE"
+        }
+      ],
+      "updated_at": "2026-10-25 10:11:09",
+      "correct": {
+        "uuid": "555cfcf1-0610-4cb6-b992-4fe292b2c401",
+        "text": "森田藥粧",
+        "image": ""
+      }
+    },
+    "什麼東西可以在momo買到?": {
+      "text": "什麼東西可以在momo買到?",
+      "image": "",
+      "uuid": "3dbec605-06dd-4afe-9f40-5bc51f7df989",
+      "choices": [
+        {
+          "uuid": "81714a77-50a8-47b6-a59a-bd09f42d9a25",
+          "text": "輪胎"
+        },
+        {
+          "uuid": "9aff1bed-e3a2-42e7-be3f-d444ae6e3f7c",
+          "text": "車銀優"
+        },
+        {
+          "uuid": "a1aff063-d1e3-4b63-909a-1991d6818d9e",
+          "text": "特斯拉"
+        },
+        {
+          "uuid": "c42464b5-bee7-4388-a559-271cb9661758",
+          "text": "中古汽車"
+        }
+      ],
+      "updated_at": "2026-10-25 10:11:04",
+      "correct": {
+        "uuid": "81714a77-50a8-47b6-a59a-bd09f42d9a25",
+        "text": "輪胎",
+        "image": ""
+      }
+    },
+    "蔬果洗碗精可以清洗甚麼?": {
+      "text": "蔬果洗碗精可以清洗甚麼?",
+      "image": "",
+      "uuid": "a942c6af-0523-4eab-b446-9ebf0cd24407",
+      "choices": [
+        {
+          "uuid": "3457e18a-d204-4670-85f0-eda96b061d86",
+          "text": "洗碗"
+        },
+        {
+          "uuid": "4aa0a6a8-82d2-44eb-aa19-e391fd8201cf",
+          "text": "以上皆是"
+        },
+        {
+          "uuid": "c1300675-ba65-44c8-9695-43b98cc7b7cc",
+          "text": "水果"
+        },
+        {
+          "uuid": "cfb4482c-d0ba-4624-97fc-6c8cfba4c79c",
+          "text": "蔬菜"
+        }
+      ],
+      "updated_at": "2026-10-25 10:11:07",
+      "correct": {
+        "uuid": "4aa0a6a8-82d2-44eb-aa19-e391fd8201cf",
+        "text": "以上皆是",
+        "image": ""
+      }
+    },
+    "請選出前開行李箱的圖片": {
+      "text": "請選出前開行李箱的圖片",
+      "image": "",
+      "uuid": "fb88dc93-6ba4-4ff3-a4d2-50d33465c99e",
+      "choices": [
+        {
+          "uuid": "06908896-6698-48d3-a926-225070a929db",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/a48e389f-481e-468d-aa06-4781a3a53cd8.jpg"
+        },
+        {
+          "uuid": "18b7a742-ed47-4465-8965-a694f3e21646",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/c405ba50-270c-4e69-8cbc-b6669ff49692.jpg"
+        },
+        {
+          "uuid": "5e3362fd-d02c-4271-b6f1-81462e72c205",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/4c915529-4878-4a9d-bc6c-be7a234b7c5e.jpg"
+        },
+        {
+          "uuid": "ed9c2a34-c24b-4d04-89e9-eb589d58d2a5",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/7e6aec17-06a7-4789-b347-8b903ef10809.jpg"
+        }
+      ],
+      "updated_at": "2026-10-25 10:11:28",
+      "wrong": [
+        {
+          "uuid": "5e3362fd-d02c-4271-b6f1-81462e72c205",
+          "text": "",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/4c915529-4878-4a9d-bc6c-be7a234b7c5e.jpg"
+        }
+      ]
+    },
+    "下列何者不屬於Nike簽約的NBA球星?": {
+      "text": "下列何者不屬於Nike簽約的NBA球星?",
+      "choices": [],
+      "updated_at": "2026-10-25 10:30:55",
+      "wrong": [
+        "3"
+      ]
+    },
+    "活力 精神  日常補給": {
+      "text": "活力 精神  日常補給",
+      "choices": [],
+      "updated_at": "2026-10-25 10:30:55",
+      "correct": {
+        "text": "1"
+      },
+      "wrong": [
+        "3"
+      ]
+    },
+    "請問哪張是技嘉 RX 9070 GRE顯示卡": {
+      "text": "請問哪張是技嘉 RX 9070 GRE顯示卡",
+      "choices": [
+        {
+          "text": "1  5060TI"
+        },
+        {
+          "text": "2 5060"
+        },
+        {
+          "text": "3  AMD"
+        },
+        {
+          "text": "4 5070"
+        }
+      ],
+      "updated_at": "2026-10-25 10:30:55",
+      "correct": {
+        "text": "3  AMD"
+      }
+    },
+    "mo店+超取免運門檻金額?": {
+      "text": "mo店+超取免運門檻金額?",
+      "choices": [
+        {
+          "text": "490元"
+        },
+        {
+          "text": "390元"
+        },
+        {
+          "text": "290元"
+        },
+        {
+          "text": "690元"
+        }
+      ],
+      "updated_at": "2026-10-25 10:30:55",
+      "correct": {
+        "text": "390元"
+      }
+    },
+    "PP石墨烯什麼褲子很有名?": {
+      "text": "PP石墨烯什麼褲子很有名?",
+      "choices": [
+        {
+          "text": "五分褲"
+        },
+        {
+          "text": "九分褲"
+        },
+        {
+          "text": "短褲"
+        },
+        {
+          "text": "打卡褲"
+        }
+      ],
+      "updated_at": "2026-10-25 10:30:55",
+      "wrong": [
+        "2"
+      ]
+    },
+    "哪一場可參加 (強牌專場滿額2%)  回饋": {
+      "text": "哪一場可參加 (強牌專場滿額2%)  回饋",
+      "choices": [
+        {
+          "text": "1  超人氣專場"
+        },
+        {
+          "text": "2  強牌專場"
+        },
+        {
+          "text": "3  387"
+        },
+        {
+          "text": "4  精選快遞"
+        }
+      ],
+      "updated_at": "2026-10-25 10:30:55",
+      "correct": {
+        "text": "2  強牌專場"
+      }
+    },
+    "ROCKFISH是哪一個國家的品牌": {
+      "text": "ROCKFISH是哪一個國家的品牌",
+      "choices": [
+        {
+          "text": "日本"
+        },
+        {
+          "text": "台灣"
+        },
+        {
+          "text": "韓國"
+        },
+        {
+          "text": "中國"
+        }
+      ],
+      "updated_at": "2026-10-25 10:30:55",
+      "correct": {
+        "text": "韓國"
+      }
+    },
+    "請問杏輝哪個品項擁有 ECNS+ QH與抗疲勞認證?": {
+      "text": "請問杏輝哪個品項擁有 ECNS+ QH與抗疲勞認證?",
+      "choices": [
+        {
+          "text": "敏益苓"
+        },
+        {
+          "text": "活芯"
+        },
+        {
+          "text": "強力苦瓜"
+        },
+        {
+          "text": "蓉憶記"
+        }
+      ],
+      "updated_at": "2026-10-25 10:30:55",
+      "correct": {
+        "text": "活芯"
+      }
+    },
+    "Pixel 11 pro的主打色": {
+      "text": "Pixel 11 pro的主打色",
+      "choices": [
+        {
+          "text": "橄欖綠"
+        },
+        {
+          "text": "迷霧灰"
+        },
+        {
+          "text": "岩石粉"
+        }
+      ],
+      "updated_at": "2026-10-25 10:30:55",
+      "correct": {
+        "text": "岩石粉"
+      }
+    },
+    "請選出momo自有品牌濕紙巾?": {
+      "text": "請選出momo自有品牌濕紙巾?",
+      "choices": [],
+      "updated_at": "2026-10-25 10:30:55",
+      "wrong": [
+        "2"
+      ]
+    },
+    "此商品的主要賣點為何?": {
+      "text": "此商品的主要賣點為何?",
+      "choices": [
+        {
+          "text": "花香"
+        },
+        {
+          "text": "柑橘香"
+        },
+        {
+          "text": "嬰兒香"
+        },
+        {
+          "text": "胎脂香"
+        }
+      ],
+      "updated_at": "2026-10-25 10:30:55",
+      "correct": {
+        "text": "嬰兒香"
+      }
+    },
+    "哪個不是你的順暢好幫手?": {
+      "text": "哪個不是你的順暢好幫手?",
+      "choices": [
+        {
+          "text": "1  益生菌"
+        },
+        {
+          "text": "2  台灣no1"
+        },
+        {
+          "text": "3  善存益生菌"
+        },
+        {
+          "text": "4  挺立"
+        }
+      ],
+      "updated_at": "2026-10-25 10:30:55",
+      "correct": {
+        "text": "4  挺立"
+      }
+    },
+    "請問圖片中的產品型號名稱是?": {
+      "text": "請問圖片中的產品型號名稱是?",
+      "choices": [
+        {
+          "text": "LV6"
+        },
+        {
+          "text": "LV7"
+        },
+        {
+          "text": "Lecoco V3/V4"
+        },
+        {
+          "text": "LV5"
+        }
+      ],
+      "updated_at": "2026-10-25 10:30:55",
+      "correct": {
+        "text": "Lecoco V3/V4"
+      }
+    },
+    "請選出非主打高蛋白的商品?": {
+      "text": "請選出非主打高蛋白的商品?",
+      "choices": [],
+      "updated_at": "2026-10-25 10:30:55",
+      "correct": {
+        "text": "4"
+      },
+      "wrong": [
+        "1"
+      ]
+    },
+    "請問為什麼77乳加叫77乳加?": {
+      "text": "請問為什麼77乳加叫77乳加?",
+      "choices": [
+        {
+          "text": "1977年商品誕生"
+        },
+        {
+          "text": "老闆的幸運數字是77"
+        },
+        {
+          "text": "研發第77次才成功"
+        }
+      ],
+      "updated_at": "2026-10-25 10:30:55",
+      "wrong": [
+        "4"
+      ]
+    },
+    "請問BABIATORS 兒童偏光太陽眼鏡是哪一國的品牌?": {
+      "text": "請問BABIATORS 兒童偏光太陽眼鏡是哪一國的品牌?",
+      "choices": [
+        {
+          "text": "韓國"
+        },
+        {
+          "text": "美國"
+        },
+        {
+          "text": "日本"
+        }
+      ],
+      "updated_at": "2026-10-25 10:30:55",
+      "wrong": [
+        "1"
+      ]
+    },
+    "POCO 最超值4G手機是哪一台?": {
+      "text": "POCO 最超值4G手機是哪一台?",
+      "choices": [],
+      "updated_at": "2026-10-25 10:30:55",
+      "wrong": [
+        "2"
+      ]
+    },
+    "以甜美舒適風格聞名的aimerfeel內衣品牌來自哪個國家?": {
+      "text": "以甜美舒適風格聞名的aimerfeel內衣品牌來自哪個國家?",
+      "choices": [
+        {
+          "text": "韓國"
+        },
+        {
+          "text": "日本"
+        }
+      ],
+      "updated_at": "2026-10-25 10:30:55",
+      "correct": {
+        "text": "日本"
+      }
+    },
+    "請問哪一個商品是跟韓國聯名的?": {
+      "text": "請問哪一個商品是跟韓國聯名的?",
+      "choices": [
+        {
+          "text": "1  史奴比"
+        },
+        {
+          "text": "2  海賊王"
+        }
+      ],
+      "updated_at": "2026-10-25 10:30:55",
+      "correct": {
+        "text": "4"
+      }
+    },
+    "此商品是哪個品牌?    (一個男生 後面有5大組內褲圖片)": {
+      "text": "此商品是哪個品牌?    (一個男生 後面有5大組內褲圖片)",
+      "choices": [
+        {
+          "text": "NIKE"
+        },
+        {
+          "text": "CK"
+        },
+        {
+          "text": "PUMA"
+        },
+        {
+          "text": "TOMMY HILFIGER"
+        }
+      ],
+      "updated_at": "2026-10-25 10:30:55",
+      "correct": {
+        "text": "CK"
+      }
+    },
+    "請選出哪一個是適勒夫長效清爽保濕乳?": {
+      "text": "請選出哪一個是適勒夫長效清爽保濕乳?",
+      "choices": [],
+      "updated_at": "2026-10-25 10:30:55",
+      "correct": {
+        "text": "3"
+      }
+    },
+    "哪一個MacBook Neo沒有的顏色": {
+      "text": "哪一個MacBook Neo沒有的顏色",
+      "choices": [
+        {
+          "text": "1  黃色"
+        },
+        {
+          "text": "2  粉色"
+        }
+      ],
+      "updated_at": "2026-10-25 10:30:55",
+      "correct": {
+        "text": "2  粉色"
+      }
+    },
+    "市場第一名的口香糖是哪個品牌": {
+      "text": "市場第一名的口香糖是哪個品牌",
+      "choices": [
+        {
+          "text": "Anyways"
+        },
+        {
+          "text": "Noways"
+        },
+        {
+          "text": "Airwaves"
+        },
+        {
+          "text": "Highways"
+        }
+      ],
+      "updated_at": "2026-10-25 10:30:55",
+      "correct": {
+        "text": "Airwaves"
+      }
+    },
+    "猜猜圖片中的剪影 哪一位是麥當勞叔叔?": {
+      "text": "猜猜圖片中的剪影 哪一位是麥當勞叔叔?",
+      "choices": [
+        {
+          "text": "龍貓"
+        },
+        {
+          "text": "小小兵"
+        },
+        {
+          "text": "麥當勞叔叔"
+        },
+        {
+          "text": "吉伊卡哇"
+        }
+      ],
+      "updated_at": "2026-10-25 10:30:55",
+      "correct": {
+        "text": "麥當勞叔叔"
+      }
+    },
+    "為什麼暖風機大家搶著裝?": {
+      "text": "為什麼暖風機大家搶著裝?",
+      "choices": [
+        {
+          "text": "可能是北風天濕氣太重"
+        },
+        {
+          "text": "沒暖風機我不想努力了"
+        },
+        {
+          "text": "減少誘發心血管疾病"
+        },
+        {
+          "text": "裝了暖風機身份就有了"
+        }
+      ],
+      "updated_at": "2026-10-25 10:30:55",
+      "correct": {
+        "text": "減少誘發心血管疾病"
+      }
+    },
+    "此商品最大特色為何?": {
+      "text": "此商品最大特色為何?",
+      "choices": [
+        {
+          "text": "一物兩用"
+        },
+        {
+          "text": "可充電"
+        },
+        {
+          "text": "可折疊"
+        }
+      ],
+      "updated_at": "2026-10-25 10:30:55",
+      "correct": {
+        "text": "一物兩用"
+      }
+    },
+    "請問圖片中的角色是?": {
+      "text": "請問圖片中的角色是?",
+      "choices": [
+        {
+          "text": "野貓軍團"
+        },
+        {
+          "text": "麵包小偷"
+        },
+        {
+          "text": "屁屁偵探"
+        }
+      ],
+      "updated_at": "2026-10-25 10:30:55",
+      "correct": {
+        "text": "屁屁偵探"
+      }
+    },
+    "請問此商品是的用途是什麼?": {
+      "text": "請問此商品是的用途是什麼?",
+      "choices": [
+        {
+          "text": "洗臉"
+        },
+        {
+          "text": "洗身體"
+        },
+        {
+          "text": "去廚房油污"
+        }
+      ],
+      "updated_at": "2026-10-25 10:30:55",
+      "correct": {
+        "text": "去廚房油污"
+      }
+    },
+    "好好生醫蜂王乳三胜肽以下敘述正確?": {
+      "text": "好好生醫蜂王乳三胜肽以下敘述正確?",
+      "choices": [
+        {
+          "text": "分子最小500da膠原胜肽"
+        },
+        {
+          "text": "18歲以上可使用"
+        },
+        {
+          "text": "以上皆是就選我!"
+        },
+        {
+          "text": "市售最高濃度6%葵烯酸"
+        }
+      ],
+      "updated_at": "2026-10-25 10:30:55",
+      "correct": {
+        "text": "以上皆是就選我!"
+      }
+    },
+    "請選出哪一個是主打潔膚清潔商品?": {
+      "text": "請選出哪一個是主打潔膚清潔商品?",
+      "choices": [
+        {
+          "text": "3(圖片一個紫色的東西)"
+        }
+      ],
+      "updated_at": "2026-10-25 10:30:55",
+      "correct": {
+        "text": "3(圖片一個紫色的東西)"
       }
     }
   }
