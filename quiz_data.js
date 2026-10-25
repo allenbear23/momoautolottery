@@ -7126,7 +7126,11 @@ window.QUIZ_DB = {
           "text": "",
           "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/4c915529-4878-4a9d-bc6c-be7a234b7c5e.jpg"
         }
-      ]
+      ],
+      "correct": {
+        "uuid": "18b7a742-ed47-4465-8965-a694f3e21646",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/c405ba50-270c-4e69-8cbc-b6669ff49692.jpg"
+      }
     },
     "下列何者不屬於Nike簽約的NBA球星?": {
       "text": "下列何者不屬於Nike簽約的NBA球星?",

@@ -344,6 +344,7 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
         f"{neg_warn}"
         f"{hint_str}"
         f"【解題原則】：\n"
+        f"- 若問前開行李箱：必須具有正面獨立掀開門、上掀開口或快取筆電層，非左右對開式。\n"
         f"- 若問大小/規格：直立式桌機(Tower) > 薄型小型(SFF) > 超微型(Tiny)；Pro Max/Ultra > 標準款。\n"
         f"- 若為商品附圖：請仔細辨識圖片上的商標文字、包裝印字與Logo。\n"
         f"- 若為純圖片選項：請仔細比對各選項圖片中的包裝品牌、品名與特徵。\n\n"
