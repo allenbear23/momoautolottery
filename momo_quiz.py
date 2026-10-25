@@ -971,7 +971,7 @@ def select_answer(question: dict, choices: list, db: dict, gemini_key: str = Non
     return search_best_choice(q_text, candidate_choices, wrong_vals)
 
 
-def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = True, gemini_key: str = None, groq_key: str = None, openrouter_key: str = None):
+def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = False, gemini_key: str = None, groq_key: str = None, openrouter_key: str = None):
     prefix = f"[{account_label}] " if account_label else ""
     now_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
@@ -1087,7 +1087,7 @@ def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = Tr
     total_display_points = (current_points + correct_count) * 10
     print(f"[{datetime.now().strftime('%H:%M:%S')}] {prefix}🏁 答題結束！本場答對: {correct_count} 題，累計積分: {total_display_points} 分")
 
-    # 4. 判斷兌換門檻 (僅每日最後一場 >= 22:00 時，才兌換可負擔的最佳獎勵)
+    # 4. 判斷兌換門檻 (若 auto_claim 為 False 則不主動兌換)
     prize_claimed = None
     if auto_claim and not has_claimed_today:
         now_hour = datetime.now().hour
@@ -1103,6 +1103,8 @@ def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = Tr
                 print(f"🎁 {prefix}兌換成功！獲得: {prize_name}")
             else:
                 print(f"{prefix}兌換回應: {claim_res}")
+    elif not auto_claim:
+        print(f"{prefix}已依設定關閉自動兌換，保留積分供手動兌換。")
 
     return {
         "account_label": account_label,
@@ -1163,7 +1165,7 @@ def wait_until_slot_snipe(slot_hour: int, slot_minute: int, cookies: list, max_w
     print(f"[{datetime.now().strftime('%H:%M:%S.%f')[:-3]}] 🚀 到達開搶點 (T-0.2s)，啟動答題流程！")
 
 
-def run_session(cookies: list, slot_hour: int = None, slot_minute: int = None, silent_if_limit: bool = False, wait_snipe: bool = True, gemini_key: str = None, groq_key: str = None, openrouter_key: str = None):
+def run_session(cookies: list, slot_hour: int = None, slot_minute: int = None, silent_if_limit: bool = False, wait_snipe: bool = True, auto_claim: bool = False, gemini_key: str = None, groq_key: str = None, openrouter_key: str = None):
     if slot_hour is not None and slot_minute is not None:
         target_hour = slot_hour
         target_min = slot_minute
@@ -1179,7 +1181,7 @@ def run_session(cookies: list, slot_hour: int = None, slot_minute: int = None, s
     results = []
     with concurrent.futures.ThreadPoolExecutor(max_workers=max(1, len(cookies))) as executor:
         future_to_idx = {
-            executor.submit(run_quiz_session, c, get_user_display_name(c, idx), True, gemini_key, groq_key, openrouter_key): idx
+            executor.submit(run_quiz_session, c, get_user_display_name(c, idx), auto_claim, gemini_key, groq_key, openrouter_key): idx
             for idx, c in enumerate(cookies, 1)
         }
         for fut in concurrent.futures.as_completed(future_to_idx):
@@ -1226,6 +1228,7 @@ def main():
     parser.add_argument("--test-demo", action="store_true", help="執行示範題 AI 讀題測試")
     parser.add_argument("--query", action="store_true", help="查詢今日積分與兌換狀態")
     parser.add_argument("--silent-if-limit", action="store_true", help="略過重複推播")
+    parser.add_argument("--auto-claim", action="store_true", default=False, help="若滿足門檻是否自動發動兌獎 (預設關閉，手動兌換)")
     args = parser.parse_args()
 
     gemini_keys = get_gemini_api_keys(args.gemini_key)
@@ -1320,7 +1323,7 @@ def main():
         diff = (slot_dt - now).total_seconds()
         if args.force or (-3600 <= diff <= 240):
             wait_snipe = (not args.force) and (0 < diff <= 240)
-            run_session(cookies, slot_hour=sh, slot_minute=sm, silent_if_limit=args.silent_if_limit, wait_snipe=wait_snipe, gemini_key=gemini_key, groq_key=groq_key, openrouter_key=openrouter_key)
+            run_session(cookies, slot_hour=sh, slot_minute=sm, silent_if_limit=args.silent_if_limit, wait_snipe=wait_snipe, auto_claim=args.auto_claim, gemini_key=gemini_key, groq_key=groq_key, openrouter_key=openrouter_key)
         else:
             print(f"[{now.strftime('%H:%M:%S')}] 目前非活動時段窗口（距離最近時段 {slot_str} 尚有 {diff/60:.1f} 分鐘），略過執行。")
 
