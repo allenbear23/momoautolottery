@@ -417,8 +417,9 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
     now_t = time.time()
     for key in keys:
         for model in models:
-            # 若該模型剛觸發 429 限流，自動跳過進入下一備援模型，防止浪費 60s 倒數時間
-            if now_t < MODEL_RATE_LIMITED.get(model, 0):
+            rate_key = f"{key[-8:]}_{model}"
+            # 若該 Key 的該模型剛觸發 429 限流，自動跳過進入下一 Key 或下一備援模型，防止浪費 60s 倒數時間
+            if now_t < MODEL_RATE_LIMITED.get(rate_key, 0):
                 continue
 
             timeout_sec = 4.2 if (has_choice_images or question_image) else 3.0
@@ -478,8 +479,9 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
                                 return choices[idx]["uuid"]
             except urllib.error.HTTPError as e:
                 if e.code == 429:
-                    MODEL_RATE_LIMITED[model] = time.time() + 75
-                    print(f"[{model}] 觸發 429 限流，自動冷卻 75 秒並無縫切換備援模型")
+                    rate_key = f"{key[-8:]}_{model}"
+                    MODEL_RATE_LIMITED[rate_key] = time.time() + 75
+                    print(f"[{model}] Key ...{key[-4:]} 觸發 429 限流，自動冷卻 75 秒並無縫切換下一 Key 或備援模型")
                 continue
             except Exception:
                 continue

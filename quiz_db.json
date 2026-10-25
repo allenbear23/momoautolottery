@@ -7473,16 +7473,13 @@
         }
       ],
       "updated_at": "2026-10-25 20:12:06",
-      "wrong": [
-        "2"
-      ],
+      "correct": {
+        "uuid": "afeb65d7-b46c-4cde-9261-9de1805ec536",
+        "text": "POCO 4G",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/c4346519-773f-4087-9b27-7d1db237bc6c.png"
+      },
       "image": "",
-      "uuid": "c7a7fef2-bf4a-478e-86c2-0cf0ef17a1d5",
-      "unverified_choice": {
-        "uuid": "3efa118b-6781-4c34-ae4b-f039031092d1",
-        "text": "",
-        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/91c23a1f-8fbe-4d26-ba8c-072349f3b521.png"
-      }
+      "uuid": "c7a7fef2-bf4a-478e-86c2-0cf0ef17a1d5"
     },
     "以甜美舒適風格聞名的aimerfeel內衣品牌來自哪個國家?": {
       "text": "以甜美舒適風格聞名的aimerfeel內衣品牌來自哪個國家?",
@@ -9518,6 +9515,11 @@
         }
       ],
       "updated_at": "2026-10-25 20:11:20",
+      "correct": {
+        "uuid": "49b7fe29-3a46-419f-8ced-005fb0a08736",
+        "text": "紫探頭",
+        "image": ""
+      },
       "wrong": [
         {
           "uuid": "15d5f413-0a25-4f58-962d-696a2ac58e8e",
