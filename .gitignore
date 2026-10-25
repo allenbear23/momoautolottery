@@ -9,4 +9,5 @@ __pycache__/
 *.pyc
 .DS_Store
 momo answer/
-
+.env
+.env.*

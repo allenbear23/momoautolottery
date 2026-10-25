@@ -17,6 +17,25 @@ import urllib.parse
 from datetime import datetime
 import concurrent.futures
 
+# 自動載入本機 .env 設定檔
+def load_dotenv():
+    env_path = os.path.join(os.path.dirname(__file__), ".env")
+    if os.path.exists(env_path):
+        try:
+            with open(env_path, "r", encoding="utf-8") as f:
+                for line in f:
+                    line = line.strip()
+                    if line and not line.startswith("#") and "=" in line:
+                        k, v = line.split("=", 1)
+                        k = k.strip()
+                        v = v.strip().strip("'\"")
+                        if k not in os.environ:
+                            os.environ[k] = v
+        except Exception:
+            pass
+
+load_dotenv()
+
 DEFAULT_EVENT_URL = "https://momo.dm/VfmevV"
 DEFAULT_M_PROMO_NO = "U96101900001"
 DEFAULT_DT_PROMO_NO = "D96101900001"
