@@ -8675,6 +8675,11 @@
         }
       ],
       "updated_at": "2026-10-25 18:11:07",
+      "correct": {
+        "uuid": "a6079000-3688-4ba2-a16b-26224e6d423d",
+        "text": "光盾專利",
+        "image": ""
+      },
       "wrong": [
         {
           "uuid": "4a24012f-2ae4-49a3-8a12-8dc5c0aba2c7",
@@ -8822,10 +8827,10 @@
         }
       ],
       "updated_at": "2026-10-25 18:12:01",
-      "unverified_choice": {
-        "uuid": "b3393b47-b508-4952-b8af-2b072c9beaa2",
-        "text": "",
-        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/62c55af4-faa0-4979-8040-5696fe8e4643.png"
+      "correct": {
+        "uuid": "80c2e538-8ea3-4205-a1f6-12b82698ddfe",
+        "text": "冷凍藍莓 (Frozen Blueberries)",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/6bbdf765-cefe-4f9b-ae17-36374f6f4c00.png"
       }
     }
   }

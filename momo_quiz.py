@@ -286,19 +286,38 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
     def fetch_img(url):
         if not url:
             return None, "image/jpeg"
+        raw_data = None
+        orig_mime = "image/jpeg"
         try:
             if url.startswith("http"):
                 req = urllib.request.Request(url, headers=HEADERS)
-                with urllib.request.urlopen(req, timeout=3.5) as r:
-                    m = r.headers.get("Content-Type", "image/jpeg").split(";")[0]
-                    return r.read(), m
+                with urllib.request.urlopen(req, timeout=2.5) as r:
+                    raw_data = r.read()
+                    orig_mime = r.headers.get("Content-Type", "image/jpeg").split(";")[0]
             elif os.path.exists(url):
                 with open(url, "rb") as f:
-                    m = "image/png" if url.lower().endswith(".png") else "image/jpeg"
-                    return f.read(), m
+                    raw_data = f.read()
+                    orig_mime = "image/png" if url.lower().endswith(".png") else "image/jpeg"
         except Exception:
             return None, "image/jpeg"
-        return None, "image/jpeg"
+
+        if not raw_data:
+            return None, "image/jpeg"
+
+        try:
+            from PIL import Image
+            import io
+            if len(raw_data) > 60_000:
+                im = Image.open(io.BytesIO(raw_data))
+                if im.mode not in ("RGB", "L"):
+                    im = im.convert("RGB")
+                im.thumbnail((512, 512))
+                buf = io.BytesIO()
+                im.save(buf, format="JPEG", quality=80)
+                return buf.getvalue(), "image/jpeg"
+        except Exception:
+            pass
+        return raw_data, orig_mime
 
     # 並行下載選項圖片加速
     choice_imgs = [c.get("image", "").strip() for c in choices]
@@ -402,18 +421,19 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
             if now_t < MODEL_RATE_LIMITED.get(model, 0):
                 continue
 
+            timeout_sec = 4.2 if (has_choice_images or question_image) else 3.0
             url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={key}"
             payload = {
                 "contents": [{"parts": parts}],
                 "generationConfig": {
                     "temperature": 0.0,
-                    "maxOutputTokens": 150
+                    "maxOutputTokens": 250
                 }
             }
             data = json.dumps(payload).encode("utf-8")
             req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"}, method="POST")
             try:
-                with urllib.request.urlopen(req, timeout=3.5) as resp:
+                with urllib.request.urlopen(req, timeout=timeout_sec) as resp:
                     result = json.loads(resp.read().decode("utf-8"))
                     candidates = result.get("candidates", [])
                     if candidates:
