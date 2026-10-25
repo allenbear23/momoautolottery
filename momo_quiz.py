@@ -394,7 +394,7 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
             data = json.dumps(payload).encode("utf-8")
             req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"}, method="POST")
             try:
-                with urllib.request.urlopen(req, timeout=6.5) as resp:
+                with urllib.request.urlopen(req, timeout=3.5) as resp:
                     result = json.loads(resp.read().decode("utf-8"))
                     candidates = result.get("candidates", [])
                     if candidates:
@@ -404,7 +404,7 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
                         print(f"[{model}] 回傳內容:\n{text_out}")
 
                         # 1. 優先從「結論：選項 X」或「答案：X」精確提取
-                        m_target = re.search(r'(?:最終結論|結論|正解|答案)[^\n]*?(?:選項\s*|選\s*)?([1-9])\b', text_out)
+                        m_target = re.search(r'(?:最終結論|結論|正解|答案|故選|應選)[^\n]*?(?:選項\s*|選\s*)?([1-9])\b', text_out)
                         if m_target:
                             idx = int(m_target.group(1)) - 1
                             if 0 <= idx < len(choices):
@@ -422,11 +422,21 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
                                         print(f"[{model}] 倒數行提取選項: {idx+1}. {choices[idx].get('text') or choices[idx].get('uuid')}")
                                         return choices[idx]["uuid"]
 
-                        # 3. 全文關鍵字比對
+                        # 3. 結論行關鍵字比對（避免分析文中的干擾詞）
+                        last_line = lines[-1] if lines else text_out
                         for idx, c in enumerate(choices):
-                            if c.get("text") and c.get("text") in text_out:
-                                print(f"[{model}] 命中關鍵字: {c.get('text')}")
+                            c_t = (c.get("text") or "").strip()
+                            if c_t and len(c_t) >= 2 and c_t in last_line:
+                                print(f"[{model}] 結論行命中關鍵字: {c_t}")
                                 return c["uuid"]
+
+                        # 4. 全文數字提取回退
+                        m_all = re.search(r'\b([1-9])\b', text_out)
+                        if m_all:
+                            idx = int(m_all.group(1)) - 1
+                            if 0 <= idx < len(choices):
+                                print(f"[{model}] 全文數字提取選項: {idx+1}. {choices[idx].get('text') or choices[idx].get('uuid')}")
+                                return choices[idx]["uuid"]
             except urllib.error.HTTPError as e:
                 if e.code == 429:
                     MODEL_RATE_LIMITED[model] = time.time() + 75
@@ -802,12 +812,12 @@ def query_openrouter(question_text: str, choices: list, api_key: str = None, que
 
 def search_best_choice(question_text: str, choices: list, known_wrong: list) -> str:
     """利用關鍵字搜尋比對最佳選項"""
-    filtered_choices = [c for c in choices if c["uuid"] not in known_wrong and c.get("text") not in known_wrong]
+    filtered_choices = [c for c in choices if c.get("uuid", "") not in known_wrong and c.get("text", "") not in known_wrong]
     if not filtered_choices:
         filtered_choices = choices
 
     if len(filtered_choices) == 1:
-        return filtered_choices[0]["uuid"]
+        return filtered_choices[0].get("uuid") or filtered_choices[0].get("text", "")
 
     # 嘗試 Wikipedia 搜尋比對
     try:
@@ -825,14 +835,14 @@ def search_best_choice(question_text: str, choices: list, known_wrong: list) -> 
                     cnt = snippet.count(t)
                     if cnt > max_cnt:
                         max_cnt = cnt
-                        best_choice = c['uuid']
+                        best_choice = c.get('uuid') or t
             if max_cnt > 0 and best_choice:
                 return best_choice
     except Exception:
         pass
 
     # 預設回傳第一個合法選項
-    return filtered_choices[0]["uuid"]
+    return filtered_choices[0].get("uuid") or filtered_choices[0].get("text", "")
 
 
 def get_question_key(question: dict) -> str:
