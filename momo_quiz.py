@@ -329,13 +329,13 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
 
     if has_choice_images or question_image:
         cot_instruction = (
-            "【解題要求 (結論優先，防止截斷)】：\n"
-            "1. 第一行請直接輸出最終答案，格式必須為：『最終結論：選項 X』(X 為 1, 2, 3 或 4)。\n"
-            "2. 第二行起再簡要列出各選項商品的辨識特徵。"
+            "【作答規範】：\n"
+            "第一行必須直接輸出明確的單一數字選項，格式為：『最終結論：選項 X』(X 為 1, 2, 3 或 4，切勿輸出佔位符)。\n"
+            "第二行再用一句話說明辨識依據。"
         )
     else:
         cot_instruction = (
-            "第一行請直接輸出格式：『最終結論：選項 X』(X 為 1, 2, 3 或 4)。"
+            "請直接輸出格式：『最終結論：選項 X』(X 為 1, 2, 3 或 4)。"
         )
 
     prompt = (
