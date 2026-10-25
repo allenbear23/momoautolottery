@@ -9771,39 +9771,26 @@
     },
     "圖中商品屬於哪一類家電?::img_a676225e-7821-421a-9715-a6a8f13d0c53.png": {
       "text": "圖中商品屬於哪一類家電?",
-      "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/8a95b746-76a3-4434-9d40-47b2cbc3f39a.png",
-      "uuid": "82e25774-5e69-4f88-b1ab-4dff03542894",
+      "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/a676225e-7821-421a-9715-a6a8f13d0c53.png",
       "choices": [
         {
-          "uuid": "2eca7001-5759-45dc-b4b3-d383b3ba9491",
           "text": "廚房家電"
         },
         {
-          "uuid": "51ec67c4-8e11-4708-8717-9804cb9675d7",
           "text": "季節家電"
         },
         {
-          "uuid": "df71372d-9efa-4141-a940-154bd5afcbb5",
           "text": "按摩家電"
         },
         {
-          "uuid": "e6ae678a-0ab3-4c54-8ef5-4e708fbbba6b",
           "text": "美容家電"
         }
       ],
-      "updated_at": "2026-10-25 22:11:15",
       "correct": {
-        "uuid": "2646cde9-a25a-48bd-aba6-88f7e7a54ced",
         "text": "季節家電",
         "image": ""
       },
-      "wrong": [
-        {
-          "uuid": "51ec67c4-8e11-4708-8717-9804cb9675d7",
-          "text": "季節家電",
-          "image": ""
-        }
-      ]
+      "updated_at": "2026-10-24 18:00:00"
     },
     "維諾妮卡拖鞋最大特色是什麼": {
       "text": "維諾妮卡拖鞋最大特色是什麼",
@@ -10210,6 +10197,42 @@
         "text": "Air Max 95",
         "image": ""
       }
+    },
+    "圖中商品屬於哪一類家電?::img_8a95b746-76a3-4434-9d40-47b2cbc3f39a.png": {
+      "text": "圖中商品屬於哪一類家電?",
+      "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/8a95b746-76a3-4434-9d40-47b2cbc3f39a.png",
+      "uuid": "82e25774-5e69-4f88-b1ab-4dff03542894",
+      "choices": [
+        {
+          "uuid": "2eca7001-5759-45dc-b4b3-d383b3ba9491",
+          "text": "廚房家電"
+        },
+        {
+          "uuid": "51ec67c4-8e11-4708-8717-9804cb9675d7",
+          "text": "季節家電"
+        },
+        {
+          "uuid": "df71372d-9efa-4141-a940-154bd5afcbb5",
+          "text": "按摩家電"
+        },
+        {
+          "uuid": "e6ae678a-0ab3-4c54-8ef5-4e708fbbba6b",
+          "text": "美容家電"
+        }
+      ],
+      "correct": {
+        "uuid": "e6ae678a-0ab3-4c54-8ef5-4e708fbbba6b",
+        "text": "美容家電",
+        "image": ""
+      },
+      "wrong": [
+        {
+          "uuid": "51ec67c4-8e11-4708-8717-9804cb9675d7",
+          "text": "季節家電",
+          "image": ""
+        }
+      ],
+      "updated_at": "2026-10-25 22:20:00"
     }
   }
 }

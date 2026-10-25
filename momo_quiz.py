@@ -109,8 +109,10 @@ def find_db_record(question: dict, db: dict) -> tuple:
     # 1. 精確 key 匹配
     if key in q_dict:
         return key, q_dict[key]
-    if q_text in q_dict:
-        return q_text, q_dict[q_text]
+    if not q_img_base and q_text in q_dict:
+        rec = q_dict[q_text]
+        if not rec.get("image"):
+            return q_text, rec
 
     # 2. 標點符號歸一化比對 (解決 ？ 與 ?、空白差異)
     if norm_q:
@@ -119,8 +121,10 @@ def find_db_record(question: dict, db: dict) -> tuple:
             v_img = db_v.get("image", "")
             v_img_base = os.path.basename(urllib.parse.urlsplit(v_img).path) if v_img else ""
 
-            if q_img_base and v_img_base and q_img_base != v_img_base:
-                continue
+            # 附圖嚴格比對：若題目有圖或庫存有圖，圖片檔名必須完全一致，切勿串題
+            if q_img_base or v_img_base:
+                if q_img_base != v_img_base:
+                    continue
 
             if normalize_q_text(v_text) == norm_q:
                 return db_k, db_v
@@ -140,11 +144,16 @@ def update_db_question(db_key: str, question: dict, choices: list, correct: dict
                 pass
 
         q_dict = db.setdefault("questions", {})
-        # 若以正規化比對已存在別名 key，優先更新已存在項
+        # 若以正規化比對已存在別名 key，優先更新已存在項 (但嚴格限制圖片必須一致)
         target_key = db_key
         norm_target = normalize_q_text(question.get("text", ""))
+        q_img_base = os.path.basename(urllib.parse.urlsplit(question.get("image", "")).path) if question.get("image") else ""
         if target_key not in q_dict and norm_target:
             for k, v in q_dict.items():
+                v_img_base = os.path.basename(urllib.parse.urlsplit(v.get("image", "")).path) if v.get("image") else ""
+                if q_img_base or v_img_base:
+                    if q_img_base != v_img_base:
+                        continue
                 if normalize_q_text(v.get("text", "")) == norm_target:
                     target_key = k
                     break
