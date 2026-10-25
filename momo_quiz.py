@@ -371,8 +371,8 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
     parts.append({"text": prompt})
 
     models = [
-        "gemini-3.5-flash",
         "gemini-3.5-flash-lite",
+        "gemini-3.5-flash",
         "gemini-3-flash-preview"
     ]
 
@@ -388,7 +388,7 @@ def query_gemini(question_text: str, choices: list, api_key: str = None, questio
                 "contents": [{"parts": parts}],
                 "generationConfig": {
                     "temperature": 0.0,
-                    "maxOutputTokens": 800
+                    "maxOutputTokens": 150
                 }
             }
             data = json.dumps(payload).encode("utf-8")
