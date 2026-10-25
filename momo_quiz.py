@@ -984,13 +984,16 @@ def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = Fa
     if status == 200:
         prize_records = rec.get("prizeRecords", [])
         for pr in prize_records:
-            if pr.get("insertDate", "").startswith(today_str):
+            pr_date = pr.get("date") or pr.get("insertDate", "")
+            if pr_date.startswith(today_str):
                 has_claimed_today = True
                 break
         point_records = rec.get("pointRecords", [])
         for p in point_records:
-            if p.get("insertDate", "").startswith(today_str):
-                current_points += p.get("point", 0)
+            p_date = p.get("date") or p.get("insertDate", "")
+            if p_date.startswith(today_str):
+                pts = p.get("earnedPoint") if p.get("earnedPoint") is not None else p.get("point", 0)
+                current_points += pts
 
     display_points = current_points * 10
     print(f"[{now_str}] {prefix}今日累計積分: {display_points} 分 (後端 {current_points} 分)，今日已兌換: {has_claimed_today}")
@@ -1196,9 +1199,11 @@ def run_session(cookies: list, slot_hour: int = None, slot_minute: int = None, s
     for r in results:
         label = r.get("account_label", "")
         status = r.get("status", "")
+        cnt = r.get("correct_count", 0)
+        session_pts = cnt * 10
         pts = r.get("total_points", 0)
         claimed = r.get("prize_claimed")
-        line = f"👤 {label}：{status} (今日累計: {pts}分)"
+        line = f"👤 {label}：{status} (+{session_pts}分) | 今日累計: {pts}分"
         if claimed:
             line += f" ➔ 🎁 成功領取: {claimed}"
         report_lines.append(line)
@@ -1309,11 +1314,17 @@ def main():
         print(f"[{datetime.now().strftime('%H:%M:%S')}] 🤖 已啟用 Google Gemini AI 解題引擎 (載入 {len(gemini_keys)} 組 Key)")
 
     if args.query:
+        today_str = datetime.now().strftime('%Y-%m-%d')
         for i, c in enumerate(cookies, 1):
             name = get_user_display_name(c, i)
             status, rec = send_quiz_request("GET", f"/quiz/record/{QUIZ_ACTIVITY_ID}.PROMO", c)
             if status == 200:
-                print(f"【{name}】紀錄查詢成功: {rec}")
+                today_pts = 0
+                for p in rec.get("pointRecords", []):
+                    p_date = p.get("date") or p.get("insertDate", "")
+                    if p_date.startswith(today_str):
+                        today_pts += (p.get("earnedPoint") if p.get("earnedPoint") is not None else p.get("point", 0)) * 10
+                print(f"【{name}】今日累計積分: {today_pts} 分 | 詳細紀錄: {rec}")
             else:
                 print(f"【{name}】查詢失敗: {rec}")
     elif args.now:
