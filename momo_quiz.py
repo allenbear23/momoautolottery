@@ -18,6 +18,7 @@ import urllib.error
 import urllib.parse
 from datetime import datetime
 import concurrent.futures
+import random
 
 DEFAULT_EVENT_URL = "https://momo.dm/BreIZI"
 QUIZ_ACTIVITY_ID = "3008445a-40b4-4227-a9cc-db0bdae289a5"
@@ -1064,6 +1065,7 @@ def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = Fa
         update_db_question(db_key, question, choices)
         db = load_quiz_db()
 
+        q_start_t = time.time()
         selected_choice_id = select_answer(question, choices, db, gemini_key=gemini_key, groq_key=groq_key, openrouter_key=openrouter_key)
         selected_choice_obj = next((c for c in choices if c["uuid"] == selected_choice_id), choices[0])
         choice_text = selected_choice_obj.get("text", "") or selected_choice_obj.get("uuid", "")
@@ -1072,6 +1074,12 @@ def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = Fa
             "text": selected_choice_obj.get("text", ""),
             "image": selected_choice_obj.get("image", "")
         }
+
+        # 擬真思考與防風控延遲：若秒答耗時小於人類反應下限 (1.2 ~ 2.0 秒)，平滑補足隨機延遲
+        q_elapsed = time.time() - q_start_t
+        target_human_delay = random.uniform(1.2, 2.0)
+        if q_elapsed < target_human_delay:
+            time.sleep(target_human_delay - q_elapsed)
 
         img_log = f" [附圖: {question.get('image')}]" if question.get("image") else ""
         print(f"[{datetime.now().strftime('%H:%M:%S')}] {prefix}第 {correct_count+1} 題: {q_text}{img_log} ➔ 選擇: {choice_text}")
