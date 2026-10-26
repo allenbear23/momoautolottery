@@ -21705,7 +21705,12 @@
           "uuid": "d0c88640-50b2-46ad-bd8e-01ef22c41278",
           "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/5f87dad0-9bd7-4c0a-8951-d7f595fab20a.png"
         }
-      ]
+      ],
+      "correct": {
+        "uuid": "b7f390b7-2a8a-4402-a88c-c841f22e7481",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/71d4be83-ef27-4c92-9297-7abc0b6803ae.png",
+        "text": ""
+      }
     },
     "什麼鍋具品牌跟很有名的月餅同品牌": {
       "text": "什麼鍋具品牌跟很有名的月餅同品牌",
