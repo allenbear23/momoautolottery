@@ -4706,32 +4706,6 @@
       ],
       "updated_at": "2026-10-24 19:07:33"
     },
-    "Kosmiya最受歡迎的商品類別是?": {
-      "text": "Kosmiya最受歡迎的商品類別是?",
-      "choices": [
-        {
-          "uuid": "opt_1",
-          "text": "睡衣/居家套裝"
-        },
-        {
-          "uuid": "opt_2",
-          "text": "皮鞋"
-        },
-        {
-          "uuid": "opt_3",
-          "text": "牛仔外套"
-        },
-        {
-          "uuid": "opt_4",
-          "text": "運動褲"
-        }
-      ],
-      "correct": {
-        "text": "睡衣/居家套裝"
-      },
-      "wrong": [],
-      "updated_at": "2026-10-24 19:07:33"
-    },
     "OPPO Reno16 的代言人是誰?": {
       "text": "OPPO Reno16 的代言人是誰?",
       "choices": [
