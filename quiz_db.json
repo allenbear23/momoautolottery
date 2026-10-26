@@ -20894,10 +20894,14 @@
     "下列何者不是OPPOReno16主打的功能?::img_00987832-ffce-4c17-b9cf-7856b4a7fa6a.png": {
       "text": "下列何者不是OPPOReno16主打的功能?",
       "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/00987832-ffce-4c17-b9cf-7856b4a7fa6a.png",
-      "updated_at": "2026-10-24 20:14:47",
+      "updated_at": "2026-10-26 18:54:00",
       "wrong": [
-        "出圈拼圖2.0"
-      ]
+        "出圈拼圖2.0",
+        "AI動態拼貼"
+      ],
+      "correct": {
+        "text": "AI助理叫外送"
+      }
     },
     "以下哪個非韓系彩妝商品?": {
       "text": "以下哪個非韓系彩妝商品?",
