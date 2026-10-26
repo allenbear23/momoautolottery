@@ -914,7 +914,26 @@ def select_answer(question: dict, choices: list, db: dict, gemini_key: str = Non
     wrong_vals = record.get("wrong", [])
     target_hint = None
 
-    # 1. 命中題庫已知正確答案
+    # 1. 排除已知錯誤選項判定函式
+    def is_wrong(c):
+        for w in wrong_vals:
+            w_uuid = w.get("uuid") if isinstance(w, dict) else w
+            raw_w_text = w.get("text") if isinstance(w, dict) else (w if isinstance(w, str) else "")
+            clean_w = re.sub(r'[\(（]?選項\s*\d+[\)）]?', '', raw_w_text).strip()
+            norm_w = normalize_q_text(clean_w)
+            w_img = w.get("image", "") if isinstance(w, dict) else ""
+            if c.get("uuid") and w_uuid and c.get("uuid") == w_uuid:
+                return True
+            # 若無指定 UUID 時才使用文字比對，避免同名選項被誤殺
+            if not w_uuid and norm_w:
+                norm_c = normalize_q_text(c.get("text", ""))
+                if norm_c and (norm_c == norm_w or norm_c in norm_w or norm_w in norm_c):
+                    return True
+            if c.get("image") and w_img and os.path.basename(c.get("image")) == os.path.basename(w_img):
+                return True
+        return False
+
+    # 2. 命中題庫已知正確答案
     if correct_val:
         target_uuid = correct_val.get("uuid") if isinstance(correct_val, dict) else correct_val
         raw_target_text = correct_val.get("text") if isinstance(correct_val, dict) else (correct_val if isinstance(correct_val, str) else "")
@@ -925,6 +944,9 @@ def select_answer(question: dict, choices: list, db: dict, gemini_key: str = Non
         norm_target = normalize_q_text(clean_target)
 
         for c in choices:
+            # 關鍵防護：已知錯誤選項不可選取
+            if is_wrong(c):
+                continue
             c_uuid = c.get("uuid")
             c_text = c.get("text", "")
             c_img = c.get("image", "")
@@ -934,23 +956,6 @@ def select_answer(question: dict, choices: list, db: dict, gemini_key: str = Non
                (c_img and target_img and os.path.basename(c_img) == os.path.basename(target_img)):
                 print(f"[題庫命中] 選擇已確認之正確答案: {c_text or c_uuid}")
                 return c_uuid
-
-    # 2. 排除已知錯誤選項
-    def is_wrong(c):
-        for w in wrong_vals:
-            w_uuid = w.get("uuid") if isinstance(w, dict) else w
-            raw_w_text = w.get("text") if isinstance(w, dict) else (w if isinstance(w, str) else "")
-            clean_w = re.sub(r'[\(（]?選項\s*\d+[\)）]?', '', raw_w_text).strip()
-            norm_w = normalize_q_text(clean_w)
-            w_img = w.get("image", "") if isinstance(w, dict) else ""
-            if c.get("uuid") and c.get("uuid") == w_uuid:
-                return True
-            norm_c = normalize_q_text(c.get("text", ""))
-            if norm_c and norm_w and (norm_c == norm_w or norm_c in norm_w or norm_w in norm_c):
-                return True
-            if c.get("image") and w_img and os.path.basename(c.get("image")) == os.path.basename(w_img):
-                return True
-        return False
 
     candidate_choices = [c for c in choices if not is_wrong(c)]
     if not candidate_choices:

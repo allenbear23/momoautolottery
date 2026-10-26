@@ -2254,18 +2254,13 @@
       "updated_at": "2026-10-26 12:11:30",
       "wrong": [
         {
-          "text": "紅色"
-        },
-        "紅色",
-        "1",
-        {
           "uuid": "0b62c607-cffd-44eb-9cfd-24f2e36f6d97",
-          "text": "紅色",
-          "image": ""
+          "text": "紅色"
         }
       ],
       "screenshot": "momo answer/5670498_0.jpg",
       "correct": {
+        "uuid": "74f29405-bf74-4123-91e4-2f089dd0fc45",
         "text": "紅色"
       },
       "uuid": "8aa0382e-3ca8-47a6-99f1-da348bf5080b"
@@ -11177,7 +11172,11 @@
           "text": "機械軸",
           "image": ""
         }
-      ]
+      ],
+      "correct": {
+        "uuid": "6c45aae5-f4e0-447c-aac7-6bbdbf71f018",
+        "text": "磁軸"
+      }
     }
   }
 }
