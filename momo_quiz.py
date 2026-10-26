@@ -1114,15 +1114,17 @@ def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = Fa
     total_display_points = (current_points + correct_count) * 10
     print(f"[{datetime.now().strftime('%H:%M:%S')}] {prefix}🏁 答題結束！本場答對: {correct_count} 題，累計積分: {total_display_points} 分")
 
-    # 4. 判斷兌換門檻 (若 auto_claim 為 False 則不主動兌換)
+    # 4. 判斷兌換門檻 (達 50 mo 門檻 >= 600 分，或當日最後一場 >= 22 點且達基本兌換門檻 >= 300 分)
     prize_claimed = None
-    if auto_claim and not has_claimed_today:
-        now_hour = datetime.now().hour
-        is_last_slot = (now_hour >= 22)
-        should_claim = is_last_slot and (total_display_points >= 30)
+    can_claim_50mo = (total_display_points >= 600)
+    now_hour = datetime.now().hour
+    is_last_slot = (now_hour >= 22)
+    should_claim = can_claim_50mo or (is_last_slot and total_display_points >= 300)
 
+    if auto_claim and not has_claimed_today:
         if should_claim:
-            print(f"{prefix}滿足兌換門檻 ({total_display_points}分)，發動兌換獎勵...")
+            target_prize = "50 mo點" if can_claim_50mo else "當前最高獎勵"
+            print(f"{prefix}滿足兌換門檻 ({total_display_points}分，目標: {target_prize})，發動兌換獎勵...")
             claim_status, claim_res = send_quiz_request("POST", "/quiz/claim.PROMO", cookie, {"activityId": QUIZ_ACTIVITY_ID})
             if claim_status == 200:
                 prize_name = claim_res.get("prize", {}).get("displayName", "獎項")
@@ -1131,7 +1133,10 @@ def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = Fa
             else:
                 print(f"{prefix}兌換回應: {claim_res}")
     elif not auto_claim:
-        print(f"{prefix}已依設定關閉自動兌換，保留積分供手動兌換。")
+        if can_claim_50mo:
+            print(f"{prefix}已達 50 mo 兌換門檻 ({total_display_points} 分)，因 auto_claim 未開啟未自動發動。")
+        else:
+            print(f"{prefix}已依設定關閉自動兌換，保留積分供手動兌換。")
 
     return {
         "account_label": account_label,
@@ -1257,7 +1262,8 @@ def main():
     parser.add_argument("--test-demo", action="store_true", help="執行示範題 AI 讀題測試")
     parser.add_argument("--query", action="store_true", help="查詢今日積分與兌換狀態")
     parser.add_argument("--silent-if-limit", action="store_true", help="略過重複推播")
-    parser.add_argument("--auto-claim", action="store_true", default=False, help="若滿足門檻是否自動發動兌獎 (預設關閉，手動兌換)")
+    parser.add_argument("--auto-claim", dest="auto_claim", action="store_true", default=True, help="若滿足門檻是否自動發動兌獎 (預設開啟)")
+    parser.add_argument("--no-auto-claim", dest="auto_claim", action="store_false", help="關閉自動兌換")
     args = parser.parse_args()
 
     gemini_keys = get_gemini_api_keys(args.gemini_key)
