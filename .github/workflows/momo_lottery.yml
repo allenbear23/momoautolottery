@@ -1,4 +1,4 @@
-name: Momo & PChome Auto Task
+name: Momo Auto Task
 
 on:
   workflow_dispatch:
@@ -31,16 +31,12 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-          PCHOME_COOKIE: ${{ secrets.PCHOME_COOKIE }}
           FEEBEE_COOKIE: ${{ secrets.FEEBEE_COOKIE }}
         run: |
           python3 momo_quiz.py --now --silent-if-limit --auto-claim
           python3 momo_bot.py --now --silent-if-limit
           python3 momo_checkin.py
           python3 momo_coin.py
-          if [ -n "$PCHOME_COOKIE" ]; then
-            python3 pchome_checkin.py
-          fi
           if [ -n "$FEEBEE_COOKIE" ]; then
             python3 feebee_checkin.py
           fi
