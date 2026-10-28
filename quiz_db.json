@@ -348,30 +348,38 @@
       "updated_at": "2026-10-23 13:20:00"
     },
     "活力、精神、日常補給": {
-      "text": "活力、精神、日常補給 (Richvita 李國毅代言B群)",
+      "text": "活力、精神、日常補給",
       "screenshot": "momo answer/S__184852517_0.jpg",
       "choices": [
         {
-          "text": "選項 1 (綜合多色B群款)"
+          "uuid": "1cc436d4-24d7-4a6b-af0c-81dc5f361300",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/ab245242-1869-470c-9497-d6d8c8688aba.png"
         },
         {
-          "text": "選項 2"
+          "uuid": "5a60c3e3-4475-4aa6-9bed-c4aed8bae425",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/3813192a-3891-401a-a563-8a5fb391d635.png"
         },
         {
-          "text": "選項 3"
+          "uuid": "828eb576-cb5e-423b-a359-7536a5d38ec1",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/480b0068-e845-49b4-9b55-a7420b7acd96.png"
         },
         {
-          "text": "選項 4"
+          "uuid": "d7ff129f-9634-4a6b-8a08-25bd36b47bd7",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/3b881750-189a-49b3-aab2-56f42b1f073c.png"
         }
       ],
       "correct": {
-        "text": "選項 1 (綜合多色B群款)"
+        "uuid": "1cc436d4-24d7-4a6b-af0c-81dc5f361300",
+        "text": "",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/ab245242-1869-470c-9497-d6d8c8688aba.png"
       },
-      "updated_at": "2026-10-23 13:20:00",
+      "updated_at": "2026-10-28 12:11:55",
       "wrong": [
         "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/ab245242-1869-470c-9497-d6d8c8688aba.png",
         "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/480b0068-e845-49b4-9b55-a7420b7acd96.png"
-      ]
+      ],
+      "image": "",
+      "uuid": "48fef7d1-c2e2-4515-83ea-3966cd6e536c"
     },
     "哪一個是多芬小金碗髮膜？": {
       "text": "哪一個是多芬小金碗髮膜?",
@@ -1836,10 +1844,10 @@
           "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/bc0bfdab-5167-4aea-adfa-ec60e80463c2.jpg"
         }
       ],
-      "updated_at": "2026-10-24 12:11:02",
+      "updated_at": "2026-10-28 12:11:03",
       "correct": {
         "uuid": "d7faa8a6-7188-4eb6-8705-a5b3848a8718",
-        "text": "手機掛繩背帶 (選項 4)",
+        "text": "",
         "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/bc0bfdab-5167-4aea-adfa-ec60e80463c2.jpg"
       },
       "wrong": [
@@ -1967,10 +1975,10 @@
           "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/77b0cbf1-4eca-4a3d-a36b-41e1570d07d0.png"
         }
       ],
-      "updated_at": "2026-10-24 14:11:16",
+      "updated_at": "2026-10-28 12:11:12",
       "correct": {
         "uuid": "e982c59a-dc05-4d22-a40d-8c489cbbb702",
-        "text": "有機大紅棗 (選項 4)",
+        "text": "",
         "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/77b0cbf1-4eca-4a3d-a36b-41e1570d07d0.png"
       }
     },
@@ -2623,25 +2631,32 @@
       "image": "",
       "choices": [
         {
-          "text": "LISA"
+          "uuid": "262d4b83-e544-490f-ad96-9d22ae9fae5f",
+          "text": "Lisa"
         },
         {
+          "uuid": "34e0c66b-053e-4f10-9f11-b64d736866e0",
           "text": "Jennie"
         },
         {
+          "uuid": "65db0644-1a71-4fd8-a63d-29fee71aeeae",
           "text": "張員瑛"
         },
         {
+          "uuid": "974afd54-8c2e-42cc-b7ba-9002eca6b93b",
           "text": "Karina"
         }
       ],
-      "updated_at": "2026-10-24 17:20:00",
+      "updated_at": "2026-10-28 12:11:58",
       "correct": {
-        "text": "Jennie"
+        "uuid": "34e0c66b-053e-4f10-9f11-b64d736866e0",
+        "text": "Jennie",
+        "image": ""
       },
       "wrong": [
         "Karina"
-      ]
+      ],
+      "uuid": "b60a8a42-76d5-4205-810b-d24946321d0b"
     },
     "請問哪個品牌有優格雪糕": {
       "text": "請問哪個品牌有優格雪糕",
@@ -5664,9 +5679,14 @@
       "wrong": [
         "戶外品牌"
       ],
-      "updated_at": "2026-10-27 20:11:53",
+      "updated_at": "2026-10-28 12:12:01",
       "image": "",
-      "uuid": "dcd46c94-f9e3-49dd-92da-38ef35960721"
+      "uuid": "dcd46c94-f9e3-49dd-92da-38ef35960721",
+      "unverified_choice": {
+        "uuid": "45fcf552-7c5d-46ff-9fa3-261aeec26e5c",
+        "text": "選品店",
+        "image": ""
+      }
     },
     "Onitsuka Tiger 鬼塚虎是哪一國品牌?": {
       "text": "Onitsuka Tiger 鬼塚虎是哪一國品牌?",
@@ -5941,7 +5961,7 @@
         "image": ""
       },
       "wrong": [],
-      "updated_at": "2026-10-27 22:11:40",
+      "updated_at": "2026-10-28 12:11:31",
       "image": "",
       "uuid": "f179625a-9e2a-4654-9165-4f44538b7f15"
     },
@@ -7244,7 +7264,7 @@
           "text": "白色"
         }
       ],
-      "updated_at": "2026-10-26 18:11:53",
+      "updated_at": "2026-10-28 12:11:18",
       "wrong": [
         "1",
         "粉紅色"
@@ -8645,7 +8665,7 @@
           "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/77dc3649-f833-4f7d-93c9-29e4c72135e4.png"
         }
       ],
-      "updated_at": "2026-10-27 12:11:27",
+      "updated_at": "2026-10-28 12:11:07",
       "correct": {
         "uuid": "044b7dc1-7c7b-474c-96f6-5c5946ecd2f3",
         "text": "",
@@ -9296,7 +9316,7 @@
           "text": "光盾專利"
         }
       ],
-      "updated_at": "2026-10-25 18:11:07",
+      "updated_at": "2026-10-28 12:11:09",
       "correct": {
         "uuid": "a6079000-3688-4ba2-a16b-26224e6d423d",
         "text": "光盾專利",
@@ -10765,7 +10785,7 @@
           "text": "360°全景拍攝"
         }
       ],
-      "updated_at": "2026-10-25 22:11:30",
+      "updated_at": "2026-10-28 12:11:28",
       "correct": {
         "uuid": "bfbaec59-eaf5-4c5c-ac17-22430259a268",
         "text": "360°全景拍攝",
@@ -11643,7 +11663,7 @@
           "text": "藍莓"
         }
       ],
-      "updated_at": "2026-10-26 12:11:24",
+      "updated_at": "2026-10-28 12:11:46",
       "correct": {
         "uuid": "f6fd892a-482d-45d5-8939-653105f4f7ce",
         "text": "藍莓",
@@ -12601,7 +12621,7 @@
     "請選出哪個是國外茶品牌商品?": {
       "text": "請選出哪個是國外茶品牌商品?",
       "image": "",
-      "updated_at": "2026-10-27 10:11:19",
+      "updated_at": "2026-10-28 12:11:18",
       "correct": {
         "uuid": "478e6a7e-1805-4d10-8c5f-c9e20ca1e13d",
         "text": "",
@@ -12705,12 +12725,33 @@
     "下列哪一個不是日麗生養髮液的功效": {
       "text": "下列哪一個不是日麗生養髮液的功效",
       "image": "",
-      "updated_at": "2026-10-25 14:17:10",
+      "updated_at": "2026-10-28 12:11:46",
       "correct": {
-        "text": "美白肌膚"
+        "uuid": "1e8b0647-a956-4f3a-bbf1-1b9371ebf683",
+        "text": "美白肌膚",
+        "image": ""
       },
       "wrong": [
         "活化頭皮"
+      ],
+      "uuid": "b721af51-bda5-4804-a920-7b7bd6ff9be4",
+      "choices": [
+        {
+          "uuid": "131cb337-5ede-44f7-92f2-3897a2e95570",
+          "text": "活化頭皮"
+        },
+        {
+          "uuid": "1e8b0647-a956-4f3a-bbf1-1b9371ebf683",
+          "text": "美白肌膚"
+        },
+        {
+          "uuid": "4b861dc5-5a69-418f-b731-c0426a907eed",
+          "text": "髮絲蓬鬆豐盈"
+        },
+        {
+          "uuid": "f8dad386-1547-46a8-a4c5-904ba31e274a",
+          "text": "強健髮根"
+        }
       ]
     },
     "打造孩子專屬學習空間,通常會搭配什麼商品?": {
@@ -12746,15 +12787,35 @@
       ]
     },
     "請選出哪一個才是真正的科沃斯T90PRO掃地機器人?": {
-      "text": "請選出哪一個才是真正的科沃斯T90PRO掃地機器人?",
+      "text": "請選出哪一個才是真正的科沃斯T90 PRO掃地機器人?",
       "image": "",
-      "updated_at": "2026-10-25 20:21:01",
+      "updated_at": "2026-10-28 12:11:21",
       "correct": {
-        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/348a77c2-828f-4d1c-b490-7505aca28a64.png",
-        "text": ""
+        "uuid": "f12cb87c-854b-433e-868e-6ecf193eee88",
+        "text": "",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/348a77c2-828f-4d1c-b490-7505aca28a64.png"
       },
       "wrong": [
         "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/904ec35d-c941-4daf-88a8-47b131598da3.png"
+      ],
+      "uuid": "ad3ca25e-9dd6-42c9-9888-d7cb7d291dd2",
+      "choices": [
+        {
+          "uuid": "616958f1-cb18-4595-b81d-c76706ec29d5",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/904ec35d-c941-4daf-88a8-47b131598da3.png"
+        },
+        {
+          "uuid": "950829a4-b785-41cc-93b9-1f3152177e61",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/afdffdb0-679c-45b6-bc8d-849abe976059.png"
+        },
+        {
+          "uuid": "bb52c8a0-23e8-4e83-9d36-3e441be11645",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/cbd65b16-6ea7-473a-986f-225a835c8c1c.png"
+        },
+        {
+          "uuid": "f12cb87c-854b-433e-868e-6ecf193eee88",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/348a77c2-828f-4d1c-b490-7505aca28a64.png"
+        }
       ]
     },
     "下列哪個商品不是專櫃彩妝的品牌?": {
@@ -12839,12 +12900,33 @@
     "NewSTART美國精品服飾有賣什麼品牌的服飾內著?": {
       "text": "NewSTART美國精品服飾有賣什麼品牌的服飾內著?",
       "image": "",
-      "updated_at": "2026-10-25 18:15:26",
+      "updated_at": "2026-10-28 12:11:07",
       "correct": {
-        "text": "以上皆是"
+        "uuid": "e8afa114-d3bb-408e-b650-e67a85fa8a94",
+        "text": "以上皆是",
+        "image": ""
       },
       "wrong": [
         "CALVIN KLEIN"
+      ],
+      "uuid": "e0cabd95-7b8f-467f-86ee-57db3fb8ffba",
+      "choices": [
+        {
+          "uuid": "362b725a-103d-49b2-8838-ec4da3b07bdd",
+          "text": "CALVIN KLEIN"
+        },
+        {
+          "uuid": "81954d54-000d-4ef3-8a2a-f95b12fd3af9",
+          "text": "adidas"
+        },
+        {
+          "uuid": "cb2f66ae-ada4-4b91-8b22-e1c36abc2537",
+          "text": "The North Face"
+        },
+        {
+          "uuid": "e8afa114-d3bb-408e-b650-e67a85fa8a94",
+          "text": "以上皆是"
+        }
       ]
     },
     "倩碧小花屬於哪類商品?": {
@@ -14961,10 +15043,31 @@
     "紅米手機新機螢幕尺寸為?::img_04e75187-ac59-41c7-a0d5-4d1450805168.png": {
       "text": "紅米手機新機螢幕尺寸為?",
       "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/04e75187-ac59-41c7-a0d5-4d1450805168.png",
-      "updated_at": "2026-10-26 12:14:58",
+      "updated_at": "2026-10-28 12:11:49",
       "correct": {
-        "text": "6.83吋"
-      }
+        "uuid": "0c4dbce2-5670-4e14-8dfd-32f6643015ac",
+        "text": "6.83吋",
+        "image": ""
+      },
+      "uuid": "a82eef89-e2fd-48f5-924a-0dd163980dfd",
+      "choices": [
+        {
+          "uuid": "0c4dbce2-5670-4e14-8dfd-32f6643015ac",
+          "text": "6.83吋"
+        },
+        {
+          "uuid": "7f691d98-be06-46c1-a16b-77db32da7002",
+          "text": "100吋"
+        },
+        {
+          "uuid": "981c78f9-410d-42ce-865f-d1a18d5a3bb6",
+          "text": "55吋"
+        },
+        {
+          "uuid": "a00c2671-3a03-4726-8c1a-56a975454ba4",
+          "text": "1000吋"
+        }
+      ]
     },
     "請問24HRS內衣的熱銷第一色為?::img_85c6837c-0891-4656-b583-c57d8d47c2b0.jpg": {
       "text": "請問24HRS內衣的熱銷第一色為?",
@@ -16203,7 +16306,7 @@
     "請問舒潔衛生紙的動物明星是?": {
       "text": "請問舒潔衛生紙的動物明星是?",
       "image": "",
-      "updated_at": "2026-10-27 12:11:36",
+      "updated_at": "2026-10-28 12:11:27",
       "correct": {
         "uuid": "14dd655c-86c6-408c-99b1-b4a94d4fe543",
         "text": "",
@@ -17401,12 +17504,33 @@
     "請問善存益生菌品牌好友是誰?::img_4e6e70de-28f5-4354-b5f7-1e9ed2484981.png": {
       "text": "請問善存益生菌品牌好友是誰?",
       "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/4e6e70de-28f5-4354-b5f7-1e9ed2484981.png",
-      "updated_at": "2026-10-26 14:14:59",
+      "updated_at": "2026-10-28 12:11:43",
       "correct": {
-        "text": "楊祐寧"
+        "uuid": "bedf2e98-6033-431e-a949-4e2c7d5c7023",
+        "text": "楊祐寧",
+        "image": ""
       },
       "wrong": [
         "陽柚凝"
+      ],
+      "uuid": "3117694a-9ba5-4caf-a1e0-27a77d91bbb7",
+      "choices": [
+        {
+          "uuid": "6e589d3f-331f-47b5-a522-bb16250d9d9b",
+          "text": "陽柚凝"
+        },
+        {
+          "uuid": "9ec4c5d3-0ae7-4ce4-805d-af4f443445cd",
+          "text": "洋又檸"
+        },
+        {
+          "uuid": "bedf2e98-6033-431e-a949-4e2c7d5c7023",
+          "text": "楊祐寧"
+        },
+        {
+          "uuid": "d66520cf-4838-4f3e-addd-933b519bbec3",
+          "text": "羊右寧"
+        }
       ]
     },
     "哪款延長線有滑蓋設計避免誤觸插孔?": {
@@ -17473,11 +17597,31 @@
     "以下哪個是樂敦葉黃素複方軟膠囊的正確顏色?": {
       "text": "以下哪個是樂敦葉黃素複方軟膠囊的正確顏色?",
       "image": "",
-      "updated_at": "2026-10-24 18:20:10",
+      "updated_at": "2026-10-28 12:11:25",
       "correct": {
-        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/78bc469b-1fe9-463f-8d83-338367aaf665.png",
-        "text": ""
-      }
+        "uuid": "2cc639b8-7e67-4c4e-a531-7d06e854876f",
+        "text": "",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/78bc469b-1fe9-463f-8d83-338367aaf665.png"
+      },
+      "uuid": "8353b448-f38c-49f9-8b73-299803d8d117",
+      "choices": [
+        {
+          "uuid": "2cc639b8-7e67-4c4e-a531-7d06e854876f",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/78bc469b-1fe9-463f-8d83-338367aaf665.png"
+        },
+        {
+          "uuid": "35641f2f-98d3-4ad7-9c82-0ff35512f9cf",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/637840e6-e512-43c9-9e1b-c404a69c9ad6.png"
+        },
+        {
+          "uuid": "5305e4a4-af08-4171-81ad-7be142bb79aa",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/e950e599-f1c9-46c9-adfd-ec11831b40e2.png"
+        },
+        {
+          "uuid": "75f3b988-b7a1-4f05-9ca1-277a9c48c7ef",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/9fd8911c-4b8d-408a-986f-bf4cd3fa2426.png"
+        }
+      ]
     },
     "ASUSTUFGamingK4鍵盤是哪個軸體?::img_e8baa3fa-eee9-4e0a-9453-88cff9f1ef45.png": {
       "text": "ASUSTUFGamingK4鍵盤是哪個軸體?",
@@ -18926,13 +19070,34 @@
     "洗衣機標示「12公斤」,通常指的是什麼?": {
       "text": "洗衣機標示「12公斤」,通常指的是什麼?",
       "image": "",
-      "updated_at": "2026-10-25 20:22:21",
+      "updated_at": "2026-10-28 12:11:52",
       "correct": {
-        "text": "洗衣容量"
+        "uuid": "06b753f0-b3d7-481c-8616-b39d506857ca",
+        "text": "洗衣容量",
+        "image": ""
       },
       "wrong": [
         "洗衣機重量",
         "最大用水量"
+      ],
+      "uuid": "c77c5a18-5a77-4d7d-b32f-d2e0c47fd489",
+      "choices": [
+        {
+          "uuid": "06b753f0-b3d7-481c-8616-b39d506857ca",
+          "text": "洗衣容量"
+        },
+        {
+          "uuid": "2e921f4f-d96b-4975-be8f-9c73ac88b12e",
+          "text": "洗衣機重量"
+        },
+        {
+          "uuid": "5a05a22b-36a9-4b2d-9a1d-b83980752eae",
+          "text": "每小時耗電量"
+        },
+        {
+          "uuid": "8630c450-a4c5-4696-b8d2-9c6ce25c18e8",
+          "text": "最大用水量"
+        }
       ]
     },
     "以下哪一款鍋具是日本鐵鍋?": {
@@ -19176,10 +19341,31 @@
     "此商品主要功能為何?::img_ec886f31-759c-48d5-8d8e-e4359aefc2b5.png": {
       "text": "此商品主要功能為何?",
       "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/ec886f31-759c-48d5-8d8e-e4359aefc2b5.png",
-      "updated_at": "2026-10-25 22:11:47",
+      "updated_at": "2026-10-28 12:11:19",
       "correct": {
-        "text": "染髮"
-      }
+        "uuid": "39595e6a-aba6-4e28-aa91-ddcdc7a22b6e",
+        "text": "染髮",
+        "image": ""
+      },
+      "uuid": "cb452b1f-0f74-497f-97d0-e7d38bd513d4",
+      "choices": [
+        {
+          "uuid": "39595e6a-aba6-4e28-aa91-ddcdc7a22b6e",
+          "text": "染髮"
+        },
+        {
+          "uuid": "866e0f4d-1d48-447c-a443-61d8d684f8f5",
+          "text": "洗髮"
+        },
+        {
+          "uuid": "dc76710c-4e7d-40ec-a919-b5a2ed55080b",
+          "text": "養髮"
+        },
+        {
+          "uuid": "f8884a13-c663-4956-9794-5bbc49d2af8c",
+          "text": "護髮"
+        }
+      ]
     },
     "MacBook與iPhone常被認為搭配使用方便,主要原因是?": {
       "text": "MacBook與iPhone常被認為搭配使用方便,主要原因是?",
@@ -19309,11 +19495,35 @@
     "洗衣精添加「酵素」成分,主要是為了?": {
       "text": "洗衣精添加「酵素」成分,主要是為了?",
       "image": "",
-      "updated_at": "2026-10-25 10:13:10",
+      "updated_at": "2026-10-28 12:11:04",
       "wrong": [
         "延長保存期",
         "增加香味"
-      ]
+      ],
+      "uuid": "7892c264-9f29-462b-aac2-265c1a962167",
+      "choices": [
+        {
+          "uuid": "03352452-8237-41b6-bd41-ffb6fab036af",
+          "text": "延長保存期"
+        },
+        {
+          "uuid": "908cf7ad-de65-47e3-a806-007e40c3ae94",
+          "text": "增加香味"
+        },
+        {
+          "uuid": "ba8f153e-bb84-4571-9eb7-232756890b06",
+          "text": "分解髒污"
+        },
+        {
+          "uuid": "fbd93dd6-fc67-4fc5-9813-47afd47d2970",
+          "text": "讓衣服變軟"
+        }
+      ],
+      "correct": {
+        "uuid": "ba8f153e-bb84-4571-9eb7-232756890b06",
+        "text": "分解髒污",
+        "image": ""
+      }
     },
     "請問益富的代言人是誰?::img_85b806ec-461f-4a96-8fc1-224267065aaf.png": {
       "text": "請問益富的代言人是誰?",
@@ -19419,11 +19629,35 @@
     "請問下列哪一道年菜最具有「年年有餘」的意象?": {
       "text": "請問下列哪一道年菜最具有「年年有餘」的意象?",
       "image": "",
-      "updated_at": "2026-10-24 22:13:34",
+      "updated_at": "2026-10-28 12:11:07",
       "wrong": [
         "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/9944e7fa-a8e8-4469-ab4f-79b5c92f0453.jpg",
         "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/aa91f759-5516-4b5b-ae93-cff0b464c476.jpg"
-      ]
+      ],
+      "uuid": "3fa923df-7a69-46ff-a4d6-8dc294ae3115",
+      "choices": [
+        {
+          "uuid": "153dec6e-8b07-4067-8124-ab4313a5c12f",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/aa91f759-5516-4b5b-ae93-cff0b464c476.jpg"
+        },
+        {
+          "uuid": "49e10c12-5b8c-4452-babe-dbe1f4c62de0",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/f7f922b5-07b1-42ce-bf21-2e9bc4072e29.jpg"
+        },
+        {
+          "uuid": "91e64f41-d9cb-4a63-b9e1-8003fd84d8b1",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/9944e7fa-a8e8-4469-ab4f-79b5c92f0453.jpg"
+        },
+        {
+          "uuid": "9b66b940-4682-4b8b-ab15-32962746fef4",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/9c18d3be-f269-4bf7-9f05-e466e8287ef1.jpg"
+        }
+      ],
+      "correct": {
+        "uuid": "9b66b940-4682-4b8b-ab15-32962746fef4",
+        "text": "",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/9c18d3be-f269-4bf7-9f05-e466e8287ef1.jpg"
+      }
     },
     "購書前可參考?": {
       "text": "購書前可參考?",
@@ -19455,12 +19689,33 @@
     "請問圖片中手錶是哪個品牌::img_a3563e0d-47cb-48b7-af7e-19aa31865325.png": {
       "text": "請問圖片中手錶是哪個品牌",
       "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/a3563e0d-47cb-48b7-af7e-19aa31865325.png",
-      "updated_at": "2026-10-26 14:12:39",
+      "updated_at": "2026-10-28 12:11:15",
       "correct": {
-        "text": "TISSOT"
+        "uuid": "2cec2e51-b53f-46db-9966-7e901b5937b4",
+        "text": "TISSOT",
+        "image": ""
       },
       "wrong": [
         "HAMILTON"
+      ],
+      "uuid": "53110a47-b231-4490-871f-8f70c427a73c",
+      "choices": [
+        {
+          "uuid": "2b6fa833-6ea8-489f-8425-191dbd76d305",
+          "text": "HAMILTON"
+        },
+        {
+          "uuid": "2cec2e51-b53f-46db-9966-7e901b5937b4",
+          "text": "TISSOT"
+        },
+        {
+          "uuid": "4c3be4c2-9760-4cce-b30d-05f29853f041",
+          "text": "CITIZEN"
+        },
+        {
+          "uuid": "7d32bdcd-c4f7-4c03-9fd3-5cf5713a06b8",
+          "text": "CASIO"
+        }
       ]
     },
     "以下哪一個符合DHC速攻藍莓商品特色?": {
@@ -19687,12 +19942,33 @@
     "下列何者非日本人氣零食?": {
       "text": "下列何者非日本人氣零食?",
       "image": "",
-      "updated_at": "2026-10-25 12:17:48",
+      "updated_at": "2026-10-28 12:11:33",
       "correct": {
-        "text": "蚵仔煎洋芋片"
+        "uuid": "4df61960-653d-4b3b-82a6-1530ec00aa3f",
+        "text": "蚵仔煎洋芋片",
+        "image": ""
       },
       "wrong": [
         "白色戀人巧克力"
+      ],
+      "uuid": "e8d52ae7-0df1-4542-8ba6-a1fcba71de40",
+      "choices": [
+        {
+          "uuid": "44ad7a60-cadb-4b59-b619-cf07498466d2",
+          "text": "白色戀人巧克力"
+        },
+        {
+          "uuid": "4df61960-653d-4b3b-82a6-1530ec00aa3f",
+          "text": "蚵仔煎洋芋片"
+        },
+        {
+          "uuid": "a9bdc0ab-2b66-44d3-b063-9e4f6893e76a",
+          "text": "砂糖樹奶油餅乾"
+        },
+        {
+          "uuid": "d1a4a67e-8b8a-4c3f-b6d5-3be1ef03238c",
+          "text": "UHA味覺糖"
+        }
       ]
     },
     "下列何者非OwalaFreeSip水壺?": {
@@ -19827,15 +20103,36 @@
       ]
     },
     "AndenHud品牌名稱代表什麼意思?::img_a25d0e95-0e7a-42e2-92aa-7dfea743bdd9.webp": {
-      "text": "AndenHud品牌名稱代表什麼意思?",
+      "text": "Anden Hud品牌名稱代表什麼意思?",
       "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/a25d0e95-0e7a-42e2-92aa-7dfea743bdd9.webp",
-      "updated_at": "2026-10-26 12:21:42",
+      "updated_at": "2026-10-28 12:11:34",
       "correct": {
-        "text": "第二層肌膚"
+        "uuid": "47a21d24-b68e-476e-9385-c1ce27dcac8b",
+        "text": "第二層肌膚",
+        "image": ""
       },
       "wrong": [
         "第二雙襪子",
         "第二件衣服"
+      ],
+      "uuid": "cbe2c4f0-4408-44f1-95d8-10e2045ebf7d",
+      "choices": [
+        {
+          "uuid": "0ef425ad-e73d-4750-96fe-bbe02aae4dd1",
+          "text": "第二件衣服"
+        },
+        {
+          "uuid": "3c32f0a5-ea45-4257-9010-6b230442cd0e",
+          "text": "第二個衣櫃"
+        },
+        {
+          "uuid": "457516d8-4a4e-44f3-abf2-37c0cf532343",
+          "text": "第二雙襪子"
+        },
+        {
+          "uuid": "47a21d24-b68e-476e-9385-c1ce27dcac8b",
+          "text": "第二層肌膚"
+        }
       ]
     },
     "哪個品牌有出保健肉泥?": {
@@ -20076,13 +20373,34 @@
     "momo跨境沒有賣什麼?": {
       "text": "momo跨境沒有賣什麼?",
       "image": "",
-      "updated_at": "2026-10-24 20:12:19",
+      "updated_at": "2026-10-28 12:11:36",
       "correct": {
-        "text": "台灣本土伴手禮"
+        "uuid": "decc8037-f360-43d8-a0c4-87106d64f9b1",
+        "text": "台灣本土伴手禮",
+        "image": ""
       },
       "wrong": [
         "海外正品潮鞋",
         "韓國直送保養品"
+      ],
+      "uuid": "bb38ad97-99f0-4096-b8f4-542f8bb146ca",
+      "choices": [
+        {
+          "uuid": "142bcfdb-2da7-444c-8250-0d96575f606f",
+          "text": "韓國直送保養品"
+        },
+        {
+          "uuid": "30cedcb7-ea9a-4097-87d4-806772523f0e",
+          "text": "日本境內美妝品"
+        },
+        {
+          "uuid": "526a4795-3a6b-439d-b06d-d47baf727e77",
+          "text": "海外正品潮鞋"
+        },
+        {
+          "uuid": "decc8037-f360-43d8-a0c4-87106d64f9b1",
+          "text": "台灣本土伴手禮"
+        }
       ]
     },
     "TRUU的76酵母胺基酸淨膚潔顏露含幾%濃縮保養成份?": {
@@ -20365,7 +20683,7 @@
     "下列哪個不是YSL訂製香水的香味": {
       "text": "下列哪個不是YSL訂製香水的香味",
       "image": "",
-      "updated_at": "2026-10-26 22:11:03",
+      "updated_at": "2026-10-28 12:11:14",
       "correct": {
         "uuid": "180cd688-bcae-45d2-b431-c0afd0320f09",
         "text": "連名帶姓",
@@ -21790,7 +22108,7 @@
     "請問AHC是來自哪個國家的品牌?": {
       "text": "請問AHC是來自哪個國家的品牌?",
       "image": "",
-      "updated_at": "2026-10-27 14:11:27",
+      "updated_at": "2026-10-28 12:11:43",
       "correct": {
         "uuid": "e83b515b-9ae2-4a26-9441-d95f90bd227f",
         "text": "韓國",
@@ -21962,12 +22280,33 @@
     "請問這是哪間品牌的火鍋湯底::img_7a7bbdd0-7559-4292-8142-ed2330db8d44.png": {
       "text": "請問這是哪間品牌的火鍋湯底",
       "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/7a7bbdd0-7559-4292-8142-ed2330db8d44.png",
-      "updated_at": "2026-10-26 14:20:52",
+      "updated_at": "2026-10-28 12:11:53",
       "correct": {
-        "text": "康寶"
+        "uuid": "4967e34e-b3fe-4a4a-9360-359b2d5c98cd",
+        "text": "康寶",
+        "image": ""
       },
       "wrong": [
         "海底撈"
+      ],
+      "uuid": "a1a54402-1369-407b-8516-35b18f5baa9d",
+      "choices": [
+        {
+          "uuid": "021f6291-7dbc-41d9-b46f-e15954330751",
+          "text": "王品青花驕"
+        },
+        {
+          "uuid": "1d0783a4-5b99-4a03-90a6-886ed455c173",
+          "text": "愛雅辣呦"
+        },
+        {
+          "uuid": "4967e34e-b3fe-4a4a-9360-359b2d5c98cd",
+          "text": "康寶"
+        },
+        {
+          "uuid": "f0c5f548-edb7-4cbf-8168-8b035af0159a",
+          "text": "海底撈"
+        }
       ]
     },
     "下列何者非李寧Lining的球鞋?": {
@@ -22170,13 +22509,34 @@
     "潗淨藍天天喝開水,是煮沸幾度C的水": {
       "text": "潗淨藍天天喝開水,是煮沸幾度C的水",
       "image": "",
-      "updated_at": "2026-10-25 20:16:51",
+      "updated_at": "2026-10-28 12:11:31",
       "correct": {
-        "text": "110度"
+        "uuid": "6881cd15-3389-4607-8a02-3036bbb342bb",
+        "text": "110度",
+        "image": ""
       },
       "wrong": [
         "90度",
         "50度"
+      ],
+      "uuid": "43a59134-dddf-4b27-bba0-3f1cebe9008e",
+      "choices": [
+        {
+          "uuid": "22f2977b-8b4b-423a-8e07-ce4cc27ece06",
+          "text": "50度"
+        },
+        {
+          "uuid": "45a15d72-9795-483c-aa67-f15e0fb65eb3",
+          "text": "200度"
+        },
+        {
+          "uuid": "6881cd15-3389-4607-8a02-3036bbb342bb",
+          "text": "110度"
+        },
+        {
+          "uuid": "d5bd4cd9-d0a2-4d3c-823d-bf19e9210d8f",
+          "text": "90度"
+        }
       ]
     },
     "請問圖片中防潑水休閒鞋是哪個品牌?::img_91dfaeb9-395e-4846-a358-dafc6f1ed3c3.png": {
@@ -22725,10 +23085,34 @@
     "DHC最經典的保養成分是什麼?::img_4f30c1dc-faab-4218-bfab-ee088826ed54.png": {
       "text": "DHC最經典的保養成分是什麼?",
       "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/4f30c1dc-faab-4218-bfab-ee088826ed54.png",
-      "updated_at": "2026-10-26 14:19:19",
+      "updated_at": "2026-10-28 12:11:11",
       "wrong": [
         "青梅"
-      ]
+      ],
+      "uuid": "8783628a-dff1-4089-92e7-cfe27f1efdf0",
+      "choices": [
+        {
+          "uuid": "372479b6-4ee3-49aa-84aa-ded204ebf3b1",
+          "text": "青梅"
+        },
+        {
+          "uuid": "43a0ed03-85f7-426c-9749-d7aa2c32efbb",
+          "text": "橄欖"
+        },
+        {
+          "uuid": "86904c86-53b0-440a-88f3-ea0b33316c8f",
+          "text": "無花果"
+        },
+        {
+          "uuid": "e5d35823-ed9d-4ede-a0eb-c8dd5c00b169",
+          "text": "檸檬"
+        }
+      ],
+      "correct": {
+        "uuid": "43a0ed03-85f7-426c-9749-d7aa2c32efbb",
+        "text": "橄欖",
+        "image": ""
+      }
     },
     "哪一個商品紫色": {
       "text": "哪一個商品紫色",
@@ -23581,10 +23965,34 @@
     "哪一款可以APP遠端操作": {
       "text": "哪一款可以APP遠端操作",
       "image": "",
-      "updated_at": "2026-10-24 12:11:01",
+      "updated_at": "2026-10-28 12:11:50",
       "wrong": [
         "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/20ea5274-0f7c-4069-9b30-3a1ada682c49.png"
-      ]
+      ],
+      "uuid": "826656b0-3530-41c8-bdfc-f0d1a3bb9175",
+      "choices": [
+        {
+          "uuid": "485d9f76-ece3-4882-b4f6-8496a77bda3a",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/20ea5274-0f7c-4069-9b30-3a1ada682c49.png"
+        },
+        {
+          "uuid": "988d12d7-9e34-4de0-99c3-178e680f69e1",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/8e2bcc9d-23b3-4630-9a8a-b1e01affc215.png"
+        },
+        {
+          "uuid": "afa6a779-6b32-4838-8f6d-450059f41b1f",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/c92cc325-154f-4abb-964b-c0bb504eaac6.png"
+        },
+        {
+          "uuid": "ca418a2f-dd86-47ac-937c-8171367b6ac1",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/e023ecbd-f043-4932-a8b9-2f5b2744090d.png"
+        }
+      ],
+      "correct": {
+        "uuid": "afa6a779-6b32-4838-8f6d-450059f41b1f",
+        "text": "",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/c92cc325-154f-4abb-964b-c0bb504eaac6.png"
+      }
     },
     "哪一個是3M薄荷牙線棒的包裝?": {
       "text": "哪一個是3M薄荷牙線棒的包裝?",
@@ -24221,7 +24629,7 @@
     "請問BABIATORS兒童偏光太陽眼鏡是哪一國的品牌?::img_73928bbf-11c7-44c5-b1c7-3f345e4d52d1.webp": {
       "text": "請問BABIATORS 兒童偏光太陽眼鏡是哪一國的品牌?",
       "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/73928bbf-11c7-44c5-b1c7-3f345e4d52d1.webp",
-      "updated_at": "2026-10-28 10:11:07",
+      "updated_at": "2026-10-28 12:11:37",
       "correct": {
         "uuid": "e9f03f8d-5e2e-44b6-8d82-0bda98b696c5",
         "text": "美國",
@@ -24323,13 +24731,33 @@
     "下列哪一項屬於常見廚衛家電?": {
       "text": "下列哪一項屬於常見廚衛家電?",
       "image": "",
-      "updated_at": "2026-10-25 18:13:03",
+      "updated_at": "2026-10-28 12:11:28",
       "correct": {
-        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/022ec6ee-9e62-45b3-b41e-0e0478d8f7d0.png",
-        "text": ""
+        "uuid": "95a629a7-7841-47f1-b5c9-9f04225c33ec",
+        "text": "",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/022ec6ee-9e62-45b3-b41e-0e0478d8f7d0.png"
       },
       "wrong": [
         "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/d7c14780-ea6e-4608-817c-760009ff1775.png"
+      ],
+      "uuid": "3818c0dc-02e1-43af-bbef-594eac8e3934",
+      "choices": [
+        {
+          "uuid": "8eed0b60-52a7-428f-9627-10117cad84bf",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/d7c14780-ea6e-4608-817c-760009ff1775.png"
+        },
+        {
+          "uuid": "95a629a7-7841-47f1-b5c9-9f04225c33ec",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/022ec6ee-9e62-45b3-b41e-0e0478d8f7d0.png"
+        },
+        {
+          "uuid": "b57b57f5-0203-4a8b-b5c6-5215bd69e02c",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/9e7e9b4d-cdcd-4fa8-a365-ee65ab0a3b96.png"
+        },
+        {
+          "uuid": "b6ee38fc-1ce7-4c5a-a8d3-d112e677a69f",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/0b7f2265-158a-4f74-8b97-9fe03118f1b6.png"
+        }
       ]
     },
     "請問娘家益生菌主打菌是甚麼?": {
@@ -24382,14 +24810,35 @@
       ]
     },
     "Nike紅遍全球的經典廣告標語是哪三個英文單字?": {
-      "text": "Nike紅遍全球的經典廣告標語是哪三個英文單字?",
+      "text": "Nike 紅遍全球的經典廣告標語是哪三個英文單字?",
       "image": "",
-      "updated_at": "2026-10-26 14:19:56",
+      "updated_at": "2026-10-28 12:11:09",
       "correct": {
-        "text": "Just Do It"
+        "uuid": "3728384d-3f1c-4ab2-8970-dee289d28176",
+        "text": "Just Do It",
+        "image": ""
       },
       "wrong": [
         "Tell Me Why"
+      ],
+      "uuid": "181bf1d3-ea96-400e-8269-52d8df9f8a9e",
+      "choices": [
+        {
+          "uuid": "203a9bf7-94e4-4f07-90ca-1e3013ecf5f0",
+          "text": "Tell Me Why"
+        },
+        {
+          "uuid": "3728384d-3f1c-4ab2-8970-dee289d28176",
+          "text": "Just Do It"
+        },
+        {
+          "uuid": "a4d568fa-9eb6-47fc-a60c-b17d840d54b6",
+          "text": "How are you"
+        },
+        {
+          "uuid": "ff8aa9c7-2eaa-4139-a77f-382575b0421c",
+          "text": "Never give up"
+        }
       ]
     },
     "以下哪項商品目前沒有販售?": {
@@ -24602,7 +25051,7 @@
     "請選出iPhone新機": {
       "text": "請選出iPhone新機",
       "image": "",
-      "updated_at": "2026-10-26 20:11:43",
+      "updated_at": "2026-10-28 12:11:49",
       "wrong": [
         "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/5f87dad0-9bd7-4c0a-8951-d7f595fab20a.png",
         "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/b2a02d89-18a5-434e-8a3b-45adcaab62ee.png",
@@ -24633,8 +25082,8 @@
       ],
       "correct": {
         "uuid": "b7f390b7-2a8a-4402-a88c-c841f22e7481",
-        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/71d4be83-ef27-4c92-9297-7abc0b6803ae.png",
-        "text": ""
+        "text": "",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/71d4be83-ef27-4c92-9297-7abc0b6803ae.png"
       }
     },
     "什麼鍋具品牌跟很有名的月餅同品牌": {
@@ -25135,11 +25584,31 @@
     "請問圖片中哪款使用溜冰輪": {
       "text": "請問圖片中哪款使用溜冰輪",
       "image": "",
-      "updated_at": "2026-10-26 12:18:23",
+      "updated_at": "2026-10-28 12:11:59",
       "correct": {
-        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/bbfde018-6e9d-4068-b3c2-0772c5aac7be.png",
-        "text": ""
-      }
+        "uuid": "9375f7d8-2f71-4418-8020-83c31ca83305",
+        "text": "",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/bbfde018-6e9d-4068-b3c2-0772c5aac7be.png"
+      },
+      "uuid": "221c13c7-f52a-4725-ae5b-5963833fc416",
+      "choices": [
+        {
+          "uuid": "42d7c865-a40f-49d8-9d75-f82bcbd563dc",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/682a4375-f448-4653-b768-b6513d975a43.png"
+        },
+        {
+          "uuid": "50d45d6b-a053-4a87-afd4-b1390a2eda9f",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/12a5816c-12a8-430e-874d-d33c14b1083a.png"
+        },
+        {
+          "uuid": "9375f7d8-2f71-4418-8020-83c31ca83305",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/bbfde018-6e9d-4068-b3c2-0772c5aac7be.png"
+        },
+        {
+          "uuid": "d597a432-a807-407b-8b11-7c9e10bda26c",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/bdfdb5c7-27da-41aa-9f45-c4241e7ae47b.png"
+        }
+      ]
     },
     "下列哪個商品是益富超給力": {
       "text": "下列哪個商品是益富超給力",
@@ -25725,14 +26194,34 @@
     "哪一台是小米手機": {
       "text": "哪一台是小米手機",
       "image": "",
-      "updated_at": "2026-10-24 18:15:16",
+      "updated_at": "2026-10-28 12:11:55",
       "correct": {
-        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/0c5bf183-f000-4b2a-89a1-d2508112c3f8.png",
-        "text": ""
+        "uuid": "79c733c8-1a84-45ee-8cdc-6da3ce8c637b",
+        "text": "",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/e0fdbfd4-55e7-48b9-8411-cdba54cabf7a.png"
       },
       "wrong": [
         "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/43578c5f-d7bc-4970-ac20-99aeac2bd54c.png",
         "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/e0fdbfd4-55e7-48b9-8411-cdba54cabf7a.png"
+      ],
+      "uuid": "97680aa0-e42d-49d2-9f1f-08afe2efacd3",
+      "choices": [
+        {
+          "uuid": "17b2751f-d906-4e61-9ae6-6aabaf1fdf5b",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/43578c5f-d7bc-4970-ac20-99aeac2bd54c.png"
+        },
+        {
+          "uuid": "25becf23-a971-45ae-9022-4452f0806941",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/202ba74b-3269-4596-8c55-bcf9ae682faf.png"
+        },
+        {
+          "uuid": "79c733c8-1a84-45ee-8cdc-6da3ce8c637b",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/e0fdbfd4-55e7-48b9-8411-cdba54cabf7a.png"
+        },
+        {
+          "uuid": "a51e38f3-dfc1-4637-8e2d-82f749f17be3",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/36029826-a3c6-4774-84cd-51b2a351dfdb.png"
+        }
       ]
     },
     "真無線藍牙耳機的英文縮寫是什麼?::img_6ca0ae0a-b005-4d24-bbb8-7d5c0553b21f.png": {
@@ -25784,7 +26273,7 @@
     "下列何者非韓國IMINT咖啡糖?": {
       "text": "下列何者非韓國 IMINT咖啡糖?",
       "image": "",
-      "updated_at": "2026-10-27 20:11:34",
+      "updated_at": "2026-10-28 12:11:12",
       "correct": {
         "uuid": "79b10fda-ebb8-4282-b933-3c4b33c446b1",
         "text": "",
@@ -26327,10 +26816,31 @@
     "包裝上是什麼狗狗品種?::img_a6e22410-4e17-4876-8030-748c80ade0e1.jpg": {
       "text": "包裝上是什麼狗狗品種?",
       "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/a6e22410-4e17-4876-8030-748c80ade0e1.jpg",
-      "updated_at": "2026-10-23 18:14:49",
+      "updated_at": "2026-10-28 12:11:34",
       "correct": {
-        "text": "博美"
-      }
+        "uuid": "bf3385ea-dff7-440e-b8cf-fb4bea9da496",
+        "text": "博美",
+        "image": ""
+      },
+      "uuid": "a3a9e88e-fde8-45df-a3ff-8d8dd536a9bd",
+      "choices": [
+        {
+          "uuid": "29436728-525d-4c1e-a35e-d38e0e0376a8",
+          "text": "柯基"
+        },
+        {
+          "uuid": "bf3385ea-dff7-440e-b8cf-fb4bea9da496",
+          "text": "博美"
+        },
+        {
+          "uuid": "c0959407-c112-4a7d-bedc-ad45abe31498",
+          "text": "雪納瑞"
+        },
+        {
+          "uuid": "cbf6bad0-9551-4fc4-922c-9a6fa77ac81a",
+          "text": "吉娃娃"
+        }
+      ]
     },
     "請問此海苔產地為哪國家::img_821966a9-1397-4abc-9339-3f2118984c27.jpg": {
       "text": "請問此海苔產地為哪國家",
@@ -27173,11 +27683,31 @@
     "以下手機支架哪個不是給汽車用的": {
       "text": "以下手機支架哪個不是給汽車用的",
       "image": "",
-      "updated_at": "2026-10-24 12:31:04",
+      "updated_at": "2026-10-28 12:11:40",
       "correct": {
-        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/e507d695-3fa1-44c1-b468-6f40cf692636.jpg",
-        "text": ""
-      }
+        "uuid": "3611189f-f2bb-40c3-b47f-c459f20015e8",
+        "text": "",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/e507d695-3fa1-44c1-b468-6f40cf692636.jpg"
+      },
+      "uuid": "c045ea9a-628f-4538-a6d0-a07c4d67a9be",
+      "choices": [
+        {
+          "uuid": "3611189f-f2bb-40c3-b47f-c459f20015e8",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/e507d695-3fa1-44c1-b468-6f40cf692636.jpg"
+        },
+        {
+          "uuid": "a840f2c3-dba2-40bd-abc2-6497f2a88a89",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/9e83975e-f070-436b-89ee-cc9bbd4bdf23.jpg"
+        },
+        {
+          "uuid": "b89354ed-9df4-4240-afae-d9efc2aabf6a",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/8556647b-46a3-4198-87ea-5ec5ee9deb42.jpg"
+        },
+        {
+          "uuid": "e41f9390-fbf9-4345-b1cf-fb879d10a121",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/15e6eb4f-8175-411f-a59b-380bb478beb0.jpg"
+        }
+      ]
     },
     "Fitflop賣最好的是什麼品類?": {
       "text": "Fitflop賣最好的是什麼品類?",
@@ -27299,11 +27829,31 @@
     "下列何者非韓國PDRN保養品?": {
       "text": "下列何者非韓國PDRN保養品?",
       "image": "",
-      "updated_at": "2026-10-26 12:22:35",
+      "updated_at": "2026-10-28 12:11:58",
       "correct": {
-        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/3ac0fefa-f2ec-4b86-ac9c-bfddce659e58.png",
-        "text": ""
-      }
+        "uuid": "e32c2018-1466-46ba-ba68-41d2f032d3ec",
+        "text": "",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/3ac0fefa-f2ec-4b86-ac9c-bfddce659e58.png"
+      },
+      "uuid": "cee77e0d-6b52-4b73-afe0-7c5b8d7db39b",
+      "choices": [
+        {
+          "uuid": "2ee4ead8-6d8a-4ea8-a197-def32f856864",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/2ec12606-6039-4e5f-8acb-c7ba122d2c4c.png"
+        },
+        {
+          "uuid": "3cea1756-af90-4be9-aed3-1f7b18fddb8c",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/e3b269c3-0017-4977-a106-7dcb306cb67f.png"
+        },
+        {
+          "uuid": "8d909890-1dce-40da-a136-d34183403554",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/f4ff0200-c4a3-43fd-9d07-ff7368879c68.png"
+        },
+        {
+          "uuid": "e32c2018-1466-46ba-ba68-41d2f032d3ec",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/3ac0fefa-f2ec-4b86-ac9c-bfddce659e58.png"
+        }
+      ]
     },
     "除濕機標示「12L/日」,主要代表什麼?": {
       "text": "除濕機標示「12L/日」,主要代表什麼?",
@@ -28304,7 +28854,7 @@
     "請問補體素的代言人是誰?::img_66cea6b9-ccd7-49bb-8bcd-9059af1ec34f.png": {
       "text": "請問補體素的代言人是誰?",
       "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/66cea6b9-ccd7-49bb-8bcd-9059af1ec34f.png",
-      "updated_at": "2026-10-27 18:11:38",
+      "updated_at": "2026-10-28 12:11:22",
       "correct": {
         "uuid": "bb83d0fc-662b-4e8e-88c7-9feb80b69558",
         "text": "陳美鳳",
@@ -28489,9 +29039,33 @@
     "GAP創立於哪個國家?": {
       "text": "GAP創立於哪個國家?",
       "image": "",
-      "updated_at": "2026-10-24 20:12:29",
+      "updated_at": "2026-10-28 12:12:01",
       "correct": {
         "text": "美國"
+      },
+      "uuid": "2ac03140-67da-4404-9578-9660f70e48bc",
+      "choices": [
+        {
+          "uuid": "02b22341-bc4a-42a6-99fe-603430872df5",
+          "text": "美國"
+        },
+        {
+          "uuid": "1c980534-0c7e-412c-993a-bf9480c283f7",
+          "text": "英國"
+        },
+        {
+          "uuid": "3710f8b4-8604-4a1e-8817-d2165e0e0ef9",
+          "text": "日本"
+        },
+        {
+          "uuid": "cf65af80-cbe8-441a-8926-21090ec889b2",
+          "text": "加拿大"
+        }
+      ],
+      "unverified_choice": {
+        "uuid": "02b22341-bc4a-42a6-99fe-603430872df5",
+        "text": "美國",
+        "image": ""
       }
     },
     "停電時,儲能電源最適合優先供電給哪種設備?": {
@@ -29180,10 +29754,31 @@
     "此產品主要陪伴女生度過什麼時期?::img_42f45053-6b23-42f2-ae42-37f9005e02c3.png": {
       "text": "此產品主要陪伴女生度過什麼時期?",
       "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/42f45053-6b23-42f2-ae42-37f9005e02c3.png",
-      "updated_at": "2026-10-26 14:12:24",
+      "updated_at": "2026-10-28 12:11:30",
       "correct": {
-        "text": "生理期"
-      }
+        "uuid": "0978f35c-0dba-4059-a5b0-0a5c7f04aff9",
+        "text": "生理期",
+        "image": ""
+      },
+      "uuid": "de8ae86d-50a7-48c9-aeee-658b8306b36f",
+      "choices": [
+        {
+          "uuid": "0978f35c-0dba-4059-a5b0-0a5c7f04aff9",
+          "text": "生理期"
+        },
+        {
+          "uuid": "39071d6c-1f90-4481-a4b4-32f929197701",
+          "text": "減肥期"
+        },
+        {
+          "uuid": "482d22f5-5718-47a0-ab84-e18d55f7635f",
+          "text": "連假黃金週"
+        },
+        {
+          "uuid": "abbcc35c-d3ed-4be6-8621-6317b5013ebb",
+          "text": "考試週"
+        }
+      ]
     },
     "下列何者為NIKE至今最熱賣鞋款?": {
       "text": "下列何者為NIKE至今最熱賣鞋款?",
@@ -29310,10 +29905,31 @@
     "狗狗在地板滑行擦屁股,最需要?": {
       "text": "狗狗在地板滑行擦屁股,最需要?",
       "image": "",
-      "updated_at": "2026-10-26 14:12:31",
+      "updated_at": "2026-10-28 12:11:40",
       "correct": {
-        "text": "檢查肛門腺與腸胃"
-      }
+        "uuid": "a05ce0d4-ec97-4cf0-9e24-2143a844b0b5",
+        "text": "檢查肛門腺與腸胃",
+        "image": ""
+      },
+      "uuid": "c7573eca-03f2-435a-ba10-da3e48a80e40",
+      "choices": [
+        {
+          "uuid": "60b884de-eab8-425e-80a0-830c1ce14790",
+          "text": "幫牠報名煞車比賽"
+        },
+        {
+          "uuid": "a05ce0d4-ec97-4cf0-9e24-2143a844b0b5",
+          "text": "檢查肛門腺與腸胃"
+        },
+        {
+          "uuid": "a519308e-fd34-4003-a3fe-60c9267c46a8",
+          "text": "摸摸牠的屁股"
+        },
+        {
+          "uuid": "c99272d2-7b44-4536-ab61-b9fde38eecbc",
+          "text": "誇獎牠的舞姿"
+        }
+      ]
     },
     "下列何者非日本UHA味覺糖?": {
       "text": "下列何者非日本UHA味覺糖?",
@@ -30411,18 +31027,60 @@
     "猜看看iris碎紙機有多大聲::img_94d2e640-d8aa-45d0-81f5-afd5f54c9fcf.png": {
       "text": "猜看看iris碎紙機有多大聲",
       "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/94d2e640-d8aa-45d0-81f5-afd5f54c9fcf.png",
-      "updated_at": "2026-10-23 18:12:11",
+      "updated_at": "2026-10-28 12:11:23",
       "correct": {
-        "text": "45分貝(圖書館悄悄話"
-      }
+        "uuid": "73236c5a-7189-4502-994a-0af5d82102b3",
+        "text": "45分貝(圖書館悄悄話",
+        "image": ""
+      },
+      "uuid": "1a5693fd-6be0-4276-96ea-d3d61721a3be",
+      "choices": [
+        {
+          "uuid": "73236c5a-7189-4502-994a-0af5d82102b3",
+          "text": "45分貝(圖書館悄悄話"
+        },
+        {
+          "uuid": "90a712b5-d69c-4fe9-91f9-aca86c11f1a6",
+          "text": "90分貝(柴油車聲)"
+        },
+        {
+          "uuid": "9a970882-6f81-48bb-97a8-6ee2e306e801",
+          "text": "70分貝(吸塵器)"
+        },
+        {
+          "uuid": "b62e7e1a-d090-4513-bf7c-b0623f023c7e",
+          "text": "110分貝(電鋸聲)"
+        }
+      ]
     },
     "下列何者不屬於智慧型手機品牌?": {
       "text": "下列何者不屬於智慧型手機品牌?",
       "image": "",
-      "updated_at": "2026-10-26 12:20:24",
+      "updated_at": "2026-10-28 12:11:56",
       "correct": {
-        "text": "iPad"
-      }
+        "uuid": "6e7617c2-c9cd-4ebd-a47a-2dca9c2c24a8",
+        "text": "iPad",
+        "image": ""
+      },
+      "uuid": "cbeea41f-2052-4c60-b075-50ad8059a022",
+      "choices": [
+        {
+          "uuid": "091526f8-0b3f-4059-9608-35de3c22ed4b",
+          "text": "Google Pixel"
+        },
+        {
+          "uuid": "1c757bb2-e5a4-424e-bf8c-03d2942c4480",
+          "text": "OPPO"
+        },
+        {
+          "uuid": "3f2e9454-2b9c-40f6-9d39-e711e2e54974",
+          "text": "Motorola"
+        },
+        {
+          "uuid": "6e7617c2-c9cd-4ebd-a47a-2dca9c2c24a8",
+          "text": "iPad"
+        }
+      ]
     },
     "以下哪個為婦科醫生推薦的免洗產品?": {
       "text": "以下哪個為婦科醫生推薦的免洗產品?",
@@ -31152,10 +31810,31 @@
     "請問微星吉祥物是什麼動物?::img_5619d5ab-c27d-4cd5-add4-3f630c632962.png": {
       "text": "請問微星吉祥物是什麼動物?",
       "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/5619d5ab-c27d-4cd5-add4-3f630c632962.png",
-      "updated_at": "2026-10-26 12:11:06",
+      "updated_at": "2026-10-28 12:11:37",
       "correct": {
-        "text": "龍"
-      }
+        "uuid": "4765fad6-64ca-4c84-b53d-d623cd4c52cf",
+        "text": "龍",
+        "image": ""
+      },
+      "uuid": "fd12e3fb-4e97-4b33-8f40-89570cd6cf64",
+      "choices": [
+        {
+          "uuid": "3c851085-b733-47a7-8d67-a68edacc7417",
+          "text": "兔"
+        },
+        {
+          "uuid": "4765fad6-64ca-4c84-b53d-d623cd4c52cf",
+          "text": "龍"
+        },
+        {
+          "uuid": "6db94850-918e-44ad-b07b-144ce4fa51bd",
+          "text": "牛"
+        },
+        {
+          "uuid": "e78e2242-9087-4efb-8ef7-5a7149635149",
+          "text": "虎"
+        }
+      ]
     },
     "請問圖中的包包是哪個品牌?::img_8242e2ec-ef0f-4f3d-b9ce-5e4de08de6dc.jpg": {
       "text": "請問圖中的包包是哪個品牌?",
@@ -31408,12 +32087,33 @@
     "請問圖片中商品是哪個品牌?::img_bd20832e-a137-403f-a641-731b45834158.png": {
       "text": "請問圖片中商品是哪個品牌?",
       "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/bd20832e-a137-403f-a641-731b45834158.png",
-      "updated_at": "2026-10-25 20:12:37",
+      "updated_at": "2026-10-28 12:11:16",
       "correct": {
-        "text": "COACH"
+        "uuid": "20425e4d-96b2-4920-883c-1518bbfa450a",
+        "text": "COACH",
+        "image": ""
       },
       "wrong": [
         "Dior 迪奧"
+      ],
+      "uuid": "6ca9533d-59ad-4bce-8119-8ca4eaccaa86",
+      "choices": [
+        {
+          "uuid": "1283262f-edd2-4e35-8a84-c74b7d4e4922",
+          "text": "CAT"
+        },
+        {
+          "uuid": "20425e4d-96b2-4920-883c-1518bbfa450a",
+          "text": "COACH"
+        },
+        {
+          "uuid": "50ca1592-9539-4f3b-906d-299b09f819bf",
+          "text": "CAR"
+        },
+        {
+          "uuid": "87b27f18-8141-492a-93e6-eba197e66a7f",
+          "text": "CAKE"
+        }
       ]
     },
     "下列何者不是CONVERSE鞋款": {
@@ -31806,11 +32506,31 @@
     "以下哪個非底妝商品?": {
       "text": "以下哪個非底妝商品?",
       "image": "",
-      "updated_at": "2026-10-25 14:15:21",
+      "updated_at": "2026-10-28 12:11:25",
       "correct": {
-        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/9aa38fcd-81f1-421c-94c3-12c65f4948b3.png",
-        "text": ""
-      }
+        "uuid": "8c76921f-4518-4142-9e3b-89c1fd4f4b5a",
+        "text": "",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/9aa38fcd-81f1-421c-94c3-12c65f4948b3.png"
+      },
+      "uuid": "22cb649d-1e4c-436a-895d-33b0857ad8c6",
+      "choices": [
+        {
+          "uuid": "60c6d0d8-839d-41cc-8884-caf35fe51df0",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/dbfa64be-655f-4fd1-9f9a-50de01e7ca58.png"
+        },
+        {
+          "uuid": "8c76921f-4518-4142-9e3b-89c1fd4f4b5a",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/9aa38fcd-81f1-421c-94c3-12c65f4948b3.png"
+        },
+        {
+          "uuid": "91802d58-cbbc-458d-addf-88bed0e2f755",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/7ad3bb4c-6e8a-4f6a-abdb-54fafe95c69a.png"
+        },
+        {
+          "uuid": "c52462e8-2306-455e-aafb-baaa0e4df441",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/6b986c17-a8ca-4da0-89f4-398b80155e65.png"
+        }
+      ]
     },
     "哪一個是泡泡瑪特最具代表性的人氣IP之一?": {
       "text": "哪一個是泡泡瑪特最具代表性的人氣IP之一?",
