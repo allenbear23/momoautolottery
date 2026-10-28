@@ -17002,12 +17002,36 @@
     "哪一個是潘婷的logo?": {
       "text": "哪一個是潘婷的logo?",
       "image": "",
-      "updated_at": "2026-10-25 22:11:22",
+      "updated_at": "2026-10-28 20:11:12",
       "wrong": [
         "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/b901b4d9-fa39-42c6-b6ac-8dbaddc37397.png",
         "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/6d65b05c-8749-4ca4-998f-dbd510c4bede.png",
         "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/76f2195d-ff30-44f4-af84-02d805ffc7f7.png"
-      ]
+      ],
+      "uuid": "986f3b2c-8ec4-4098-9542-d4c2b792aceb",
+      "choices": [
+        {
+          "uuid": "1d415877-87de-408f-bead-d6ae1dda0df6",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/b901b4d9-fa39-42c6-b6ac-8dbaddc37397.png"
+        },
+        {
+          "uuid": "3db98ac2-c3c7-4cfc-9ad9-e46133e58e1d",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/76f2195d-ff30-44f4-af84-02d805ffc7f7.png"
+        },
+        {
+          "uuid": "5e933e92-1f90-4179-b52d-45f9483217dd",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/6d65b05c-8749-4ca4-998f-dbd510c4bede.png"
+        },
+        {
+          "uuid": "d63e0ee4-50dd-4e5a-ad91-5281a19e6c57",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/7f039577-3924-474b-a163-2596b8af876d.png"
+        }
+      ],
+      "correct": {
+        "uuid": "5e933e92-1f90-4179-b52d-45f9483217dd",
+        "text": "",
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/6d65b05c-8749-4ca4-998f-dbd510c4bede.png"
+      }
     },
     "請問下哪個專櫃黃金品牌不是來自香港?": {
       "text": "請問下哪個專櫃黃金品牌不是來自香港?",
@@ -19175,13 +19199,37 @@
     "請問這是哪個品牌?::img_4143888b-4cae-48a3-a418-db856ef3bd55.png": {
       "text": "請問這是哪個品牌?",
       "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/4143888b-4cae-48a3-a418-db856ef3bd55.png",
-      "updated_at": "2026-10-23 13:39:20",
+      "updated_at": "2026-10-28 20:11:19",
       "correct": {
         "text": "AVEDA"
       },
       "wrong": [
         "Adele Beauty",
-        "momoBOOKS"
+        "momoBOOKS",
+        {
+          "uuid": "02307b4c-22cd-4939-b44a-470d30b3da0c",
+          "text": "AVEDA",
+          "image": ""
+        }
+      ],
+      "uuid": "1ca1f743-05a5-40c3-956f-e1195dbdff77",
+      "choices": [
+        {
+          "uuid": "02307b4c-22cd-4939-b44a-470d30b3da0c",
+          "text": "AVEDA"
+        },
+        {
+          "uuid": "44c1218d-a9e9-4e98-b6c5-639f30005832",
+          "text": "ARMANI Beauty"
+        },
+        {
+          "uuid": "53d9fd1a-36df-4b25-8a7d-e4ae8e4dcea9",
+          "text": "Ariana Beauty"
+        },
+        {
+          "uuid": "f20660d6-8013-400a-82cf-375dd0627ee7",
+          "text": "Adele Beauty"
+        }
       ]
     },
     "請問此商品是哪個品牌?::img_91b0c19d-4dc3-4499-b04a-9fdf7d1e4952.png": {
@@ -20295,7 +20343,7 @@
     "這個商品叫什麼?::img_1eadf19c-b7a9-45b2-9752-ba15071ab8d4.png": {
       "text": "這個商品叫什麼?",
       "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/1eadf19c-b7a9-45b2-9752-ba15071ab8d4.png",
-      "updated_at": "2026-10-27 20:11:26",
+      "updated_at": "2026-10-28 20:11:03",
       "wrong": [
         "鍵盤",
         "升降桌",
@@ -24000,7 +24048,7 @@
     "以下哪一項為24HRS內著的品牌理念?": {
       "text": "以下哪一項為24HRS內著的品牌理念?",
       "image": "",
-      "updated_at": "2026-10-28 18:11:03",
+      "updated_at": "2026-10-28 20:11:14",
       "correct": {
         "uuid": "2cdfeefb-aa2d-4384-93c2-7afbbd2c4c28",
         "text": "舒適自在穿一整天",
@@ -30265,9 +30313,11 @@
     "GAP創立於哪個國家?": {
       "text": "GAP創立於哪個國家?",
       "image": "",
-      "updated_at": "2026-10-28 12:12:01",
+      "updated_at": "2026-10-28 20:11:16",
       "correct": {
-        "text": "美國"
+        "uuid": "02b22341-bc4a-42a6-99fe-603430872df5",
+        "text": "美國",
+        "image": ""
       },
       "uuid": "2ac03140-67da-4404-9578-9660f70e48bc",
       "choices": [
