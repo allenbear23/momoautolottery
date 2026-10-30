@@ -2762,7 +2762,7 @@
           "text": "Karina"
         }
       ],
-      "updated_at": "2026-10-29 10:11:35",
+      "updated_at": "2026-10-30 12:11:02",
       "correct": {
         "uuid": "34e0c66b-053e-4f10-9f11-b64d736866e0",
         "text": "Jennie",
@@ -14672,7 +14672,7 @@
     "請問哪一個不是風倍清的產品?": {
       "text": "請問哪一個不是風倍清的產品?",
       "image": "",
-      "updated_at": "2026-10-26 14:21:50",
+      "updated_at": "2026-10-30 12:11:01",
       "correct": {
         "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/e106f045-f6d3-4314-8b42-5860764df111.png",
         "text": ""
@@ -14681,6 +14681,25 @@
         "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/54accded-a806-4b9c-bbef-6f2489f3d455.png",
         "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/84edc1fa-d22c-4526-98f7-a09467fda35c.png",
         "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/6ca5a6a6-ef88-4f50-a641-3a7cb9e0c42f.png"
+      ],
+      "uuid": "1195fd37-c3da-471a-b4b9-80c1069a80c9",
+      "choices": [
+        {
+          "uuid": "07883989-2ed0-4adf-8346-de27700cabfd",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/54accded-a806-4b9c-bbef-6f2489f3d455.png"
+        },
+        {
+          "uuid": "0a4815f6-115c-4f42-b1ea-21043cad4335",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/84edc1fa-d22c-4526-98f7-a09467fda35c.png"
+        },
+        {
+          "uuid": "30638b3d-dd34-4903-b934-f2b0d36b7e94",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/e106f045-f6d3-4314-8b42-5860764df111.png"
+        },
+        {
+          "uuid": "c9b9899a-aafa-4dc7-ab58-cdc5e3239ebc",
+          "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/6ca5a6a6-ef88-4f50-a641-3a7cb9e0c42f.png"
+        }
       ]
     },
     "圖中商品主要用途是?::img_55f87830-bca7-4b5f-924b-e251c0fdbf3f.png": {
@@ -25975,7 +25994,7 @@
     "請問此商品是哪個國家的品牌?::img_2f7903cf-2b09-4c44-8374-766e2eff7541.png": {
       "text": "請問此商品是哪個國家的品牌?",
       "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/2f7903cf-2b09-4c44-8374-766e2eff7541.png",
-      "updated_at": "2026-10-29 14:11:09",
+      "updated_at": "2026-10-30 12:11:02",
       "wrong": [
         "日本",
         "美國"
