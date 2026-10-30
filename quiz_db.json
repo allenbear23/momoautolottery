@@ -26338,7 +26338,6 @@
       "image": "",
       "updated_at": "2026-10-30 10:11:26",
       "wrong": [
-        "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/1baaa510-c46e-486d-9c74-6236f20b5716.jpg",
         "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/08273a8d-d9b7-4d31-af5b-9ae2455b49b3.jpg",
         "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/89ad06ad-3caf-4eea-88bd-6ac56299d6c1.jpg",
         "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/0a5c58e7-a3ea-4018-ad41-3e70ec139134.jpg",
@@ -26353,6 +26352,7 @@
         }
       ],
       "correct": {
+        "image": "https://picasso-frontend.momoshop.com.tw/mmp-activity/quiz-game/1baaa510-c46e-486d-9c74-6236f20b5716.jpg",
         "text": "以上皆是"
       },
       "uuid": "b3f187a0-b3cc-4255-b2fe-aef75f91ae57",

@@ -951,10 +951,19 @@ def select_answer(question: dict, choices: list, db: dict, gemini_key: str = Non
             c_uuid = c.get("uuid")
             c_text = c.get("text", "")
             c_img = c.get("image", "")
-            norm_c = normalize_q_text(c_text)
-            if (c_uuid and c_uuid == target_uuid) or \
-               (norm_c and norm_target and (norm_c == norm_target or norm_c in norm_target or norm_target in norm_c)) or \
-               (c_img and target_img and os.path.basename(c_img) == os.path.basename(target_img)):
+            is_match = False
+            if c_uuid and c_uuid == target_uuid:
+                is_match = True
+            elif c_img and target_img and os.path.basename(c_img) == os.path.basename(target_img):
+                is_match = True
+            elif norm_c and norm_target:
+                if norm_c == norm_target:
+                    is_match = True
+                elif not norm_c.isdigit() and not norm_target.isdigit() and len(norm_c) >= 4 and len(norm_target) >= 4:
+                    if norm_c in norm_target or norm_target in norm_c:
+                        is_match = True
+
+            if is_match:
                 print(f"[題庫命中] 選擇已確認之正確答案: {c_text or c_uuid}")
                 return c_uuid
 
