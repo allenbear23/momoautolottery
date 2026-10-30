@@ -68,6 +68,8 @@ HEADERS = {
 
 DB_FILE = os.path.join(os.path.dirname(__file__), "quiz_db.json")
 DB_LOCK = threading.Lock()
+CDN_JSON_URL = "https://finddog.online/momo_questions.json"
+SERVER_AUTO_LEARN_URL = "https://api.9ysong.shop/callback2/api/auto-learn"
 
 
 def normalize_q_text(text: str) -> str:
@@ -75,6 +77,239 @@ def normalize_q_text(text: str) -> str:
     if not text:
         return ""
     return re.sub(r'[^\w\u4e00-\u9fa5]', '', text).lower()
+
+
+def parse_target_answer(raw_ans: str) -> dict:
+    """
+    智慧解析題庫答案 (移植自 Chrome 擴充 v13 parseTargetAnswer)：
+    - 提取指定序號 designated_index (1~4 或 A~D、選項X、選X、括號內選X)
+    - 清洗備註、箭頭說明，提取括號別名與斜線多候選詞 (並保護日期格式 11/1 不被拆碎)
+    """
+    raw = (raw_ans or "").strip()
+    designated_index = None
+
+    # 模式 A: 英文序號 A. B. C. D.
+    m_alpha = re.match(r'^([a-dA-D])[\.．、\s]+', raw)
+    if m_alpha:
+        designated_index = ord(m_alpha.group(1).upper()) - 64
+
+    # 模式 B: 選項X、圖片X、圖X
+    if not designated_index:
+        m_opt = re.match(r'^(?:選項|圖片|圖)\s*([1-4])[\s:：\.．、]*', raw)
+        if m_opt:
+            designated_index = int(m_opt.group(1))
+
+    # 模式 C: 數字序號 1~4 (排除 2.4GHz, 1.8L 等小數)
+    if not designated_index:
+        m_num = re.match(r'^([1-4])([．、\s]+|[\.](?!\d|[gG][hH][zZ])|(?:\.(?=\d{2,}|\d+[元百千萬個包瓶])))', raw)
+        if m_num:
+            designated_index = int(m_num.group(1))
+
+    # 模式 D: 第1~4號
+    if not designated_index:
+        m_no = re.match(r'^(?:第)?([1-4])號[\s\.\、\．]*', raw)
+        if m_no:
+            designated_index = int(m_no.group(1))
+
+    # 模式 E: 選1~4 (後方不接數字，排除 選390)
+    if not designated_index:
+        m_pick = re.match(r'^選([1-4])(?!\d)[\s\.\、\．]*', raw)
+        if m_pick:
+            designated_index = int(m_pick.group(1))
+
+    # 模式 F: 括號內備註如「(看到經典款選2)」，排除「選1是錯的」與「選390」
+    if not designated_index:
+        m_paren = re.search(r'[\(（][^\)）]*?選\s*([1-4])(?!\d|\s*是錯)[^\)）]*?[\)）]', raw)
+        if m_paren:
+            designated_index = int(m_paren.group(1))
+
+    # 清洗核心答案文字
+    clean = raw
+    clean = re.sub(r'^[a-dA-D][\.．、\s]+', '', clean)
+    clean = re.sub(r'^(?:選項|圖片|圖)\s*[1-4][\s:：\.．、]*', '', clean)
+    clean = re.sub(r'^[1-4]([．、\s]+|[\.](?!\d|[gG][hH][zZ])|(?:\.(?=\d{2,}|\d+[元百千萬個包瓶])))', '', clean)
+    clean = re.sub(r'^(?:第)?[1-4]號[\s\.\、\．]*', '', clean)
+    clean = re.sub(r'^選[1-4](?!\d)[\s\.\、\．]*', '', clean)
+
+    if any(sep in clean for sep in ('→', '->', '➔')):
+        parts = re.split(r'[→➔]|->', clean)
+        if '關鍵字' in parts[0] or '題目' in parts[0]:
+            clean = parts[1] if len(parts) > 1 and parts[1] else clean
+        else:
+            clean = parts[0] or clean
+
+    aliases = []
+    for p in re.findall(r'[\(（](.*?)[\)）]', clean):
+        p_clean = p.strip()
+        if not re.search(r'bug|錯|選|解析|題目|關鍵字|看到|圖片|瓶身|包裝|中間|朝|個', p_clean, re.I):
+            if len(p_clean) >= 2:
+                aliases.append(p_clean)
+
+    clean = re.sub(r'[\(（].*?[\)）]', '', clean)
+    clean = re.sub(r'[\(（][^\)）]*$', '', clean)
+    clean = re.sub(r'[\)）]+$', '', clean).strip()
+
+    candidates = []
+    if clean:
+        candidates.append(clean)
+        if clean.endswith('元') and len(clean) > 1:
+            no_yuan = clean[:-1].strip()
+            if no_yuan and no_yuan not in candidates:
+                candidates.append(no_yuan)
+        if '/' in clean or '／' in clean:
+            parts = [pt.strip() for pt in re.split(r'[/／]', clean) if pt.strip()]
+            is_date_like = all(re.match(r'^\d+$', pt) for pt in parts)
+            for pt in parts:
+                if pt in candidates:
+                    continue
+                if is_date_like and re.match(r'^\d{1,2}$', pt):
+                    continue
+                candidates.append(pt)
+
+    for a in aliases:
+        if a not in candidates:
+            candidates.append(a)
+
+    return {
+        "designated_index": designated_index,
+        "clean_text": clean,
+        "candidates": candidates
+    }
+
+
+def sync_cdn_bank() -> int:
+    """從雲端 CDN (finddog.online) 同步最新題庫並合併至本機 quiz_db.json"""
+    try:
+        req = urllib.request.Request(
+            f"{CDN_JSON_URL}?t={int(time.time() * 1000)}",
+            headers={"User-Agent": HEADERS["User-Agent"]}
+        )
+        with urllib.request.urlopen(req, timeout=6) as resp:
+            if resp.getcode() != 200:
+                return 0
+            data = json.loads(resp.read().decode("utf-8"))
+            cdn_questions = data.get("questions", [])
+            if not isinstance(cdn_questions, list) or not cdn_questions:
+                return 0
+    except Exception:
+        return 0
+
+    with DB_LOCK:
+        db = {"questions": {}}
+        if os.path.exists(DB_FILE):
+            try:
+                with open(DB_FILE, "r", encoding="utf-8") as f:
+                    db = json.load(f)
+            except Exception:
+                pass
+
+        q_dict = db.setdefault("questions", {})
+        by_img = {}
+        by_norm_no_img = {}
+        for k, v in q_dict.items():
+            img = (v.get("image") or "").strip()
+            img_base = os.path.basename(urllib.parse.urlsplit(img).path).lower() if img else ""
+            nt = normalize_q_text(v.get("text", ""))
+            if img_base:
+                by_img[img_base] = k
+            elif nt:
+                by_norm_no_img[nt] = k
+
+        changed = False
+        for item in cdn_questions:
+            q_text = (item.get("q") or "").strip()
+            q_img = (item.get("q_img") or "").strip()
+            ans_text = (item.get("ans") or "").strip()
+            ans_img = (item.get("img_url") or "").strip()
+            wrongs = item.get("wrong") or []
+            wrong_imgs = item.get("wrong_imgs") or []
+
+            q_img_base = os.path.basename(urllib.parse.urlsplit(q_img).path) if q_img else ""
+            q_img_base_low = q_img_base.lower()
+            nt = normalize_q_text(q_text)
+
+            target_k = None
+            if q_img_base_low and q_img_base_low in by_img:
+                target_k = by_img[q_img_base_low]
+            elif not q_img_base_low and nt and nt in by_norm_no_img:
+                target_k = by_norm_no_img[nt]
+            elif q_img_base_low and nt and nt in by_norm_no_img:
+                old_k = by_norm_no_img[nt]
+                if not q_dict[old_k].get("image"):
+                    target_k = old_k
+
+            if not target_k:
+                target_k = f"{q_text}::img_{q_img_base}" if q_img_base else q_text
+                if not target_k:
+                    continue
+                rec = q_dict.setdefault(target_k, {})
+                changed = True
+                if q_img_base_low:
+                    by_img[q_img_base_low] = target_k
+                elif nt:
+                    by_norm_no_img[nt] = target_k
+            else:
+                rec = q_dict[target_k]
+
+            if q_text and not rec.get("text"):
+                rec["text"] = q_text
+                changed = True
+            if q_img and not rec.get("image"):
+                rec["image"] = q_img
+                changed = True
+
+            if ans_text or ans_img:
+                cur_corr = rec.get("correct")
+                if not isinstance(cur_corr, dict):
+                    cur_corr = {}
+                new_text = ans_text if (ans_text and ans_text != "[圖片答案]") else cur_corr.get("text", "")
+                new_img = ans_img or cur_corr.get("image", "")
+                if new_text != cur_corr.get("text", "") or new_img != cur_corr.get("image", ""):
+                    if new_text:
+                        cur_corr["text"] = new_text
+                    if new_img:
+                        cur_corr["image"] = new_img
+                    rec["correct"] = cur_corr
+                    changed = True
+
+            cur_wrongs = rec.setdefault("wrong", [])
+            for w in wrongs:
+                if w and w not in cur_wrongs and not any((isinstance(x, dict) and x.get("text") == w) for x in cur_wrongs):
+                    cur_wrongs.append(w)
+                    changed = True
+            for wi in wrong_imgs:
+                if wi:
+                    wi_base = os.path.basename(urllib.parse.urlsplit(wi).path)
+                    if not any((isinstance(x, dict) and os.path.basename(x.get("image", "")) == wi_base) or (isinstance(x, str) and wi_base in x) for x in cur_wrongs):
+                        cur_wrongs.append({"text": "", "image": wi})
+                        changed = True
+
+        if changed:
+            try:
+                with open(DB_FILE, "w", encoding="utf-8") as f:
+                    json.dump(db, f, ensure_ascii=False, indent=2)
+            except Exception:
+                pass
+        return len(q_dict)
+
+
+def report_auto_learn_batch(reports: list):
+    """整局結束後一次性批次上傳題庫學習紀錄至雲端伺服器"""
+    if not reports:
+        return
+    try:
+        payload = {"reports": reports, "count": len(reports), "batch": True}
+        data = json.dumps(payload).encode("utf-8")
+        req = urllib.request.Request(
+            SERVER_AUTO_LEARN_URL,
+            data=data,
+            headers={"Content-Type": "application/json", "User-Agent": HEADERS["User-Agent"]},
+            method="POST"
+        )
+        with urllib.request.urlopen(req, timeout=4) as _:
+            pass
+    except Exception:
+        pass
 
 
 def load_quiz_db() -> dict:
@@ -98,36 +333,73 @@ def save_quiz_db(db: dict):
 
 
 def find_db_record(question: dict, db: dict) -> tuple:
-    """多維度容錯查找題庫紀錄 (精確 Key -> 原文 -> 去除標點之正規化比對)"""
+    """
+    雙軌制查找題庫紀錄 (移植自 Chrome 擴充 v13 findMatchingQuestion)：
+    軌道 1 (附圖題)：
+      1A: 優先以題目圖片檔名/UUID 精準命中 (不受題幹文字微調影響)
+      1B: 次選兼容以答案圖片欄位儲存題目圖片 UUID 之歷史紀錄
+      1C: 若題目文字相同且題庫該題尚未登記圖片，自動配對升級；若已有不同圖片則絕不串題
+    軌道 2 (純文字題)：
+      2A: 優先匹配同樣無題目圖片之純文字題目
+      2B: 次選寬鬆文字匹配
+    """
     q_text = (question.get("text") or "").strip()
     q_img = (question.get("image") or "").strip()
-    q_img_base = os.path.basename(urllib.parse.urlsplit(q_img).path) if q_img else ""
+    q_img_base = os.path.basename(urllib.parse.urlsplit(q_img).path).lower() if q_img else ""
     norm_q = normalize_q_text(q_text)
 
     key = get_question_key(question)
     q_dict = db.get("questions", {})
 
-    # 1. 精確 key 匹配
+    # 0. 精確 key 直接命中
     if key in q_dict:
         return key, q_dict[key]
+
+    # 軌道 1：題目附帶圖片
+    if q_img_base:
+        # 1A: 題目圖片 UUID 精準命中
+        for db_k, db_v in q_dict.items():
+            v_img = (db_v.get("image") or "").strip()
+            v_img_base = os.path.basename(urllib.parse.urlsplit(v_img).path).lower() if v_img else ""
+            if v_img_base and (v_img_base == q_img_base or v_img_base in q_img_base or q_img_base in v_img_base):
+                return db_k, db_v
+
+        # 1B: 兼容答案圖片欄位儲存題目圖片 UUID
+        for db_k, db_v in q_dict.items():
+            corr = db_v.get("correct")
+            corr_img = (corr.get("image") or "").strip() if isinstance(corr, dict) else ""
+            corr_img_base = os.path.basename(urllib.parse.urlsplit(corr_img).path).lower() if corr_img else ""
+            if corr_img_base and (corr_img_base == q_img_base or corr_img_base in q_img_base or q_img_base in corr_img_base):
+                return db_k, db_v
+
+        # 1C: 題目文字相同，且題庫該項目尚未登記任何題目圖片
+        if norm_q:
+            for db_k, db_v in q_dict.items():
+                v_img = (db_v.get("image") or "").strip()
+                if not v_img:
+                    v_norm = normalize_q_text(db_v.get("text", ""))
+                    if v_norm and v_norm == norm_q:
+                        return db_k, db_v
+
+        return key, {}
+
+    # 軌道 2：純文字題目
     if not q_img_base and q_text in q_dict:
         rec = q_dict[q_text]
         if not rec.get("image"):
             return q_text, rec
 
-    # 2. 標點符號歸一化比對 (解決 ？ 與 ?、空白差異)
     if norm_q:
+        # 優先匹配無題目圖片之紀錄
         for db_k, db_v in q_dict.items():
-            v_text = db_v.get("text", "")
-            v_img = db_v.get("image", "")
-            v_img_base = os.path.basename(urllib.parse.urlsplit(v_img).path) if v_img else ""
-
-            # 附圖嚴格比對：若題目有圖或庫存有圖，圖片檔名必須完全一致，切勿串題
-            if q_img_base or v_img_base:
-                if q_img_base != v_img_base:
-                    continue
-
-            if normalize_q_text(v_text) == norm_q:
+            if not (db_v.get("image") or "").strip():
+                v_norm = normalize_q_text(db_v.get("text", ""))
+                if v_norm and v_norm == norm_q:
+                    return db_k, db_v
+        # 次選寬鬆匹配
+        for db_k, db_v in q_dict.items():
+            v_norm = normalize_q_text(db_v.get("text", ""))
+            if v_norm and v_norm == norm_q:
                 return db_k, db_v
 
     return key, {}
@@ -168,16 +440,35 @@ def update_db_question(db_key: str, question: dict, choices: list, correct: dict
 
         if correct:
             rec["correct"] = correct
-            # 若原本有錯的列表中包含此正確項則移除
+            c_uuid = correct.get("uuid") if isinstance(correct, dict) else ""
+            c_norm = normalize_q_text(correct.get("text", "") if isinstance(correct, dict) else str(correct))
+            c_img_base = os.path.basename(urllib.parse.urlsplit(correct.get("image", "")).path).lower() if isinstance(correct, dict) and correct.get("image") else ""
             if "wrong" in rec:
-                c_uuid = correct.get("uuid")
-                rec["wrong"] = [w for w in rec["wrong"] if (w.get("uuid") if isinstance(w, dict) else w) != c_uuid]
+                cleaned_wrongs = []
+                for w in rec["wrong"]:
+                    w_uuid = w.get("uuid", "") if isinstance(w, dict) else ""
+                    w_norm = normalize_q_text(w.get("text", "") if isinstance(w, dict) else (w if isinstance(w, str) else ""))
+                    w_img_base = os.path.basename(urllib.parse.urlsplit(w.get("image", "")).path).lower() if isinstance(w, dict) and w.get("image") else ""
+                    if (c_uuid and w_uuid == c_uuid) or (c_norm and w_norm == c_norm) or (c_img_base and w_img_base == c_img_base):
+                        continue
+                    cleaned_wrongs.append(w)
+                rec["wrong"] = cleaned_wrongs
 
         if wrong_choice:
             wrongs = rec.setdefault("wrong", [])
             w_uuid = wrong_choice.get("uuid") if isinstance(wrong_choice, dict) else wrong_choice
+            w_norm = normalize_q_text(wrong_choice.get("text", "") if isinstance(wrong_choice, dict) else (wrong_choice if isinstance(wrong_choice, str) else ""))
+            w_img_base = os.path.basename(urllib.parse.urlsplit(wrong_choice.get("image", "")).path).lower() if isinstance(wrong_choice, dict) and wrong_choice.get("image") else ""
             if not any((w.get("uuid") if isinstance(w, dict) else w) == w_uuid for w in wrongs):
                 wrongs.append(wrong_choice)
+            # 即時淘汰錯誤正解 (移植自 Chrome 擴充 v13)：若題庫原紀錄之 correct 與本次實測答錯選項相同，立即移除該錯誤 correct
+            cur_corr = rec.get("correct")
+            if cur_corr:
+                cc_uuid = cur_corr.get("uuid", "") if isinstance(cur_corr, dict) else ""
+                cc_norm = normalize_q_text(cur_corr.get("text", "") if isinstance(cur_corr, dict) else str(cur_corr))
+                cc_img_base = os.path.basename(urllib.parse.urlsplit(cur_corr.get("image", "")).path).lower() if isinstance(cur_corr, dict) and cur_corr.get("image") else ""
+                if (w_uuid and cc_uuid and w_uuid == cc_uuid) or (w_norm and cc_norm and w_norm == cc_norm) or (w_img_base and cc_img_base and w_img_base == cc_img_base):
+                    rec.pop("correct", None)
 
         if unverified_choice:
             rec["unverified_choice"] = unverified_choice
@@ -912,61 +1203,118 @@ def select_answer(question: dict, choices: list, db: dict, gemini_key: str = Non
     key, record = find_db_record(question, db)
 
     correct_val = record.get("correct")
-    wrong_vals = record.get("wrong", [])
+    wrong_vals = list(record.get("wrong", []))
     target_hint = None
 
-    # 1. 排除已知錯誤選項判定函式
+    raw_target_text = ""
+    target_uuid = ""
+    target_img = ""
+    if correct_val:
+        target_uuid = correct_val.get("uuid", "") if isinstance(correct_val, dict) else ""
+        raw_target_text = correct_val.get("text", "") if isinstance(correct_val, dict) else (correct_val if isinstance(correct_val, str) else "")
+        target_img = correct_val.get("image", "") if isinstance(correct_val, dict) else ""
+
+    parsed = parse_target_answer(raw_target_text)
+    designated_index = parsed["designated_index"]
+    clean_target = parsed["clean_text"]
+    candidates = parsed["candidates"]
+    target_hint = clean_target or raw_target_text
+    target_img_base = os.path.basename(urllib.parse.urlsplit(target_img).path).lower() if target_img else ""
+
+    # 雙向防護 (移植自 Chrome 擴充 v13)：若正解候選詞或答案圖片誤存於 wrong 清單中，先從 wrong 剔除，防止誤殺正解
+    norm_cands = {normalize_q_text(cnd) for cnd in candidates if normalize_q_text(cnd)}
+
     def is_wrong(c):
+        c_uuid = c.get("uuid", "")
+        c_text = (c.get("text") or "").strip()
+        norm_c = normalize_q_text(c_text)
+        c_img = (c.get("image") or "").strip()
+        c_img_base = os.path.basename(urllib.parse.urlsplit(c_img).path).lower() if c_img else ""
+
+        # 若該選項本身等於已知正解候選詞或正解圖片，絕不可判定為錯誤
+        if norm_c and norm_c in norm_cands:
+            return False
+        if target_img_base and c_img_base and (c_img_base == target_img_base or target_img_base in c_img_base):
+            return False
+
         for w in wrong_vals:
-            w_uuid = w.get("uuid") if isinstance(w, dict) else w
+            w_uuid = w.get("uuid") if isinstance(w, dict) else ""
             raw_w_text = w.get("text") if isinstance(w, dict) else (w if isinstance(w, str) else "")
-            clean_w = re.sub(r'[\(（]?選項\s*\d+[\)）]?', '', raw_w_text).strip()
+            clean_w = re.sub(r'[\(（]?選項\s*\d+[\)）]?', '', raw_w_text or "").strip()
             norm_w = normalize_q_text(clean_w)
             w_img = w.get("image", "") if isinstance(w, dict) else ""
-            if c.get("uuid") and w_uuid and c.get("uuid") == w_uuid:
+            w_img_base = os.path.basename(urllib.parse.urlsplit(w_img).path).lower() if w_img else ""
+
+            if c_uuid and w_uuid and c_uuid == w_uuid:
                 return True
-            # 若無指定 UUID 時才使用文字比對，避免同名選項被誤殺
-            if not w_uuid and norm_w:
-                norm_c = normalize_q_text(c.get("text", ""))
-                if norm_c and (norm_c == norm_w or norm_c in norm_w or norm_w in norm_c):
-                    return True
-            if c.get("image") and w_img and os.path.basename(c.get("image")) == os.path.basename(w_img):
+            if c_text and clean_w and c_text == clean_w:
+                return True
+            if not w_uuid and norm_w and norm_c and norm_c == norm_w:
+                return True
+            if c_img_base and w_img_base and (c_img_base == w_img_base or w_img_base in c_img_base):
                 return True
         return False
 
-    # 2. 命中題庫已知正確答案
+    # 策略 1: 題庫註明指定序號 (例如「3．紅色 (bug題，選1是錯的)」、「選項4：4G」)
+    if designated_index and 1 <= designated_index <= len(choices):
+        cand = choices[designated_index - 1]
+        if not is_wrong(cand):
+            print(f"[題庫指定序號命中] 直接鎖定第 {designated_index} 個選項: {cand.get('text') or cand.get('uuid')}")
+            return cand["uuid"]
+
+    # 策略 2: 命中題庫已知正確答案 (分兩階段：2A 100%精準相等優先 -> 2B 安全子字串次選)
     if correct_val:
-        target_uuid = correct_val.get("uuid") if isinstance(correct_val, dict) else correct_val
-        raw_target_text = correct_val.get("text") if isinstance(correct_val, dict) else (correct_val if isinstance(correct_val, str) else "")
-        target_img = correct_val.get("image", "") if isinstance(correct_val, dict) else ""
-        clean_target = re.sub(r'[\(（]?選項\s*\d+[\)）]?', '', raw_target_text).strip()
-        target_hint = clean_target or raw_target_text
+        is_date_answer = any(re.match(r'^\d+[\/月日]\d+', cnd) for cnd in candidates)
 
-        norm_target = normalize_q_text(clean_target)
-
+        # 策略 2A: 100% 精準完全相等比對 (防止 momoBOOK 被 momoBOOKS 截胡)
         for c in choices:
-            # 關鍵防護：已知錯誤選項不可選取
             if is_wrong(c):
                 continue
-            c_uuid = c.get("uuid")
-            c_text = c.get("text", "")
-            c_img = c.get("image", "")
-            is_match = False
-            if c_uuid and c_uuid == target_uuid:
-                is_match = True
-            elif c_img and target_img and os.path.basename(c_img) == os.path.basename(target_img):
-                is_match = True
-            elif norm_c and norm_target:
-                if norm_c == norm_target:
-                    is_match = True
-                elif not norm_c.isdigit() and not norm_target.isdigit() and len(norm_c) >= 4 and len(norm_target) >= 4:
-                    if norm_c in norm_target or norm_target in norm_c:
-                        is_match = True
+            c_uuid = c.get("uuid", "")
+            c_text = (c.get("text") or "").strip()
+            c_img = (c.get("image") or "").strip()
+            c_img_base = os.path.basename(urllib.parse.urlsplit(c_img).path).lower() if c_img else ""
 
-            if is_match:
-                print(f"[題庫命中] 選擇已確認之正確答案: {c_text or c_uuid}")
+            if c_uuid and target_uuid and c_uuid == target_uuid:
+                print(f"[題庫精準命中] UUID 匹配: {c_text or c_uuid}")
                 return c_uuid
 
+            if target_img_base and c_img_base and (c_img_base == target_img_base or target_img_base in c_img_base):
+                print(f"[題庫圖片命中] 選擇正解圖片: {c_img_base}")
+                return c_uuid
+
+            if c_text and candidates:
+                for cand in candidates:
+                    if is_date_answer:
+                        if re.sub(r'\s+', '', c_text).lower() == re.sub(r'\s+', '', cand).lower():
+                            print(f"[題庫日期精準命中] 選擇: {c_text}")
+                            return c_uuid
+                    else:
+                        norm_c = normalize_q_text(c_text)
+                        norm_cand = normalize_q_text(cand)
+                        if norm_c and norm_cand and norm_c == norm_cand:
+                            print(f"[題庫精準命中] 選擇已確認之正確答案: {c_text}")
+                            return c_uuid
+
+        # 策略 2B: 安全子字串比對 (僅在無任何選項完全相等且非日期格式時啟動)
+        if not is_date_answer and candidates:
+            for c in choices:
+                if is_wrong(c):
+                    continue
+                c_uuid = c.get("uuid", "")
+                c_text = (c.get("text") or "").strip()
+                norm_c = normalize_q_text(c_text)
+                if not norm_c or norm_c.isdigit() or len(norm_c) < 3:
+                    continue
+                for cand in candidates:
+                    norm_cand = normalize_q_text(cand)
+                    if not norm_cand or norm_cand.isdigit() or len(norm_cand) < 3:
+                        continue
+                    if norm_cand in norm_c or norm_c in norm_cand:
+                        print(f"[題庫模糊命中] 選擇候選答案: {c_text}")
+                        return c_uuid
+
+    # 策略 3: 已知錯誤排除法
     candidate_choices = [c for c in choices if not is_wrong(c)]
     if not candidate_choices:
         candidate_choices = choices
@@ -977,23 +1325,23 @@ def select_answer(question: dict, choices: list, db: dict, gemini_key: str = Non
 
     has_img = bool(question.get("image") or any(c.get("image") for c in candidate_choices))
 
-    # 3. 優先呼叫 Google Gemini AI 全面解題 (現已備妥 4 組 Key，支援純文字與多模態圖文)
+    # 4. 優先呼叫 Google Gemini AI 全面解題
     gemini_choice_id = query_gemini(q_text, candidate_choices, gemini_key, question.get("image"), target_hint=target_hint)
     if gemini_choice_id:
         return gemini_choice_id
 
-    # 4. 次之呼叫 Groq AI 備援 (純文字題)
+    # 5. 次之呼叫 Groq AI 備援 (純文字題)
     if not has_img:
         groq_choice_id = query_groq(q_text, candidate_choices, groq_key)
         if groq_choice_id:
             return groq_choice_id
 
-    # 5. 次之呼叫 OpenRouter AI 備援 (支援題目圖文與型C純圖片選項)
+    # 6. 次之呼叫 OpenRouter AI 備援 (支援題目圖文與型C純圖片選項)
     openrouter_choice_id = query_openrouter(q_text, candidate_choices, openrouter_key, question.get("image"))
     if openrouter_choice_id:
         return openrouter_choice_id
 
-    # 6. 搜尋比對或排除法回退
+    # 7. 搜尋比對或排除法回退
     return search_best_choice(q_text, candidate_choices, wrong_vals)
 
 
@@ -1053,6 +1401,7 @@ def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = Fa
 
     correct_count = 0
     start_time = time.time()
+    round_reports_buffer = []
 
     # 3. 循環答題
     while time.time() - start_time < 58:
@@ -1064,6 +1413,7 @@ def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = Fa
         question = q_data.get("question", {})
         choices = q_data.get("choices", [])
         q_text = question.get("text", "")
+        q_img = question.get("image", "")
         q_uuid = question.get("uuid", "")
         db_key = get_question_key(question)
 
@@ -1084,13 +1434,13 @@ def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = Fa
             "image": selected_choice_obj.get("image", "")
         }
 
-        # 擬真思考與防風控延遲：若秒答耗時小於人類反應下限 (1.2 ~ 2.0 秒)，平滑補足隨機延遲
+        # 擬真極速抖動延遲 (移植自 Chrome 擴充 v13：基準 0.5s ± 0.2s 抖動 + 0.18~0.28s 確認延遲 ≈ 0.65~1.05s)
         q_elapsed = time.time() - q_start_t
-        target_human_delay = random.uniform(1.2, 2.0)
+        target_human_delay = max(0.48, 0.5 + random.uniform(-0.2, 0.2)) + random.uniform(0.18, 0.28)
         if q_elapsed < target_human_delay:
             time.sleep(target_human_delay - q_elapsed)
 
-        img_log = f" [附圖: {question.get('image')}]" if question.get("image") else ""
+        img_log = f" [附圖: {q_img}]" if q_img else ""
         print(f"[{datetime.now().strftime('%H:%M:%S')}] {prefix}第 {correct_count+1} 題: {q_text}{img_log} ➔ 選擇: {choice_text}")
 
         # 送出答案
@@ -1112,13 +1462,42 @@ def run_quiz_session(cookie: str, account_label: str = "", auto_claim: bool = Fa
             elapsed = time.time() - start_time
             print(f"🎉 {prefix}第 {correct_count} 題答對！(+10 分，已用時 {elapsed:.1f}s)")
             update_db_question(db_key, question, choices, correct=choice_obj)
+            other_wrongs = [c for c in choices if c.get("uuid") != selected_choice_id]
+            round_reports_buffer.append({
+                "question": q_text,
+                "questionImage": q_img,
+                "answer": choice_obj["text"] or ("[圖片答案]" if choice_obj["image"] else ""),
+                "answerImage": choice_obj["image"],
+                "wrongOptions": [c.get("text", "").strip() for c in other_wrongs if c.get("text", "").strip()],
+                "wrongImages": [c.get("image", "").strip() for c in other_wrongs if c.get("image", "").strip()],
+                "allChoices": choices,
+                "isCorrect": True,
+                "submittedAt": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                "client": "momo-evolution-extension-v2"
+            })
             if correct_count % 10 == 0:
                 print(f"{prefix}🌟 累計已達 {correct_count} 題答對！繼續答題爭取更高分與新題庫記錄...")
             time.sleep(0.05)
         else:
             print(f"❌ {prefix}回答錯誤，本場時段結束。")
             update_db_question(db_key, question, choices, wrong_choice=choice_obj)
+            round_reports_buffer.append({
+                "question": q_text,
+                "questionImage": q_img,
+                "answer": "",
+                "answerImage": "",
+                "wrongOptions": [choice_obj["text"]] if choice_obj["text"] else [],
+                "wrongImages": [choice_obj["image"]] if choice_obj["image"] else [],
+                "allChoices": choices,
+                "isCorrect": False,
+                "submittedAt": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                "client": "momo-evolution-extension-v2"
+            })
             break
+
+    # 整局結束一次性批次上傳題庫學習紀錄
+    if round_reports_buffer:
+        threading.Thread(target=report_auto_learn_batch, args=(round_reports_buffer,), daemon=True).start()
 
     total_display_points = (current_points + correct_count) * 10
     print(f"[{datetime.now().strftime('%H:%M:%S')}] {prefix}🏁 答題結束！本場答對: {correct_count} 題，累計積分: {total_display_points} 分")
@@ -1214,6 +1593,11 @@ def run_session(cookies: list, slot_hour: int = None, slot_minute: int = None, s
     else:
         target_hour, target_min, slot_time_str = get_current_slot_info()
 
+    # 開跑前先同步雲端 CDN 最新題庫
+    total_db = sync_cdn_bank()
+    if total_db:
+        print(f"[{datetime.now().strftime('%H:%M:%S')}] 📚 已同步雲端最新題庫，當前共 {total_db} 題")
+
     if wait_snipe:
         wait_until_slot_snipe(target_hour, target_min, cookies)
 
@@ -1226,10 +1610,12 @@ def run_session(cookies: list, slot_hour: int = None, slot_minute: int = None, s
             for idx, c in enumerate(cookies, 1)
         }
         for fut in concurrent.futures.as_completed(future_to_idx):
+            idx = future_to_idx[fut]
             try:
                 results.append(fut.result())
             except Exception as e:
-                results.append({"account_label": "帳號", "status": f"異常: {e}"})
+                print(f"[帳號 {idx}] 執行異常: {e}")
+                results.append({"account_label": f"帳號 {idx}", "status": f"異常: {e}"})
 
     # 推播彙整
     report_lines = []
@@ -1245,7 +1631,7 @@ def run_session(cookies: list, slot_hour: int = None, slot_minute: int = None, s
         if claimed:
             line += f" ➔ 🎁 成功領取: {claimed}"
         report_lines.append(line)
-        if "答對" in status or claimed:
+        if "答對" in status or "異常" in status or claimed:
             has_meaningful = True
 
     if silent_if_limit and not has_meaningful:
