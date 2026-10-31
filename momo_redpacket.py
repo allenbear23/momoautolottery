@@ -279,6 +279,7 @@ def main():
     parser.add_argument("--m-promo", help="指定 m_promo_no")
     parser.add_argument("--dt-promo", help="指定 dt_promo_no")
     parser.add_argument("--url", default=DEFAULT_EDM_URL, help="指定活動頁或攻略頁網址")
+    parser.add_argument("--silent-if-limit", action="store_true", help="若非開放時段或已搶過則不發送推播")
     args = parser.parse_args()
 
     cookies = load_all_cookies()
