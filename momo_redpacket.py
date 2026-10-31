@@ -41,13 +41,13 @@ def load_dotenv():
 
 load_dotenv()
 
-# 攻略頁網址
-DEFAULT_EDM_URL = "https://www.momoshop.com.tw/edm/cmmedm.jsp?lpn=O7ylWqBgYoq&n=1"
+# 攻略頁與專屬活動頁網址
+DEFAULT_EDM_URL = "https://www.momoshop.com.tw/edm/cmmedm.jsp?lpn=O7ylWmQ3frf&n=1"
 API_URL = "https://event.momoshop.com.tw/promoMechReg.PROMO"
 
-# 預設活動代碼 (11/1 上線時會自動探測覆蓋)
-DEFAULT_M_PROMO_NO = "U20261101001"
-DEFAULT_DT_PROMO_NO = "D20261101001"
+# 11/1 正式活動代碼 (解析自 it_constant.js)
+DEFAULT_M_PROMO_NO = "U96110100003"
+DEFAULT_DT_PROMO_NO = "D96110100001"
 
 # 11/1 每日 18 個時段 (各時段 11 分)
 SLOTS = [
@@ -62,21 +62,18 @@ SCHEDULE_TIMES = [f"{h:02d}:{m:02d}" for h, m in SLOTS]
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 momoShop",
     "Origin": "https://www.momoshop.com.tw",
-    "Referer": "https://www.momoshop.com.tw/edm/cmmedm.jsp?lpn=O7ylWqBgYoq&n=1"
+    "Referer": "https://www.momoshop.com.tw/edm/cmmedm.jsp?lpn=O7ylWmQ3frf&n=1"
 }
 
 PRIZE_MAP = {
     "mo_999": "🧧 momo幣 $999",
     "mo_111": "🧧 momo幣 $111",
-    "mo_21": "🧧 momo幣 $21",
     "mo_11": "🧧 momo幣 $11",
-    "mo_5": "🧧 momo幣 $5",
-    "mo_2": "🧧 momo幣 $2",
     "mo_1": "🧧 momo幣 $1",
-    "gift1": "🎁 哈根達斯單球券",
-    "gift2": "🎁 麗寶樂園門票",
-    "gift3": "🎁 Uber 乘車優惠",
-    "gift4": "🎁 聯想耳機折價券"
+    "coupon_88": "🎫 88折折價券",
+    "coupon_111": "🎫 $111折價券",
+    "coupon_222": "🎫 $222折價券",
+    "coupon00": "🎫 $111折價券"
 }
 
 RETURN_MESSAGES = {
@@ -157,7 +154,30 @@ def sniff_promo_params(edm_url: str = DEFAULT_EDM_URL) -> tuple:
         with urllib.request.urlopen(req, timeout=6) as resp:
             html = resp.read().decode("utf-8", errors="ignore")
 
-        # 1. 從 couponRain.js 或內聯變數抓取
+        # 1. 優先從 it_init.js 與同層目錄之 it_constant.js 抓取正式設定檔
+        m_it = re.search(r'src=[\"\']([^\"\']*it_init\.js[^\"\']*)[\"\']', html)
+        if m_it:
+            init_url = m_it.group(1)
+            if init_url.startswith("//"):
+                init_url = "https:" + init_url
+            base_dir = init_url.rsplit("/", 1)[0]
+            ts = init_url.split("?")[1] if "?" in init_url else ""
+            it_url = f"{base_dir}/it_constant.js?{ts}" if ts else f"{base_dir}/it_constant.js"
+            try:
+                it_req = urllib.request.Request(it_url, headers=HEADERS)
+                with urllib.request.urlopen(it_req, timeout=6) as it_resp:
+                    it_code = it_resp.read().decode("utf-8", errors="ignore")
+                    mno_m = re.search(r'mno\s*:\s*[\"\']([^\"\']+)[\"\']', it_code)
+                    dtno_m = re.search(r'firstDtNo\s*:\s*[\"\']([^\"\']+)[\"\']', it_code)
+                    if mno_m and dtno_m:
+                        m_val = mno_m.group(1)
+                        dt_val = dtno_m.group(1)
+                        print(f"[{datetime.now().strftime('%H:%M:%S')}] 探測成功 (it_constant)！m_promo_no={m_val}, dt_promo_no={dt_val}")
+                        return m_val, dt_val
+            except Exception:
+                pass
+
+        # 2. 從 couponRain.js 抓取
         m_js = re.search(r'src=[\"\']([^\"\']*couponRain\.js[^\"\']*)[\"\']', html)
         if m_js:
             js_url = m_js.group(1)
@@ -172,13 +192,13 @@ def sniff_promo_params(edm_url: str = DEFAULT_EDM_URL) -> tuple:
                     if m_m and dt_m:
                         m_val = m_m.group(1)
                         dt_val = dt_m.group(1)
-                        print(f"[{datetime.now().strftime('%H:%M:%S')}] 探測成功！m_promo_no={m_val}, dt_promo_no={dt_val}")
+                        print(f"[{datetime.now().strftime('%H:%M:%S')}] 探測成功 (couponRain)！m_promo_no={m_val}, dt_promo_no={dt_val}")
                         return m_val, dt_val
             except Exception:
                 pass
 
-        # 2. 正則比對頁面中可能的 Promo 代碼
-        promo_match = re.search(r'[\"\']([UD]20261101\w+)[\"\']', html)
+        # 3. 正則比對頁面中可能的 Promo 代碼
+        promo_match = re.search(r'[\"\']([UD]961101\w+)[\"\']', html)
         if promo_match:
             code = promo_match.group(1)
             m_val = "U" + code[1:]
