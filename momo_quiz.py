@@ -99,9 +99,9 @@ def parse_target_answer(raw_ans: str) -> dict:
         if m_opt:
             designated_index = int(m_opt.group(1))
 
-    # 模式 C: 數字序號 1~4 (排除 2.4GHz, 1.8L 等小數)
+    # 模式 C: 數字序號 1~4 (排除 2.4GHz, 1.8L 等小數，且排除如「2 1 1 1 櫃」等多位數字排列)
     if not designated_index:
-        m_num = re.match(r'^([1-4])([．、\s]+|[\.](?!\d|[gG][hH][zZ])|(?:\.(?=\d{2,}|\d+[元百千萬個包瓶])))', raw)
+        m_num = re.match(r'^([1-4])([．、]|[\.](?!\d|[gG][hH][zZ])|(?:\.(?=\d{2,}|\d+[元百千萬個包瓶])))', raw)
         if m_num:
             designated_index = int(m_num.group(1))
 
