@@ -258,10 +258,44 @@ def grab_redpacket_single_account(cookie: str, account_label: str, m_promo_no: s
         print(f"[{account_label}] ⚠️ 回應：{status_desc} | 回傳內容: {res}")
 
 
-def run_sniper_session(cookies: list, m_promo_no: str, dt_promo_no: str):
+def wait_until_slot_snipe(slot_hour: int, slot_minute: int, max_wait_seconds: int = 180):
+    now = datetime.now()
+    target_time = now.replace(hour=slot_hour, minute=slot_minute, second=0, microsecond=0)
+    diff = (target_time - now).total_seconds()
+
+    if diff <= 0 or diff > max_wait_seconds:
+        return
+
+    print(f"[{datetime.now().strftime('%H:%M:%S')}] 鎖定紅包時段 {slot_hour:02d}:{slot_minute:02d}，距離開搶剩 {diff:.1f} 秒，倒數中...")
+    if diff > 1.5:
+        time.sleep(diff - 1.5)
+
+    rem = (target_time.timestamp() - 0.2) - time.time()
+    if rem > 0:
+        time.sleep(rem)
+
+    print(f"[{datetime.now().strftime('%H:%M:%S.%f')[:-3]}] 🚀 到達開搶點 (T-0.2s)，發射搶紅包請求！")
+
+
+def run_sniper_session(cookies: list, m_promo_no: str, dt_promo_no: str, wait_snipe: bool = True):
     """多帳號並行極速搶紅包"""
+    now = datetime.now()
+    # 尋找最近符合的時段 (開跑前 3 分鐘到開跑後 1 小時)
+    best_slot = None
+    for sh, sm in SLOTS:
+        s_dt = now.replace(hour=sh, minute=sm, second=0, microsecond=0)
+        diff = (s_dt - now).total_seconds()
+        if -3600 <= diff <= 180:
+            best_slot = (sh, sm)
+            break
+    if not best_slot:
+        best_slot = (now.hour, 11)
+
+    if wait_snipe:
+        wait_until_slot_snipe(best_slot[0], best_slot[1])
+
     print(f"\n========================================================================")
-    print(f"🧧 開始執行 11/1 搶紅包任務 | 帳號數: {len(cookies)} 組")
+    print(f"🧧 開始執行 11/1 搶紅包任務 ({best_slot[0]:02d}:{best_slot[1]:02d}) | 帳號數: {len(cookies)} 組")
     print(f"🎯 活動代碼: mPromoNo={m_promo_no}, dtPromoNo={dt_promo_no}")
     print(f"========================================================================")
 
