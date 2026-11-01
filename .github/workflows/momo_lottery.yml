@@ -35,7 +35,7 @@ jobs:
         run: |
           # python3 momo_quiz.py --now --silent-if-limit --auto-claim || true
           python3 momo_redpacket.py --now --silent-if-limit || true
-          python3 momo_bot.py --now --silent-if-limit || true
+          # python3 momo_bot.py --now --silent-if-limit || true
           python3 momo_checkin.py || true
           python3 momo_coin.py || true
           if [ -n "$FEEBEE_COOKIE" ]; then
