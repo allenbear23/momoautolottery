@@ -19,9 +19,14 @@ from datetime import datetime
 CHECKIN_BASE_URL = "https://ma.momoshop.com.tw/api/campaign/game"
 
 HEADERS = {
-    "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 momoshop",
+    "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 momoshop/12.1.0",
     "Origin": "https://ma.momoshop.com.tw",
-    "Referer": "https://ma.momoshop.com.tw/edm/dailycheckin"
+    "Referer": "https://ma.momoshop.com.tw/edm/dailycheckin",
+    "Accept": "application/json, text/plain, */*",
+    "Accept-Language": "zh-TW,zh-Hant;q=0.9,en-US;q=0.8,en;q=0.7",
+    "Sec-Fetch-Site": "same-origin",
+    "Sec-Fetch-Mode": "cors",
+    "Sec-Fetch-Dest": "empty"
 }
 
 
