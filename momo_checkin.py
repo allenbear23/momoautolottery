@@ -85,8 +85,9 @@ def process_referral(referral_code: str, cookie: str):
         print(f"[{datetime.now().strftime('%H:%M:%S')}] 處理推薦連結異常: {e}")
 
 
-def run_daily_checkin(cookie: str, referral: str = "2b4b924f6cd7a33d8279a2b80172d730", force: bool = False):
-    print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] 開始執行 momo 天天簽到流程...")
+def run_daily_checkin(cookie: str, referral: str = "2b4b924f6cd7a33d8279a2b80172d730", force: bool = False, account_label: str = None):
+    user_label = account_label or get_user_display_name(cookie)
+    print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] 開始執行 momo 天天簽到流程 ({user_label})...")
     
     # 1. 取得最新簽到活動
     mission = get_latest_mission()
@@ -182,6 +183,7 @@ def run_daily_checkin(cookie: str, referral: str = "2b4b924f6cd7a33d8279a2b80172
         total_days = len(calendars)
         
         body_lines = [
+            f"👤 帳號: {user_label}",
             f"📅 活動: {display_name}",
             f"🎯 今日簽到任務完成",
             f"📈 檔期進度: 已簽到 {done_days}/{total_days} 天",
@@ -189,7 +191,7 @@ def run_daily_checkin(cookie: str, referral: str = "2b4b924f6cd7a33d8279a2b80172
             "\n【任務明細】",
             *task_results
         ]
-        send_bark("momo 天天簽到完成", "\n".join(body_lines))
+        send_bark(f"momo 簽到完成 - {user_label}", "\n".join(body_lines))
     except Exception as e:
         print(f"發送推播通知異常: {e}")
 
@@ -261,7 +263,7 @@ def main():
         print(f"👤 開始執行 {name} 天天簽到...")
         print(f"==============================")
         try:
-            run_daily_checkin(c, referral=args.referral, force=args.force)
+            run_daily_checkin(c, referral=args.referral, force=args.force, account_label=name)
         except Exception as e:
             print(f"[{name}] 簽到異常: {e}")
 

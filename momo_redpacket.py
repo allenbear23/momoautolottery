@@ -280,16 +280,11 @@ def wait_until_slot_snipe(slot_hour: int, slot_minute: int, max_wait_seconds: in
 def run_sniper_session(cookies: list, m_promo_no: str, dt_promo_no: str, wait_snipe: bool = True):
     """多帳號並行極速搶紅包"""
     now = datetime.now()
-    # 尋找最近符合的時段 (開跑前 3 分鐘到開跑後 1 小時)
-    best_slot = None
-    for sh, sm in SLOTS:
-        s_dt = now.replace(hour=sh, minute=sm, second=0, microsecond=0)
-        diff = (s_dt - now).total_seconds()
-        if -3600 <= diff <= 180:
-            best_slot = (sh, sm)
-            break
-    if not best_slot:
-        best_slot = (now.hour, 11)
+    # 尋找距離當前時間最近的時段 (優先鎖定即將到來或剛開跑的時段)
+    best_slot = min(
+        SLOTS,
+        key=lambda s: abs((now.replace(hour=s[0], minute=s[1], second=0, microsecond=0) - now).total_seconds())
+    )
 
     if wait_snipe:
         wait_until_slot_snipe(best_slot[0], best_slot[1])
