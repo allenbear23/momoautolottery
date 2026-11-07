@@ -1,22 +1,19 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Feebee 飛比價格 每日自動簽到與獎勵廣告抽獎腳本
-支援會員狀態查詢、錢包餘額檢查、每日簽到與廣告抽獎
-活動網址: https://feebee.com.tw/event/reward_ad?is_show_production_ad=1&did=nil
+Feebee 飛比價格 每日自動簽到腳本 (純簽到版本，無廣告抽獎)
+活動網址: https://feebee.com.tw/event/reward_ad?is_show_production_ad=1&type=daily_checkin&from=mission_center
 """
 
 import sys
 import os
 import time
-import json
 import re
-import uuid
-import hashlib
 import argparse
 import urllib.request
 import urllib.error
-from datetime import datetime
+import urllib.parse
+from datetime import datetime, timezone, timedelta
 
 # 導入 Bark 通知模組
 try:
@@ -25,26 +22,17 @@ except ImportError:
     def send_bark(title: str, body: str, group: str = "feebee"):
         return False
 
-APP_UA = "android-prod-release-v3.1.10-2017071191"
-WEB_UA = "Mozilla/5.0 (iPhone; CPU iPhone OS 16_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.5 Mobile/15E148 Safari/604.1"
+WEB_UA = "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148"
+DEFAULT_APP_UA = "ios-prod-release-v4.9.4-2026110201"
+DEFAULT_APPD = "41609167"
 
 WALLET_URL = "https://feebee.com.tw/member/point/wallet/"
-EVENT_URL = "https://feebee.com.tw/event/reward_ad?is_show_production_ad=1&did={did}"
-API_STATUS_URL = "https://api.feebee.com.tw/web/reward_ad/status"
-API_VERIFY_URL = "https://api.feebee.com.tw/web/reward_ad/verify_status"
-API_LOTTERY_URL = "https://api.feebee.com.tw/web/reward_ad/lottery"
-
-
-def generate_signed_appd(device_id: str = None) -> str:
-    """產生符合 Feebee 官方校驗規則的 App Device ID"""
-    did = device_id or uuid.uuid4().hex[:16]
-    salt = f"crs6vSq8H3v{did}TcDIUJyD5"
-    sig = hashlib.sha1(salt.encode("utf-8")).hexdigest()[5:13]
-    return f"{did}.{sig}"
+REWARD_AD_URL = "https://feebee.com.tw/event/reward_ad?is_show_production_ad=1&type=daily_checkin&from=mission_center"
+MISSION_CENTER_URL = "https://feebee.com.tw/event/mission_center?did={did}"
 
 
 def normalize_cookie(raw_cookie: str) -> str:
-    """補全 app 相關 cookie"""
+    """確保 Cookie 包含 app 與 appd 參數"""
     cookie_str = raw_cookie.strip()
     if not cookie_str:
         return ""
@@ -54,9 +42,9 @@ def normalize_cookie(raw_cookie: str) -> str:
     has_appd = any(p.startswith("appd=") for p in parts)
 
     if not has_app:
-        parts.append(f"app={APP_UA}")
+        parts.insert(0, f"app={DEFAULT_APP_UA}")
     if not has_appd:
-        parts.append(f"appd={generate_signed_appd()}")
+        parts.insert(1, f"appd={DEFAULT_APPD}")
 
     return "; ".join(parts)
 
@@ -94,38 +82,40 @@ def load_all_cookies(cookie_arg: str = None) -> list:
     return cookies
 
 
-def request_get(url: str, headers: dict, cookie: str = "") -> tuple:
-    """發送 GET 請求，回傳 (status_code, body_string)"""
-    hdrs = dict(headers)
+def request_get(url: str, headers: dict = None, cookie: str = None) -> tuple:
+    req_headers = {
+        "User-Agent": WEB_UA,
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    }
+    if headers:
+        req_headers.update(headers)
     if cookie:
-        hdrs["Cookie"] = cookie
+        req_headers["Cookie"] = cookie
 
-    req = urllib.request.Request(url, headers=hdrs, method="GET")
+    req = urllib.request.Request(url, headers=req_headers, method="GET")
     try:
         with urllib.request.urlopen(req, timeout=15) as resp:
-            return resp.status, resp.read().decode("utf-8", errors="ignore")
+            body = resp.read().decode("utf-8", errors="replace")
+            return resp.status, body
     except urllib.error.HTTPError as e:
-        err_body = e.read().decode("utf-8", errors="ignore")
-        return e.code, err_body
+        body = e.read().decode("utf-8", errors="replace") if hasattr(e, "read") else ""
+        return e.code, body
     except Exception as e:
         return 0, str(e)
 
 
 def check_wallet_status(cookie: str) -> dict:
-    """查詢會員錢包與今日簽到狀態（相容桌面版與手機版頁面）"""
-    headers = {
-        "User-Agent": WEB_UA,
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        "Referer": "https://feebee.com.tw/"
-    }
-    code, html = request_get(WALLET_URL, headers, cookie)
+    """
+    查詢 Feebee 錢包狀態與歷史紀錄
+    時區依據：Feebee 伺服器輸出為 UTC 時間，需轉為 UTC+8 (台灣時間) 比對今日簽到
+    """
+    code, html = request_get(WALLET_URL, cookie=cookie)
     if code != 200:
         return {"logged_in": False, "msg": f"連線異常 (HTTP {code})"}
 
-    if "/logout" not in html and "登出" not in html:
+    if "/logout" not in html and "登出" not in html and "point_total" not in html:
         return {"logged_in": False, "msg": "未登入或 Cookie 已過期"}
 
-    # 提取用戶名稱
     user_name = "Feebee會員"
     m_user = re.search(r"my_account_name[^>]*>Hi,([^！!<]+)", html)
     if not m_user:
@@ -133,7 +123,6 @@ def check_wallet_status(cookie: str) -> dict:
     if m_user:
         user_name = m_user.group(1).strip()
 
-    # 提取點數
     points = "0"
     m_pt = re.search(r"class=[\"\x27]point_total[\"\x27][^>]*>([^<]+)<", html)
     if not m_pt:
@@ -141,28 +130,43 @@ def check_wallet_status(cookie: str) -> dict:
     if m_pt:
         points = m_pt.group(1).strip()
 
-    # 檢查今日簽到紀錄
-    today_str = datetime.now().strftime("%Y-%m-%d")
+    # 比對今日簽到紀錄 (UTC -> UTC+8)
+    tz_tw = timezone(timedelta(hours=8))
+    today_tw = datetime.now(tz_tw).strftime("%Y-%m-%d")
     already_checked_in = False
 
-    # 1. 手機版 data-qa-id 格式
+    # 1. 手機版格式
     dates = re.findall(r"data-qa-id=\"point-history-date-\d+\">([^<]+)<", html)
     titles = re.findall(r"data-qa-id=\"point-history-title-\d+\">([^<]+)<", html)
-    for d, t in zip(dates, titles):
-        if d.startswith(today_str) and "每日簽到" in t:
-            already_checked_in = True
-            break
+    for d_str, t_str in zip(dates, titles):
+        try:
+            dt_utc = datetime.strptime(d_str.strip(), "%Y-%m-%d %H:%M:%S").replace(tzinfo=timezone.utc)
+            dt_tw = dt_utc.astimezone(tz_tw)
+            if dt_tw.strftime("%Y-%m-%d") == today_tw and "每日簽到" in t_str:
+                already_checked_in = True
+                break
+        except Exception:
+            if d_str.startswith(today_tw) and "每日簽到" in t_str:
+                already_checked_in = True
+                break
 
-    # 2. 桌面版 table 格式
+    # 2. 桌面版格式
     if not already_checked_in:
         items = re.findall(
             r"<tr class=\"point-wallet__item\">\s*<td class=\"point-wallet__time\">([^<]+)</td>\s*<td class=\"point-wallet__platform\">([^<]+)</td>\s*<td class=\"point-wallet__content\">([^<]+)</td>",
             html
         )
-        for t, _, c in items:
-            if t.startswith(today_str) and "每日簽到" in c:
-                already_checked_in = True
-                break
+        for t_str, _, c_str in items:
+            try:
+                dt_utc = datetime.strptime(t_str.strip(), "%Y-%m-%d %H:%M:%S").replace(tzinfo=timezone.utc)
+                dt_tw = dt_utc.astimezone(tz_tw)
+                if dt_tw.strftime("%Y-%m-%d") == today_tw and "每日簽到" in c_str:
+                    already_checked_in = True
+                    break
+            except Exception:
+                if t_str.startswith(today_tw) and "每日簽到" in c_str:
+                    already_checked_in = True
+                    break
 
     return {
         "logged_in": True,
@@ -172,10 +176,44 @@ def check_wallet_status(cookie: str) -> dict:
     }
 
 
+def execute_daily_checkin(cookie: str) -> dict:
+    """
+    透過 GET reward_ad 頁面觸發每日簽到 (後端即時入帳)
+    """
+    m_appd = re.search(r"appd=([^;]+)", cookie)
+    appd = m_appd.group(1).strip() if m_appd else DEFAULT_APPD
+
+    headers = {
+        "User-Agent": WEB_UA,
+        "Referer": MISSION_CENTER_URL.format(did=appd),
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    }
+
+    code, html = request_get(REWARD_AD_URL, headers=headers, cookie=cookie)
+    if code != 200:
+        return {"success": False, "msg": f"請求簽到頁面失敗 (HTTP {code})"}
+
+    m_reward = re.search(r"window\.dailyCheckinReward\s*=\s*(\d+)", html)
+    m_has = re.search(r"hasDailyCheckin\s*:\s*(true|false)", html)
+    m_login = re.search(r"isLogin\s*:\s*(true|false)", html)
+
+    reward = int(m_reward.group(1)) if m_reward else 0
+    has_checkin = (m_has.group(1) == "true") if m_has else False
+    is_login = (m_login.group(1) == "true") if m_login else False
+
+    if not is_login and "isLogin" in html:
+        return {"success": False, "msg": "簽到頁面判定未登入，請更新 Cookie"}
+
+    if has_checkin and reward > 0:
+        return {"success": True, "reward": reward, "msg": f"簽到成功！獲得 {reward} 點"}
+    else:
+        return {"success": True, "reward": 0, "msg": "今日已完成簽到"}
+
+
 def run_account_checkin(index: int, total: int, cookie: str) -> dict:
     print(f"\n[{index}/{total}] 檢查 Feebee 會員狀態...")
 
-    # 1. 先確認會員身分與錢包紀錄
+    # 1. 錢包查詢
     wallet = check_wallet_status(cookie)
     if not wallet["logged_in"]:
         print(f"  ❌ 登入校驗失敗: {wallet.get('msg', 'Cookie 無效')}")
@@ -186,103 +224,37 @@ def run_account_checkin(index: int, total: int, cookie: str) -> dict:
     already_checked = wallet["already_checked_in"]
     print(f"  👤 會員: {user_name} | 💰 目前點數: {points} 點")
 
-    # 2. 若今日尚未簽到，觸發簽到流程
+    # 2. 每日簽到
     checkin_msg = ""
     if already_checked:
-        print("  ℹ️ 今日已完成每日簽到，跳過簽到請求")
+        print("  ℹ️ 今日紀錄顯示已完成每日簽到")
         checkin_msg = "今日已簽到"
     else:
-        print("  ⏳ 執行今日簽到...")
-        m_appd = re.search(r"appd=([^;]+)", cookie)
-        appd = m_appd.group(1).strip() if m_appd else generate_signed_appd()
-        page_url = EVENT_URL.format(did=appd)
-        headers = {
-            "User-Agent": APP_UA,
-            "X-feebee-webview": APP_UA,
-            "Referer": "https://feebee.com.tw/point/mission/",
-        }
-        _, html = request_get(page_url, headers, cookie)
-        # 額外嘗試 flybee checkin
-        request_get("https://feebee.com.tw/flybee/checkin", {"User-Agent": WEB_UA}, cookie)
-
-        # 重新檢查錢包確認是否簽到入帳
-        w_after = check_wallet_status(cookie)
-        if w_after.get("already_checked_in"):
-            diff = int(w_after.get("points", 0)) - int(points)
-            reward_str = f"+{diff}" if diff > 0 else "+2"
-            print(f"  🎉 每日簽到成功！獲得 {reward_str} 點 (點數: {w_after.get('points')})")
-            checkin_msg = f"簽到成功({reward_str}點)"
-            points = w_after.get("points")
+        print("  ⏳ 執行每日簽到...")
+        res = execute_daily_checkin(cookie)
+        if res.get("reward", 0) > 0:
+            print(f"  🎉 {res['msg']}")
+            checkin_msg = f"簽到成功(+{res['reward']}點)"
         else:
-            print("  ⚠️ 簽到請求已發送，狀態待確認")
-            checkin_msg = "已發送簽到"
+            print(f"  ℹ️ {res['msg']}")
+            checkin_msg = res["msg"]
 
-    # 3. 執行看廣告抽獎
-    api_headers = {
-        "User-Agent": APP_UA,
-        "X-feebee-webview": APP_UA,
-        "Referer": "https://feebee.com.tw/event/reward_ad",
-        "Origin": "https://feebee.com.tw",
-        "Accept": "application/json, text/plain, */*",
-    }
+    # 3. 複查錢包最新點數
+    w_after = check_wallet_status(cookie)
+    if w_after.get("logged_in"):
+        points = w_after.get("points", points)
 
-    _, status_raw = request_get(API_STATUS_URL, api_headers, cookie)
-    remain_chance = 0
-    remain_time = 0
-    try:
-        status_data = json.loads(status_raw)
-        remain_chance = status_data.get("remain_chance_count", 0)
-        remain_time = status_data.get("remain_time_for_ad", 0)
-        print(f"  🎰 抽獎狀態: 機會 {remain_chance} 次，冷卻 {remain_time} 秒")
-    except Exception:
-        pass
-
-    # 若冷卻為 0 且無次數，驗證廣告獲取抽獎資格
-    if remain_chance == 0 and remain_time == 0:
-        v_ts = int(time.time())
-        verify_url = f"{API_VERIFY_URL}?v_ts={v_ts}"
-        _, verify_raw = request_get(verify_url, api_headers, cookie)
-        try:
-            v_data = json.loads(verify_raw)
-            if v_data.get("verify_status"):
-                print("  ✅ 廣告觀看驗證成功，獲得 1 次抽獎機會！")
-                remain_chance = 1
-        except Exception:
-            pass
-
-    # 執行抽獎
-    lottery_msg = ""
-    if remain_chance > 0:
-        _, lottery_raw = request_get(API_LOTTERY_URL, api_headers, cookie)
-        try:
-            l_data = json.loads(lottery_raw)
-            point = l_data.get("point", 0)
-            err = l_data.get("error_code", "")
-            if l_data.get("prize") or point > 0:
-                print(f"  🎁 抽獎中獎！獲得 {point} 點！")
-                lottery_msg = f"抽中 {point} 點"
-            elif err:
-                lottery_msg = f"抽獎限制({err})"
-            else:
-                lottery_msg = "抽獎未中"
-        except Exception:
-            pass
-
-    parts = [f"👤 {user_name}", checkin_msg]
-    if lottery_msg:
-        parts.append(lottery_msg)
-    parts.append(f"💰 餘額: {points}點")
-
+    summary = f"👤 {user_name} | {checkin_msg} | 💰 餘額: {points}點"
     return {
         "success": True,
         "user_name": user_name,
         "points": points,
-        "msg": " | ".join(parts)
+        "msg": summary
     }
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Feebee 每日自動簽到與看廣告抽獎")
+    parser = argparse.ArgumentParser(description="Feebee 每日自動簽到 (純簽到)")
     parser.add_argument("--cookie", type=str, help="Feebee Cookie 字串")
     args = parser.parse_args()
 
