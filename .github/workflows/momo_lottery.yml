@@ -20,7 +20,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install --upgrade pillow
+          pip install --upgrade pillow curl_cffi
 
       - name: Run Momo Draw, Quiz & Daily Check-in
         env:

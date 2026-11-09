@@ -45,11 +45,11 @@ load_dotenv()
 DEFAULT_EDM_URL = "https://www.momoshop.com.tw/edm/cmmedm.jsp?lpn=O7ylWmQ3frf&n=1"
 API_URL = "https://event.momoshop.com.tw/promoMechReg.PROMO"
 
-# 11/1 正式活動代碼 (解析自 it_constant.js)
-DEFAULT_M_PROMO_NO = "U96110100003"
-DEFAULT_DT_PROMO_NO = "D96110100001"
+# 11/9 正式活動代碼 (解析自 it_constant.js)
+DEFAULT_M_PROMO_NO = "U96110900001"
+DEFAULT_DT_PROMO_NO = "D96110900001"
 
-# 11/1 每日 18 個時段 (各時段 11 分)
+# 11/1 - 11/11 每日 18 個時段 (各時段 11 分)
 SLOTS = [
     (0, 11),  (1, 11),
     (8, 11),  (9, 11),  (10, 11), (11, 11),
@@ -70,9 +70,11 @@ PRIZE_MAP = {
     "mo_111": "🧧 momo幣 $111",
     "mo_11": "🧧 momo幣 $11",
     "mo_1": "🧧 momo幣 $1",
-    "coupon_88": "🎫 88折折價券",
+    "coupon_30": "🎫 $30折價券",
     "coupon_111": "🎫 $111折價券",
     "coupon_222": "🎫 $222折價券",
+    "coupon_300": "🎫 $300折價券",
+    "coupon_88": "🎫 88折折價券",
     "coupon00": "🎫 $111折價券"
 }
 
@@ -146,65 +148,87 @@ def load_all_cookies(cookie_arg: str = None) -> list:
     return cookies
 
 
+def fetch_page_text(url: str, timeout: int = 8) -> str:
+    """嘗試透過 curl_cffi 或標準 urllib 抓取網頁內容以繞過 Akamai 阻擋"""
+    try:
+        from curl_cffi import requests as cffi_requests
+        resp = cffi_requests.get(url, impersonate="chrome124", timeout=timeout, headers=HEADERS)
+        if resp.status_code == 200:
+            return resp.text
+    except Exception:
+        pass
+
+    try:
+        req = urllib.request.Request(url, headers=HEADERS)
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            return resp.read().decode("utf-8", errors="ignore")
+    except Exception:
+        pass
+    return ""
+
+
 def sniff_promo_params(edm_url: str = DEFAULT_EDM_URL) -> tuple:
     """自動探測最新紅包雨的 mPromoNo 與 dtPromoNo"""
-    print(f"[{datetime.now().strftime('%H:%M:%S')}] 正在探測 momo 11/1 紅包雨活動參數...")
+    print(f"[{datetime.now().strftime('%H:%M:%S')}] 正在探測 momo 雙11 紅包雨活動參數...")
     try:
-        req = urllib.request.Request(edm_url, headers=HEADERS)
-        with urllib.request.urlopen(req, timeout=6) as resp:
-            html = resp.read().decode("utf-8", errors="ignore")
+        html = fetch_page_text(edm_url, timeout=8)
 
-        # 1. 優先從 it_init.js 與同層目錄之 it_constant.js 抓取正式設定檔
-        m_it = re.search(r'src=[\"\']([^\"\']*it_init\.js[^\"\']*)[\"\']', html)
-        if m_it:
-            init_url = m_it.group(1)
-            if init_url.startswith("//"):
-                init_url = "https:" + init_url
+        # 1. 優先從 EDM 中的 it_init.js 與同層目錄之 it_constant.js 抓取正式設定檔
+        it_matches = re.findall(r'src=[\"\']([^\"\']*it_init\.js[^\"\']*)[\"\']', html) if html else []
+        for it_src in it_matches:
+            init_url = it_src if it_src.startswith("http") else ("https:" + it_src if it_src.startswith("//") else it_src)
             base_dir = init_url.rsplit("/", 1)[0]
             ts = init_url.split("?")[1] if "?" in init_url else ""
             it_url = f"{base_dir}/it_constant.js?{ts}" if ts else f"{base_dir}/it_constant.js"
-            try:
-                it_req = urllib.request.Request(it_url, headers=HEADERS)
-                with urllib.request.urlopen(it_req, timeout=6) as it_resp:
-                    it_code = it_resp.read().decode("utf-8", errors="ignore")
-                    mno_m = re.search(r'mno\s*:\s*[\"\']([^\"\']+)[\"\']', it_code)
-                    dtno_m = re.search(r'firstDtNo\s*:\s*[\"\']([^\"\']+)[\"\']', it_code)
-                    if mno_m and dtno_m:
-                        m_val = mno_m.group(1)
-                        dt_val = dtno_m.group(1)
-                        print(f"[{datetime.now().strftime('%H:%M:%S')}] 探測成功 (it_constant)！m_promo_no={m_val}, dt_promo_no={dt_val}")
-                        return m_val, dt_val
-            except Exception:
-                pass
+            it_code = fetch_page_text(it_url, timeout=6)
+            mno_m = re.search(r'mno\s*:\s*[\"\']([^\"\']+)[\"\']', it_code)
+            dtno_m = re.search(r'firstDtNo\s*:\s*[\"\']([^\"\']+)[\"\']', it_code)
+            if mno_m and dtno_m:
+                m_val = mno_m.group(1)
+                dt_val = dtno_m.group(1)
+                print(f"[{datetime.now().strftime('%H:%M:%S')}] 探測成功 (it_constant)！m_promo_no={m_val}, dt_promo_no={dt_val}")
+                return m_val, dt_val
 
-        # 2. 從 couponRain.js 抓取
-        m_js = re.search(r'src=[\"\']([^\"\']*couponRain\.js[^\"\']*)[\"\']', html)
-        if m_js:
-            js_url = m_js.group(1)
-            if js_url.startswith("//"):
-                js_url = "https:" + js_url
-            try:
-                js_req = urllib.request.Request(js_url, headers=HEADERS)
-                with urllib.request.urlopen(js_req, timeout=6) as js_resp:
-                    js_code = js_resp.read().decode("utf-8", errors="ignore")
-                    m_m = re.search(r'mPromoNo\s*:\s*[\"\']([^\"\']+)[\"\']', js_code)
-                    dt_m = re.search(r'dtPromoNo\s*:\s*[\"\']([^\"\']+)[\"\']', js_code)
-                    if m_m and dt_m:
-                        m_val = m_m.group(1)
-                        dt_val = dt_m.group(1)
-                        print(f"[{datetime.now().strftime('%H:%M:%S')}] 探測成功 (couponRain)！m_promo_no={m_val}, dt_promo_no={dt_val}")
-                        return m_val, dt_val
-            except Exception:
-                pass
+        # 2. 直接從 CDN 靜態資源探測 it_constant.js (不經 Akamai 阻擋)
+        static_it_candidates = [
+            "https://image.momoshop.com.tw/ecm/img/online/10/007/05/253/images/it_constant.js",
+            "https://img1.momoshop.com.tw/ecm/img/online/10/007/05/253/images/it_constant.js"
+        ]
+        for it_url in static_it_candidates:
+            it_code = fetch_page_text(it_url, timeout=5)
+            if it_code:
+                mno_m = re.search(r'mno\s*:\s*[\"\']([^\"\']+)[\"\']', it_code)
+                dtno_m = re.search(r'firstDtNo\s*:\s*[\"\']([^\"\']+)[\"\']', it_code)
+                if mno_m and dtno_m:
+                    m_val = mno_m.group(1)
+                    dt_val = dtno_m.group(1)
+                    print(f"[{datetime.now().strftime('%H:%M:%S')}] 探測成功 (CDN it_constant)！m_promo_no={m_val}, dt_promo_no={dt_val}")
+                    return m_val, dt_val
 
-        # 3. 正則比對頁面中可能的 Promo 代碼
-        promo_match = re.search(r'[\"\']([UD]961101\w+)[\"\']', html)
-        if promo_match:
-            code = promo_match.group(1)
-            m_val = "U" + code[1:]
-            dt_val = "D" + code[1:]
-            print(f"[{datetime.now().strftime('%H:%M:%S')}] 頁面探測到活動代碼：{m_val} / {dt_val}")
-            return m_val, dt_val
+        # 3. 從 couponRain.js 抓取
+        if html:
+            m_js = re.search(r'src=[\"\']([^\"\']*couponRain\.js[^\"\']*)[\"\']', html)
+            if m_js:
+                js_url = m_js.group(1)
+                if js_url.startswith("//"):
+                    js_url = "https:" + js_url
+                js_code = fetch_page_text(js_url, timeout=6)
+                m_m = re.search(r'mPromoNo\s*:\s*[\"\']([^\"\']+)[\"\']', js_code)
+                dt_m = re.search(r'dtPromoNo\s*:\s*[\"\']([^\"\']+)[\"\']', js_code)
+                if m_m and dt_m:
+                    m_val = m_m.group(1)
+                    dt_val = dt_m.group(1)
+                    print(f"[{datetime.now().strftime('%H:%M:%S')}] 探測成功 (couponRain)！m_promo_no={m_val}, dt_promo_no={dt_val}")
+                    return m_val, dt_val
+
+            # 4. 正則比對頁面中可能的 Promo 代碼
+            promo_match = re.search(r'[\"\']([UD]96\d+)[\"\']', html)
+            if promo_match:
+                code = promo_match.group(1)
+                m_val = "U" + code[1:]
+                dt_val = "D" + code[1:]
+                print(f"[{datetime.now().strftime('%H:%M:%S')}] 頁面探測到活動代碼：{m_val} / {dt_val}")
+                return m_val, dt_val
     except Exception as e:
         print(f"探測異常: {e}")
 
