@@ -45,9 +45,9 @@ load_dotenv()
 DEFAULT_EDM_URL = "https://www.momoshop.com.tw/edm/cmmedm.jsp?lpn=O7ylWmQ3frf&n=1"
 API_URL = "https://event.momoshop.com.tw/promoMechReg.PROMO"
 
-# 11/9 正式活動代碼 (解析自 it_constant.js)
-DEFAULT_M_PROMO_NO = "U96110900001"
-DEFAULT_DT_PROMO_NO = "D96110900001"
+# 11/10 正式活動代碼 (解析自 it_constant.js)
+DEFAULT_M_PROMO_NO = "U96111000001"
+DEFAULT_DT_PROMO_NO = "D96111000001"
 
 # 11/1 - 11/11 每日 18 個時段 (各時段 11 分)
 SLOTS = [
