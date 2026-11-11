@@ -37,10 +37,11 @@ jobs:
           python3 momo_redpacket.py --now --silent-if-limit || true
           # python3 momo_bot.py --now --silent-if-limit || true
           
-          # 簽到與點數檢查僅在每日 00 點執行一次，降低機房頻繁呼叫風控風險
+          # 簽到、轉盤與點數檢查僅在每日 00 點執行一次，降低機房頻繁呼叫風控風險
           CURRENT_HOUR=$(date +%H)
           if [ "$CURRENT_HOUR" = "00" ]; then
             python3 momo_checkin.py || true
+            python3 momo_wheel.py --silent-if-limit || true
             python3 momo_coin.py || true
             if [ -n "$FEEBEE_COOKIE" ]; then
               python3 feebee_checkin.py || true
