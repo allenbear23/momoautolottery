@@ -1,0 +1,32 @@
+name: Momo 11/13 滿額送好禮搶登記
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 2026-11-13 11:45 Asia/Taipei (03:45 UTC)，預留 15 分鐘緩衝以精準對齊 12:00:00 開搶
+    - cron: '45 3 13 11 *'
+
+jobs:
+  grab-gift:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: |
+          pip install --upgrade curl_cffi
+
+      - name: Run Gift Registration at 12:00:00
+        env:
+          TZ: 'Asia/Taipei'
+          MOMO_COOKIE: ${{ secrets.MOMO_COOKIE }}
+          BARK_KEY: ${{ secrets.BARK_KEY }}
+        run: |
+          python3 momo_gift_reg.py
