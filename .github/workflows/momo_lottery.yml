@@ -6,9 +6,14 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: momo-auto-task
+  cancel-in-progress: true
+
 jobs:
   run-tasks:
     runs-on: ubuntu-latest
+    timeout-minutes: 70
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -33,13 +38,14 @@ jobs:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           FEEBEE_COOKIE: ${{ secrets.FEEBEE_COOKIE }}
         run: |
+          START_HOUR=$(date +%H)
           # python3 momo_quiz.py --now --silent-if-limit --auto-claim || true
           python3 momo_redpacket.py --now --silent-if-limit || true
           # python3 momo_bot.py --now --silent-if-limit || true
           
           # 簽到、轉盤與點數檢查僅在每日 00 點執行一次，降低機房頻繁呼叫風控風險
-          CURRENT_HOUR=$(date +%H)
-          if [ "$CURRENT_HOUR" = "00" ]; then
+          # 以觸發時的小時 (START_HOUR) 判斷，避免搶獎等待跨越整點時遺漏每日簽到
+          if [ "$START_HOUR" = "00" ]; then
             python3 momo_checkin.py || true
             python3 momo_wheel.py --silent-if-limit || true
             python3 momo_coin.py || true

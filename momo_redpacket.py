@@ -666,7 +666,7 @@ def fetch_homepage_edm_urls() -> list:
 
 
 def _extract_hub_candidate_urls(hub_html: str) -> list:
-    """從主會場/攻略/總覽 EDM HTML 提取最可能包含搶紅包的內頁連結"""
+    """從主會場/攻略/總覽 EDM HTML 提取候選內頁連結 (依關鍵字權重排序，不截斷後續活動)"""
     scored = []
     seen = set()
     for m in re.finditer(r"https?://www\.momoshop\.com\.tw/edm/cmmedm\.jsp\?(?:lpn|npn)=[A-Za-z0-9]+", hub_html):
@@ -674,26 +674,64 @@ def _extract_hub_candidate_urls(hub_html: str) -> list:
         if norm in seen:
             continue
         seen.add(norm)
-        ctx = hub_html[max(0, m.start() - 120):m.end() + 200]
-        w = len(re.findall(r"紅包|狂撒|驚喜|mo點|mo幣|搶|轉盤|999", ctx))
+        ctx = hub_html[max(0, m.start() - 120):m.end() + 500]
+        w = len(re.findall(r"紅包|狂撒|驚喜|mo點|mo幣|搶|轉盤|轉轉樂|好運轉|抽獎|主會場|攻略|999", ctx))
         scored.append((w, norm))
     scored.sort(key=lambda x: x[0], reverse=True)
-    return [u for w, u in scored if w > 0] or [u for _, u in scored[:15]]
+    return [u for _, u in scored]
+
+
+def _scan_urls_concurrently(
+    urls: list,
+    checked_urls: set,
+    today: date,
+    source_label: str,
+    require_signals: bool,
+    batch_size: int = 12,
+) -> tuple:
+    """分批並行探測候選 URL，回傳 (qualified_list, discovered_hubs)"""
+    qualified = []
+    discovered_hubs = []
+    pending = [u for u in urls if u not in checked_urls]
+    if not pending:
+        return qualified, discovered_hubs
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=batch_size) as ex:
+        for offset in range(0, len(pending), batch_size):
+            batch = pending[offset:offset + batch_size]
+            checked_urls.update(batch)
+            for res in ex.map(lambda u: analyze_edm_candidate(u, require_redpacket_signals=False, today=today), batch):
+                if not res:
+                    continue
+                if res.get("is_hub") and res.get("html"):
+                    discovered_hubs.append(res)
+                if not res.get("m_promo_no") or not res.get("is_active_today"):
+                    continue
+                if require_signals:
+                    slots = res.get("slots", [])
+                    score = res.get("score", -1)
+                    if score <= 0 or (len(slots) == 0 and score < 75):
+                        continue
+                res["source"] = source_label
+                qualified.append(res)
+            if qualified:
+                break
+
+    return qualified, discovered_hubs
 
 
 def discover_active_campaign(explicit_url: Optional[str] = None, allow_fallback: bool = True, today: Optional[date] = None) -> Optional[dict]:
     """
-    三層自動探測進行中的紅包/整點開搶活動：
+    三層自動探測進行中的紅包/轉盤/整點開搶活動：
     1. 明確指定 URL (CLI --url 或 MOMO_EVENT_URL) 與預設快速路徑 (DEFAULT_EDM_URL)
-    2. Momo 首頁 getMainPageV5 動態活動看板並行掃描
-    3. 首頁主會場 / 攻略頁 / 活動總覽內頁展開掃描
+    2. Momo 首頁 getMainPageV5 動態活動看板全量並行掃描 (不分前後位置皆掃描)
+    3. 首頁主會場 / 攻略頁 / 活動總覽最多 2 層展開掃描
     """
     if today is None:
         today = taipei_now().date()
 
     env_url = os.getenv("MOMO_EVENT_URL", "").strip()
     user_url = explicit_url or env_url
-
     checked_urls = set()
 
     # 1. 若有明確指定 URL，先探測
@@ -707,7 +745,7 @@ def discover_active_campaign(explicit_url: Optional[str] = None, allow_fallback:
                 return cand
             print(f"[{taipei_now().strftime('%H:%M:%S')}] ⚠️ 指定活動頁 {resolved} 已不在今日活動期 ({cand['date_ranges']})，改為自動搜尋首頁新活動...")
 
-    # 2. 快速檢查 DEFAULT_EDM_URL (若與 user_url 不同)
+    # 2. 快速檢查 DEFAULT_EDM_URL
     if DEFAULT_EDM_URL not in checked_urls:
         checked_urls.add(DEFAULT_EDM_URL)
         cand = analyze_edm_candidate(DEFAULT_EDM_URL, require_redpacket_signals=True, today=today)
@@ -718,73 +756,58 @@ def discover_active_campaign(explicit_url: Optional[str] = None, allow_fallback:
     if not allow_fallback:
         return None
 
-    # 3. 從 Momo 首頁 API 自動發現候選活動頁
+    # 3. 從 Momo 首頁 API 全量掃描候選活動頁 (高優先度看板排前，但不再截斷尾端活動)
     print(f"[{taipei_now().strftime('%H:%M:%S')}] 🔍 預設活動頁未開放或已過期，正在從 Momo 首頁自動搜尋新場次與活動...")
-    homepage_urls = [u for u in fetch_homepage_edm_urls() if u not in checked_urls]
-    checked_urls.update(homepage_urls)
-
-    qualified = []
-    discovered_hubs = []
-
-    def _probe(u):
-        return analyze_edm_candidate(u, require_redpacket_signals=False, today=today)
-
-    if homepage_urls:
-        batch_size = 12
-        with concurrent.futures.ThreadPoolExecutor(max_workers=batch_size) as ex:
-            for offset in range(0, min(len(homepage_urls), 36), batch_size):
-                batch = homepage_urls[offset:offset + batch_size]
-                for res in ex.map(_probe, batch):
-                    if not res:
-                        continue
-                    if res.get("is_hub") and res.get("html"):
-                        discovered_hubs.append(res)
-                    if res.get("m_promo_no") and res.get("is_active_today") and res.get("score", -1) > 0:
-                        if len(res.get("slots", [])) >= 1 or res.get("score", 0) >= 75:
-                            res["source"] = "首頁自動探測"
-                            qualified.append(res)
-                if qualified:
-                    break
-
+    homepage_urls = fetch_homepage_edm_urls()
+    qualified, discovered_hubs = _scan_urls_concurrently(
+        homepage_urls, checked_urls, today, source_label="首頁自動探測", require_signals=True
+    )
     if qualified:
         qualified.sort(key=lambda c: (c["score"], len(c["slots"])), reverse=True)
         return qualified[0]
 
-    # 4. 展開首頁主會場 / 攻略頁 / 活動總覽尋找子活動頁
-    hub_links = []
-    seen_hub_links = set()
-    for h_res in discovered_hubs:
-        for u in _extract_hub_candidate_urls(h_res["html"]):
-            if u not in checked_urls and u not in seen_hub_links:
-                seen_hub_links.add(u)
-                hub_links.append(u)
-
+    # 4. 展開首頁主會場 / 攻略頁 / 活動總覽 (最多 2 層，涵蓋 總覽 -> 主會場 -> 活動頁)
+    hub_queue = list(discovered_hubs)
     for fb_hub in FALLBACK_HUB_URLS:
         if fb_hub not in checked_urls:
+            checked_urls.add(fb_hub)
             fb_html = fetch_page_text(fb_hub, timeout=8)
-            if fb_html:
-                for u in _extract_hub_candidate_urls(fb_html):
-                    if u not in checked_urls and u not in seen_hub_links:
-                        seen_hub_links.add(u)
-                        hub_links.append(u)
+            if fb_html and "此EDM不存在" not in fb_html:
+                hub_queue.append({"url": fb_hub, "html": fb_html, "is_hub": True})
 
-    if hub_links:
-        with concurrent.futures.ThreadPoolExecutor(max_workers=8) as ex:
-            for res in ex.map(lambda u: analyze_edm_candidate(u, require_redpacket_signals=True, today=today), hub_links[:25]):
-                if res and res.get("m_promo_no"):
-                    res["source"] = "攻略/會場自動探測"
-                    qualified.append(res)
-
-    if qualified:
-        qualified.sort(key=lambda c: (c["score"], len(c["slots"])), reverse=True)
-        return qualified[0]
+    for _depth in range(2):
+        if not hub_queue:
+            break
+        child_urls = []
+        seen_children = set()
+        for h_res in hub_queue:
+            for u in _extract_hub_candidate_urls(h_res.get("html", "")):
+                if u not in checked_urls and u not in seen_children:
+                    seen_children.add(u)
+                    child_urls.append(u)
+        if not child_urls:
+            break
+        qualified, next_hubs = _scan_urls_concurrently(
+            child_urls[:60], checked_urls, today, source_label="攻略/會場自動探測", require_signals=True
+        )
+        if qualified:
+            qualified.sort(key=lambda c: (c["score"], len(c["slots"])), reverse=True)
+            return qualified[0]
+        hub_queue = next_hubs
 
     return None
 
 
-def find_matching_slot(slots: list, now: datetime = None, past_grace_sec: int = 300, future_window_sec: int = 480) -> tuple:
+def find_matching_slot(
+    slots: list,
+    now: datetime = None,
+    past_grace_sec: int = 300,
+    future_window_sec: int = 3540,
+    date_ranges: list = None,
+) -> tuple:
     """
-    找出距離當前時間最近且落在可搶時間視窗 (-5分 ~ +8分) 內的開放場次
+    找出距離當前時間最近且落在可搶等待視窗 (-5分 ~ +59分) 內的開放場次
+    支援從固定排程 (如 xx:10) 自動接軌下一小時內的整點 (:00) 或任何分鐘場次
     回傳 ((hour, minute), slot_datetime, delta_seconds) 或 (None, None, None)
     """
     if not slots:
@@ -793,17 +816,57 @@ def find_matching_slot(slots: list, now: datetime = None, past_grace_sec: int = 
         now = taipei_now()
 
     eligible = []
-    for h, m in slots:
-        slot_dt = now.replace(hour=h, minute=m, second=0, microsecond=0)
-        delta = (slot_dt - now).total_seconds()
-        if -past_grace_sec <= delta <= future_window_sec:
-            eligible.append(((h, m), slot_dt, delta))
+    day_offsets = [0]
+    if now.hour >= 22:
+        tomorrow_d = (now + timedelta(days=1)).date()
+        if not date_ranges or any(s <= tomorrow_d <= e for s, e in date_ranges):
+            day_offsets.append(1)
+
+    for offset in day_offsets:
+        base_dt = now + timedelta(days=offset)
+        for h, m in slots:
+            slot_dt = base_dt.replace(hour=h, minute=m, second=0, microsecond=0)
+            delta = (slot_dt - now).total_seconds()
+            if -past_grace_sec <= delta <= future_window_sec:
+                eligible.append(((h, m), slot_dt, delta))
 
     if not eligible:
         return None, None, None
 
-    # 優先選擇尚未超過太久、絕對時間差最小的場次
     return min(eligible, key=lambda x: abs(x[2]))
+
+
+def select_dt_promo_no(campaign: dict, slot_dt: Optional[datetime] = None) -> str:
+    """依鎖定場次對應正確的 dt_promo_no (如 10 場對應 D...01~10)；單碼活動則回傳第 1 碼"""
+    dt_list = campaign.get("dt_promo_nos") or [DEFAULT_DT_PROMO_NO]
+    slots = campaign.get("slots") or []
+    if slot_dt is not None and len(dt_list) == len(slots) and len(dt_list) > 1:
+        key = (slot_dt.hour, slot_dt.minute)
+        if key in slots:
+            return dt_list[slots.index(key)]
+    return dt_list[0]
+
+
+def prewarm_connection(campaign: dict, dt_promo_no: str):
+    """開搶前先預熱 event.momoshop.com.tw 的 DNS 與 TLS 連線，減少首包延遲"""
+    api_url = campaign.get("api_url", DEFAULT_API_URL)
+    cnt_url = api_url.rsplit("/", 1)[0] + "/promoMechCnt.PROMO"
+    payload = json.dumps({
+        "m_promo_no": campaign.get("m_promo_no", DEFAULT_M_PROMO_NO),
+        "dt_promo_no": dt_promo_no,
+        "cnt_type": "1002",
+    }).encode("utf-8")
+    headers = {
+        "User-Agent": HEADERS["User-Agent"],
+        "Content-Type": "application/json;charset=utf-8",
+        "Origin": "https://www.momoshop.com.tw",
+        "Referer": campaign.get("url", DEFAULT_EDM_URL),
+    }
+    try:
+        req = urllib.request.Request(cnt_url, data=payload, headers=headers, method="POST")
+        urllib.request.urlopen(req, timeout=3)
+    except Exception:
+        pass
 
 
 def send_draw_request(cookie: str, m_promo_no: str, dt_promo_no: str, api_url: str = DEFAULT_API_URL, referer: str = DEFAULT_EDM_URL) -> dict:
@@ -870,22 +933,50 @@ def grab_redpacket_single_account(
         print(f"[{account_label}] ⚠️ 回應：{status_desc} | 回傳內容: {res}")
 
 
-def wait_until_slot_snipe(slot_dt: datetime, max_wait_seconds: int = 480):
+def wait_until_slot_snipe(slot_dt: datetime, campaign: Optional[dict] = None, max_wait_seconds: int = 3540):
     now = taipei_now()
     diff = (slot_dt - now).total_seconds()
 
     if diff <= 0 or diff > max_wait_seconds:
         return
 
-    print(f"[{now.strftime('%H:%M:%S')}] 鎖定紅包場次 {slot_dt.strftime('%H:%M')}，距離開搶剩 {diff:.1f} 秒，倒數中...")
-    if diff > 1.5:
-        time.sleep(diff - 1.5)
+    print(f"[{now.strftime('%H:%M:%S')}] 鎖定場次 {slot_dt.strftime('%m/%d %H:%M')}，距離開搶剩 {diff:.1f} 秒，等待中...")
+
+    # 若等待超過 2 分鐘，於開搶前 90 秒醒來重抓活動參數 (避免官方開搶前換碼)
+    if diff > 120:
+        sleep_sec = (slot_dt.timestamp() - 90) - time.time()
+        if sleep_sec > 0:
+            time.sleep(sleep_sec)
+        if campaign and campaign.get("url"):
+            refreshed = analyze_edm_candidate(campaign["url"], require_redpacket_signals=False, today=slot_dt.date())
+            if refreshed and refreshed.get("m_promo_no"):
+                campaign.update({
+                    "m_promo_no": refreshed["m_promo_no"],
+                    "dt_promo_nos": refreshed["dt_promo_nos"],
+                    "api_url": refreshed["api_url"],
+                    "prize_map": refreshed["prize_map"],
+                    "reg_messages": refreshed["reg_messages"],
+                    "slots": refreshed.get("slots") or campaign.get("slots", []),
+                })
+                print(f"[{taipei_now().strftime('%H:%M:%S')}] 🔄 開搶前確認最新活動代碼: mPromoNo={campaign['m_promo_no']}")
+
+    rem_prewarm = (slot_dt.timestamp() - 15) - time.time()
+    if rem_prewarm > 0:
+        time.sleep(rem_prewarm)
+
+    if campaign:
+        dt_no = select_dt_promo_no(campaign, slot_dt)
+        prewarm_connection(campaign, dt_no)
+
+    rem_coarse = (slot_dt.timestamp() - 1.5) - time.time()
+    if rem_coarse > 0:
+        time.sleep(rem_coarse)
 
     rem = (slot_dt.timestamp() - 0.2) - time.time()
     if rem > 0:
         time.sleep(rem)
 
-    print(f"[{taipei_now().strftime('%H:%M:%S.%f')[:-3]}] 🚀 到達開搶點 (T-0.2s)，發射搶紅包請求！")
+    print(f"[{taipei_now().strftime('%H:%M:%S.%f')[:-3]}] 🚀 到達開搶點 (T-0.2s)，發射搶獎請求！")
 
 
 def print_campaign_summary(campaign: dict):
@@ -900,12 +991,12 @@ def print_campaign_summary(campaign: dict):
 
 
 def run_sniper_session(cookies: list, campaign: dict, slot_dt: datetime = None, wait_snipe: bool = True):
-    """多帳號並行極速搶紅包"""
+    """多帳號並行極速搶獎"""
     if wait_snipe and slot_dt is not None:
-        wait_until_slot_snipe(slot_dt)
+        wait_until_slot_snipe(slot_dt, campaign=campaign)
 
     m_promo_no = campaign["m_promo_no"]
-    dt_promo_no = campaign["dt_promo_nos"][0]
+    dt_promo_no = select_dt_promo_no(campaign, slot_dt)
     api_url = campaign.get("api_url", DEFAULT_API_URL)
     referer = campaign.get("url", DEFAULT_EDM_URL)
     prize_map = campaign.get("prize_map")
@@ -913,7 +1004,7 @@ def run_sniper_session(cookies: list, campaign: dict, slot_dt: datetime = None, 
     slot_label = slot_dt.strftime("%H:%M") if slot_dt else taipei_now().strftime("%H:%M")
 
     print("\n========================================================================")
-    print(f"🧧 開始執行搶紅包任務 ({slot_label}) | 帳號數: {len(cookies)} 組")
+    print(f"🧧 開始執行開搶任務 ({slot_label}) | 帳號數: {len(cookies)} 組")
     print(f"🎯 活動: {campaign.get('title') or m_promo_no} | mPromoNo={m_promo_no}, dtPromoNo={dt_promo_no}")
     print("========================================================================")
 
@@ -973,7 +1064,7 @@ def main():
             return
         print_campaign_summary(campaign)
         slots = campaign.get("slots", [])
-        best_slot, slot_dt, delta = find_matching_slot(slots, now=now)
+        best_slot, slot_dt, delta = find_matching_slot(slots, now=now, date_ranges=campaign.get("date_ranges"))
         if best_slot:
             print(f"✅ 當前時間 ({now.strftime('%H:%M:%S')}) 命中開放場次 {slot_dt.strftime('%H:%M')} (時差 {delta:+.1f}s)")
         else:
@@ -1003,7 +1094,7 @@ def main():
             run_sniper_session(cookies, campaign, slot_dt=None, wait_snipe=False)
             return
 
-        best_slot, slot_dt, _ = find_matching_slot(slots, now=now)
+        best_slot, slot_dt, _ = find_matching_slot(slots, now=now, date_ranges=campaign.get("date_ranges"))
         if not best_slot:
             slot_strs = ", ".join(f"{h:02d}:{m:02d}" for h, m in slots)
             print(f"⏸️ [{now.strftime('%H:%M:%S')}] 目前非今日開放場次，今日場次：[{slot_strs}]，略過發射。")
