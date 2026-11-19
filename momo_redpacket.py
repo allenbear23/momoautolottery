@@ -493,7 +493,7 @@ def _extract_promo_config(edm_url: str, html: str, ref_year: int) -> Optional[di
                     "url": edm_url,
                 }
 
-    # 3. gameConfig.js 抽抽樂架構
+    # 3. gameConfig.js 抽抽樂架構 (如桃金日好運抽抽樂 -> game/momoLottery.PROMO)
     game_matches = re.findall(r"src=[\"']([^\"']*gameConfig\.js[^\"']*)[\"']", html)
     for g_src in game_matches:
         js_code = fetch_page_text(normalize_url(g_src), timeout=6)
@@ -501,12 +501,30 @@ def _extract_promo_config(edm_url: str, html: str, ref_year: int) -> Optional[di
             m_no = re.search(r"mPromoNo\s*=\s*[\"']([^\"']+)[\"']", js_code)
             dt_no = re.search(r"dtPromoNo\s*=\s*[\"']([^\"']+)[\"']", js_code)
             if m_no and dt_no and not _is_stale_year_code(m_no.group(1), ref_year):
+                url_m = re.search(r"mahjongGameUrl\s*=\s*[\"']([^\"']+)[\"']", js_code)
+                api_url = url_m.group(1).strip() if url_m else "https://event.momoshop.com.tw/game/momoLottery.PROMO"
+
+                prize_map = dict(DEFAULT_PRIZE_MAP)
+                gift_block = re.search(r"giftName\s*=\s*\{(.*?)\}", js_code, flags=re.S)
+                if gift_block:
+                    for code, name in re.findall(r"[\"'](\w+)[\"']\s*:\s*[\"']([^\"']+)[\"']", gift_block.group(1)):
+                        if code.startswith("mo_"):
+                            prize_map[code] = f"🧧 ${name.replace('元', '')} mo點"
+                        else:
+                            prize_map[code] = f"🀄 字卡「{name}」"
+
+                reg_messages = dict(DEFAULT_RETURN_MESSAGES)
+                msg_block = re.search(r"returnMessage\s*=\s*\{(.*?)\}", js_code, flags=re.S)
+                if msg_block:
+                    for code, msg in re.findall(r"[\"'](\w+)[\"']\s*:\s*[\"']([^\"']+)[\"']", msg_block.group(1)):
+                        reg_messages[code] = msg.replace("\n", " ").replace("\r", "").strip()
+
                 return {
                     "m_promo_no": m_no.group(1),
                     "dt_promo_nos": [dt_no.group(1)],
-                    "api_url": "https://event.momoshop.com.tw/game/momoLottery.PROMO",
-                    "prize_map": dict(DEFAULT_PRIZE_MAP),
-                    "reg_messages": dict(DEFAULT_RETURN_MESSAGES),
+                    "api_url": api_url,
+                    "prize_map": prize_map,
+                    "reg_messages": reg_messages,
                     "mech": "gameConfig",
                     "url": edm_url,
                 }
@@ -583,6 +601,13 @@ def analyze_edm_candidate(edm_url: str, require_redpacket_signals: bool = True, 
         if score <= 0:
             return None
 
+    max_draws = 2 if promo["mech"] == "gameConfig" else 1
+    draw_cnt_m = re.search(r"(?:可各?抽獎|限抽|限玩|可抽)\s*(\d+)\s*次", head_text)
+    if draw_cnt_m:
+        parsed_cnt = int(draw_cnt_m.group(1))
+        if 1 <= parsed_cnt <= 5:
+            max_draws = parsed_cnt
+
     return {
         "url": resolved_url,
         "title": title,
@@ -598,6 +623,7 @@ def analyze_edm_candidate(edm_url: str, require_redpacket_signals: bool = True, 
         "prize_map": promo["prize_map"],
         "reg_messages": promo["reg_messages"],
         "mech": promo["mech"],
+        "max_draws": max_draws,
     }
 
 
@@ -850,12 +876,21 @@ def select_dt_promo_no(campaign: dict, slot_dt: Optional[datetime] = None) -> st
 def prewarm_connection(campaign: dict, dt_promo_no: str):
     """開搶前先預熱 event.momoshop.com.tw 的 DNS 與 TLS 連線，減少首包延遲"""
     api_url = campaign.get("api_url", DEFAULT_API_URL)
-    cnt_url = api_url.rsplit("/", 1)[0] + "/promoMechCnt.PROMO"
-    payload = json.dumps({
-        "m_promo_no": campaign.get("m_promo_no", DEFAULT_M_PROMO_NO),
-        "dt_promo_no": dt_promo_no,
-        "cnt_type": "1002",
-    }).encode("utf-8")
+    if "momoLottery.PROMO" in api_url:
+        target_url = api_url
+        payload_obj = {
+            "doAction": "qry",
+            "m_promo_no": campaign.get("m_promo_no", DEFAULT_M_PROMO_NO),
+            "dt_promo_no": dt_promo_no,
+        }
+    else:
+        target_url = api_url.rsplit("/", 1)[0] + "/promoMechCnt.PROMO"
+        payload_obj = {
+            "m_promo_no": campaign.get("m_promo_no", DEFAULT_M_PROMO_NO),
+            "dt_promo_no": dt_promo_no,
+            "cnt_type": "1002",
+        }
+    payload = json.dumps(payload_obj).encode("utf-8")
     headers = {
         "User-Agent": HEADERS["User-Agent"],
         "Content-Type": "application/json;charset=utf-8",
@@ -863,7 +898,7 @@ def prewarm_connection(campaign: dict, dt_promo_no: str):
         "Referer": campaign.get("url", DEFAULT_EDM_URL),
     }
     try:
-        req = urllib.request.Request(cnt_url, data=payload, headers=headers, method="POST")
+        req = urllib.request.Request(target_url, data=payload, headers=headers, method="POST")
         urllib.request.urlopen(req, timeout=3)
     except Exception:
         pass
@@ -879,6 +914,9 @@ def send_draw_request(cookie: str, m_promo_no: str, dt_promo_no: str, api_url: s
         "m_promo_no": m_promo_no,
         "dt_promo_no": dt_promo_no,
     }
+    if "momoLottery.PROMO" in api_url:
+        payload["doAction"] = "lottery"
+
     data = json.dumps(payload).encode("utf-8")
 
     req = urllib.request.Request(api_url, data=data, headers=headers, method="POST")
@@ -909,28 +947,59 @@ def grab_redpacket_single_account(
     referer: str = DEFAULT_EDM_URL,
     prize_map: dict = None,
     reg_messages: dict = None,
+    max_draws: int = 1,
+    slot_dt: Optional[datetime] = None,
 ):
-    """單一帳號執行搶紅包"""
-    print(f"\n🚀 [{taipei_now().strftime('%H:%M:%S')}] [{account_label}] 發射搶紅包請求...")
-    res = send_draw_request(cookie, m_promo_no, dt_promo_no, api_url=api_url, referer=referer)
-
-    status = res.get("returnMsg", "")
-    prize_key = res.get("prize", "")
+    """單一帳號執行搶獎 (支援 promoMechReg 與 game/momoLottery 多抽機制)"""
+    is_game_api = "momoLottery.PROMO" in api_url
     msg_table = reg_messages or DEFAULT_RETURN_MESSAGES
     prizes = prize_map or DEFAULT_PRIZE_MAP
-    status_desc = msg_table.get(status, f"未知代碼 ({status})")
 
-    if status == "INS":
-        prize_name = prizes.get(prize_key, f"獎品代碼: {prize_key}")
-        msg = f"🎉 搶到紅包！獲得：{prize_name}"
-        print(f"[{account_label}] {msg}")
-        send_bark_notification("momo 搶紅包成功！", f"【{account_label}】{msg}")
-    elif status in ("A", "A_EX"):
-        print(f"[{account_label}] ℹ️ {status_desc}")
-    elif status == "FULL":
-        print(f"[{account_label}] ⚡ {status_desc}")
-    else:
-        print(f"[{account_label}] ⚠️ 回應：{status_desc} | 回傳內容: {res}")
+    for attempt in range(1, max(1, max_draws) + 1):
+        suffix = f" (第 {attempt}/{max_draws} 次)" if max_draws > 1 else ""
+        print(f"\n🚀 [{taipei_now().strftime('%H:%M:%S')}] [{account_label}] 發射抽獎請求{suffix}...")
+        res = send_draw_request(cookie, m_promo_no, dt_promo_no, api_url=api_url, referer=referer)
+
+        status = res.get("status", "") if is_game_api else res.get("returnMsg", "")
+        if not status:
+            status = res.get("returnMsg") or res.get("status") or ""
+
+        # 若於 T-0.2s 開搶點因伺服器時鐘略慢回傳 D，等待 0.4s 補射一次
+        if status == "D" and slot_dt is not None and abs((taipei_now() - slot_dt).total_seconds()) < 4:
+            time.sleep(0.4)
+            res = send_draw_request(cookie, m_promo_no, dt_promo_no, api_url=api_url, referer=referer)
+            status = res.get("status", "") if is_game_api else res.get("returnMsg", "")
+            if not status:
+                status = res.get("returnMsg") or res.get("status") or ""
+
+        status_desc = msg_table.get(status, f"未知代碼 ({status})")
+
+        if (is_game_api and status == "OK") or (not is_game_api and status == "INS"):
+            if is_game_api:
+                prize_obj = res.get("result", {}).get("prize", {})
+                prize_key = prize_obj.get("giftCode", "") if isinstance(prize_obj, dict) else ""
+                prize_name = prizes.get(prize_key, f"獎品代碼: {prize_key}")
+                if res.get("prizeStatus") == "PRIZE":
+                    prize_name += f" (集滿加碼 +{res.get('total', 0)}元)"
+            else:
+                prize_key = res.get("prize", "")
+                prize_name = prizes.get(prize_key, f"獎品代碼: {prize_key}")
+            msg = f"🎉 中獎{suffix}！獲得：{prize_name}"
+            print(f"[{account_label}] {msg}")
+            send_bark_notification("momo 搶獎成功！", f"【{account_label}】{msg}")
+        elif status in ("A", "A_EX", "EA", "exchanged"):
+            print(f"[{account_label}] ℹ️ {status_desc}")
+            break
+        elif status == "FULL":
+            print(f"[{account_label}] ⚡ {status_desc}")
+            break
+        else:
+            print(f"[{account_label}] ⚠️ 回應：{status_desc} | 回傳內容: {res}")
+            if status in ("D", "L", "E_CN", "NOT_USED", "NOT_APP", "NOT_WEB"):
+                break
+
+        if attempt < max_draws:
+            time.sleep(0.6)
 
 
 def wait_until_slot_snipe(slot_dt: datetime, campaign: Optional[dict] = None, max_wait_seconds: int = 3540):
@@ -987,7 +1056,7 @@ def print_campaign_summary(campaign: dict):
     print(f"🔗 活動網址: {campaign.get('url')}")
     print(f"📅 活動期間: {ranges_str} (今日有效: {'是' if campaign.get('is_active_today') else '否'})")
     print(f"🕒 開放場次 ({len(slots)} 場): {slots_str}")
-    print(f"🎯 活動代碼: mPromoNo={campaign.get('m_promo_no')}, dtPromoNo={','.join(campaign.get('dt_promo_nos', []))} | API={campaign.get('api_url')}")
+    print(f"🎯 活動代碼: mPromoNo={campaign.get('m_promo_no')}, dtPromoNo={','.join(campaign.get('dt_promo_nos', []))} | 每場 {campaign.get('max_draws', 1)} 次 | API={campaign.get('api_url')}")
 
 
 def run_sniper_session(cookies: list, campaign: dict, slot_dt: datetime = None, wait_snipe: bool = True):
@@ -1001,10 +1070,11 @@ def run_sniper_session(cookies: list, campaign: dict, slot_dt: datetime = None, 
     referer = campaign.get("url", DEFAULT_EDM_URL)
     prize_map = campaign.get("prize_map")
     reg_messages = campaign.get("reg_messages")
+    max_draws = campaign.get("max_draws", 1)
     slot_label = slot_dt.strftime("%H:%M") if slot_dt else taipei_now().strftime("%H:%M")
 
     print("\n========================================================================")
-    print(f"🧧 開始執行開搶任務 ({slot_label}) | 帳號數: {len(cookies)} 組")
+    print(f"🧧 開始執行開搶任務 ({slot_label}) | 帳號數: {len(cookies)} 組 | 每帳號 {max_draws} 次")
     print(f"🎯 活動: {campaign.get('title') or m_promo_no} | mPromoNo={m_promo_no}, dtPromoNo={dt_promo_no}")
     print("========================================================================")
 
@@ -1020,6 +1090,8 @@ def run_sniper_session(cookies: list, campaign: dict, slot_dt: datetime = None, 
                 referer,
                 prize_map,
                 reg_messages,
+                max_draws,
+                slot_dt,
             )
             for idx, c in enumerate(cookies, start=1)
         ]
