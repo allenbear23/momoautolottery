@@ -505,6 +505,7 @@ def _extract_promo_config(edm_url: str, html: str, ref_year: int) -> Optional[di
                 api_url = url_m.group(1).strip() if url_m else "https://event.momoshop.com.tw/game/momoLottery.PROMO"
 
                 prize_map = dict(DEFAULT_PRIZE_MAP)
+                word_gifts = {}
                 gift_block = re.search(r"giftName\s*=\s*\{(.*?)\}", js_code, flags=re.S)
                 if gift_block:
                     for code, name in re.findall(r"[\"'](\w+)[\"']\s*:\s*[\"']([^\"']+)[\"']", gift_block.group(1)):
@@ -512,6 +513,7 @@ def _extract_promo_config(edm_url: str, html: str, ref_year: int) -> Optional[di
                             prize_map[code] = f"🧧 ${name.replace('元', '')} mo點"
                         else:
                             prize_map[code] = f"🀄 字卡「{name}」"
+                            word_gifts[code] = name
 
                 reg_messages = dict(DEFAULT_RETURN_MESSAGES)
                 msg_block = re.search(r"returnMessage\s*=\s*\{(.*?)\}", js_code, flags=re.S)
@@ -525,6 +527,7 @@ def _extract_promo_config(edm_url: str, html: str, ref_year: int) -> Optional[di
                     "api_url": api_url,
                     "prize_map": prize_map,
                     "reg_messages": reg_messages,
+                    "word_gifts": word_gifts,
                     "mech": "gameConfig",
                     "url": edm_url,
                 }
@@ -622,6 +625,7 @@ def analyze_edm_candidate(edm_url: str, require_redpacket_signals: bool = True, 
         "api_url": promo["api_url"],
         "prize_map": promo["prize_map"],
         "reg_messages": promo["reg_messages"],
+        "word_gifts": promo.get("word_gifts", {}),
         "mech": promo["mech"],
         "max_draws": max_draws,
     }
@@ -938,6 +942,73 @@ def send_draw_request(cookie: str, m_promo_no: str, dt_promo_no: str, api_url: s
         return {"returnMsg": "NET_ERR", "error": str(e)}
 
 
+def query_game_today_summary(
+    cookie: str,
+    m_promo_no: str,
+    dt_promo_no: str,
+    api_url: str,
+    referer: str,
+    word_gifts: Optional[dict] = None,
+    target_date: Optional[date] = None,
+) -> Optional[dict]:
+    """查詢桃金日/抽抽樂當日累計紀錄，自動計算當天是否集滿字卡並實際獲得 mo 點"""
+    if target_date is None:
+        target_date = taipei_now().date()
+    today_prefix = target_date.strftime("%Y/%m/%d")
+    required_words = word_gifts or {"peach": "桃", "gold": "金", "day": "日"}
+
+    headers = dict(HEADERS)
+    headers["Cookie"] = cookie.strip()
+    headers["Content-Type"] = "application/json;charset=utf-8"
+    headers["Referer"] = referer or DEFAULT_EDM_URL
+
+    payload = {
+        "doAction": "qry",
+        "m_promo_no": m_promo_no,
+        "dt_promo_no": dt_promo_no,
+    }
+    try:
+        req = urllib.request.Request(api_url, data=json.dumps(payload).encode("utf-8"), headers=headers, method="POST")
+        with urllib.request.urlopen(req, timeout=6) as resp:
+            res = json.loads(resp.read().decode("utf-8"))
+    except Exception:
+        return None
+
+    if res.get("status") != "OK":
+        return None
+
+    data = res.get("data", {})
+    dates = data.get("insert_date", [])
+    codes = data.get("gift_code", [])
+
+    today_mo = 0
+    collected_words = set()
+    today_draws = 0
+
+    for d_str, code in zip(dates, codes):
+        if not str(d_str).startswith(today_prefix):
+            continue
+        today_draws += 1
+        if code.startswith("mo_"):
+            try:
+                today_mo += int(code.split("_", 1)[1])
+            except ValueError:
+                pass
+        elif code in required_words:
+            collected_words.add(code)
+
+    missing_labels = [lbl for k, lbl in required_words.items() if k not in collected_words]
+    got_mo = len(required_words) > 0 and len(missing_labels) == 0
+
+    return {
+        "today_draws": today_draws,
+        "today_mo": today_mo,
+        "collected_words": [required_words[k] for k in required_words if k in collected_words],
+        "missing_words": missing_labels,
+        "got_mo": got_mo,
+    }
+
+
 def grab_redpacket_single_account(
     cookie: str,
     account_label: str,
@@ -949,11 +1020,16 @@ def grab_redpacket_single_account(
     reg_messages: dict = None,
     max_draws: int = 1,
     slot_dt: Optional[datetime] = None,
-):
-    """單一帳號執行搶獎 (支援 promoMechReg 與 game/momoLottery 多抽機制)"""
+    word_gifts: Optional[dict] = None,
+) -> dict:
+    """單一帳號執行搶獎 (不單獨發送推播，改回傳結果由外層合併為單一訊息)"""
     is_game_api = "momoLottery.PROMO" in api_url
     msg_table = reg_messages or DEFAULT_RETURN_MESSAGES
     prizes = prize_map or DEFAULT_PRIZE_MAP
+
+    wins = []
+    notes = []
+    exchanged_total = None
 
     for attempt in range(1, max(1, max_draws) + 1):
         suffix = f" (第 {attempt}/{max_draws} 次)" if max_draws > 1 else ""
@@ -980,26 +1056,60 @@ def grab_redpacket_single_account(
                 prize_key = prize_obj.get("giftCode", "") if isinstance(prize_obj, dict) else ""
                 prize_name = prizes.get(prize_key, f"獎品代碼: {prize_key}")
                 if res.get("prizeStatus") == "PRIZE":
-                    prize_name += f" (集滿加碼 +{res.get('total', 0)}元)"
+                    exchanged_total = res.get("total", 0)
+                    prize_name += f" (集滿 +{exchanged_total}元)"
             else:
                 prize_key = res.get("prize", "")
                 prize_name = prizes.get(prize_key, f"獎品代碼: {prize_key}")
-            msg = f"🎉 中獎{suffix}！獲得：{prize_name}"
-            print(f"[{account_label}] {msg}")
-            send_bark_notification("momo 搶獎成功！", f"【{account_label}】{msg}")
+            wins.append(prize_name)
+            print(f"[{account_label}] 🎉 中獎{suffix}！獲得：{prize_name}")
         elif status in ("A", "A_EX", "EA", "exchanged"):
             print(f"[{account_label}] ℹ️ {status_desc}")
+            if status == "exchanged":
+                notes.append("今日已兌獎")
+            elif not wins:
+                notes.append(status_desc)
             break
         elif status == "FULL":
             print(f"[{account_label}] ⚡ {status_desc}")
+            if not wins:
+                notes.append(status_desc)
             break
         else:
             print(f"[{account_label}] ⚠️ 回應：{status_desc} | 回傳內容: {res}")
+            if not wins:
+                notes.append(status_desc)
             if status in ("D", "L", "E_CN", "NOT_USED", "NOT_APP", "NOT_WEB"):
                 break
 
         if attempt < max_draws:
             time.sleep(0.6)
+
+    today_summary = None
+    if is_game_api:
+        today_summary = query_game_today_summary(
+            cookie=cookie,
+            m_promo_no=m_promo_no,
+            dt_promo_no=dt_promo_no,
+            api_url=api_url,
+            referer=referer,
+            word_gifts=word_gifts,
+            target_date=(slot_dt.date() if slot_dt else taipei_now().date()),
+        )
+        if today_summary:
+            if today_summary["got_mo"]:
+                print(f"[{account_label}] ✅ 今日已集滿字卡，獲得 {today_summary['today_mo']} mo點")
+            else:
+                miss = "、".join(today_summary["missing_words"])
+                print(f"[{account_label}] ⏳ 今日未得mo (累積 {today_summary['today_mo']} 元，缺：{miss})")
+
+    return {
+        "account": account_label,
+        "wins": wins,
+        "notes": notes,
+        "exchanged_total": exchanged_total,
+        "today_summary": today_summary,
+    }
 
 
 def wait_until_slot_snipe(slot_dt: datetime, campaign: Optional[dict] = None, max_wait_seconds: int = 3540):
@@ -1059,8 +1169,49 @@ def print_campaign_summary(campaign: dict):
     print(f"🎯 活動代碼: mPromoNo={campaign.get('m_promo_no')}, dtPromoNo={','.join(campaign.get('dt_promo_nos', []))} | 每場 {campaign.get('max_draws', 1)} 次 | API={campaign.get('api_url')}")
 
 
+def format_slot_notification(campaign: dict, slot_label: str, results: list) -> tuple:
+    """將單一時段所有帳號的結果整合成單一通知 (title, body)；若無需推播則回傳 (None, None)"""
+    is_game_api = "momoLottery.PROMO" in campaign.get("api_url", "")
+    raw_title = (campaign.get("title") or "momo 搶獎").replace(" - momo購物網", "").strip()
+    title = f"momo {raw_title} ({slot_label})"
+
+    lines = []
+    any_win = False
+    for r in results:
+        acc = r["account"]
+        wins = r.get("wins", [])
+        notes = r.get("notes", [])
+        ts = r.get("today_summary")
+
+        if wins:
+            any_win = True
+            slot_part = "、".join(wins)
+        elif notes:
+            slot_part = notes[0]
+        else:
+            slot_part = "無中獎"
+
+        if is_game_api and ts:
+            if ts["got_mo"]:
+                mo_val = ts["today_mo"] or (r.get("exchanged_total") or 0)
+                day_part = f"✅ 今日已得 {mo_val} mo點"
+            else:
+                miss = "、".join(ts["missing_words"])
+                day_part = f"⏳ 今日未得mo (累積{ts['today_mo']}元，缺：{miss})"
+            lines.append(f"【{acc}】{slot_part}｜{day_part}")
+        elif wins:
+            lines.append(f"【{acc}】{slot_part}")
+
+    if not any_win and not (is_game_api and any(r.get("today_summary") and r["today_summary"]["got_mo"] for r in results)):
+        return None, None
+    if not lines:
+        return None, None
+
+    return title, "\n".join(lines)
+
+
 def run_sniper_session(cookies: list, campaign: dict, slot_dt: datetime = None, wait_snipe: bool = True):
-    """多帳號並行極速搶獎"""
+    """多帳號並行極速搶獎，並於整場結束後合併為單一推播訊息"""
     if wait_snipe and slot_dt is not None:
         wait_until_slot_snipe(slot_dt, campaign=campaign)
 
@@ -1070,6 +1221,7 @@ def run_sniper_session(cookies: list, campaign: dict, slot_dt: datetime = None, 
     referer = campaign.get("url", DEFAULT_EDM_URL)
     prize_map = campaign.get("prize_map")
     reg_messages = campaign.get("reg_messages")
+    word_gifts = campaign.get("word_gifts")
     max_draws = campaign.get("max_draws", 1)
     slot_label = slot_dt.strftime("%H:%M") if slot_dt else taipei_now().strftime("%H:%M")
 
@@ -1092,10 +1244,16 @@ def run_sniper_session(cookies: list, campaign: dict, slot_dt: datetime = None, 
                 reg_messages,
                 max_draws,
                 slot_dt,
+                word_gifts,
             )
             for idx, c in enumerate(cookies, start=1)
         ]
-        concurrent.futures.wait(futures)
+        results = [f.result() for f in futures]
+
+    title, body = format_slot_notification(campaign, slot_label, results)
+    if title and body:
+        print(f"\n📨 合併推播內容：\n{title}\n{body}")
+        send_bark_notification(title, body)
 
 
 def main():
