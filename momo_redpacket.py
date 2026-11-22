@@ -66,7 +66,7 @@ def load_dotenv():
 load_dotenv()
 
 # 預設入口網址與後備攻略/總覽入口
-DEFAULT_EDM_URL = "https://www.momoshop.com.tw/edm/cmmedm.jsp?lpn=O7ylWmQ3frf&n=1"
+DEFAULT_EDM_URL = "https://www.momoshop.com.tw/edm/cmmedm.jsp?lpn=O7Cj3Xyvxjm&n=1"
 FALLBACK_HUB_URLS = [
     "https://www.momoshop.com.tw/edm/cmmedm.jsp?lpn=O7ylWqBgYoq&n=1",
     "https://www.momoshop.com.tw/edm/cmmedm.jsp?lpn=O7BpyO3uoSX&n=1",
@@ -75,12 +75,13 @@ MAIN_PAGE_API_URL = "https://www.momoshop.com.tw/api/moecapp/goods/getMainPageV5
 DEFAULT_API_URL = "https://event.momoshop.com.tw/promoMechReg.PROMO"
 
 # 相容外部引用的預設時段清單 (實際執行以活動頁動態解析為主)
-DEFAULT_M_PROMO_NO = "U96111400001"
-DEFAULT_DT_PROMO_NO = "D96111400001"
+DEFAULT_M_PROMO_NO = "U96112300001"
+DEFAULT_DT_PROMO_NO = "D96112300001"
 SLOTS = [
-    (9, 11), (10, 11), (11, 11), (13, 11),
-    (15, 11), (16, 11), (17, 11), (18, 11),
-    (19, 11), (20, 11), (21, 11), (22, 11),
+    (10, 0), (11, 0), (12, 0),
+    (14, 0), (15, 0), (16, 0),
+    (17, 0), (18, 0), (20, 0),
+    (21, 0),
 ]
 SCHEDULE_TIMES = [f"{h:02d}:{m:02d}" for h, m in SLOTS]
 
@@ -483,12 +484,22 @@ def _extract_promo_config(edm_url: str, html: str, ref_year: int) -> Optional[di
             dom = re.search(r"spinEventDomain\s*:\s*[\"']([^\"']+)[\"']", js_code)
             if m_no and dts and not _is_stale_year_code(m_no.group(1), ref_year):
                 base_dom = dom.group(1).rstrip("/") if dom else "https://event.momoshop.com.tw"
+                prize_map = dict(DEFAULT_PRIZE_MAP)
+                for g_code, g_content in re.findall(
+                    r"giftCode\s*:\s*[\"']([^\"']+)[\"']\s*,\s*giftContent\s*:\s*[\"']([^\"']+)[\"']",
+                    js_code,
+                ):
+                    icon = "🧧 " if g_code.startswith("mo_") else "🎫 "
+                    prize_map[g_code] = f"{icon}{g_content}"
+                btn_indices = set(re.findall(r"id=[\"'](?:m_)?promoActivity0_(\d+)[\"']", html))
+                single_button_dt = (btn_indices == {"0"})
                 return {
                     "m_promo_no": m_no.group(1),
                     "dt_promo_nos": list(dict.fromkeys(dts)),
                     "api_url": f"{base_dom}/promoMechReg.PROMO",
-                    "prize_map": dict(DEFAULT_PRIZE_MAP),
+                    "prize_map": prize_map,
                     "reg_messages": dict(DEFAULT_RETURN_MESSAGES),
+                    "single_button_dt": single_button_dt,
                     "mech": "spinRotateConfig",
                     "url": edm_url,
                 }
@@ -626,6 +637,7 @@ def analyze_edm_candidate(edm_url: str, require_redpacket_signals: bool = True, 
         "prize_map": promo["prize_map"],
         "reg_messages": promo["reg_messages"],
         "word_gifts": promo.get("word_gifts", {}),
+        "single_button_dt": promo.get("single_button_dt", False),
         "mech": promo["mech"],
         "max_draws": max_draws,
     }
@@ -867,14 +879,33 @@ def find_matching_slot(
 
 
 def select_dt_promo_no(campaign: dict, slot_dt: Optional[datetime] = None) -> str:
-    """依鎖定場次對應正確的 dt_promo_no (如 10 場對應 D...01~10)；單碼活動則回傳第 1 碼"""
+    """依鎖定場次與頁面按鈕架構選擇主要 dt_promo_no"""
     dt_list = campaign.get("dt_promo_nos") or [DEFAULT_DT_PROMO_NO]
+    if campaign.get("single_button_dt"):
+        return dt_list[0]
     slots = campaign.get("slots") or []
     if slot_dt is not None and len(dt_list) == len(slots) and len(dt_list) > 1:
         key = (slot_dt.hour, slot_dt.minute)
         if key in slots:
             return dt_list[slots.index(key)]
     return dt_list[0]
+
+
+def select_fallback_dt_promo_no(campaign: dict, slot_dt: Optional[datetime], primary_dt: str) -> Optional[str]:
+    """若主代碼回傳 D (非活動時間)，提供備援 dt_promo_no (如單按鈕轉盤改依場次索引)"""
+    dt_list = campaign.get("dt_promo_nos") or []
+    slots = campaign.get("slots") or []
+    if len(dt_list) <= 1:
+        return None
+    if slot_dt is not None and len(dt_list) == len(slots):
+        key = (slot_dt.hour, slot_dt.minute)
+        if key in slots:
+            slot_dt_no = dt_list[slots.index(key)]
+            if slot_dt_no != primary_dt:
+                return slot_dt_no
+    if dt_list[0] != primary_dt:
+        return dt_list[0]
+    return None
 
 
 def prewarm_connection(campaign: dict, dt_promo_no: str):
@@ -920,6 +951,8 @@ def send_draw_request(cookie: str, m_promo_no: str, dt_promo_no: str, api_url: s
     }
     if "momoLottery.PROMO" in api_url:
         payload["doAction"] = "lottery"
+    else:
+        payload["gift_code"] = ""
 
     data = json.dumps(payload).encode("utf-8")
 
@@ -1021,6 +1054,7 @@ def grab_redpacket_single_account(
     max_draws: int = 1,
     slot_dt: Optional[datetime] = None,
     word_gifts: Optional[dict] = None,
+    fallback_dt_promo_no: Optional[str] = None,
 ) -> dict:
     """單一帳號執行搶獎 (不單獨發送推播，改回傳結果由外層合併為單一訊息)"""
     is_game_api = "momoLottery.PROMO" in api_url
@@ -1030,11 +1064,12 @@ def grab_redpacket_single_account(
     wins = []
     notes = []
     exchanged_total = None
+    active_dt = dt_promo_no
 
     for attempt in range(1, max(1, max_draws) + 1):
         suffix = f" (第 {attempt}/{max_draws} 次)" if max_draws > 1 else ""
         print(f"\n🚀 [{taipei_now().strftime('%H:%M:%S')}] [{account_label}] 發射抽獎請求{suffix}...")
-        res = send_draw_request(cookie, m_promo_no, dt_promo_no, api_url=api_url, referer=referer)
+        res = send_draw_request(cookie, m_promo_no, active_dt, api_url=api_url, referer=referer)
 
         status = res.get("status", "") if is_game_api else res.get("returnMsg", "")
         if not status:
@@ -1043,7 +1078,16 @@ def grab_redpacket_single_account(
         # 若於 T-0.2s 開搶點因伺服器時鐘略慢回傳 D，等待 0.4s 補射一次
         if status == "D" and slot_dt is not None and abs((taipei_now() - slot_dt).total_seconds()) < 4:
             time.sleep(0.4)
-            res = send_draw_request(cookie, m_promo_no, dt_promo_no, api_url=api_url, referer=referer)
+            res = send_draw_request(cookie, m_promo_no, active_dt, api_url=api_url, referer=referer)
+            status = res.get("status", "") if is_game_api else res.get("returnMsg", "")
+            if not status:
+                status = res.get("returnMsg") or res.get("status") or ""
+
+        # 若仍回傳 D 且有備援場次代碼 (如 D...02~10)，自動切換補射一次
+        if status == "D" and fallback_dt_promo_no and fallback_dt_promo_no != active_dt:
+            print(f"[{account_label}] 🔄 {active_dt} 回傳 D，切換備援代碼 {fallback_dt_promo_no} 補射...")
+            active_dt = fallback_dt_promo_no
+            res = send_draw_request(cookie, m_promo_no, active_dt, api_url=api_url, referer=referer)
             status = res.get("status", "") if is_game_api else res.get("returnMsg", "")
             if not status:
                 status = res.get("returnMsg") or res.get("status") or ""
@@ -1217,6 +1261,7 @@ def run_sniper_session(cookies: list, campaign: dict, slot_dt: datetime = None, 
 
     m_promo_no = campaign["m_promo_no"]
     dt_promo_no = select_dt_promo_no(campaign, slot_dt)
+    fallback_dt_promo_no = select_fallback_dt_promo_no(campaign, slot_dt, dt_promo_no)
     api_url = campaign.get("api_url", DEFAULT_API_URL)
     referer = campaign.get("url", DEFAULT_EDM_URL)
     prize_map = campaign.get("prize_map")
@@ -1245,6 +1290,7 @@ def run_sniper_session(cookies: list, campaign: dict, slot_dt: datetime = None, 
                 max_draws,
                 slot_dt,
                 word_gifts,
+                fallback_dt_promo_no,
             )
             for idx, c in enumerate(cookies, start=1)
         ]
