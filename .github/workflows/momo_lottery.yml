@@ -43,8 +43,7 @@ jobs:
           python3 momo_redpacket.py --now --silent-if-limit || true
           # python3 momo_bot.py --now --silent-if-limit || true
           
-          # 簽到、轉盤與點數檢查僅在每日 00 點執行一次，降低機房頻繁呼叫風控風險
-          # 以觸發時的小時 (START_HOUR) 判斷，避免搶獎等待跨越整點時遺漏每日簽到
+          # 簽到、轉盤與點數檢查於每日 00 點執行；08 點補跑一次簽到與轉盤 (具備冪等性，避免 00:10 漏觸發)
           if [ "$START_HOUR" = "00" ]; then
             python3 momo_checkin.py || true
             python3 momo_wheel.py --silent-if-limit || true
@@ -52,6 +51,9 @@ jobs:
             if [ -n "$FEEBEE_COOKIE" ]; then
               python3 feebee_checkin.py || true
             fi
+          elif [ "$START_HOUR" = "08" ]; then
+            python3 momo_checkin.py || true
+            python3 momo_wheel.py --silent-if-limit || true
           fi
 
       - name: Commit Quiz DB if updated

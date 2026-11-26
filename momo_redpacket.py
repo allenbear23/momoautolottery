@@ -943,6 +943,8 @@ def send_draw_request(cookie: str, m_promo_no: str, dt_promo_no: str, api_url: s
     headers = dict(HEADERS)
     headers["Cookie"] = cookie.strip()
     headers["Content-Type"] = "application/json;charset=utf-8"
+    headers["Accept"] = "application/json, text/javascript, */*; q=0.01"
+    headers["X-Requested-With"] = "XMLHttpRequest"
     headers["Referer"] = referer or DEFAULT_EDM_URL
 
     payload = {
@@ -954,19 +956,41 @@ def send_draw_request(cookie: str, m_promo_no: str, dt_promo_no: str, api_url: s
     else:
         payload["gift_code"] = ""
 
-    data = json.dumps(payload).encode("utf-8")
+    # 優先使用 curl_cffi 模擬 Chrome TLS 指紋，避免 Akamai 403 與 SSL handshake timeout
+    if HAS_CFFI:
+        last_err = None
+        for imp in ("chrome124", "chrome120"):
+            try:
+                resp = cffi_requests.post(
+                    api_url,
+                    headers=headers,
+                    json=payload,
+                    impersonate=imp,
+                    timeout=8,
+                )
+                if resp.status_code == 200:
+                    return resp.json()
+                last_err = {"returnMsg": "HTTP_ERR", "code": resp.status_code}
+                if resp.status_code != 403:
+                    break
+            except Exception as e:
+                last_err = {"returnMsg": "NET_ERR", "error": str(e)}
+        if last_err is not None:
+            # 若 curl_cffi 仍遇 403/網路錯誤，再嘗試標準 urllib 作為最後備援
+            try:
+                data = json.dumps(payload).encode("utf-8")
+                req = urllib.request.Request(api_url, data=data, headers=headers, method="POST")
+                with urllib.request.urlopen(req, timeout=8) as resp:
+                    return json.loads(resp.read().decode("utf-8"))
+            except Exception:
+                return last_err
 
+    data = json.dumps(payload).encode("utf-8")
     req = urllib.request.Request(api_url, data=data, headers=headers, method="POST")
     try:
-        with urllib.request.urlopen(req, timeout=5) as resp:
+        with urllib.request.urlopen(req, timeout=8) as resp:
             return json.loads(resp.read().decode("utf-8"))
     except urllib.error.HTTPError as e:
-        if e.code == 403 and HAS_CFFI:
-            try:
-                r2 = cffi_requests.post(api_url, headers=headers, json=payload, impersonate="chrome124", timeout=6)
-                return r2.json()
-            except Exception:
-                pass
         try:
             return json.loads(e.read().decode("utf-8"))
         except Exception:
@@ -1075,9 +1099,12 @@ def grab_redpacket_single_account(
         if not status:
             status = res.get("returnMsg") or res.get("status") or ""
 
-        # 若於 T-0.2s 開搶點因伺服器時鐘略慢回傳 D，等待 0.4s 補射一次
-        if status == "D" and slot_dt is not None and abs((taipei_now() - slot_dt).total_seconds()) < 4:
-            time.sleep(0.4)
+        # 若剛跨整點因伺服器時鐘略慢 (尚未切換場次) 回傳 D/FULL/A，或遇網路/403 瞬斷，短延遲補射
+        near_slot = slot_dt is not None and abs((taipei_now() - slot_dt).total_seconds()) < 4
+        if (near_slot and status in ("D", "FULL", "A")) or status in ("NET_ERR", "HTTP_ERR", "E_RATELIMIT", "ERR"):
+            retry_wait = 0.55 if status in ("D", "FULL", "A") else 0.8
+            print(f"[{account_label}] 🔄 首次回應 {status}，等待 {retry_wait}s 後補射一次...")
+            time.sleep(retry_wait)
             res = send_draw_request(cookie, m_promo_no, active_dt, api_url=api_url, referer=referer)
             status = res.get("status", "") if is_game_api else res.get("returnMsg", "")
             if not status:
@@ -1195,11 +1222,12 @@ def wait_until_slot_snipe(slot_dt: datetime, campaign: Optional[dict] = None, ma
     if rem_coarse > 0:
         time.sleep(rem_coarse)
 
-    rem = (slot_dt.timestamp() - 0.2) - time.time()
+    # 對齊整點後 +0.05s 發射，避免提早到達落入上一場次的 FULL/A 狀態
+    rem = (slot_dt.timestamp() + 0.05) - time.time()
     if rem > 0:
         time.sleep(rem)
 
-    print(f"[{taipei_now().strftime('%H:%M:%S.%f')[:-3]}] 🚀 到達開搶點 (T-0.2s)，發射搶獎請求！")
+    print(f"[{taipei_now().strftime('%H:%M:%S.%f')[:-3]}] 🚀 到達開搶點 (T+0.05s)，發射搶獎請求！")
 
 
 def print_campaign_summary(campaign: dict):
