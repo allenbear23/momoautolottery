@@ -925,14 +925,20 @@ def prewarm_connection(campaign: dict, dt_promo_no: str):
             "dt_promo_no": dt_promo_no,
             "cnt_type": "1002",
         }
-    payload = json.dumps(payload_obj).encode("utf-8")
     headers = {
         "User-Agent": HEADERS["User-Agent"],
         "Content-Type": "application/json;charset=utf-8",
         "Origin": "https://www.momoshop.com.tw",
         "Referer": campaign.get("url", DEFAULT_EDM_URL),
     }
+    if HAS_CFFI:
+        try:
+            cffi_requests.post(target_url, headers=headers, json=payload_obj, impersonate="chrome124", timeout=4)
+            return
+        except Exception:
+            pass
     try:
+        payload = json.dumps(payload_obj).encode("utf-8")
         req = urllib.request.Request(target_url, data=payload, headers=headers, method="POST")
         urllib.request.urlopen(req, timeout=3)
     except Exception:
